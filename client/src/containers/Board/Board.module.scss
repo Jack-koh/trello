@@ -1,0 +1,28 @@
+.board-wrap {
+  margin-top: 40px;
+  width: 860px;
+
+  .board-inner-area {
+    padding-left: 64px;
+
+    .board-section {
+      padding: 0 0 20px;
+
+      .board-title {
+        display: flex;
+        align-items: center;
+        margin-bottom: 11px;
+
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+
+        span {
+          text-indent: 10px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}

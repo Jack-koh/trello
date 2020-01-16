@@ -1,0 +1,45 @@
+.NavigationItem a {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+  padding: 6px 8px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  width: 100%;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: all 0.1s;
+
+  svg {
+    color: #42526e;
+  }
+
+  span {
+    text-indent: 4px;
+    color: #172b4d;
+  }
+}
+
+.NavigationItem a:hover {
+  background-color: #e7e9ed;
+
+  svg {
+    color: #3b4962;
+  }
+}
+
+.NavigationItem a:active,
+.NavigationItem a.active {
+  background-color: #e4f0f6;
+
+  span {
+    color: #0079bf;
+  }
+
+  svg {
+    color: #0079bf;
+  }
+}

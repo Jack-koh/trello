@@ -1,0 +1,13 @@
+.side_bar_layout {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+
+  .side_bar_wrap {
+    ul {
+      margin-top: 40px;
+      width: 210px;
+    }
+  }
+}
