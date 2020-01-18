@@ -4,7 +4,7 @@ import { MdPersonOutline } from "react-icons/md";
 import BoardItem from './BoardItem/BoardItem'
 
 import classNames from 'classnames/bind'
-import style from './Board.module.scss'
+import style from './Boards.module.scss'
 const cx = classNames.bind(style)
 
 const Board = () => {

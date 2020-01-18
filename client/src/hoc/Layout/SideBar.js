@@ -1,7 +1,7 @@
 import React from 'react'
 import { MdDashboard, MdPoll, MdTimeline } from "react-icons/md";
 
-import NavigationItem from 'hoc/Layout/NavigationItem';
+import NavigationItem from 'hoc/elements/NavigationItem';
 
 import classNames from 'classnames/bind';
 import styles from './SideBar.module.scss'

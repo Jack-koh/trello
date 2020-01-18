@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { MdHome, MdPoll, MdSearch, MdAdd, MdInfoOutline, MdAddAlert } from "react-icons/md";
 
 import classNames from 'classnames/bind';
-import styles from './Layout.module.scss'
+import styles from './MainGnb.module.scss'
 const cx = classNames.bind(styles)
 
 const Layout = (props) => {
