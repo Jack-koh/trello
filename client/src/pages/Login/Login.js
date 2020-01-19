@@ -11,7 +11,7 @@ const cx = classNames.bind(style)
 const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const path = props.location.pathname === '/Login' ? 1 : 0;
+  const login = props.location.pathname === '/Login' ? 1 : 0;
   // const [authRedirect, setAuthRedirect] = useState(null)
 
   useEffect(() => {
@@ -23,18 +23,22 @@ const Login = (props) => {
     // this
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const params = {
       email: email,
       password: password
     }
 
-    if (path) {
-      // requestRaw('api/auth/signup', 'PUT', params)
+    if (login) {
+      try {
+        const response = await requestRaw('api/auth/login', 'POST', params);
+        console.log(response.data)
+      } catch (err) {
+        console.log(err + ' Login error')
+      }
     } else {
-      const response = requestRaw('api/auth/signup', 'PUT', params)
-      console.log(response)
+      const response = await requestRaw('api/auth/signup', 'PUT', params)
     }
     // setAuthRedirect(<Redirect to="/userName/boards" />)
   }
@@ -42,18 +46,18 @@ const Login = (props) => {
   // JSX Element
   let submitBtn = null;
   let utils = null;
-  if (path) {
+  if (login) {
     submitBtn = <button className={cx('login_button')}>Log In</button>
     utils =
       <Fragment>
         <Link to="/find-password" className={cx('find-pw')}>Cant' log in?</Link>
         <i>·</i>
-        <Link to="/Signup" className={cx('sign-up')} onClick={toSignUp}>Sign up for an account</Link>
+        <Link to="/Signup" className={cx('sign-up')}>Sign up for an account</Link>
       </Fragment>
   } else {
     // disabled
     submitBtn = <button className={cx('signup-button')}>Continue</button>
-    utils = <Link to="/Signup" className={cx('sign-up')} onClick={toSignUp}>Already have an account? Log In</Link>
+    utils = <Link to="/Login" className={cx('sign-up')} >Already have an account? Log In</Link>
   }
 
 
@@ -64,7 +68,7 @@ const Login = (props) => {
         <img src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg" alt="logo"></img>
       </div>
       <div className={cx('form_wrap')}>
-        <h1>{path ? 'Log in to Trello' : 'Sign in to Trello'}</h1>
+        <h1>{login ? 'Log in to Trello' : 'Sign in to Trello'}</h1>
         <form onSubmit={submitHandler}>
           <input
             type="text"
