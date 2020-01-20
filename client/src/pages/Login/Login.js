@@ -19,10 +19,6 @@ const Login = (props) => {
     setPassword('')
   }, [props.location])
 
-  const toSignUp = () => {
-    // this
-  }
-
   const submitHandler = async (event) => {
     event.preventDefault();
     const params = {
@@ -32,8 +28,10 @@ const Login = (props) => {
 
     if (login) {
       try {
-        const response = await requestRaw('api/auth/login', 'POST', params);
-        console.log(response.data)
+        const resData = await requestRaw('api/auth/login', 'POST', params);
+        localStorage.setItem('token', resData.token)
+        localStorage.setItem('userId', resData.userId)
+        // setAuthRedirect(<Redirect to="/userName/boards" />)
       } catch (err) {
         console.log(err + ' Login error')
       }
