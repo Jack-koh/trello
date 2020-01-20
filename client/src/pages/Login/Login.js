@@ -1,8 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter, Link, Redirect } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import style from './Login.module.scss'
-// import { Redirect } from 'react-router-dom'
 
 import { requestRaw } from 'util/axios'
 
@@ -12,7 +12,10 @@ const Login = (props) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const login = props.location.pathname === '/Login' ? 1 : 0;
-  // const [authRedirect, setAuthRedirect] = useState(null)
+  const [authRedirect, setAuthRedirect] = useState(null)
+  // import * as actions from 'store/actions/index';
+
+  const dispatch = useDispatch
 
   useEffect(() => {
     setEmail('')
@@ -31,7 +34,11 @@ const Login = (props) => {
         const resData = await requestRaw('api/auth/login', 'POST', params);
         localStorage.setItem('token', resData.token)
         localStorage.setItem('userId', resData.userId)
-        // setAuthRedirect(<Redirect to="/userName/boards" />)
+        // dispatch(actions.login({
+        //   userId: resData.userName
+        // }))
+
+        setAuthRedirect(<Redirect to="/userName/boards" />)
       } catch (err) {
         console.log(err + ' Login error')
       }
@@ -61,7 +68,7 @@ const Login = (props) => {
 
   return (
     <Fragment>
-      {/* {authRedirect} */}
+      {authRedirect}
       <div className={cx('logo_wrap')}>
         <img src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg" alt="logo"></img>
       </div>
