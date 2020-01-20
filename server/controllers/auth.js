@@ -65,7 +65,8 @@ exports.login = async (req, res, next) => {
             token: token,
             userId: findUser._id.toString(),
             email: findUser.email,
-            name: findUser.name
+            name: findUser.name,
+            expiration: new Date().getTime()
         })
     } catch (err) {
         if (!err.statusCode) {

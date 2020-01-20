@@ -20,7 +20,7 @@ const SideBar = (props) => {
             <MdDashboard />
             <span>Template</span>
           </NavigationItem>
-          <NavigationItem link="userName/boards" exact >
+          <NavigationItem link="/userName/boards" exact >
             <MdTimeline />
             <span>Home</span>
           </NavigationItem>
