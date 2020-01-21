@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux'
 import Login from 'pages/Login/Login'
 import Main from 'pages/Main/Main'
 
@@ -14,7 +15,7 @@ const App = (props) => {
     <Switch>
       <Route path="/Login" component={Login}></Route>
       <Route path="/Signup" component={Login}></Route>
-      <Route path="/userName/boards" exact component={Main}></Route>
+      <Route path={`/${props.userName}/boards`} exact component={Main}></Route>
     </Switch>
   )
 
@@ -26,4 +27,10 @@ const App = (props) => {
   );
 }
 
-export default withRouter(App);
+const mapStateToProps = state => {
+  return {
+    userName: state.auth.userName
+  }
+}
+
+export default connect(mapStateToProps)(withRouter(App));

@@ -4,6 +4,8 @@ import { withRouter, Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import style from './Login.module.scss'
 
+import { requestRaw } from 'shared/axios'
+
 import * as actions from 'store/actions/index'
 
 const cx = classNames.bind(style)
@@ -12,7 +14,6 @@ function Login(props) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const login = props.location.pathname === '/Login' ? 1 : 0;
-  // import * as actions from 'store/actions/index';
 
   useEffect(() => {
     setEmail('')
@@ -23,7 +24,7 @@ function Login(props) {
     if (props.authRoute) props.history.replace('userName/boards')
   }, [props.authRoute, props.history])
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     const params = {
       email: email,
@@ -32,9 +33,15 @@ function Login(props) {
     }
 
     if (login) {
-      props.onLogin(params)
+      try {
+        const respData = await requestRaw('api/auth/login', 'POST', params)
+        props.onLogin(respData)
+        props.history.push(`/${props.userName}/boards`);
+      } catch (err) {
+        console.log('---- login error')
+      }
     } else {
-      // const resData = await requestRaw('api/auth/signup', 'PUT', params)
+      const respData = await requestRaw('api/auth/signup', 'PUT', params)
     }
     // setAuthRedirect(<Redirect to="/userName/boards" />)
   }
@@ -88,7 +95,7 @@ function Login(props) {
 
 const mapStateToProps = state => {
   return {
-    authRoute: state.auth.authRouter
+    userName: state.auth.name
   }
 }
 

@@ -6,24 +6,22 @@ const initialState = {
     email: null,
     name: null,
     loading: false,
-    authRouter: null
 }
 
 
 
-const loginSucceed = (state, action) => {
+const login = (state, action) => {
     return updateObject(state, {
         token: action.token,
         userId: action.userId,
         email: action.email,
         name: action.name,
-        authRouter: 'userName/boards'
     })
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN_SUCCEED': return loginSucceed(state, action.user);
+        case 'LOGIN': return login(state, action.user);
         default: return state;
     }
 }

@@ -1,4 +1,7 @@
 export const login = (userData) => {
+    localStorage.setItem('token', userData.data.token)
+    localStorage.setItem('userId', userData.data.userId)
+    localStorage.setItem('expiration', userData.data.expiration)
     return {
         type: 'LOGIN',
         user: {
@@ -6,12 +9,6 @@ export const login = (userData) => {
             password: userData.password
         }
 
-    }
-}
-export const loginSucceed = (user) => {
-    return {
-        type: 'LOGIN_SUCCEED',
-        user: user
     }
 }
 
