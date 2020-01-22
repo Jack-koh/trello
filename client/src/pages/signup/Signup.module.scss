@@ -1,6 +1,5 @@
 .logo_wrap {
   text-align: center;
-
   img {
     width: 140px;
     height: 43px;
@@ -47,7 +46,7 @@
     }
   }
 
-  .login_button {
+  .signup-button {
     width: 100%;
     height: 36px;
     position: relative;
@@ -55,16 +54,15 @@
     border-radius: 5px;
     border: none;
     color: #ffffff;
-    background-color: #5aac44;
+    background-color: #0052cc;
     cursor: pointer;
     transition: background-color 0.1s;
 
     &:disabled {
       background-color: #cccccc;
     }
-
     &:hover {
-      background-color: #7cc868;
+      background-color: #3788ff;
     }
   }
 

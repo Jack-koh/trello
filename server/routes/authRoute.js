@@ -20,7 +20,10 @@ router.put("/signup", [
         .normalizeEmail(),
     body('password')
         .trim()
-        .isLength({ min: 5 })
+        .isLength({ min: 5 }),
+    body('name')
+        .trim()
+        .isLength({ min: 1 })
 ], authController.signup);
 
 router.post('/login', authController.login);

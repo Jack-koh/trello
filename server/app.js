@@ -11,10 +11,9 @@ app.use(express.json());
 app.use("/api/auth", authRoute)
 
 app.use((err, req, res, next) => {
-    console.log(err + '에러 발생')
-    const status = error.statusCode || 500;
-    const message = error.message;
-    const data = error.data;
+    const status = err.statusCode || 500;
+    const message = err.message;
+    const data = err.data;
     res.status(status).json({ message: message, data: data });
 })
 

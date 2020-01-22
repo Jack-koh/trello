@@ -9,7 +9,7 @@ exports.signup = async (req, res, next) => {
         const error = new Error("Validation failed.");
         error.statusCode = 422;
         error.data = errors.array();
-        throw error;
+        next(error)
     }
 
     const email = req.body.email;

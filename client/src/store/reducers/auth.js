@@ -1,27 +1,42 @@
 import { updateObject } from 'shared/utility';
 
 const initialState = {
-    token: null,
-    userId: null,
     email: null,
     name: null,
     loading: false,
 }
 
-
-
-const login = (state, action) => {
+const loginStart = (state, action) => {
     return updateObject(state, {
-        token: action.token,
-        userId: action.userId,
+        email: null,
+        name: null,
+        loading: true,
+    })
+}
+
+const loginSuccess = (state, action) => {
+    return updateObject(state, {
         email: action.email,
         name: action.name,
+        loading: false
     })
+}
+
+const logout = () => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    return {
+        email: null,
+        name: null,
+        loading: false
+    }
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'LOGIN': return login(state, action.user);
+        case 'LOGIN_SUCCEED': return loginSuccess(state, action.user);
+        case 'LOGIN_START': return loginStart()
+        case 'LOGOUT': return logout()
         default: return state;
     }
 }

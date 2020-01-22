@@ -1,29 +1,38 @@
-export const login = (userData) => {
-    localStorage.setItem('token', userData.data.token)
-    localStorage.setItem('userId', userData.data.userId)
-    localStorage.setItem('expiration', userData.data.expiration)
+export const loginStart = (payload) => {
     return {
-        type: 'LOGIN',
+        type: 'LOGIN_START',
         user: {
-            email: userData.email,
-            password: userData.password
+            email: payload.email,
+            password: payload.password,
         }
 
     }
 }
 
+export const loginSuccess = (payload) => {
+    return {
+        type: 'LOGIN_SUCCEED',
+        user: payload
+    }
+}
+
+export const logout = () => {
+    return { type: 'LOGOUT' }
+}
+
 export const authCheck = () => {
     return dispatch => {
         const token = localStorage.getItem('token');
+        const user = JSON.parse(localStorage.getItem('user'))
         if (!token) {
-            // logout
+            dispatch(logout())
         } else {
-            const expiration = localStorage.getItem
             const now = new Date().getTime();
-            if (now <= expiration) {
-                //logout
+            if (now <= user.expiration) {
+                dispatch(logout())
             } else {
-                //logout
+                const userData = { email: user.email, name: user.name }
+                dispatch(loginSuccess(userData))
             }
         }
     }
