@@ -18,9 +18,9 @@ const App = (props) => {
       <Switch>
         <Route path="/Login" component={Login}></Route>
         <Route path="/Signup" component={Signup}></Route>
-        <Route path='/main' exact component={Main}></Route>
-        <Redirect to="/Login" />
+        <Route path='/main' component={Main}></Route>
       </Switch>
+      <Redirect to="/Login" />
     </div>
   );
 }

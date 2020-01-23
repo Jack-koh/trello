@@ -1,0 +1,52 @@
+.custom-gnb-modal {
+  position: relative;
+
+  .gnb-modal-content {
+    position: absolute;
+    top: 40px;
+    right: 0;
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+    .gnb-modal-inner {
+      width: 300px;
+
+      .gnb-modal-title {
+        margin: 0 12px 8px;
+        color: #5e6c84;
+        font-size: 14px;
+        line-height: 40px;
+        text-align: center;
+        border-bottom: 1px solid rgba(9, 30, 66, 0.13);
+      }
+
+      ul {
+        padding-bottom: 12px;
+
+        li {
+          > div {
+            color: #172b4d;
+            font-size: 14px;
+            line-height: 20px;
+            padding: 6px 12px;
+            cursor: pointer;
+          }
+
+          > div:hover {
+            background-color: rgba(9, 30, 66, 0.04);
+          }
+
+          &.line-break::after {
+            background-color: rgba(9, 30, 66, 0.13);
+            content: " ";
+            display: block;
+            height: 1px;
+            margin: 8px auto;
+            width: calc(100% - 20px);
+          }
+        }
+      }
+    }
+  }
+}

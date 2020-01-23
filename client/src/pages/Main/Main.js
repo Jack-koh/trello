@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
+import { Route, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions/index'
+import * as actions from 'store/actions'
 
-import SideBar from 'hoc/Layout/SideBar'
-import Board from 'components/Boards/Boards'
-import Layout from 'hoc/Layout/MainGnb'
+import SideBar from 'hoc/layout/SideBar'
+import Board from 'components/main/boards/Boards'
+import Tamplate from 'components/main/template/Tamplate'
+import Home from 'components/main/home/Home'
+import Layout from 'hoc/layout/MainGnb'
 
 function Main(props) {
     useEffect(() => {
         props.autoAuthCheck()
         const token = localStorage.getItem('token')
         if (!token) props.history.push('/Login');
+        if (props.location.pathname === '/main') {
+            props.history.push('/main/boards')
+        }
     }, [])
 
     return (
         <Layout>
             <SideBar>
-                <Board />
+                <Route path="/main/boards" component={Board}></Route>
+                <Route path="/main/template" component={Tamplate}></Route>
+                <Route path="/main/home" component={Home}></Route>
             </SideBar>
         </Layout>
     )

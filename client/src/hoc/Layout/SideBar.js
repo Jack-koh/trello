@@ -13,14 +13,14 @@ const SideBar = (props) => {
     <div className={cx('side_bar_layout')}>
       <nav className={cx('side_bar_wrap')}>
         <ul>
-          <NavigationItem link="/userName/boards" exact >
+          <NavigationItem link="/main/boards" exact >
             <MdPoll /><span>Boards</span>
           </NavigationItem>
-          <NavigationItem link="/template" exact >
+          <NavigationItem link="/main/template" exact >
             <MdDashboard />
             <span>Template</span>
           </NavigationItem>
-          <NavigationItem link="/userName/boards" exact >
+          <NavigationItem link="/main/home" exact >
             <MdTimeline />
             <span>Home</span>
           </NavigationItem>

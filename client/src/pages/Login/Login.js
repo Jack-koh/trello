@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import style from './Login.module.scss'
 import { requestRaw } from 'shared/axios'
-import * as actions from 'store/actions/index'
+import * as actions from 'store/actions'
 
 import Spinner from 'shared/spinner/Spinner'
 

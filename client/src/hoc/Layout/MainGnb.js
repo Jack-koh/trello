@@ -1,17 +1,24 @@
-import React, { Fragment } from 'react'
-import { MdHome, MdPoll, MdSearch, MdAdd, MdInfoOutline, MdAddAlert } from "react-icons/md";
-
+import React, { Fragment, useState } from 'react'
+import { MdHome, MdPoll, MdSearch, MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from "react-icons/md";
+import UserModal from 'hoc/elements/modal/userModal'
 import classNames from 'classnames/bind';
 import styles from './MainGnb.module.scss'
 const cx = classNames.bind(styles)
 
 const Layout = (props) => {
+
+  const [userModal, setUserModal] = useState(false)
+
+  const onModalHandler = () => {
+    setUserModal(!userModal)
+  }
+
   return (
     <Fragment>
       <div className={cx('gnb_wrap')}>
         <div className={cx('gnb_left')}>
           <div className={cx('rectangle_btn', 'common_btn')}>
-            <MdHome /> 
+            <MdHome />
           </div>
           <div className={cx('board_btn', 'common_btn')} >
             <MdPoll />
@@ -35,6 +42,11 @@ const Layout = (props) => {
           <div className={cx('rectangle_btn', 'common_btn')}>
             <MdAddAlert />
           </div>
+          <UserModal userModal={userModal}>
+            <div onClick={onModalHandler} className={cx('circle_btn')}>
+              <MdAccountCircle />
+            </div>
+          </UserModal>
         </div>
       </div>
       {props.children}
