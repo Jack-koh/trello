@@ -11,6 +11,7 @@ import Spinner from 'shared/spinner/Spinner'
 const cx = classNames.bind(style)
 
 function Login(props) {
+    console.log("Login - check");
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')

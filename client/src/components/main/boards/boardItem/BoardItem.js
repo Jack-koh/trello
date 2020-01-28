@@ -7,6 +7,7 @@ import { MdStarBorder } from "react-icons/md";
 const cx = classNames.bind(styles)
 
 const BoardItem = (props) => {
+  console.log("BoardItem - check");
   const iteEl = props.list.map((item, i) => {
     return (
       <li key={i} className={cx('personal-item', item.background)}>

@@ -8,6 +8,7 @@ import style from './Boards.module.scss'
 const cx = classNames.bind(style)
 
 const Board = () => {
+  console.log("Board - check");
 
   const boardList = [
     {

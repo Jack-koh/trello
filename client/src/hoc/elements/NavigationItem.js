@@ -6,6 +6,7 @@ import style from './NavigationItem.module.scss'
 const cx = classNames.bind(style)
 
 const NavigationItem = (props) => {
+  console.log("NavigationItem - check");
   return (
     <li className={cx('NavigationItem')}>
       <NavLink
