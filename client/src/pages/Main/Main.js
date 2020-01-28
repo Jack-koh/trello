@@ -3,11 +3,11 @@ import { Route, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 
-import SideBar from "hoc/Layout/SideBar";
+import SideBar from "hoc/layout/SideBar";
 import Board from "components/main/boards/Boards";
 import Tamplate from "components/main/template/Tamplate";
 import Home from "components/main/home/Home";
-import MainGnb from "hoc/Layout/MainGnb";
+import Gnb from "hoc/layout/Gnb";
 
 function Main(props) {
   console.log("Main - check");
@@ -17,16 +17,16 @@ function Main(props) {
     if (!token) {
       props.history.push("/Login");
     }
-  }, []);
+  }, [props]);
 
   return (
-    <MainGnb>
+    <Gnb>
       <SideBar>
         <Route path="/main/boards" component={Board}></Route>
         <Route path="/main/template" component={Tamplate}></Route>
         <Route path="/main/home" component={Home}></Route>
       </SideBar>
-    </MainGnb>
+    </Gnb>
   );
 }
 

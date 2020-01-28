@@ -1,10 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 import style from './Signup.module.scss'
 import { requestRaw } from 'shared/axios'
-import * as actions from 'store/actions/index'
 
 import Spinner from 'shared/spinner/Spinner'
 
@@ -20,7 +18,7 @@ function Login(props) {
     useEffect(() => {
         const token = localStorage.getItem('token')
         if (!!token) props.history.push('/main');
-    }, [props.userData])
+    }, [props.userData, props.history])
 
     useEffect(() => {
         setEmail('')
@@ -37,7 +35,7 @@ function Login(props) {
         }
         try {
             setloading(true)
-            const respData = await requestRaw('api/auth/signup', 'PUT', params)
+            await requestRaw('api/auth/signup', 'PUT', params)
             setloading(false)
             props.history.push('/Login')
         } catch (err) {

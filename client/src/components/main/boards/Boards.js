@@ -12,17 +12,9 @@ const Board = () => {
 
   const boardList = [
     {
-      name: 'jack',
-      background: 'bg-green'
+      name: '_create',
+      background: 'bg-gray'
     },
-    {
-      name: 'accounts',
-      background: 'bg-yellow'
-    },
-    {
-      name: 'test',
-      background: 'bg-blue'
-    }
   ]
 
   return (

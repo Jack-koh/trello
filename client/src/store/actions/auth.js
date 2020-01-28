@@ -15,6 +15,12 @@ export const loginSuccess = payload => {
   };
 };
 
+export const loginFail = () => {
+  return {
+    type: "LOGIN_FAIL",
+  };
+};
+
 export const logout = () => {
   return { type: "LOGOUT" };
 };

@@ -16,3 +16,37 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+form {
+  line-height: 0;
+}
+
+input {
+  border: none;
+  outline: none;
+  border-radius: 3px;
+}
+
+button {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+/* 공통 background */
+.bg-green {
+  background-color: rgb(75, 191, 107);
+}
+.bg-yellow {
+  background-color: rgb(210, 144, 52);
+}
+.bg-blue {
+  background-color: rgb(0, 121, 191);
+}
+.bg-brown {
+  background-color: rgb(176, 70, 50);
+}
+.bg-gray {
+  background-color: rgba(9, 30, 66, 0.04);
+}

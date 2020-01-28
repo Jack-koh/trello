@@ -32,13 +32,11 @@
     height: 44px;
     padding: 7px;
     border: 2px solid #dfe1e6;
-    border-radius: 3px;
     margin: 0 0 1.2em;
     transition: border 0.3s;
     background-color: #fafbfc;
 
     &:focus {
-      outline: none;
       border: 2px solid #4c9aff;
     }
 
@@ -52,11 +50,8 @@
     height: 36px;
     position: relative;
     text-align: center;
-    border-radius: 5px;
-    border: none;
     color: #ffffff;
     background-color: #5aac44;
-    cursor: pointer;
     transition: background-color 0.1s;
 
     &:disabled {

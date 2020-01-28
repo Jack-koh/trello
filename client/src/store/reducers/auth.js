@@ -22,6 +22,14 @@ const loginSuccess = (state, action) => {
     })
 }
 
+const loginFail = (state, action) => {
+    return updateObject(state, {
+        email: null,
+        name: null,
+        loading: false
+    })
+}
+
 const logout = () => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
@@ -35,8 +43,9 @@ const logout = () => {
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCEED': return loginSuccess(state, action.user);
-        case 'LOGIN_START': return loginStart()
-        case 'LOGOUT': return logout()
+        case 'LOGIN_FAIL': return loginFail();
+        case 'LOGIN_START': return loginStart();
+        case 'LOGOUT': return logout();
         default: return state;
     }
 }

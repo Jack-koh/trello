@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import classNames from "classnames/bind";
 import style from "./Login.module.scss";
-import { requestRaw } from "shared/axios";
 import * as actions from "store/actions";
 
 import Spinner from "shared/spinner/Spinner";
@@ -20,7 +19,7 @@ function Login(props) {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!!token) props.history.push("/main/boards");
-  }, [props.userData]);
+  }, [props.userData, props.history]);
 
   useEffect(() => {
     setEmail("");
@@ -40,11 +39,7 @@ function Login(props) {
       name: name
     };
 
-    try {
-      props.onLogin(params);
-    } catch (err) {
-      console.log("---- login error");
-    }
+    props.onLogin(params);
   };
 
   return (
