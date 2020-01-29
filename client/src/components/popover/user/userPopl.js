@@ -35,7 +35,7 @@ function Modal(props) {
 
   const logoutHandler = () => {
     props.onLogout()
-    props.history.push('/')
+    props.history.push('/Login')
   }
 
   return (

@@ -6,7 +6,7 @@ import classNames from 'classnames/bind'
 import styles from './BoardItem.module.scss'
 import { MdStarBorder } from "react-icons/md";
 
-import CreateBoardModal from 'components/modal/createBoard/CreateBoardModal'
+import DialogCreateBoard from 'components/modal/createBoard/Dialog_create_board'
 
 const cx = classNames.bind(styles)
 
@@ -44,7 +44,7 @@ const BoardItem = (props) => {
       <ul className={cx('board-item-section')} >
         {itemEl}
       </ul >
-      {props.modalName === 'modal-create-board' && <CreateBoardModal />}
+      {props.modalName === 'modal-create-board' && <DialogCreateBoard />}
     </Fragment>
   )
 }

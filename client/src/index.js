@@ -12,7 +12,7 @@ import createSagaMiddleware from "redux-saga";
 
 import authReducer from "store/reducers/auth";
 import modalReducer from "store/reducers/modal";
-import { auth } from "store/sagas/index";
+import { auth, boards } from "store/sagas/index";
 
 const composeEnhancers =
   process.env.NODE_ENV === "development"
@@ -28,6 +28,7 @@ const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware));
 const store = createStore(reducer, enhencer);
 
 sagaMiddleware.run(auth);
+sagaMiddleware.run(boards);
 
 const app = (
   <Provider store={store}>

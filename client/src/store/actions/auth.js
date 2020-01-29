@@ -36,7 +36,11 @@ export const authCheck = () => {
       if (now >= user.expiration) {
         dispatch(logout());
       } else {
-        const userData = { email: user.email, name: user.name };
+        const userData = {
+          email: user.email,
+          name: user.name,
+          userNo: user.userNo
+        };
         dispatch(loginSuccess(userData));
       }
     }

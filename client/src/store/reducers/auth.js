@@ -3,6 +3,7 @@ import { updateObject } from 'shared/utility';
 const initialState = {
     email: null,
     name: null,
+    userNo: null,
     loading: false,
 }
 
@@ -18,6 +19,7 @@ const loginSuccess = (state, action) => {
     return updateObject(state, {
         email: action.email,
         name: action.name,
+        userNo: action.userNo,
         loading: false
     })
 }

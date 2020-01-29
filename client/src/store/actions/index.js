@@ -10,3 +10,7 @@ export {
     setModal,
     closeModal
 } from './modal'
+
+export {
+    createBoardStart
+} from './boards'

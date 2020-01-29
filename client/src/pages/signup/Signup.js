@@ -35,7 +35,7 @@ function Login(props) {
         }
         try {
             setloading(true)
-            await requestRaw('api/auth/signup', 'PUT', params)
+            await requestRaw('auth/signup', 'PUT', params)
             setloading(false)
             props.history.push('/Login')
         } catch (err) {

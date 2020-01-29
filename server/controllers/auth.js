@@ -67,6 +67,7 @@ exports.login = async (req, res, next) => {
       userId: findUser._id.toString(),
       email: findUser.email,
       name: findUser.name,
+      userNo: findUser.userNo,
       expiration: new Date().getTime() / 1000 + 3600
     });
   } catch (err) {

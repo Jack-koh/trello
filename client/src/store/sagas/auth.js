@@ -4,13 +4,14 @@ import { requestRaw } from "shared/axios";
 
 export function* login(action) {
   try {
-    const respData = yield requestRaw("api/auth/login", "POST", action.user);
+    const respData = yield requestRaw("auth/login", "POST", action.user);
     yield localStorage.setItem("token", respData.data.token);
     const userJSON = JSON.stringify({
       userId: respData.data.userId,
       expiration: respData.data.expiration,
       email: respData.data.email,
-      name: respData.data.name
+      name: respData.data.name,
+      userNo: respData.data.userNo
     });
     yield localStorage.setItem("user", userJSON);
     yield put(actions.loginSuccess(respData.data));
