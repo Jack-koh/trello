@@ -1,16 +1,10 @@
-export {
-    loginStart,
-    loginSuccess,
-    loginFail,
-    authCheck,
-    logout
-} from './auth'
+export { loginStart, loginSuccess, loginFail, authCheck, logout } from "./auth";
+
+export { setDialog, closeDialog } from "./dialog";
 
 export {
-    setModal,
-    closeModal
-} from './modal'
-
-export {
-    createBoardStart
-} from './boards'
+  createBoardStart,
+  createBoardSuccess,
+  getBoardItemStart,
+  getBoardItemsSuccess
+} from "./boards";

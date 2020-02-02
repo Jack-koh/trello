@@ -17,6 +17,6 @@ export function* login(action) {
     yield put(actions.loginSuccess(respData.data));
   } catch (err) {
     yield put(actions.loginFail());
-    console.log('Login Fail -----')
+    console.log("Login Fail -----");
   }
 }

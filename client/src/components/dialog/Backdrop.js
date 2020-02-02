@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react";
 function Backdrop() {
   const style = {
-    position: 'fixed',
+    position: "fixed",
     left: 0,
     top: 0,
     width: "100%",
@@ -9,9 +9,9 @@ function Backdrop() {
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     color: "#ffffff",
     zIndex: 10
-  }
+  };
 
-  return <div style={style} />
+  return <div style={style} />;
 }
 
-export default Backdrop
+export default Backdrop;

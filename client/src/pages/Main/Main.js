@@ -10,7 +10,7 @@ import Home from "components/main/home/Home";
 import Gnb from "hoc/layout/Gnb";
 
 function Main(props) {
-  console.log("Main - check");
+  console.log("Main - created");
   useEffect(() => {
     props.autoAuthCheck();
     const token = localStorage.getItem("token");

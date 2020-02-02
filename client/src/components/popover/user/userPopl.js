@@ -7,7 +7,7 @@ import * as actions from "store/actions";
 
 const cx = classNames.bind(style);
 
-function Modal(props) {
+function Dialog(props) {
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
 
@@ -39,10 +39,10 @@ function Modal(props) {
   }
 
   return (
-    <div ref={wrapperRef} className={cx("user-modal")}>
-      <div className={cx("user-modal-content")}>
-        <div className={cx("user-modal-inner")}>
-          <div className={cx("user-modal-title")}>
+    <div ref={wrapperRef} className={cx("user-dialog")}>
+      <div className={cx("user-dialog-content")}>
+        <div className={cx("user-dialog-inner")}>
+          <div className={cx("user-dialog-title")}>
             {`${userEmail} (${userName})`}
           </div>
           <nav>
@@ -88,4 +88,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Modal));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dialog));
