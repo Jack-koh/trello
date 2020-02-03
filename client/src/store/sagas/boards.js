@@ -10,7 +10,8 @@ export function* createBoards(action) {
 
 export function* getBoardItem(action) {
   try {
-    const respData = yield requestRaw("boards/get", "GET", action.userNo);
-    put(actions.getBoardItemsSuccess(respData.data));
+    const param = { userNo: action.userNo };
+    const respData = yield requestRaw("boards/get", "GET", param);
+    yield put(actions.getBoardItemsSuccess(respData.data.list));
   } catch (err) {}
 }

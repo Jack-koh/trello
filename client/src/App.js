@@ -23,10 +23,4 @@ const App = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    userName: state.auth.name
-  };
-};
-
-export default connect(mapStateToProps)(withRouter(App));
+export default withRouter(App);

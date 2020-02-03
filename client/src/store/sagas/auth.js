@@ -13,8 +13,8 @@ export function* login(action) {
       name: respData.data.name,
       userNo: respData.data.userNo
     });
-    yield localStorage.setItem("user", userJSON);
-    yield put(actions.loginSuccess(respData.data));
+    yield localStorage.setItem("user-data", userJSON);
+    yield put(actions.loginSuccess());
   } catch (err) {
     yield put(actions.loginFail());
     console.log("Login Fail -----");

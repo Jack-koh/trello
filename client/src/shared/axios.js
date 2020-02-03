@@ -1,12 +1,13 @@
-import axios from 'axios'
+import axios from "axios";
+
+const baseUrl = "http://localhost:3000/api/";
 
 export const requestRaw = (url, method, params) => {
+  let dataSet = "data";
+  if (method === "GET") dataSet = "params";
   return axios({
-    url: `http://localhost:3000/api/${url}`,
+    url: baseUrl + url,
     method: method,
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    data: JSON.stringify(params)
+    [dataSet]: params
   });
 };

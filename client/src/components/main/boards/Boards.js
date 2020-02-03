@@ -11,10 +11,11 @@ const cx = classNames.bind(style);
 const Board = props => {
   console.log("Board - created");
 
-  // useEffect(() => {
-  //   console.log("Board - mounted");
-  //   props.onGetBoardItem(props.auth.userNo);
-  // });
+  useEffect(() => {
+    console.log("Board - mounted");
+    const userData = JSON.parse(localStorage.getItem("user-data"));
+    props.onGetBoardItem(userData.userNo);
+  });
 
   const boardList = [];
 
@@ -33,12 +34,6 @@ const Board = props => {
   );
 };
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     onGetBoardItem: userNo => {
@@ -47,4 +42,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(null, mapDispatchToProps)(Board);

@@ -12,6 +12,8 @@ import createSagaMiddleware from "redux-saga";
 
 import authReducer from "store/reducers/auth";
 import dialogReducer from "store/reducers/dialog";
+import boardsReducer from "store/reducers/boards";
+
 import { auth, boards } from "store/sagas/index";
 
 const composeEnhancers =
@@ -21,7 +23,8 @@ const composeEnhancers =
 
 const reducer = combineReducers({
   auth: authReducer,
-  dialog: dialogReducer
+  dialog: dialogReducer,
+  boards: boardsReducer
 });
 const sagaMiddleware = createSagaMiddleware();
 const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware));

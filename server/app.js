@@ -5,7 +5,6 @@ const authRoute = require("./routes/authRoute");
 const boardsRoute = require("./routes/boardsRoute");
 
 const app = express();
-
 app.use(express.json());
 
 app.use("/api/auth", authRoute);

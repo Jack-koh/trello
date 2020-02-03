@@ -8,7 +8,7 @@ import {
   MdAddAlert,
   MdAccountCircle
 } from "react-icons/md";
-import UserDialog from "components/popover/user/userPopl";
+import UserDialog from "components/popover/user/userPopup";
 import classNames from "classnames/bind";
 import styles from "./Gnb.module.scss";
 const cx = classNames.bind(styles);
@@ -16,17 +16,17 @@ const cx = classNames.bind(styles);
 const Layout = props => {
   const [userDialog, setUserDialog] = useState(false);
 
-  const onDialogHandler = (e) => {
-    e.preventDefault()
+  const onDialogHandler = e => {
+    e.preventDefault();
     setUserDialog(!userDialog);
   };
 
-  const clickOutsideHandler = (e) => {
-    e.stopPropagation()
+  const clickOutsideHandler = e => {
+    e.stopPropagation();
     if (userDialog) {
-      setUserDialog(!userDialog)
+      setUserDialog(!userDialog);
     }
-  }
+  };
 
   return (
     <Fragment>
@@ -57,7 +57,9 @@ const Layout = props => {
           </div>
           <div className={cx("circle_btn")}>
             <MdAccountCircle onClick={onDialogHandler} />
-            {userDialog && <UserDialog clickOutsideHandler={clickOutsideHandler} />}
+            {userDialog && (
+              <UserDialog clickOutsideHandler={clickOutsideHandler} />
+            )}
           </div>
         </div>
       </div>

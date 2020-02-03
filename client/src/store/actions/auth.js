@@ -10,14 +10,13 @@ export const loginStart = payload => {
 
 export const loginSuccess = payload => {
   return {
-    type: "LOGIN_SUCCEED",
-    user: payload
+    type: "LOGIN_SUCCEED"
   };
 };
 
 export const loginFail = () => {
   return {
-    type: "LOGIN_FAIL",
+    type: "LOGIN_FAIL"
   };
 };
 
@@ -28,7 +27,7 @@ export const logout = () => {
 export const authCheck = () => {
   return dispatch => {
     const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user-data"));
     if (!token) {
       dispatch(logout());
     } else {
@@ -36,12 +35,7 @@ export const authCheck = () => {
       if (now >= user.expiration) {
         dispatch(logout());
       } else {
-        const userData = {
-          email: user.email,
-          name: user.name,
-          userNo: user.userNo
-        };
-        dispatch(loginSuccess(userData));
+        dispatch(loginSuccess());
       }
     }
   };

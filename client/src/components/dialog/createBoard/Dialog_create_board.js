@@ -17,18 +17,15 @@ function DialogCreateBoard(props) {
   const createBoardHandler = e => {
     e.preventDefault();
     const background = backgroundList.find(el => el.name === bgName);
+    const userData = JSON.parse(localStorage.getItem("user-data"));
     const param = {
       title: boardTitle,
       background: background,
       teams: teams,
-      userNo: props.userNo
+      userNo: userData.userNo
     };
 
     props.onCreateBoard(param);
-    // props.onClose()
-  };
-
-  const closeDialogHandler = () => {
     props.onClose();
   };
 
@@ -82,7 +79,7 @@ function DialogCreateBoard(props) {
         <form onSubmit={createBoardHandler}>
           <div className={cx("set-board")}>
             <div className={cx("board-card", bgName)}>
-              <MdClose onClick={closeDialogHandler} />
+              <MdClose onClick={props.onClose} />
               <input
                 type="text"
                 placeholder="Add board title"
@@ -110,10 +107,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const mapStateToProps = state => {
-  return {
-    userNo: state.auth.userNo
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DialogCreateBoard);
+export default connect(null, mapDispatchToProps)(DialogCreateBoard);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import classNames from "classnames/bind";
-import style from "./userPop.module.scss";
+import style from "./userPopup.module.scss";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 
@@ -13,30 +13,31 @@ function Dialog(props) {
 
   const wrapperRef = useRef(null);
 
-  useEffect(() => { // 클릭 아웃사이드 기능 생성 및 제거
-    let outsideClickHandler = e => {
+  useEffect(() => {
+    // 클릭 아웃사이드 기능 생성 및 제거1
+    const outsideClickHandler = e => {
       if (wrapperRef.current.contains(e.target)) return;
-      props.clickOutsideHandler(e)
+      props.clickOutsideHandler(e);
     };
 
-    document.addEventListener('click', outsideClickHandler, true)
-    const eamil = props.userData.email;
-    const name = props.userData.name;
+    document.addEventListener("click", outsideClickHandler, true);
+    const userData = JSON.parse(localStorage.getItem("user-data"));
+    const eamil = userData.email;
+    const name = userData.name;
     if (eamil && name) {
       setUserEmail(eamil.split("@")[0]);
       setUserName(name);
     }
 
     return () => {
-      document.removeEventListener('click', outsideClickHandler, true);
-      outsideClickHandler = null
-    }
+      document.removeEventListener("click", outsideClickHandler, true);
+    };
   }, [props]);
 
   const logoutHandler = () => {
-    props.onLogout()
-    props.history.push('/Login')
-  }
+    props.onLogout();
+    props.history.push("/Login");
+  };
 
   return (
     <div ref={wrapperRef} className={cx("user-dialog")}>
@@ -76,16 +77,10 @@ function Dialog(props) {
   );
 }
 
-const mapStateToProps = state => {
-  return {
-    userData: state.auth
-  };
-};
-
 const mapDispatchToProps = dispatch => {
   return {
     onLogout: () => dispatch(actions.logout())
-  }
-}
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Dialog));
+export default connect(null, mapDispatchToProps)(withRouter(Dialog));
