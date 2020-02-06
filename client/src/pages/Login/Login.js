@@ -61,6 +61,7 @@ function Login(props) {
             onChange={event => setEmail(event.target.value)}
           />
           <input
+            type="password"
             className={cx("scurity_text")}
             placeholder="Enter password"
             value={password}

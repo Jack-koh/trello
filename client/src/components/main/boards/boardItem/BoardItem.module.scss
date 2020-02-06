@@ -4,7 +4,7 @@
 
   .board-item {
     position: relative;
-    width: 23.5%;
+    width: 23%;
     margin: 0 2% 8px 0;
     cursor: pointer;
     border-radius: 3px;
@@ -25,9 +25,11 @@
 
       .item-title {
         color: #ffffff;
+        font-weight: 700;
+        font-size: 14px;
         line-height: 20px;
-        padding: 8px;
         position: relative;
+        z-index: 5;
         text-decoration: none;
       }
 

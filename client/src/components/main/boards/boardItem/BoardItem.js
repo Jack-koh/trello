@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 import propTypes from "prop-types";
@@ -13,18 +13,22 @@ const cx = classNames.bind(styles);
 const BoardItem = props => {
   console.log("BoardItem - check");
 
+  useEffect(() => {
+    console.log("Board - mounted");
+    props.onGetBoardItem();
+  }, []);
+
   const onCreateDialogHandler = () => {
     props.onSetDialog("dialog-create-board");
   };
 
-  const itemEl = props.list.map((item, i) => {
+  const itemEl = props.boardItems.map((item, i) => {
     return (
-      <li key={i} className={cx("board-item", item.background)}>
+      <li key={i} className={cx("board-item", item.background.name)}>
         <div className={cx("board-item-inner")}>
-          <span className={cx("item-title")}>{item.name}</span>
+          <span className={cx("item-title")}>{item.title}</span>
         </div>
         <div className={cx("board-hover-action")}>
-          <div className="back-drop"></div>
           <MdStarBorder />
         </div>
       </li>
@@ -36,9 +40,7 @@ const BoardItem = props => {
       <div className={cx("board-item-inner", "create")}>
         <span className={cx("create-item-title")}>Create new board</span>
       </div>
-      <div className={cx("create-hover-action")}>
-        <div className="back-drop"></div>
-      </div>
+      <div className={cx("create-hover-action")}></div>
     </li>
   );
 
@@ -54,18 +56,22 @@ const BoardItem = props => {
 };
 
 BoardItem.propTypes = {
-  list: propTypes.array
+  boardItems: propTypes.array
 };
 
 const mapStateToProps = state => {
   return {
-    dialogName: state.dialog.name
+    dialogName: state.dialog.name,
+    boardItems: state.boards.list
   };
 };
 
 const mapDispatchToProp = dispatch => {
   return {
-    onSetDialog: name => dispatch(actions.setDialog(name))
+    onSetDialog: name => dispatch(actions.setDialog(name)),
+    onGetBoardItem: userNo => {
+      dispatch(actions.getBoardItemStart(userNo));
+    }
   };
 };
 

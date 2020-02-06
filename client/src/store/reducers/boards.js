@@ -1,15 +1,12 @@
 import { updateObject } from "shared/utility";
 
 const initialState = {
-  loading: false,
-  boardsList: []
+  list: []
 };
 
-const setBoarItems = (state, boardsList) => {
-  console.log(boardsList);
+const setBoarItems = (state, list) => {
   return updateObject(state, {
-    loading: false,
-    boardsList: boardsList
+    list: list
   });
 };
 

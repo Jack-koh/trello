@@ -39,16 +39,11 @@
     &:focus {
       border: 2px solid #4c9aff;
     }
-
-    &.scurity_text {
-      -webkit-text-security: disc;
-    }
   }
 
   .login_button {
     width: 100%;
     height: 36px;
-    position: relative;
     text-align: center;
     color: #ffffff;
     background-color: #5aac44;

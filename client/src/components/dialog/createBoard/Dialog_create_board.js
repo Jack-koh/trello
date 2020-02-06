@@ -1,10 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 import { MdClose } from "react-icons/md";
-
+import { requestRaw } from "shared/axios";
 import classNames from "classnames/bind";
 import styles from "./Dialog_create_board.module.scss";
+
+import Spinner from "shared/spinner/Spinner";
 
 import Backdrop from "components/dialog/Backdrop";
 const cx = classNames.bind(styles);
@@ -13,8 +15,9 @@ function DialogCreateBoard(props) {
   const [boardTitle, setBoardTitle] = useState("");
   const [bgName, setBgName] = useState("bg-forest");
   const [teams, setTeams] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const createBoardHandler = e => {
+  const createBoardHandler = async e => {
     e.preventDefault();
     const background = backgroundList.find(el => el.name === bgName);
     const userData = JSON.parse(localStorage.getItem("user-data"));
@@ -24,13 +27,16 @@ function DialogCreateBoard(props) {
       teams: teams,
       userNo: userData.userNo
     };
-
-    props.onCreateBoard(param);
-    props.onClose();
-  };
-
-  const setBgHandler = bgName => {
-    setBgName(bgName);
+    try {
+      setLoading(true);
+      const respData = await requestRaw("boards/create", "POST", param);
+      props.onGetBoardItem();
+      props.onClose();
+      setLoading(false);
+    } catch (err) {
+      console.log("create-board-errer");
+      setLoading(false);
+    }
   };
 
   const baseUrl = "https://images.unsplash.com/photo-";
@@ -68,7 +74,7 @@ function DialogCreateBoard(props) {
       <li
         key={i}
         className={cx("choice-card", item.name)}
-        onClick={() => setBgHandler(item.name)}
+        onClick={() => setBgName(item.name)}
       />
     );
   });
@@ -91,7 +97,9 @@ function DialogCreateBoard(props) {
           </div>
 
           <div className={cx("bottom-utils")}>
-            <button disabled={boardTitle.length === 0}>Create Board</button>
+            <button disabled={boardTitle.length === 0}>
+              {loading ? <Spinner /> : "Create Board"}
+            </button>
           </div>
         </form>
       </div>
@@ -103,7 +111,9 @@ function DialogCreateBoard(props) {
 const mapDispatchToProps = dispatch => {
   return {
     onClose: () => dispatch(actions.closeDialog()),
-    onCreateBoard: param => dispatch(actions.createBoardStart(param))
+    onGetBoardItem: userNo => {
+      dispatch(actions.getBoardItemStart(userNo));
+    }
   };
 };
 
