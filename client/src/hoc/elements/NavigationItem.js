@@ -1,19 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import classNames from "classnames/bind";
-import style from "./NavigationItem.module.scss";
-const cx = classNames.bind(style);
+import "./NavigationItem.scss";
 
 const NavigationItem = props => {
   console.log("NavigationItem - check");
   return (
-    <li className={cx("NavigationItem")}>
-      <NavLink
-        to={props.link}
-        exact={props.exact}
-        activeClassName={cx("active")}
-      >
+    <li className="NavigationItem">
+      <NavLink to={props.link} exact={props.exact} activeClassName="active">
         {props.children}
       </NavLink>
     </li>

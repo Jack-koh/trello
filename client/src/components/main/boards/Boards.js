@@ -1,20 +1,16 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import { MdPersonOutline } from "react-icons/md";
-import classNames from "classnames/bind";
-import style from "./Boards.module.scss";
+import "./Boards.scss";
 import BoardItem from "./boardItem/BoardItem";
-import * as actions from "store/actions";
 
-const cx = classNames.bind(style);
-
-const Board = props => {
+function Board() {
   console.log("Board - created");
 
   return (
-    <div className={cx("board-wrap")}>
-      <div className={cx("board-inner-area")}>
-        <div className={cx("board-section")}>
-          <div className={cx("board-title")}>
+    <div className="board-wrap">
+      <div className="board-inner-area">
+        <div className="board-section">
+          <div className="board-title">
             <MdPersonOutline />
             <span>Personal Boards</span>
           </div>
@@ -23,6 +19,6 @@ const Board = props => {
       </div>
     </div>
   );
-};
+}
 
 export default Board;

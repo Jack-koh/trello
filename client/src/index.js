@@ -11,8 +11,8 @@ import { Provider } from "react-redux";
 import createSagaMiddleware from "redux-saga";
 
 import authReducer from "store/reducers/auth";
-import dialogReducer from "store/reducers/dialog";
 import boardsReducer from "store/reducers/boards";
+import trelloReducer from "store/reducers/trello";
 
 import { auth, boards } from "store/sagas/index";
 
@@ -23,8 +23,8 @@ const composeEnhancers =
 
 const reducer = combineReducers({
   auth: authReducer,
-  dialog: dialogReducer,
-  boards: boardsReducer
+  boards: boardsReducer,
+  trello: trelloReducer
 });
 const sagaMiddleware = createSagaMiddleware();
 const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware));

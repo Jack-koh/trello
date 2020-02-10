@@ -59,7 +59,7 @@ exports.login = async (req, res, next) => {
         userId: findUser._id.toString()
       },
       "secret",
-      { expiresIn: "1h" }
+      { expiresIn: "24h" }
     );
     // response
     res.status(200).json({
@@ -68,7 +68,7 @@ exports.login = async (req, res, next) => {
       email: findUser.email,
       name: findUser.name,
       userNo: findUser.userNo,
-      expiration: new Date().getTime() / 1000 + 3600
+      expiration: new Date().getTime() / 1000 + 86400
     });
   } catch (err) {
     if (!err.statusCode) {

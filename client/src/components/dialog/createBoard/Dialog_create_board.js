@@ -1,15 +1,13 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 import { MdClose } from "react-icons/md";
-import { requestRaw } from "shared/axios";
-import classNames from "classnames/bind";
-import styles from "./Dialog_create_board.module.scss";
+import axios from "axios";
+import "./Dialog_create_board.scss";
 
 import Spinner from "shared/spinner/Spinner";
 
 import Backdrop from "components/dialog/Backdrop";
-const cx = classNames.bind(styles);
 
 function DialogCreateBoard(props) {
   const [boardTitle, setBoardTitle] = useState("");
@@ -29,10 +27,10 @@ function DialogCreateBoard(props) {
     };
     try {
       setLoading(true);
-      const respData = await requestRaw("boards/create", "POST", param);
-      props.onGetBoardItem();
-      props.onClose();
+      await axios.post("boards/create", param);
+      await axios.get("boards/get", { userNo: param.userNo });
       setLoading(false);
+      props.closeDialog();
     } catch (err) {
       console.log("create-board-errer");
       setLoading(false);
@@ -73,7 +71,7 @@ function DialogCreateBoard(props) {
     return (
       <li
         key={i}
-        className={cx("choice-card", item.name)}
+        className={`choice-card ${item.name}`}
         onClick={() => setBgName(item.name)}
       />
     );
@@ -81,11 +79,11 @@ function DialogCreateBoard(props) {
 
   return (
     <Fragment>
-      <div className={cx("create-board-dialog")}>
+      <div className="create-board-dialog">
         <form onSubmit={createBoardHandler}>
-          <div className={cx("set-board")}>
-            <div className={cx("board-card", bgName)}>
-              <MdClose onClick={props.onClose} />
+          <div className="set-board">
+            <div className={`board-card ${bgName}`}>
+              <MdClose onClick={props.closeDialog} />
               <input
                 type="text"
                 placeholder="Add board title"
@@ -93,10 +91,10 @@ function DialogCreateBoard(props) {
                 onChange={e => setBoardTitle(e.target.value)}
               />
             </div>
-            <ul className={cx("card-background")}>{backgroundEl}</ul>
+            <ul className="card-background">{backgroundEl}</ul>
           </div>
 
-          <div className={cx("bottom-utils")}>
+          <div className="bottom-utils">
             <button disabled={boardTitle.length === 0}>
               {loading ? <Spinner /> : "Create Board"}
             </button>
@@ -110,7 +108,6 @@ function DialogCreateBoard(props) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onClose: () => dispatch(actions.closeDialog()),
     onGetBoardItem: userNo => {
       dispatch(actions.getBoardItemStart(userNo));
     }

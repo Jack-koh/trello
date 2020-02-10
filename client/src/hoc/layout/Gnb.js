@@ -9,9 +9,7 @@ import {
   MdAccountCircle
 } from "react-icons/md";
 import UserDialog from "components/popover/user/userPopup";
-import classNames from "classnames/bind";
-import styles from "./Gnb.module.scss";
-const cx = classNames.bind(styles);
+import "./Gnb.scss";
 
 const Layout = props => {
   const [userDialog, setUserDialog] = useState(false);
@@ -30,32 +28,32 @@ const Layout = props => {
 
   return (
     <Fragment>
-      <div className={cx("gnb_wrap")}>
-        <div className={cx("gnb_left")}>
-          <div className={cx("rectangle_btn", "common_btn")}>
+      <div className="gnb_wrap">
+        <div className="gnb_left">
+          <div className="rectangle_btn common_btn">
             <MdHome />
           </div>
-          <div className={cx("board_btn", "common_btn")}>
+          <div className="board_btn common_btn">
             <MdPoll />
             Boards
           </div>
-          <div className={cx("search_input_wrap")}>
-            <input className={cx("search_input")} />
+          <div className="search_input_wrap">
+            <input className="search_input" />
             <MdSearch />
           </div>
         </div>
-        <div className={cx("logo")}></div>
-        <div className={cx("gnb_right")}>
-          <div className={cx("rectangle_btn", "common_btn")}>
+        <div className="logo"></div>
+        <div className="gnb_right">
+          <div className="rectangle_btn common_btn">
             <MdAdd />
           </div>
-          <div className={cx("rectangle_btn", "common_btn")}>
+          <div className="rectangle_btn common_btn">
             <MdInfoOutline />
           </div>
-          <div className={cx("rectangle_btn", "common_btn")}>
+          <div className="rectangle_btn common_btn">
             <MdAddAlert />
           </div>
-          <div className={cx("circle_btn")}>
+          <div className="circle_btn">
             <MdAccountCircle onClick={onDialogHandler} />
             {userDialog && (
               <UserDialog clickOutsideHandler={clickOutsideHandler} />

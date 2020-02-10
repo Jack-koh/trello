@@ -1,12 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
-import classNames from "classnames/bind";
-import style from "./Signup.module.scss";
+import "./Signup.scss";
 import { requestRaw } from "shared/axios";
 
 import Spinner from "shared/spinner/Spinner";
-
-const cx = classNames.bind(style);
 
 function Signup(props) {
   console.log("Login - check");
@@ -45,13 +42,13 @@ function Signup(props) {
 
   return (
     <Fragment>
-      <div className={cx("logo_wrap")}>
+      <div className="logo_wrap">
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
           alt="logo"
         ></img>
       </div>
-      <div className={cx("form_wrap")}>
+      <div className="form_wrap">
         <h1>Sign in to Trello</h1>
         <form onSubmit={submitHandler}>
           <input
@@ -62,7 +59,7 @@ function Signup(props) {
             onChange={event => setEmail(event.target.value)}
           />
           <input
-            className={cx("scurity_text")}
+            className="scurity_text"
             placeholder="Enter password"
             value={password}
             onChange={event => setPassword(event.target.value)}
@@ -72,12 +69,12 @@ function Signup(props) {
             value={name}
             onChange={event => setName(event.target.value)}
           />
-          <button className={cx("signup-button")}>
+          <button className="signup-button">
             {loading ? <Spinner /> : "Continue"}
           </button>
         </form>
-        <div className={cx("auth-utils")}>
-          <Link to="/Login" className={cx("sign-up")}>
+        <div className="auth-utils">
+          <Link to="/Login" className="sign-up">
             Already have an account? Log In
           </Link>
         </div>

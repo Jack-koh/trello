@@ -20,13 +20,11 @@ function Main(props) {
   }, [props]);
 
   return (
-    <Gnb>
-      <SideBar>
-        <Route path="/main/boards" component={Board}></Route>
-        <Route path="/main/template" component={Tamplate}></Route>
-        <Route path="/main/home" component={Home}></Route>
-      </SideBar>
-    </Gnb>
+    <SideBar>
+      <Route path="/main/boards" component={Board}></Route>
+      <Route path="/main/template" component={Tamplate}></Route>
+      <Route path="/main/home" component={Home}></Route>
+    </SideBar>
   );
 }
 

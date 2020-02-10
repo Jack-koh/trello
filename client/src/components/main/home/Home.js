@@ -1,19 +1,13 @@
-import React from 'react';
-
-import classNames from 'classnames/bind'
-import style from './Home.module.scss'
-
-const cx = classNames.bind(style)
+import React from "react";
+import "./Home.scss";
 
 function Home() {
   console.log("Home - check");
   return (
-    <div className={cx('home-wrap')}>
-      <div className={cx('home-inner-area')} >
-        Home
-      </div>
+    <div className="home-wrap">
+      <div className="home-inner-area">Home</div>
     </div>
-  )
+  );
 }
 
 export default Home;

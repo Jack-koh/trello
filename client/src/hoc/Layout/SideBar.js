@@ -2,15 +2,12 @@ import React from "react";
 import { MdDashboard, MdPoll, MdTimeline } from "react-icons/md";
 
 import NavigationItem from "hoc/elements/NavigationItem";
-
-import classNames from "classnames/bind";
-import styles from "./SideBar.module.scss";
-const cx = classNames.bind(styles);
+import "./SideBar.scss";
 
 const SideBar = props => {
   return (
-    <div className={cx("side_bar_layout")}>
-      <nav className={cx("side_bar_wrap")}>
+    <div className="side_bar_layout">
+      <nav className="side_bar_wrap">
         <ul>
           <NavigationItem link="/main/boards" exact>
             <MdPoll />

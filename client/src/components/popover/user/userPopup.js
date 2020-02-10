@@ -1,11 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
-import classNames from "classnames/bind";
-import style from "./userPopup.module.scss";
+import "./userPopup.scss";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
-
-const cx = classNames.bind(style);
 
 function Dialog(props) {
   const [userEmail, setUserEmail] = useState("");
@@ -40,10 +37,10 @@ function Dialog(props) {
   };
 
   return (
-    <div ref={wrapperRef} className={cx("user-dialog")}>
-      <div className={cx("user-dialog-content")}>
-        <div className={cx("user-dialog-inner")}>
-          <div className={cx("user-dialog-title")}>
+    <div ref={wrapperRef} className="user-dialog">
+      <div className="user-dialog-content">
+        <div className="user-dialog-inner">
+          <div className="user-dialog-title">
             {`${userEmail} (${userName})`}
           </div>
           <nav>
@@ -57,13 +54,13 @@ function Dialog(props) {
               <li>
                 <div>Cards</div>
               </li>
-              <li className={cx("line-break")}>
+              <li className="line-break">
                 <div>Settings</div>
               </li>
               <li>
                 <div>Help</div>
               </li>
-              <li className={cx("line-break")}>
+              <li className="line-break">
                 <div>Shortcuts</div>
               </li>
               <li onClick={logoutHandler}>

@@ -1,26 +1,12 @@
 import React from "react";
-import { Route, Switch, withRouter, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import Router from "router/Router";
 
-import Login from "pages/login/Login";
-import Signup from "pages/signup/Signup";
-import Main from "pages/main/Main";
+// base url설정
+import axios from "axios";
+axios.defaults.baseURL = "/api/";
 
 const App = props => {
-  if (props.location.pathname === "/") {
-    props.history.push("/Login");
-  }
-
-  return (
-    <div>
-      <Switch>
-        <Route path="/Login" component={Login}></Route>
-        <Route path="/Signup" component={Signup}></Route>
-        <Route path="/main" component={Main}></Route>
-        <Redirect to="/Login" />
-      </Switch>
-    </div>
-  );
+  return <Router />;
 };
 
-export default withRouter(App);
+export default App;
