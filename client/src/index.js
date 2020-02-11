@@ -16,9 +16,10 @@ import trelloReducer from "store/reducers/trello";
 
 import { auth, boards } from "store/sagas/index";
 
+const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers =
-  process.env.NODE_ENV === "development"
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  devtools && process.env.NODE_ENV === "development"
+    ? devtools
     : null || compose;
 
 const reducer = combineReducers({

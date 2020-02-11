@@ -7,7 +7,7 @@ function Board(props) {
     return () => {
       props.onInitTrelloItem();
     };
-  }, []);
+  }, [props]);
 
   return <div>안녕하세요</div>;
 }

@@ -7,7 +7,6 @@ import SideBar from "hoc/layout/SideBar";
 import Board from "components/main/boards/Boards";
 import Tamplate from "components/main/template/Tamplate";
 import Home from "components/main/home/Home";
-import Gnb from "hoc/layout/Gnb";
 
 function Main(props) {
   console.log("Main - created");

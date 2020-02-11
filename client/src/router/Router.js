@@ -11,7 +11,7 @@ function Router(props) {
     props.history.push("/Login");
   }
 
-  const GnbRoute = ({ component: component, path: path }) => {
+  const GnbRoute = ({ component, path }) => {
     return (
       <Gnb>
         <Route component={component} path={path} />
