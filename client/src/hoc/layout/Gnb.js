@@ -1,4 +1,5 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
 import {
   MdHome,
   MdPoll,
@@ -11,8 +12,15 @@ import {
 import UserDialog from "components/popover/user/userPopup";
 import "./Gnb.scss";
 
-const Layout = props => {
+const Gnb = props => {
   const [userDialog, setUserDialog] = useState(false);
+  const [background, setBackground] = useState({ background: "#026aa7" });
+
+  useEffect(() => {
+    if (props.location.pathname.substring(1).split("/")[0] !== "main") {
+      setBackground({ background: "rgba(0,0,0,.15)" });
+    }
+  }, []);
 
   const onDialogHandler = e => {
     e.preventDefault();
@@ -28,7 +36,7 @@ const Layout = props => {
 
   return (
     <Fragment>
-      <div className="gnb_wrap">
+      <header className="gnb_wrap" style={background}>
         <div className="gnb_left">
           <div className="rectangle_btn common_btn">
             <MdHome />
@@ -60,10 +68,10 @@ const Layout = props => {
             )}
           </div>
         </div>
-      </div>
+      </header>
       {props.children}
     </Fragment>
   );
 };
 
-export default Layout;
+export default withRouter(Gnb);

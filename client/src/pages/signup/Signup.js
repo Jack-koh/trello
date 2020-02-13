@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
 import "./Signup.scss";
 import { requestRaw } from "shared/axios";
@@ -41,14 +41,14 @@ function Signup(props) {
   };
 
   return (
-    <Fragment>
-      <div className="logo_wrap">
+    <main>
+      <header className="logo_wrap">
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
           alt="logo"
         ></img>
-      </div>
-      <div className="form_wrap">
+      </header>
+      <section className="form_wrap">
         <h1>Sign in to Trello</h1>
         <form onSubmit={submitHandler}>
           <input
@@ -73,13 +73,13 @@ function Signup(props) {
             {loading ? <Spinner /> : "Continue"}
           </button>
         </form>
-        <div className="auth-utils">
-          <Link to="/Login" className="sign-up">
+        <div className="auth_utils">
+          <Link to="/Login" className="sign_up">
             Already have an account? Log In
           </Link>
         </div>
-      </div>
-    </Fragment>
+      </section>
+    </main>
   );
 }
 

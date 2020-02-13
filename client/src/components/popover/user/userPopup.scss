@@ -1,18 +1,18 @@
-.user-dialog {
+.user_dialog {
   position: absolute;
   top: 40px;
   right: 0;
   z-index: 10;
 
-  .user-dialog-content {
+  .user_dialog_content {
     background-color: #ffffff;
     border-radius: 3px;
     box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 
-    .user-dialog-inner {
+    .user_dialog_inner {
       width: 300px;
 
-      .user-dialog-title {
+      .user_dialog_title {
         margin: 0 12px 8px;
         color: #5e6c84;
         font-size: 14px;
@@ -37,7 +37,7 @@
             background-color: rgba(9, 30, 66, 0.04);
           }
 
-          &.line-break::after {
+          &.line_break::after {
             background-color: rgba(9, 30, 66, 0.13);
             content: " ";
             display: block;

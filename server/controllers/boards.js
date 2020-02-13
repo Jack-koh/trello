@@ -5,7 +5,6 @@ exports.create = async (req, res, next) => {
   console.log(req);
   const title = req.body.title;
   const background = req.body.background;
-  const teams = req.body.teams;
   const url = req.body.teams;
   const userNo = req.body.userNo;
 
@@ -14,24 +13,19 @@ exports.create = async (req, res, next) => {
       title: title,
       background: background,
       background: url,
-      teams: true,
       creator: userNo
     });
     const result = await boards.save();
 
     // user & board relation 저장
-    if (result.teams) {
-      const relation = new Relation({
-        userNo: userNo,
-        boardNo: result.boardNo,
-        title: title,
-        background: background
-      });
-      await relation.save();
-    }
-    res
-      .status(201)
-      .json({ message: "Board created!", boardNo: result.boardNo });
+    const relation = new Relation({
+      userNo: userNo,
+      boardNo: result.boardNo,
+      title: title,
+      background: background
+    });
+    const respData = await relation.save();
+    res.status(201).json({ list: respData });
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;

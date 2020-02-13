@@ -7,14 +7,16 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 form {
@@ -35,6 +37,14 @@ button {
   outline: none;
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  width: 100%;
+  height:100%;
+}
+
 /* 공통 background */
 .bg-green {
   background-color: rgb(75, 191, 107);
@@ -48,7 +58,7 @@ button {
 .bg-brown {
   background-color: rgb(176, 70, 50);
 }
-.bg-gray {
+.bg_gray {
   background-color: rgba(9, 30, 66, 0.04);
 }
 

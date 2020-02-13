@@ -37,10 +37,10 @@ function Dialog(props) {
   };
 
   return (
-    <div ref={wrapperRef} className="user-dialog">
-      <div className="user-dialog-content">
-        <div className="user-dialog-inner">
-          <div className="user-dialog-title">
+    <div ref={wrapperRef} className="user_dialog">
+      <div className="user_dialog_content">
+        <div className="user_dialog_inner">
+          <div className="user_dialog_title">
             {`${userEmail} (${userName})`}
           </div>
           <nav>
@@ -54,13 +54,13 @@ function Dialog(props) {
               <li>
                 <div>Cards</div>
               </li>
-              <li className="line-break">
+              <li className="line_break">
                 <div>Settings</div>
               </li>
               <li>
                 <div>Help</div>
               </li>
-              <li className="line-break">
+              <li className="line_break">
                 <div>Shortcuts</div>
               </li>
               <li onClick={logoutHandler}>

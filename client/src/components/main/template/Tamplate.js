@@ -5,9 +5,9 @@ import "./template.scss";
 function Template() {
   console.log("Template - check");
   return (
-    <div className="template-wrap">
-      <div className="template-inner-area">Template</div>
-    </div>
+    <section className="template_wrap">
+      <div className="template_inner_area">Template</div>
+    </section>
   );
 }
 

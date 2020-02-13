@@ -4,9 +4,9 @@ import "./Home.scss";
 function Home() {
   console.log("Home - check");
   return (
-    <div className="home-wrap">
-      <div className="home-inner-area">Home</div>
-    </div>
+    <section className="home_wrap">
+      <div className="home_inner_area">Home</div>
+    </section>
   );
 }
 

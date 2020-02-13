@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
-import * as actions from "store/actions";
+import { withRouter } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import axios from "axios";
 import "./Dialog_create_board.scss";
@@ -12,7 +11,6 @@ import Backdrop from "components/dialog/Backdrop";
 function DialogCreateBoard(props) {
   const [boardTitle, setBoardTitle] = useState("");
   const [bgName, setBgName] = useState("bg-forest");
-  const [teams, setTeams] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const createBoardHandler = async e => {
@@ -22,44 +20,26 @@ function DialogCreateBoard(props) {
     const param = {
       title: boardTitle,
       background: background,
-      teams: teams,
       userNo: userData.userNo
     };
     try {
       setLoading(true);
-      await axios.post("boards/create", param);
-      await axios.get("boards/get", { userNo: param.userNo });
+      const respData = await axios.post("boards/create", param);
       setLoading(false);
       props.closeDialog();
+      await localStorage.setItem("trello", JSON.stringify(respData.data.list));
+      props.history.push(`/board/${respData.data.list.title}`);
     } catch (err) {
       console.log("create-board-errer");
       setLoading(false);
     }
   };
 
-  const baseUrl = "https://images.unsplash.com/photo-";
-  const lastUrl = "&auto=format&fit=crop&w=1350&q=80";
   const backgroundList = [
-    {
-      type: "image",
-      name: "bg-forest",
-      url: `${baseUrl}1500762728065-466b7a170c96?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9${lastUrl}`
-    },
-    {
-      type: "image",
-      name: "bg-sandcave",
-      url: `${baseUrl}1444076784383-69ff7bae1b0a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9${lastUrl}`
-    },
-    {
-      type: "image",
-      name: "bg-bird",
-      url: `${baseUrl}1578279043004-e218349bfdfd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9${lastUrl}`
-    },
-    {
-      type: "image",
-      name: "bg-mountain",
-      url: `${baseUrl}1493246507139-91e8fad9978e?ixlib=rb-1.2.1${lastUrl}`
-    },
+    { type: "image", name: "bg-forest" },
+    { type: "image", name: "bg-sandcave" },
+    { type: "image", name: "bg-bird" },
+    { type: "image", name: "bg-mountain" },
     { type: "color", name: "bg-blue" },
     { type: "color", name: "bg-yellow" },
     { type: "color", name: "bg-green" },
@@ -71,7 +51,7 @@ function DialogCreateBoard(props) {
     return (
       <li
         key={i}
-        className={`choice-card ${item.name}`}
+        className={`choice_card ${item.name}`}
         onClick={() => setBgName(item.name)}
       />
     );
@@ -79,10 +59,10 @@ function DialogCreateBoard(props) {
 
   return (
     <Fragment>
-      <div className="create-board-dialog">
+      <div className="create_board_dialog">
         <form onSubmit={createBoardHandler}>
-          <div className="set-board">
-            <div className={`board-card ${bgName}`}>
+          <div className="set_board">
+            <div className={`board_card ${bgName}`}>
               <MdClose onClick={props.closeDialog} />
               <input
                 type="text"
@@ -91,10 +71,10 @@ function DialogCreateBoard(props) {
                 onChange={e => setBoardTitle(e.target.value)}
               />
             </div>
-            <ul className="card-background">{backgroundEl}</ul>
+            <ul className="card_background">{backgroundEl}</ul>
           </div>
 
-          <div className="bottom-utils">
+          <div className="bottom_utils">
             <button disabled={boardTitle.length === 0}>
               {loading ? <Spinner /> : "Create Board"}
             </button>
@@ -106,12 +86,4 @@ function DialogCreateBoard(props) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onGetBoardItem: userNo => {
-      dispatch(actions.getBoardItemStart(userNo));
-    }
-  };
-};
-
-export default connect(null, mapDispatchToProps)(DialogCreateBoard);
+export default withRouter(DialogCreateBoard);

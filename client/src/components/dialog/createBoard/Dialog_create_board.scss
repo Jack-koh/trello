@@ -1,4 +1,4 @@
-.create-board-dialog {
+.create_board_dialog {
   width: 404px;
   position: fixed;
   left: 50%;
@@ -6,11 +6,11 @@
   transform: translateX(-50%);
   z-index: 11;
 
-  .set-board {
+  .set_board {
     display: flex;
     justify-content: space-between;
 
-    .board-card {
+    .board_card {
       width: 296px;
       height: 96px;
       padding: 8px 10px;
@@ -51,13 +51,13 @@
       }
     }
 
-    .card-background {
+    .card_background {
       width: 100px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
 
-      .choice-card {
+      .choice_card {
         width: 28px;
         height: 28px;
         margin-bottom: 6px;
@@ -67,7 +67,7 @@
     }
   }
 
-  .bottom-utils {
+  .bottom_utils {
     margin-top: 8px;
 
     button {

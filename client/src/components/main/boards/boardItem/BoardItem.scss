@@ -1,8 +1,8 @@
-.board-item-section {
+.board_item_section {
   display: flex;
   flex-wrap: wrap;
 
-  .board-item {
+  .board_item {
     position: relative;
     width: 23%;
     margin: 0 2% 8px 0;
@@ -10,7 +10,7 @@
     border-radius: 3px;
     overflow: hidden;
 
-    .board-item-inner {
+    .board_item_inner {
       display: flex;
       height: 96px;
       padding: 8px;
@@ -23,7 +23,7 @@
         align-items: center;
       }
 
-      .item-title {
+      .item_title {
         color: #ffffff;
         font-weight: 700;
         font-size: 14px;
@@ -34,13 +34,13 @@
         word-break: break-all;
       }
 
-      .create-item-title {
+      .create_item_title {
         font-size: 14px;
         color: #506486;
       }
     }
 
-    .create-hover-action {
+    .create_hover_action {
       width: 100%;
       height: 100%;
       opacity: 0;
@@ -51,7 +51,7 @@
       background-color: rgba(159, 178, 194, 0.1);
     }
 
-    .board-hover-action {
+    .board_hover_action {
       width: 100%;
       height: 100%;
       opacity: 0;
@@ -71,10 +71,10 @@
     }
 
     &:hover {
-      .create-hover-action {
+      .create_hover_action {
         opacity: 1;
       }
-      .board-hover-action {
+      .board_hover_action {
         opacity: 1;
 
         svg {

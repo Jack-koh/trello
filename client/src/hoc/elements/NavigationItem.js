@@ -6,7 +6,7 @@ import "./NavigationItem.scss";
 const NavigationItem = props => {
   console.log("NavigationItem - check");
   return (
-    <li className="NavigationItem">
+    <li className="navigation_item">
       <NavLink to={props.link} exact={props.exact} activeClassName="active">
         {props.children}
       </NavLink>

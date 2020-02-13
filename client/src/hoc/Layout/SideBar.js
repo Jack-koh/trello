@@ -6,7 +6,7 @@ import "./SideBar.scss";
 
 const SideBar = props => {
   return (
-    <div className="side_bar_layout">
+    <main className="main_screen">
       <nav className="side_bar_wrap">
         <ul>
           <NavigationItem link="/main/boards" exact>
@@ -24,7 +24,7 @@ const SideBar = props => {
         </ul>
       </nav>
       {props.children}
-    </div>
+    </main>
   );
 };
 

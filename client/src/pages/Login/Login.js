@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import "./Login.scss";
@@ -39,14 +39,14 @@ function Login(props) {
   };
 
   return (
-    <Fragment>
-      <div className="logo_wrap">
+    <main>
+      <header className="logo_wrap">
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
           alt="logo"
         ></img>
-      </div>
-      <div className="form_wrap">
+      </header>
+      <section className="form_wrap">
         <h1>Log in to Trello</h1>
         <form onSubmit={submitHandler}>
           <input
@@ -67,17 +67,17 @@ function Login(props) {
             {loading ? <Spinner /> : "Log In"}
           </button>
         </form>
-        <div className="auth-utils">
-          <Link to="/find-password" className="find-pw">
+        <div className="auth_utils">
+          <Link to="/find-password" className="find_pw">
             Cant' log in?
           </Link>
           <i>·</i>
-          <Link to="/Signup" className="sign-up">
+          <Link to="/Signup" className="sign_up">
             Sign up for an account
           </Link>
         </div>
-      </div>
-    </Fragment>
+      </section>
+    </main>
   );
 }
 

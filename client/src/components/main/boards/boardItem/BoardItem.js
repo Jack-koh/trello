@@ -22,14 +22,9 @@ const BoardItem = props => {
     setDialog(!dialog);
   };
 
-  const onCloseDialogHandler = () => {
-    setDialog(false);
-    props.onGetBoardItem();
-  };
-
   const onEnterTrelloHandler = item => {
-    props.onSetTrello(item);
     props.history.push(`/board/${item.title}`);
+    localStorage.setItem("trello", JSON.stringify(item));
   };
 
   const onFavoriteHandler = (e, item) => {
@@ -41,13 +36,13 @@ const BoardItem = props => {
     return (
       <li
         key={i}
-        className={`board-item ${item.background.name}`}
+        className={`board_item ${item.background.name}`}
         onClick={() => onEnterTrelloHandler(item)}
       >
-        <div className="board-item-inner">
-          <span className="item-title">{item.title}</span>
+        <div className="board_item_inner">
+          <span className="item_title">{item.title}</span>
         </div>
-        <div className="board-hover-action">
+        <div className="board_hover_action">
           <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
         </div>
       </li>
@@ -55,21 +50,21 @@ const BoardItem = props => {
   });
 
   const createEl = (
-    <li className="board-item bg-gray" onClick={onCreateDialogHandler}>
-      <div className="board-item-inner create">
-        <span className="create-item-title">Create new board</span>
+    <li className="board_item bg_gray" onClick={onCreateDialogHandler}>
+      <div className="board_item_inner create">
+        <span className="create_item_title">Create new board</span>
       </div>
-      <div className="create-hover-action"></div>
+      <div className="create_hover_action"></div>
     </li>
   );
 
   return (
     <Fragment>
-      <ul className="board-item-section">
+      <ul className="board_item_section">
         {!!props.boardItems.length && itemEl}
         {createEl}
       </ul>
-      {dialog && <DialogCreateBoard closeDialog={onCloseDialogHandler} />}
+      {dialog && <DialogCreateBoard closeDialog={() => setDialog(false)} />}
     </Fragment>
   );
 };
@@ -88,9 +83,6 @@ const mapDispatchToProp = dispatch => {
   return {
     onGetBoardItem: userNo => {
       dispatch(actions.getBoardItemStart(userNo));
-    },
-    onSetTrello: item => {
-      dispatch(actions.setTrelloItem(item));
     }
   };
 };

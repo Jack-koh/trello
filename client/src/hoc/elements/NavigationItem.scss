@@ -1,4 +1,4 @@
-.NavigationItem a {
+.navigation_item a {
   height: 32px;
   display: flex;
   align-items: center;
@@ -23,7 +23,7 @@
   }
 }
 
-.NavigationItem a:hover {
+.navigation_item a:hover {
   background-color: #e7e9ed;
 
   svg {
@@ -31,8 +31,8 @@
   }
 }
 
-.NavigationItem a:active,
-.NavigationItem a.active {
+.navigation_item a:active,
+.navigation_item a.active {
   background-color: #e4f0f6;
 
   span {

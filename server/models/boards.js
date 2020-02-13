@@ -17,16 +17,12 @@ const Schema = mongoose.Schema(
       require: true
     },
     background: {},
-    teams: {
-      type: Boolean,
-      require: true
-    },
     creator: {
       type: Number,
       require: true
     }
   },
-  { timestamps: true }
+  { regDate: new Date().getTime() / 1000 }
 );
 
 Schema.plugin(autoIncrement.plugin, {
@@ -36,4 +32,4 @@ Schema.plugin(autoIncrement.plugin, {
   increment: 1
 });
 
-module.exports = mongoose.model("board", Schema);
+module.exports = mongoose.model("boards", Schema);

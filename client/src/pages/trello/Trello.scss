@@ -1,0 +1,74 @@
+@mixin trello_header_div {
+  color: #fff;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-right: 4px;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.32);
+  }
+}
+
+@mixin trello_trans_box {
+  line-height: 20px;
+  padding: 0 10px;
+  font-size: 14px;
+  background-color: hsla(0, 0%, 100%, 0.24);
+  border-radius: 3px;
+}
+
+.trello_screen {
+  padding-top: 40px;
+  flex: 1;
+
+  .trello_header {
+    position: relative;
+    height: auto;
+    padding: 8px 4px 4px 8px;
+    display: flex;
+    justify-content: space-between;
+
+    .trello_setting {
+      display: flex;
+
+      > div {
+        @include trello_header_div;
+      }
+
+      .trello_title {
+        padding: 0 12px;
+        line-height: 20px;
+        font-size: 20px;
+        font-weight: 700;
+        border-radius: 3px;
+      }
+
+      .trello_favorite {
+        width: 32px;
+        font-size: 18px;
+        background-color: hsla(0, 0%, 100%, 0.24);
+        border-radius: 3px;
+      }
+
+      .trello_trans_box {
+        @include trello_trans_box;
+      }
+    }
+
+    .trello_menu {
+      > div {
+        @include trello_header_div;
+      }
+
+      .trello_trans_box {
+        @include trello_trans_box;
+      }
+    }
+  }
+
+  .trello_content {
+  }
+}
