@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
-import "./userPopup.scss";
+import "./UserDialog.scss";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 

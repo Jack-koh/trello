@@ -1,0 +1,92 @@
+@mixin list-wrapper {
+  width: 272px;
+  margin: 0 4px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
+.add_list {
+  @include list-wrapper;
+  min-height: 36px;
+  padding: 4px;
+  background-color: hsla(0, 0%, 100%, 0.24);
+  cursor: pointer;
+  border-radius: 3px;
+  min-height: 32px;
+  transition: background 85ms ease-in, opacity 40ms ease-in,
+    border-color 85ms ease-in;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.32);
+  }
+
+  &.on {
+    background-color: #ebecf0;
+    .place_holder {
+      display: none;
+    }
+  }
+  > form {
+    .place_holder {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      padding: 6px 8px;
+      transition: color 85ms ease-in;
+
+      .add_icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+      }
+
+      > span {
+        font-size: 14px;
+      }
+    }
+
+    > .list_name_input {
+      width: 100%;
+      line-height: 20px;
+      display: block;
+      padding: 8px 12px;
+      color: #172b4d;
+      -webkit-appearance: none;
+      background: #fff;
+      box-shadow: inset 0 0 0 2px #0079bf;
+      transition: margin 85ms ease-in, background 85ms ease-in;
+    }
+
+    .list_add_control {
+      display: flex;
+      align-items: center;
+      height: 32px;
+      margin-top: 4px;
+      transition: margin 85ms ease-in, height 85ms ease-in;
+      overflow: hidden;
+
+      .submit {
+        width: 74px;
+        height: 32px;
+        background-color: #5aac44;
+        color: #fff;
+
+        &:hover {
+          background-color: #61bd4f;
+        }
+      }
+
+      svg {
+        margin-left: 6px;
+        color: #42526e;
+        width: 24px;
+        height: 24px;
+        transition: color 0.2s;
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+}

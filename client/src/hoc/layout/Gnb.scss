@@ -3,11 +3,11 @@
   height: 40px;
   padding: 4px;
   position: fixed;
+  z-index: 10;
   display: flex;
   top: 0;
   left: 0;
   justify-content: space-between;
-
 
   // background: rgba(0,0,0,.15);
   .logo {

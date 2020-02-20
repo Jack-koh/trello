@@ -20,6 +20,7 @@ code {
 }
 
 form {
+  display: block;
   line-height: 0;
 }
 
@@ -32,7 +33,7 @@ input {
 button {
   position: relative;
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   cursor: pointer;
   outline: none;
 }

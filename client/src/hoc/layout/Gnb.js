@@ -9,7 +9,7 @@ import {
   MdAddAlert,
   MdAccountCircle
 } from "react-icons/md";
-import UserDialog from "components/popover/user/userPopup";
+import UserDialog from "components/popover/user/UserDialog";
 import "./Gnb.scss";
 
 const Gnb = props => {
