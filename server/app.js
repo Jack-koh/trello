@@ -2,13 +2,15 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const authRoute = require("./routes/authRoute");
-const boardsRoute = require("./routes/boardsRoute");
+const boardsRoute = require("./routes/boardRoute");
+const trelloRoute = require("./routes/trelloRoute");
 
 const app = express();
 app.use(express.json());
 
 app.use("/api/auth", authRoute);
 app.use("/api/boards", boardsRoute);
+app.use("/api/trello", trelloRoute);
 
 app.use((err, req, res, next) => {
   const status = err.statusCode || 500;

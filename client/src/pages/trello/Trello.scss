@@ -51,6 +51,11 @@
         font-size: 18px;
         background-color: hsla(0, 0%, 100%, 0.24);
         border-radius: 3px;
+        transition: color 0.1s;
+
+        &.true {
+          color: #f2d600 !important;
+        }
       }
 
       .trello_trans_box {

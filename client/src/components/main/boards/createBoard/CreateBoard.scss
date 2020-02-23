@@ -1,0 +1,49 @@
+.create_board {
+  position: relative;
+  width: 23%;
+  margin: 0 2% 8px 0;
+  cursor: pointer;
+  border-radius: 3px;
+  overflow: hidden;
+
+  .create_board_inner {
+    display: flex;
+    height: 96px;
+    padding: 8px;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+
+    .create_item_title {
+      font-size: 14px;
+      color: #506486;
+    }
+  }
+
+  .create_hover_action {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: all 0.2s;
+    background-color: rgba(159, 178, 194, 0.1);
+  }
+
+  &:hover {
+    .create_hover_action {
+      opacity: 1;
+    }
+    .board_hover_action {
+      opacity: 1;
+
+      svg {
+        bottom: 6px;
+        right: 6px;
+      }
+    }
+  }
+}

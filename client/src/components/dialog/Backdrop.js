@@ -1,5 +1,6 @@
 import React from "react";
 function Backdrop() {
+  console.log("Backdrop - check");
   const style = {
     position: "fixed",
     left: 0,

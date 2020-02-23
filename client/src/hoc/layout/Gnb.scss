@@ -1,3 +1,19 @@
+@mixin common_button {
+  margin-right: 5px;
+  color: #ffffff;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background-color: hsla(0, 0%, 100%, 0.3);
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.2);
+  }
+}
+
 .gnb_wrap {
   width: 100%;
   height: 40px;
@@ -34,6 +50,7 @@
     display: flex;
 
     .board_btn {
+      @include common_button;
       width: 84px;
       font-weight: 700;
       font-size: 14px;
@@ -81,24 +98,8 @@
     display: flex;
   }
 
-  // 공통 css
-  .common_btn {
-    margin-right: 5px;
-    color: #ffffff;
-    padding: 4px;
-    display: flex;
-    align-items: center;
-    border-radius: 5px;
-    background-color: hsla(0, 0%, 100%, 0.3);
-    transition: background-color 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      background-color: hsla(0, 0%, 100%, 0.2);
-    }
-  }
-
   .rectangle_btn {
+    @include common_button;
     width: 32px;
     height: 32px;
     justify-content: center;

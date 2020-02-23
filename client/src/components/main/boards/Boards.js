@@ -1,7 +1,8 @@
 import React from "react";
 import { MdPersonOutline } from "react-icons/md";
 import "./Boards.scss";
-import BoardItem from "./boardItem/BoardItem";
+import BoardItems from "./boardItem/BoardItems";
+import CreateBoard from "./createBoard/CreateBoard";
 
 function Board() {
   console.log("Board - created");
@@ -14,7 +15,10 @@ function Board() {
             <MdPersonOutline />
             <span>Personal Boards</span>
           </div>
-          <BoardItem />
+          <ul className="board_item_section">
+            <BoardItems />
+            <CreateBoard />
+          </ul>
         </div>
       </div>
     </section>

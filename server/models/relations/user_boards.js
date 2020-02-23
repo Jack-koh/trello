@@ -6,6 +6,14 @@ const Schema = mongoose.Schema(
       type: Number,
       required: true
     },
+    userName: {
+      type: String,
+      required: true
+    },
+    userEmail: {
+      type: String,
+      required: true
+    },
     boardNo: {
       type: Number,
       required: true
@@ -14,9 +22,22 @@ const Schema = mongoose.Schema(
       type: String,
       required: true
     },
-    background: {}
+    background: {
+      type: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
+      }
+    },
+    favorite: {
+      type: Boolean,
+      required: true
+    }
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user_board", Schema);
+module.exports = mongoose.model("user_boards", Schema);

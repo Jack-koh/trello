@@ -23,6 +23,11 @@
           font-weight: 700;
         }
       }
+
+      .board_item_section {
+        display: flex;
+        flex-wrap: wrap;
+      }
     }
   }
 }

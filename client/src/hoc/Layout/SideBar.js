@@ -5,6 +5,7 @@ import NavigationItem from "hoc/elements/NavigationItem";
 import "./SideBar.scss";
 
 const SideBar = props => {
+  console.log("SideBar - check");
   return (
     <main className="main_screen">
       <nav className="side_bar_wrap">

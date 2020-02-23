@@ -1,5 +1,7 @@
 import React from "react";
 import { Route, Switch, withRouter, Redirect } from "react-router-dom";
+import AuthCheck from "hoc/authCheck";
+
 import Login from "pages/login/Login";
 import Signup from "pages/signup/Signup";
 import Main from "pages/main/Main";
@@ -11,10 +13,10 @@ function Router(props) {
     props.history.push("/Login");
   }
 
-  const GnbRoute = ({ component, path }) => {
+  const GnbRoute = ({ ...rest }) => {
     return (
       <Gnb>
-        <Route component={component} path={path} />
+        <Route {...rest} />
       </Gnb>
     );
   };
@@ -23,8 +25,10 @@ function Router(props) {
     <Switch>
       <Route path="/Login" component={Login}></Route>
       <Route path="/Signup" component={Signup}></Route>
-      <GnbRoute path="/main" component={Main}></GnbRoute>
-      <GnbRoute path="/board" component={Trello}></GnbRoute>
+      <AuthCheck>
+        <GnbRoute path="/main" component={Main}></GnbRoute>
+        <GnbRoute path="/board" component={Trello}></GnbRoute>
+      </AuthCheck>
       <Redirect to="/Login" />
     </Switch>
   );

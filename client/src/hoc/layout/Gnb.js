@@ -9,39 +9,40 @@ import {
   MdAddAlert,
   MdAccountCircle
 } from "react-icons/md";
-import UserDialog from "components/popover/user/UserDialog";
+import UserPopover, {
+  setVisibility
+} from "components/popover/user/UserPopover";
 import "./Gnb.scss";
 
 const Gnb = props => {
-  const [userDialog, setUserDialog] = useState(false);
+  console.log("Gnb - check");
+  const [userPopover, setUserPopover] = useState(false);
   const [background, setBackground] = useState({ background: "#026aa7" });
 
   useEffect(() => {
     if (props.location.pathname.substring(1).split("/")[0] !== "main") {
       setBackground({ background: "rgba(0,0,0,.15)" });
     }
-  }, []);
+  }, [props.location.pathname]);
 
   const onDialogHandler = e => {
     e.preventDefault();
-    setUserDialog(!userDialog);
+    setUserPopover(!userPopover);
   };
 
-  const clickOutsideHandler = e => {
-    e.stopPropagation();
-    if (userDialog) {
-      setUserDialog(!userDialog);
-    }
+  const toHomeHandler = () => {
+    if (props.location.pathname === "/main/boards") return;
+    props.history.push("/main/boards");
   };
 
   return (
     <Fragment>
       <header className="gnb_wrap" style={background}>
         <div className="gnb_left">
-          <div className="rectangle_btn common_btn">
+          <div className="rectangle_btn" onClick={toHomeHandler}>
             <MdHome />
           </div>
-          <div className="board_btn common_btn">
+          <div className="board_btn">
             <MdPoll />
             Boards
           </div>
@@ -52,19 +53,23 @@ const Gnb = props => {
         </div>
         <div className="logo"></div>
         <div className="gnb_right">
-          <div className="rectangle_btn common_btn">
+          <div className="rectangle_btn">
             <MdAdd />
           </div>
-          <div className="rectangle_btn common_btn">
+          <div className="rectangle_btn">
             <MdInfoOutline />
           </div>
-          <div className="rectangle_btn common_btn">
+          <div className="rectangle_btn">
             <MdAddAlert />
           </div>
           <div className="circle_btn">
             <MdAccountCircle onClick={onDialogHandler} />
-            {userDialog && (
-              <UserDialog clickOutsideHandler={clickOutsideHandler} />
+            {userPopover && (
+              <UserPopover
+                setVisibility={e =>
+                  setVisibility(e, userPopover, setUserPopover)
+                }
+              />
             )}
           </div>
         </div>

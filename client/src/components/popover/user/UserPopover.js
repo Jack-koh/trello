@@ -1,33 +1,34 @@
 import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
-import "./UserDialog.scss";
+import "./UserPopover.scss";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
+import { utilSetVisible } from "shared/utility";
+export const setVisibility = utilSetVisible;
 
-function Dialog(props) {
+function UserPopover(props) {
+  console.log("UserPopover - check");
+  const wrapperRef = useRef(null);
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
 
-  const wrapperRef = useRef(null);
-
   useEffect(() => {
     // 클릭 아웃사이드 기능 생성 및 제거1
-    const outsideClickHandler = e => {
+    const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return;
-      props.clickOutsideHandler(e);
+      props.setVisibility(e);
     };
 
-    document.addEventListener("click", outsideClickHandler, true);
+    document.addEventListener("click", clickOutsideHandler, true);
     const userData = JSON.parse(localStorage.getItem("user-data"));
-    const eamil = userData.email;
-    const name = userData.name;
+    const { eamil, name } = userData;
     if (eamil && name) {
       setUserEmail(eamil.split("@")[0]);
       setUserName(name);
     }
 
     return () => {
-      document.removeEventListener("click", outsideClickHandler, true);
+      document.removeEventListener("click", clickOutsideHandler, true);
     };
   }, [props]);
 
@@ -80,4 +81,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Dialog));
+export default connect(null, mapDispatchToProps)(withRouter(UserPopover));

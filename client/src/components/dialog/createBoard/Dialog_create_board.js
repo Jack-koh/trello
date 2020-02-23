@@ -1,30 +1,49 @@
-import React, { Fragment, useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { MdClose } from "react-icons/md";
 import axios from "axios";
 import "./Dialog_create_board.scss";
 
 import Spinner from "shared/spinner/Spinner";
-
 import Backdrop from "components/dialog/Backdrop";
+import { utilSetVisible } from "shared/utility";
+
+export const setVisibility = utilSetVisible;
 
 function DialogCreateBoard(props) {
+  console.log("DialogCreateBoard - check");
+  const wrapperRef = useRef(null);
   const [boardTitle, setBoardTitle] = useState("");
   const [bgName, setBgName] = useState("bg-forest");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const clickOutsideHandler = e => {
+      if (wrapperRef.current.contains(e.target)) return;
+      props.setVisibility(e);
+    };
+    document.addEventListener("click", clickOutsideHandler, true);
+
+    return () => {
+      document.removeEventListener("click", clickOutsideHandler, true);
+    };
+  }, [props]);
 
   const createBoardHandler = async e => {
     e.preventDefault();
     const background = backgroundList.find(el => el.name === bgName);
     const userData = JSON.parse(localStorage.getItem("user-data"));
-    const param = {
+    const payload = {
+      userNo: userData.userNo,
+      userEmail: userData.email,
+      userName: userData.name,
       title: boardTitle,
-      background: background,
-      userNo: userData.userNo
+      background,
+      favorite: false
     };
     try {
       setLoading(true);
-      const respData = await axios.post("boards/create", param);
+      const respData = await axios.post("boards/create", payload);
       setLoading(false);
       props.closeDialog();
       await localStorage.setItem("trello", JSON.stringify(respData.data.list));
@@ -58,8 +77,8 @@ function DialogCreateBoard(props) {
   });
 
   return (
-    <Fragment>
-      <div className="create_board_dialog">
+    <React.Fragment>
+      <div className="create_board_dialog" ref={wrapperRef}>
         <form onSubmit={createBoardHandler}>
           <div className="set_board">
             <div className={`board_card ${bgName}`}>
@@ -82,7 +101,7 @@ function DialogCreateBoard(props) {
         </form>
       </div>
       <Backdrop />
-    </Fragment>
+    </React.Fragment>
   );
 }
 
