@@ -1,38 +1,30 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { connect } from "react-redux";
+import * as actions from "store/actions";
 import "./CreateList.scss";
 import { MdAdd, MdClose } from "react-icons/md";
 import { utilSetVisible } from "shared/utility";
-function AddList() {
+function AddList(props) {
   console.log("AddList - check");
   const wrapperRef = useRef(null);
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState("");
-  const [trelloData, setTrelloData] = useState(
-    JSON.parse(localStorage.getItem("trello"))
-  );
-  useEffect(() => {
-    const getTrello = async () => {
-      const respData = await axios.get("trello/get", {
-        params: { boardNo: trelloData.boardNo }
-      });
-      console.log(respData);
-    };
-    getTrello();
+  const [trelloData] = useState(JSON.parse(localStorage.getItem("trello")));
 
+  useEffect(() => {
     const setVisibility = e => {
       if (wrapperRef.current.contains(e.target)) return;
       utilSetVisible(e, showForm, setShowForm);
     };
     document.addEventListener("click", setVisibility);
     return () => document.removeEventListener("click", setVisibility);
-  }, [showForm]);
+  }, [showForm, trelloData.boardNo]);
 
   const submitHandler = async e => {
     e.preventDefault();
     const { boardNo, userNo, userEmail, userName } = trelloData;
     const payload = { boardNo, userNo, userEmail, userName, title };
-    const respData = await axios.post("trello/create", payload);
+    props.onCreateTrelloList(payload);
   };
 
   const closeHandler = e => {
@@ -71,4 +63,10 @@ function AddList() {
   );
 }
 
-export default AddList;
+const mapDispatchToProps = dispatch => {
+  return {
+    onCreateTrelloList: payload => dispatch(actions.createTrelloListStart(payload))
+  };
+};
+
+export default connect(null, mapDispatchToProps)(React.memo(AddList));

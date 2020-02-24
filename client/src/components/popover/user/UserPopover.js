@@ -30,7 +30,7 @@ function UserPopover(props) {
     return () => {
       document.removeEventListener("click", clickOutsideHandler, true);
     };
-  }, [props]);
+  }, []);
 
   const logoutHandler = () => {
     props.onLogout();

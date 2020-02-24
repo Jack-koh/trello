@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "store/actions";
-import propTypes from "prop-types";
 import "./BoardItems.scss";
 import { MdStarBorder } from "react-icons/md";
 
@@ -23,27 +22,29 @@ const BoardItems = props => {
     e.stopPropagation();
   };
 
-  const itemEl = props.boardItems.map((item, i) => {
-    return (
-      <li
-        key={i}
-        className={`board_item ${item.background.name}`}
-        onClick={() => onEnterTrelloHandler(item)}
-      >
-        <div className="board_item_inner">
-          <span className="item_title">{item.title}</span>
-        </div>
-        <div className="board_hover_action">
-          <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
-        </div>
-      </li>
-    );
-  });
-  return <React.Fragment>{!!props.boardItems.length && itemEl}</React.Fragment>;
-};
-
-BoardItems.propTypes = {
-  boardItems: propTypes.array
+  const itemEl =
+    props.boardItems &&
+    props.boardItems.map((item, i) => {
+      return (
+        <li
+          key={i}
+          className={`board_item ${item.background.name}`}
+          onClick={() => onEnterTrelloHandler(item)}
+        >
+          <div className="board_item_inner">
+            <span className="item_title">{item.title}</span>
+          </div>
+          <div className="board_hover_action">
+            <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
+          </div>
+        </li>
+      );
+    });
+  return (
+    <React.Fragment>
+      {props.boardItems && !!props.boardItems.length && itemEl}
+    </React.Fragment>
+  );
 };
 
 const mapStateToProps = state => {
@@ -55,7 +56,7 @@ const mapStateToProps = state => {
 const mapDispatchToProp = dispatch => {
   return {
     onGetBoardItem: () => {
-      dispatch(actions.getBoardItemStart());
+      dispatch(actions.getBoardsStart());
     }
   };
 };

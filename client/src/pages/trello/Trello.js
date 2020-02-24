@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { connect } from "react-redux";
 import { MdStarBorder, MdStar } from "react-icons/md";
 import * as actions from "store/actions";
@@ -7,12 +8,18 @@ import "./Trello.scss";
 import CreateList from "components/trello/CreateList";
 
 function Board(props) {
+  console.log("Board - check");
   const [favorite, setFavorite] = useState(false);
   const [trello] = useState(JSON.parse(localStorage.getItem("trello")));
 
   useEffect(() => {
-    console.log(trello);
-  }, [props, trello]);
+    const getTrello = async () => {
+      const respData = await axios.get("trello/get", {
+        params: { boardNo: trello.boardNo }
+      });
+    };
+    getTrello();
+  }, []);
 
   const setFavoriteHandler = () => {
     setFavorite(!favorite);
@@ -49,9 +56,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProp = dispatch => {
-  return {
-    onInitTrelloItem: () => dispatch(actions.initTrelloItem())
-  };
+  return {};
 };
 
 export default connect(mapStateToProps, mapDispatchToProp)(Board);

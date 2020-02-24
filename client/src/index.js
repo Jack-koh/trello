@@ -14,7 +14,7 @@ import authReducer from "store/reducers/auth";
 import boardsReducer from "store/reducers/boards";
 import trelloReducer from "store/reducers/trello";
 
-import { auth, boards } from "store/sagas/index";
+import { auth, boards, trello } from "store/sagas/index";
 
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers =
@@ -31,8 +31,15 @@ const sagaMiddleware = createSagaMiddleware();
 const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware));
 const store = createStore(reducer, enhencer);
 
+// const sagaGenerater = list => {
+//   for (let saga of list) {
+//     sagaMiddleware.run(saga);
+//   }
+// };
+// sagaGenerater([auth, boards, trello]);
 sagaMiddleware.run(auth);
 sagaMiddleware.run(boards);
+sagaMiddleware.run(trello);
 
 const app = (
   <Provider store={store}>

@@ -9,7 +9,7 @@ function AuthCheck(props) {
     props.autoAuthCheck();
     const token = localStorage.getItem("token");
     if (!token) props.history.push("/Login");
-  }, [props]);
+  }, []);
   return <React.Fragment>{props.children}</React.Fragment>;
 }
 

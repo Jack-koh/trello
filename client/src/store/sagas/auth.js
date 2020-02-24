@@ -1,10 +1,10 @@
 import { put } from "redux-saga/effects";
 import * as actions from "../actions/index";
-import { requestRaw } from "shared/axios";
+import axios from "axios";
 
 export function* login(action) {
   try {
-    const respData = yield requestRaw("auth/login", "POST", action.user);
+    const respData = yield axios.post("auth/login", action.user);
     yield localStorage.setItem("token", respData.data.token);
     const userJSON = JSON.stringify({
       userId: respData.data.userId,

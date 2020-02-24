@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter, Link } from "react-router-dom";
 import "./Signup.scss";
-import { requestRaw } from "shared/axios";
-
+import axios from "axios";
 import Spinner from "shared/spinner/Spinner";
 
 function Signup(props) {
@@ -32,7 +31,7 @@ function Signup(props) {
     };
     try {
       setloading(true);
-      await requestRaw("auth/signup", "PUT", params);
+      await axios.put("auth/signup", params);
       setloading(false);
       props.history.push("/Login");
     } catch (err) {

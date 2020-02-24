@@ -1,51 +1,28 @@
+import * as type from "../actions/types";
 import { updateObject } from "shared/utility";
 
 const initialState = {
-  userNo: null,
-  boardNo: null,
-  title: null,
-  background: {
-    type: "",
-    name: ""
-  },
-  regDate: null,
-  updateDate: null
+  loading: false,
+  list: []
 };
 
-const setTrello = (state, data) => {
-  return updateObject(state, {
-    userNo: data.userNo,
-    boardNo: data.boardNo,
-    title: data.title,
-    background: {
-      type: data.background.type,
-      name: data.background.name
-    },
-    regDate: data.createdAt,
-    updateDate: data.updatedAt
-  });
+const loadingStart = state => {
+  return updateObject(state, { loading: true });
 };
 
-const initTrello = (state, data) => {
+const createTrelloListSuccess = (state, item) => {
   return updateObject(state, {
-    userNo: null,
-    boardNo: null,
-    title: null,
-    background: {
-      type: "",
-      name: ""
-    },
-    regDate: null,
-    updateDate: null
+    list: [...state.list, item],
+    loading: false
   });
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case "SET_TRELLO_ITEM":
-      return setTrello(state, action.data);
-    case "INIT_TRELLO_ITEM":
-      return initTrello();
+    case type.CREATE_TRELLO_LIST_START:
+      return loadingStart(state);
+    case type.CREATE_TRELLO_LIST_SUCCESS:
+      return createTrelloListSuccess(state, action.item);
     default:
       return state;
   }

@@ -1,11 +1,24 @@
 import { put } from "redux-saga/effects";
 import * as actions from "../actions/index";
-import { requestRaw } from "shared/axios";
+import axios from "axios";
 
-export function* getBoardItem(action) {
+export function* getBoardItems(action) {
   try {
-    const param = { userNo: action.userNo };
-    const respData = yield requestRaw("boards/get", "GET", param);
-    yield put(actions.getBoardItemsSuccess(respData.data.list));
-  } catch (err) {}
+    const respData = yield axios.get("boards/get", {
+      params: { userNo: action.userNo }
+    });
+    yield put(actions.getBoardsSuccess(respData.data.list));
+  } catch (err) {
+    console.log("getBoardItems err ----");
+  }
+}
+
+export function* createBoardItem(action) {
+  try {
+    const respData = yield axios.post("boards/create", action.payload);
+    yield localStorage.setItem("trello", JSON.stringify(respData.data.list));
+    yield put(actions.createBoardSuccess(respData.data.list));
+  } catch (err) {
+    console.log("createBoardItem err ----");
+  }
 }

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import * as actions from "store/actions";
 import { MdClose } from "react-icons/md";
-import axios from "axios";
 import "./Dialog_create_board.scss";
 
 import Spinner from "shared/spinner/Spinner";
@@ -11,23 +12,33 @@ import { utilSetVisible } from "shared/utility";
 export const setVisibility = utilSetVisible;
 
 function DialogCreateBoard(props) {
+  const { setVisibility, closeDialog } = props;
   console.log("DialogCreateBoard - check");
   const wrapperRef = useRef(null);
+  const isFirstRun = useRef(true);
   const [boardTitle, setBoardTitle] = useState("");
   const [bgName, setBgName] = useState("bg-forest");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return;
-      props.setVisibility(e);
+      setVisibility(e);
     };
     document.addEventListener("click", clickOutsideHandler, true);
-
     return () => {
       document.removeEventListener("click", clickOutsideHandler, true);
     };
-  }, [props]);
+  }, []);
+
+  useEffect(() => {
+    if (isFirstRun.current) {
+      isFirstRun.current = false;
+    } else {
+      closeDialog();
+      const trello = JSON.parse(localStorage.getItem("trello"));
+      props.history.push(`/board/${trello.title}`);
+    }
+  }, [props.list]);
 
   const createBoardHandler = async e => {
     e.preventDefault();
@@ -41,17 +52,7 @@ function DialogCreateBoard(props) {
       background,
       favorite: false
     };
-    try {
-      setLoading(true);
-      const respData = await axios.post("boards/create", payload);
-      setLoading(false);
-      props.closeDialog();
-      await localStorage.setItem("trello", JSON.stringify(respData.data.list));
-      props.history.push(`/board/${respData.data.list.title}`);
-    } catch (err) {
-      console.log("create-board-errer");
-      setLoading(false);
-    }
+    props.onCreateBoard(payload);
   };
 
   const backgroundList = [
@@ -95,7 +96,7 @@ function DialogCreateBoard(props) {
 
           <div className="bottom_utils">
             <button disabled={boardTitle.length === 0}>
-              {loading ? <Spinner /> : "Create Board"}
+              {props.loading ? <Spinner /> : "Create Board"}
             </button>
           </div>
         </form>
@@ -105,4 +106,20 @@ function DialogCreateBoard(props) {
   );
 }
 
-export default withRouter(DialogCreateBoard);
+const mapStateToProps = state => {
+  return {
+    list: state.boards.list,
+    loading: state.boards.createLoading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onCreateBoard: payload => dispatch(actions.createBoardStart(payload))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(DialogCreateBoard));

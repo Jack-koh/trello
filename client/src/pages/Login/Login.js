@@ -53,14 +53,11 @@ function Login(props) {
             type="text"
             placeholder="Enter email"
             autoFocus
-            value={email}
             onChange={event => setEmail(event.target.value)}
           />
           <input
             type="password"
-            className="scurity_text"
             placeholder="Enter password"
-            value={password}
             onChange={event => setPassword(event.target.value)}
           />
           <button className="login_button">

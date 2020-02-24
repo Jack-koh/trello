@@ -1,3 +1,8 @@
 export { loginStart, loginSuccess, loginFail, authCheck, logout } from "./auth";
-export { getBoardItemStart, getBoardItemsSuccess } from "./boards";
-export { setTrelloItem, initTrelloItem } from "./trello";
+export {
+  getBoardsStart,
+  getBoardsSuccess,
+  createBoardStart,
+  createBoardSuccess
+} from "./boards";
+export { createTrelloListStart, createTrelloListSuccess } from "./trello";
