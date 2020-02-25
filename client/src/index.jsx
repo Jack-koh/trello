@@ -1,24 +1,24 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
 
-import { BrowserRouter } from "react-router-dom";
-import { createStore, applyMiddleware, compose, combineReducers } from "redux";
-import thunk from "redux-thunk";
-import { Provider } from "react-redux";
-import createSagaMiddleware from "redux-saga";
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
+import { auth, boards, trello } from 'store/sagas/index';
+import authReducer from 'store/reducers/auth';
+import boardsReducer from 'store/reducers/boards';
+import trelloReducer from 'store/reducers/trello';
 
-import authReducer from "store/reducers/auth";
-import boardsReducer from "store/reducers/boards";
-import trelloReducer from "store/reducers/trello";
+import { BrowserRouter } from 'react-router-dom';
+import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 
-import { auth, boards, trello } from "store/sagas/index";
+import App from './App';
+import * as serviceWorker from './serviceWorker';
 
 const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
 const composeEnhancers =
-  devtools && process.env.NODE_ENV === "development"
+  devtools && process.env.NODE_ENV === 'development'
     ? devtools
     : null || compose;
 
@@ -49,7 +49,7 @@ const app = (
   </Provider>
 );
 
-ReactDOM.render(app, document.getElementById("root"));
+ReactDOM.render(app, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

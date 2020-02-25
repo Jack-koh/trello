@@ -5,14 +5,13 @@
   white-space: nowrap;
 }
 
-.add_list {
+.add_list_wrapper {
   @include list-wrapper;
   min-height: 36px;
   padding: 4px;
   background-color: hsla(0, 0%, 100%, 0.24);
   cursor: pointer;
   border-radius: 3px;
-  min-height: 32px;
   transition: background 85ms ease-in, opacity 40ms ease-in,
     border-color 85ms ease-in;
 
@@ -20,7 +19,12 @@
     background-color: hsla(0, 0%, 100%, 0.32);
   }
 
+  &.off {
+    height: 40px;
+  }
+
   &.on {
+    height: 80px;
     background-color: #ebecf0;
     .place_holder {
       display: none;

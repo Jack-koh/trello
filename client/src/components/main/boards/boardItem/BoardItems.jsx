@@ -1,30 +1,30 @@
-import React, { useEffect } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import * as actions from "store/actions";
-import "./BoardItems.scss";
-import { MdStarBorder } from "react-icons/md";
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actions from 'store/actions';
+import './BoardItems.scss';
+import { MdStarBorder } from 'react-icons/md';
 
 const BoardItems = props => {
-  console.log("BoardItems - check");
+  const { boardItems } = props;
+  console.log('BoardItems - check');
 
   useEffect(() => {
     props.onGetBoardItem();
-    //eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onEnterTrelloHandler = item => {
     props.history.push(`/board/${item.title}`);
-    localStorage.setItem("trello", JSON.stringify(item));
+    localStorage.setItem('trello', JSON.stringify(item));
   };
 
-  const onFavoriteHandler = (e, item) => {
+  const onFavoriteHandler = e => {
     e.stopPropagation();
   };
 
   const itemEl =
-    props.boardItems &&
-    props.boardItems.map((item, i) => {
+    boardItems &&
+    boardItems.map((item, i) => {
       return (
         <li
           key={i}
@@ -40,11 +40,7 @@ const BoardItems = props => {
         </li>
       );
     });
-  return (
-    <React.Fragment>
-      {props.boardItems && !!props.boardItems.length && itemEl}
-    </React.Fragment>
-  );
+  return <>{boardItems && !!boardItems.length && itemEl}</>;
 };
 
 const mapStateToProps = state => {

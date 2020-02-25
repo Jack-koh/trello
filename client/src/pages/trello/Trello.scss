@@ -22,7 +22,9 @@
 
 .trello_screen {
   padding-top: 40px;
+  display: flex;
   flex: 1;
+  flex-direction: column;
 
   .trello_header {
     position: relative;
@@ -75,6 +77,8 @@
   }
 
   .trello_content {
-    //
+    display: flex;
+    flex: 1;
+    margin-bottom: 8px;
   }
 }

@@ -1,9 +1,16 @@
-import * as type from "./types";
+import * as type from './types';
 
-export const getTrelloLists = boardNo => {
+export const getTrelloListsStart = params => {
   return {
     type: type.GET_TRELLO_LIST_START,
-    boardNo
+    params
+  };
+};
+
+export const getTrellosListsSuccess = payload => {
+  return {
+    type: type.GET_TRELLO_LIST_SUCCESS,
+    list: payload
   };
 };
 

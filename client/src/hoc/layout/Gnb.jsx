@@ -1,5 +1,5 @@
-import React, { Fragment, useState, useEffect } from "react";
-import { withRouter } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   MdHome,
   MdPoll,
@@ -8,22 +8,23 @@ import {
   MdInfoOutline,
   MdAddAlert,
   MdAccountCircle
-} from "react-icons/md";
+} from 'react-icons/md';
 import UserPopover, {
-  setVisibility
-} from "components/popover/user/UserPopover";
-import "./Gnb.scss";
+  utilSetVisibility
+} from 'components/popover/user/UserPopover';
+import './Gnb.scss';
 
 const Gnb = props => {
-  console.log("Gnb - check");
+  console.log('Gnb - check');
+  const { children, location, history } = props;
   const [userPopover, setUserPopover] = useState(false);
-  const [background, setBackground] = useState({ background: "#026aa7" });
+  const [background, setBackground] = useState({ background: '#026aa7' });
 
   useEffect(() => {
-    if (props.location.pathname.substring(1).split("/")[0] !== "main") {
-      setBackground({ background: "rgba(0,0,0,.15)" });
+    if (location.pathname.substring(1).split('/')[0] !== 'main') {
+      setBackground({ background: 'rgba(0,0,0,.15)' });
     }
-  }, [props.location.pathname]);
+  }, [location.pathname]);
 
   const onDialogHandler = e => {
     e.preventDefault();
@@ -31,12 +32,12 @@ const Gnb = props => {
   };
 
   const toHomeHandler = () => {
-    if (props.location.pathname === "/main/boards") return;
-    props.history.push("/main/boards");
+    if (location.pathname === '/main/boards') return;
+    history.push('/main/boards');
   };
 
   return (
-    <Fragment>
+    <>
       <header className="gnb_wrap" style={background}>
         <div className="gnb_left">
           <div className="rectangle_btn" onClick={toHomeHandler}>
@@ -51,7 +52,7 @@ const Gnb = props => {
             <MdSearch />
           </div>
         </div>
-        <div className="logo"></div>
+        <div className="logo" />
         <div className="gnb_right">
           <div className="rectangle_btn">
             <MdAdd />
@@ -67,15 +68,15 @@ const Gnb = props => {
             {userPopover && (
               <UserPopover
                 setVisibility={e =>
-                  setVisibility(e, userPopover, setUserPopover)
+                  utilSetVisibility(e, userPopover, setUserPopover)
                 }
               />
             )}
           </div>
         </div>
       </header>
-      {props.children}
-    </Fragment>
+      {children}
+    </>
   );
 };
 

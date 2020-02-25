@@ -1,5 +1,5 @@
-import * as type from "../actions/types";
-import { updateObject } from "shared/utility";
+import { updateObject } from 'shared/utility';
+import * as type from '../actions/types';
 
 const initialState = {
   loading: false,
@@ -8,6 +8,13 @@ const initialState = {
 
 const loadingStart = state => {
   return updateObject(state, { loading: true });
+};
+
+const getTrelloListsSuccess = (state, list) => {
+  return updateObject(state, {
+    list,
+    loading: false
+  });
 };
 
 const createTrelloListSuccess = (state, item) => {
@@ -19,6 +26,10 @@ const createTrelloListSuccess = (state, item) => {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case type.GET_TRELLO_LIST_START:
+      return loadingStart(state);
+    case type.GET_TRELLO_LIST_SUCCESS:
+      return getTrelloListsSuccess(state, action.list);
     case type.CREATE_TRELLO_LIST_START:
       return loadingStart(state);
     case type.CREATE_TRELLO_LIST_SUCCESS:

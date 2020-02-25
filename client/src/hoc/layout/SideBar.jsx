@@ -1,11 +1,12 @@
-import React from "react";
-import { MdDashboard, MdPoll, MdTimeline } from "react-icons/md";
+import React from 'react';
+import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md';
 
-import NavigationItem from "hoc/elements/NavigationItem";
-import "./SideBar.scss";
+import NavigationItem from 'hoc/elements/NavigationItem';
+import './SideBar.scss';
 
 const SideBar = props => {
-  console.log("SideBar - check");
+  console.log('SideBar - check');
+  const { children } = props;
   return (
     <main className="main_screen">
       <nav className="side_bar_wrap">
@@ -24,7 +25,7 @@ const SideBar = props => {
           </NavigationItem>
         </ul>
       </nav>
-      {props.children}
+      {children}
     </main>
   );
 };

@@ -1,23 +1,24 @@
-import React, { useState, useEffect, useRef } from "react";
-import { connect } from "react-redux";
-import * as actions from "store/actions";
-import "./CreateList.scss";
-import { MdAdd, MdClose } from "react-icons/md";
-import { utilSetVisible } from "shared/utility";
+import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+import * as actions from 'store/actions';
+import './CreateList.scss';
+import { MdAdd, MdClose } from 'react-icons/md';
+import { utilSetVisible } from 'shared/utility';
+
 function AddList(props) {
-  console.log("AddList - check");
+  console.log('AddList - check');
   const wrapperRef = useRef(null);
   const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState("");
-  const [trelloData] = useState(JSON.parse(localStorage.getItem("trello")));
+  const [title, setTitle] = useState('');
+  const [trelloData] = useState(JSON.parse(localStorage.getItem('trello')));
 
   useEffect(() => {
     const setVisibility = e => {
       if (wrapperRef.current.contains(e.target)) return;
       utilSetVisible(e, showForm, setShowForm);
     };
-    document.addEventListener("click", setVisibility);
-    return () => document.removeEventListener("click", setVisibility);
+    document.addEventListener('click', setVisibility);
+    return () => document.removeEventListener('click', setVisibility);
   }, [showForm, trelloData.boardNo]);
 
   const submitHandler = async e => {
@@ -35,7 +36,7 @@ function AddList(props) {
   return (
     <article
       ref={wrapperRef}
-      className={`add_list ${showForm ? "on" : "off"}`}
+      className={`add_list_wrapper ${showForm ? 'on' : 'off'}`}
       onClick={() => setShowForm(true)}
     >
       <form onSubmit={e => submitHandler(e)}>
@@ -45,7 +46,7 @@ function AddList(props) {
             <span>Add another list</span>
           </div>
         ) : (
-          <React.Fragment>
+          <>
             <input
               type="text"
               placeholder="Enter list title..."
@@ -53,10 +54,12 @@ function AddList(props) {
               onChange={e => setTitle(e.target.value)}
             />
             <div className="list_add_control">
-              <button className="submit">Add List</button>
+              <button type="button" className="submit">
+                Add List
+              </button>
               <MdClose onClick={e => closeHandler(e)} />
             </div>
-          </React.Fragment>
+          </>
         )}
       </form>
     </article>
@@ -65,7 +68,8 @@ function AddList(props) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateTrelloList: payload => dispatch(actions.createTrelloListStart(payload))
+    onCreateTrelloList: payload =>
+      dispatch(actions.createTrelloListStart(payload))
   };
 };
 

@@ -1,5 +1,5 @@
-import * as type from "store/actions/types";
-import { updateObject } from "shared/utility";
+import * as type from 'store/actions/types';
+import { updateObject } from 'shared/utility';
 
 const initialState = {
   createLoading: false,
@@ -7,8 +7,8 @@ const initialState = {
   list: []
 };
 
-const loadingStart = (state, type) => {
-  return updateObject(state, { [type]: true });
+const loadingStart = (state, loading) => {
+  return updateObject(state, { [loading]: true });
 };
 
 const getBoardsSuccess = (state, list) => {
@@ -29,13 +29,13 @@ const setInitBoards = state => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case type.GET_BOARDS_START:
-      return loadingStart(state, "getLoading");
+      return loadingStart(state, 'getLoading');
     case type.GET_BOARDS_SUCCESS:
       return getBoardsSuccess(state, action.items);
     case type.GET_BOARDS_FAIL:
       return setInitBoards(state);
     case type.CREATE_BOARD_START:
-      return loadingStart(state, "createLoading");
+      return loadingStart(state, 'createLoading');
     case type.CREATE_BOARD_SUCCESS:
       return createBoardSuccess(state, action.item);
     default:
