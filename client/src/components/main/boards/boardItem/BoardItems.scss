@@ -8,7 +8,7 @@
 
   .board_item_inner {
     display: flex;
-    height: 96px;
+    height: 80px;
     padding: 8px;
     position: relative;
     flex-direction: column;
@@ -45,7 +45,8 @@
     }
   }
 
-  &:hover {
+  &:hover,
+  & > a:focus {
     .board_hover_action {
       opacity: 1;
 

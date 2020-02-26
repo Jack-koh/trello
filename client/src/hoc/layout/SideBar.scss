@@ -10,6 +10,53 @@
     ul {
       margin-top: 40px;
       width: 240px;
+
+      .navigation_item {
+        a {
+          width: calc(100% - 16px);
+          height: 20px;
+          display: flex;
+          align-items: center;
+          margin-bottom: 4px;
+          padding: 6px 8px;
+          font-size: 14px;
+          font-weight: 700;
+          text-decoration: none;
+          border-radius: 3px;
+          cursor: pointer;
+          transition: all 0.1s;
+
+          svg {
+            color: #42526e;
+          }
+
+          span {
+            text-indent: 4px;
+            color: #172b4d;
+          }
+        }
+
+        a:active,
+        a.active {
+          background-color: #e4f0f6;
+
+          span {
+            color: #0079bf;
+          }
+
+          svg {
+            color: #0079bf;
+          }
+        }
+
+        a:hover {
+          background-color: #e7e9ed;
+
+          svg {
+            color: #3b4962;
+          }
+        }
+      }
     }
   }
 }

@@ -16,7 +16,7 @@ function Board(props) {
 
   useEffect(() => {
     onGetTelloList({ boardNo: trello.boardNo });
-  }, []);
+  }, [onGetTelloList, trello.boardNo]);
 
   useEffect(() => {
     setTrelloLists(trelloList);

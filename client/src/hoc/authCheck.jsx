@@ -5,12 +5,12 @@ import * as actions from 'store/actions';
 
 function AuthCheck(props) {
   console.log('AuthCheck - check');
-  const { children } = props;
+  const { children, autoAuthCheck, history } = props;
   useEffect(() => {
-    props.autoAuthCheck();
+    autoAuthCheck();
     const token = localStorage.getItem('token');
-    if (!token) props.history.push('/Login');
-  }, []);
+    if (!token) history.push('/Login');
+  }, [autoAuthCheck, history]);
   return <>{children}</>;
 }
 

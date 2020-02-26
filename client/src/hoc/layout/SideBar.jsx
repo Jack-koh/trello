@@ -1,7 +1,7 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md';
 
-import NavigationItem from 'hoc/elements/NavigationItem';
 import './SideBar.scss';
 
 const SideBar = props => {
@@ -11,18 +11,24 @@ const SideBar = props => {
     <main className="main_screen">
       <nav className="side_bar_wrap">
         <ul>
-          <NavigationItem link="/main/boards" exact>
-            <MdPoll />
-            <span>Boards</span>
-          </NavigationItem>
-          <NavigationItem link="/main/template" exact>
-            <MdDashboard />
-            <span>Template</span>
-          </NavigationItem>
-          <NavigationItem link="/main/home" exact>
-            <MdTimeline />
-            <span>Home</span>
-          </NavigationItem>
+          <li className="navigation_item">
+            <NavLink to="/main/boards" exact activeClassName="active">
+              <MdPoll />
+              <span>Boards</span>
+            </NavLink>
+          </li>
+          <li className="navigation_item">
+            <NavLink to="/main/template" exact activeClassName="active">
+              <MdDashboard />
+              <span>Template</span>
+            </NavLink>
+          </li>
+          <li className="navigation_item">
+            <NavLink to="/main/Home" exact activeClassName="active">
+              <MdTimeline />
+              <span>Home</span>
+            </NavLink>
+          </li>
         </ul>
       </nav>
       {children}

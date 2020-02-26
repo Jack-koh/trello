@@ -37,7 +37,7 @@ function Signup(props) {
   };
 
   return (
-    <main>
+    <main className="signup_page">
       <header className="logo_wrap">
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
@@ -64,7 +64,7 @@ function Signup(props) {
             value={name}
             onChange={event => setName(event.target.value)}
           />
-          <button type="button" className="signup-button">
+          <button type="submit" className="signup-button">
             {loading ? <Spinner /> : 'Continue'}
           </button>
         </form>

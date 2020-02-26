@@ -21,17 +21,19 @@ const Gnb = props => {
   const [background, setBackground] = useState({ background: '#026aa7' });
 
   useEffect(() => {
-    if (location.pathname.substring(1).split('/')[0] !== 'main') {
-      setBackground({ background: 'rgba(0,0,0,.15)' });
-    }
-  }, [location.pathname]);
+    const main = location.pathname.substring(1).split('/')[0];
+    main !== 'main'
+      ? setBackground({ background: 'rgba(0,0,0,.15)' })
+      : setBackground({ background: '#026aa7' });
+  }, [location]);
 
   const onDialogHandler = e => {
     e.preventDefault();
     setUserPopover(!userPopover);
   };
 
-  const toHomeHandler = () => {
+  const toHomeHandler = e => {
+    e.preventDefault();
     if (location.pathname === '/main/boards') return;
     history.push('/main/boards');
   };
@@ -40,13 +42,13 @@ const Gnb = props => {
     <>
       <header className="gnb_wrap" style={background}>
         <div className="gnb_left">
-          <div className="rectangle_btn" onClick={toHomeHandler}>
+          <a href="#" className="rectangle_btn" onClick={toHomeHandler}>
             <MdHome />
-          </div>
-          <div className="board_btn">
+          </a>
+          <a href="#" className="board_btn">
             <MdPoll />
             Boards
-          </div>
+          </a>
           <div className="search_input_wrap">
             <input className="search_input" />
             <MdSearch />
@@ -54,17 +56,17 @@ const Gnb = props => {
         </div>
         <div className="logo" />
         <div className="gnb_right">
-          <div className="rectangle_btn">
+          <a href="#" className="rectangle_btn">
             <MdAdd />
-          </div>
-          <div className="rectangle_btn">
+          </a>
+          <a href="#" className="rectangle_btn">
             <MdInfoOutline />
-          </div>
-          <div className="rectangle_btn">
+          </a>
+          <a href="#" className="rectangle_btn">
             <MdAddAlert />
-          </div>
-          <div className="circle_btn">
-            <MdAccountCircle onClick={onDialogHandler} />
+          </a>
+          <a href="#" className="circle_btn" onClick={onDialogHandler}>
+            <MdAccountCircle />
             {userPopover && (
               <UserPopover
                 setVisibility={e =>
@@ -72,7 +74,7 @@ const Gnb = props => {
                 }
               />
             )}
-          </div>
+          </a>
         </div>
       </header>
       {children}

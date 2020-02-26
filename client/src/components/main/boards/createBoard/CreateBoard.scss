@@ -8,7 +8,7 @@
 
   .create_board_inner {
     display: flex;
-    height: 96px;
+    height: 80px;
     padding: 8px;
     position: relative;
     flex-direction: column;
@@ -33,7 +33,8 @@
     background-color: rgba(159, 178, 194, 0.1);
   }
 
-  &:hover {
+  &:hover,
+  & > a:focus {
     .create_hover_action {
       opacity: 1;
     }

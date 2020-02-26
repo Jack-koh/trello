@@ -9,6 +9,7 @@ export const utilSetVisibility = utilSetVisible;
 
 function UserPopover(props) {
   console.log('UserPopover - check');
+  const { setVisibility } = props;
   const wrapperRef = useRef(null);
   const [userEmail, setUserEmail] = useState('');
   const [userName, setUserName] = useState('');
@@ -17,7 +18,7 @@ function UserPopover(props) {
     // 클릭 아웃사이드 기능 생성 및 제거1
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return;
-      props.setVisibility(e);
+      setVisibility(e);
     };
 
     document.addEventListener('click', clickOutsideHandler, true);
@@ -31,7 +32,7 @@ function UserPopover(props) {
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true);
     };
-  }, []);
+  }, [setVisibility]);
 
   const logoutHandler = () => {
     props.onLogout();

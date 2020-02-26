@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from 'store/actions';
 import { MdClose } from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa';
 import './Dialog_create_board.scss';
 
 import Spinner from 'shared/spinner/Spinner';
@@ -52,6 +53,10 @@ function DialogCreateBoard(props) {
     { type: 'color', name: 'bg-brown' }
   ];
 
+  const setBgHandler = item => {
+    setBgName(item.name);
+  };
+
   const createBoardHandler = async e => {
     e.preventDefault();
     const background = backgroundList.find(el => el.name === bgName);
@@ -67,12 +72,21 @@ function DialogCreateBoard(props) {
     props.onCreateBoard(payload);
   };
 
-  const setBackgroundHandler = targetClass => {
-    if (targetClass !== 'card_background') setBgName(targetClass);
+  const setBackgroundHandler = (e, item) => {
+    e.preventDefault();
+    setBgHandler(item);
   };
 
   const backgroundEl = backgroundList.map((item, i) => {
-    return <li key={i} className={`${item.name} choice_card`} />;
+    return (
+      <li key={i} className="choice_card">
+        <a href="#" onClick={e => setBackgroundHandler(e, item)}>
+          <div className={item.name}>
+            {item.name === bgName ? <FaCheck /> : null}
+          </div>
+        </a>
+      </li>
+    );
   });
 
   return (
@@ -89,12 +103,7 @@ function DialogCreateBoard(props) {
                 onChange={e => setBoardTitle(e.target.value)}
               />
             </div>
-            <ul
-              className="card_background"
-              onClick={e => setBackgroundHandler(e.target.classList[0])}
-            >
-              {backgroundEl}
-            </ul>
+            <ul className="card_background">{backgroundEl}</ul>
           </div>
 
           <div className="bottom_utils">

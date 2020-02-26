@@ -29,14 +29,14 @@ function Login(props) {
     setloading(userData.loading);
   }, [userData]);
 
-  const submitHandler = async event => {
-    event.preventDefault();
+  const submitHandler = async e => {
+    e.preventDefault();
     const params = { email, password, name };
     props.onLogin(params);
   };
 
   return (
-    <main>
+    <main className="login_page">
       <header className="logo_wrap">
         <img
           src="https://d2k1ftgv7pobq7.cloudfront.net/meta/c/p/res/images/trello-header-logos/76ceb1faa939ede03abacb6efacdde16/trello-logo-blue.svg"
@@ -56,13 +56,13 @@ function Login(props) {
             placeholder="Enter password"
             onChange={event => setPassword(event.target.value)}
           />
-          <button type="button" className="login_button">
+          <button type="submit" className="login_button">
             {loading ? <Spinner /> : 'Log In'}
           </button>
         </form>
         <div className="auth_utils">
           <Link to="/find-password" className="find_pw">
-            Cant' log in?
+            Can't log in?
           </Link>
           <i>·</i>
           <Link to="/Signup" className="sign_up">

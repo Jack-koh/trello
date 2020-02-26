@@ -6,15 +6,16 @@ import './BoardItems.scss';
 import { MdStarBorder } from 'react-icons/md';
 
 const BoardItems = props => {
-  const { boardItems } = props;
+  const { boardItems, onGetBoardItem, history } = props;
   console.log('BoardItems - check');
 
   useEffect(() => {
-    props.onGetBoardItem();
-  }, []);
+    onGetBoardItem();
+  }, [onGetBoardItem]);
 
-  const onEnterTrelloHandler = item => {
-    props.history.push(`/board/${item.title}`);
+  const onEnterTrelloHandler = (e, item) => {
+    e.preventDefault();
+    history.push(`/board/${item.title}`);
     localStorage.setItem('trello', JSON.stringify(item));
   };
 
@@ -26,17 +27,15 @@ const BoardItems = props => {
     boardItems &&
     boardItems.map((item, i) => {
       return (
-        <li
-          key={i}
-          className={`board_item ${item.background.name}`}
-          onClick={() => onEnterTrelloHandler(item)}
-        >
-          <div className="board_item_inner">
-            <span className="item_title">{item.title}</span>
-          </div>
-          <div className="board_hover_action">
-            <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
-          </div>
+        <li key={i} className={`board_item ${item.background.name}`}>
+          <a href="#" onClick={e => onEnterTrelloHandler(e, item)}>
+            <div className="board_item_inner">
+              <span className="item_title">{item.title}</span>
+            </div>
+            <div className="board_hover_action">
+              <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
+            </div>
+          </a>
         </li>
       );
     });

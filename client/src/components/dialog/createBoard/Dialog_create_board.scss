@@ -11,14 +11,14 @@
     justify-content: space-between;
 
     .board_card {
-      width: 296px;
-      height: 96px;
+      width: 276px;
+      height: 80px;
       padding: 8px 10px;
       border-radius: 3px;
       position: relative;
 
       svg {
-        color: #ffffff;
+        color: #fff;
         position: absolute;
         right: 5px;
         top: 5px;
@@ -30,7 +30,7 @@
         height: 28px;
         font-weight: 700;
         background-color: transparent;
-        color: #ffffff;
+        color: #fff;
         text-indent: 10px;
 
         &:hover {
@@ -62,7 +62,33 @@
         height: 28px;
         margin-bottom: 6px;
         border-radius: 3px;
+        overflow: hidden;
+        background-color: #000;
         cursor: pointer;
+
+        a {
+          width: inherit;
+          height: inherit;
+
+          div {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              width: 10px;
+              height: 10px;
+              color: #fff;
+            }
+          }
+
+          &:hover,
+          &:focus {
+            opacity: 0.8;
+          }
+        }
       }
     }
   }

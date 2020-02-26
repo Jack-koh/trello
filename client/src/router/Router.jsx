@@ -14,21 +14,15 @@ function Router(props) {
     history.push('/Login');
   }
 
-  const GnbRoute = ({ ...rest }) => {
-    return (
-      <Gnb>
-        <Route path={rest.path} component={rest.component} />
-      </Gnb>
-    );
-  };
-
   return (
     <Switch>
       <Route path="/Login" component={Login} />
       <Route path="/Signup" component={Signup} />
       <AuthCheck>
-        <GnbRoute path="/main" component={Main} />
-        <GnbRoute path="/board" component={Trello} />
+        <Gnb>
+          <Route path="/main" component={Main} />
+          <Route path="/board" component={Trello} />
+        </Gnb>
       </AuthCheck>
       <Redirect to="/Login" />
     </Switch>

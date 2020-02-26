@@ -1,85 +1,87 @@
-.logo_wrap {
-  text-align: center;
-
-  img {
-    width: 140px;
-    height: 43px;
-    margin: 40px 0;
-  }
-}
-
-.form_wrap {
-  width: 400px;
-  padding: 25px 40px;
-  margin: 0 auto;
-  height: 420px;
-  background-color: #ffffff;
-  border-radius: 3px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
-
-  h1 {
+.login_page {
+  .logo_wrap {
     text-align: center;
-    color: #5e6c84;
-    font-size: 16px;
-    letter-spacing: -0.01em;
-    line-height: 28px;
-    margin-top: 10px;
-    margin-bottom: 25px;
-  }
 
-  input {
-    width: 100%;
-    height: 44px;
-    padding: 7px;
-    border: 2px solid #dfe1e6;
-    margin: 0 0 1.2em;
-    transition: border 0.3s;
-    background-color: #fafbfc;
-
-    &:focus {
-      border: 2px solid #4c9aff;
+    img {
+      width: 140px;
+      height: 43px;
+      margin: 40px 0;
     }
   }
 
-  .login_button {
-    width: 100%;
-    height: 36px;
-    text-align: center;
-    color: #ffffff;
-    background-color: #5aac44;
-    transition: background-color 0.1s;
+  .form_wrap {
+    width: 330px;
+    height: 370px;
+    padding: 25px 40px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    border-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0 0 10px;
 
-    &:disabled {
-      background-color: #cccccc;
+    h1 {
+      text-align: center;
+      color: #5e6c84;
+      font-size: 16px;
+      letter-spacing: -0.01em;
+      line-height: 28px;
+      margin-top: 10px;
+      margin-bottom: 25px;
     }
 
-    &:hover {
-      background-color: #7cc868;
-    }
-  }
+    input {
+      width: calc(100% - 18px);
+      height: 26px;
+      padding: 7px;
+      border: 2px solid #dfe1e6;
+      margin: 0 0 1.2em;
+      transition: border 0.3s;
+      background-color: #fafbfc;
 
-  .auth_utils {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-    .find_pw,
-    .sign_up {
-      font-size: 14px;
-      font-weight: 100;
-      color: #0052cc;
-      cursor: pointer;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
+      &:focus {
+        border: 2px solid #4c9aff;
       }
     }
 
-    i {
-      padding: 0 6px;
-      font-weight: 700;
-      color: #555;
-      line-height: 20px;
+    .login_button {
+      width: 100%;
+      height: 36px;
+      text-align: center;
+      color: #ffffff;
+      background-color: #5aac44;
+      transition: background-color 0.1s;
+
+      &:disabled {
+        background-color: #cccccc;
+      }
+
+      &:hover {
+        background-color: #7cc868;
+      }
+    }
+
+    .auth_utils {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      .find_pw,
+      .sign_up {
+        font-size: 14px;
+        font-weight: 100;
+        color: #0052cc;
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      i {
+        padding: 0 6px;
+        font-weight: 700;
+        color: #555;
+        line-height: 20px;
+      }
     }
   }
 }

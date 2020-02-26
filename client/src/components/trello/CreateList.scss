@@ -50,7 +50,7 @@
     }
 
     > .list_name_input {
-      width: 100%;
+      width: calc(100% - 24px);
       line-height: 20px;
       display: block;
       padding: 8px 12px;
