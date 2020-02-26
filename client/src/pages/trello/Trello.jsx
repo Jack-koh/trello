@@ -33,10 +33,7 @@ function Board(props) {
       <section className="trello_header">
         <div className="trello_setting">
           <div className="trello_title">{trello && trello.title}</div>
-          <div
-            className={`trello_favorite ${favorite}`}
-            onClick={setFavoriteHandler}
-          >
+          <div className={`trello_favorite ${favorite}`} onClick={setFavoriteHandler}>
             {favorite ? <MdStar /> : <MdStarBorder />}
           </div>
           <div className="trello_trans_box">Invite</div>

@@ -43,9 +43,7 @@ function UserPopover(props) {
     <div ref={wrapperRef} className="user_dialog">
       <div className="user_dialog_content">
         <div className="user_dialog_inner">
-          <div className="user_dialog_title">
-            {`${userEmail} (${userName})`}
-          </div>
+          <div className="user_dialog_title">{`${userEmail} (${userName})`}</div>
           <nav>
             <ul>
               <li>

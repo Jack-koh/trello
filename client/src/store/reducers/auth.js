@@ -1,31 +1,31 @@
-import * as type from "store/actions/types";
-import { updateObject } from "shared/utility";
+import * as type from 'store/actions/types';
+import { updateObject } from 'shared/utility';
 
 const initialState = {
   loading: false
 };
 
-const loginStart = (state, action) => {
+const loginStart = state => {
   return updateObject(state, {
     loading: true
   });
 };
 
-const loginSuccess = (state, action) => {
+const loginSuccess = state => {
   return updateObject(state, {
     loading: false
   });
 };
 
-const loginFail = (state, action) => {
+const loginFail = state => {
   return updateObject(state, {
     loading: false
   });
 };
 
-const logout = (state, action) => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("user-data");
+const logout = state => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('user-data');
   return updateObject(state, {
     loading: false
   });

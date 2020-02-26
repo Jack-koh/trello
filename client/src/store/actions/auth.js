@@ -1,4 +1,5 @@
-import * as type from "store/actions/types";
+import * as type from 'store/actions/types';
+
 export const loginStart = payload => {
   return {
     type: type.LOGIN_START,
@@ -9,7 +10,7 @@ export const loginStart = payload => {
   };
 };
 
-export const loginSuccess = payload => {
+export const loginSuccess = () => {
   return {
     type: type.LOGIN_SUCCESS
   };
@@ -27,8 +28,8 @@ export const logout = () => {
 
 export const authCheck = () => {
   return dispatch => {
-    const token = localStorage.getItem("token");
-    const user = JSON.parse(localStorage.getItem("user-data"));
+    const token = localStorage.getItem('token');
+    const user = JSON.parse(localStorage.getItem('user-data'));
     if (!token) {
       dispatch(logout());
     } else {

@@ -9,9 +9,7 @@ import {
   MdAddAlert,
   MdAccountCircle
 } from 'react-icons/md';
-import UserPopover, {
-  utilSetVisibility
-} from 'components/popover/user/UserPopover';
+import UserPopover, { utilSetVisibility } from 'components/popover/user/UserPopover';
 import './Gnb.scss';
 
 const Gnb = props => {
@@ -68,11 +66,7 @@ const Gnb = props => {
           <a href="#" className="circle_btn" onClick={onDialogHandler}>
             <MdAccountCircle />
             {userPopover && (
-              <UserPopover
-                setVisibility={e =>
-                  utilSetVisibility(e, userPopover, setUserPopover)
-                }
-              />
+              <UserPopover setVisibility={e => utilSetVisibility(e, userPopover, setUserPopover)} />
             )}
           </a>
         </div>

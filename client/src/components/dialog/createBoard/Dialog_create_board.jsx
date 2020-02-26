@@ -81,9 +81,7 @@ function DialogCreateBoard(props) {
     return (
       <li key={i} className="choice_card">
         <a href="#" onClick={e => setBackgroundHandler(e, item)}>
-          <div className={item.name}>
-            {item.name === bgName ? <FaCheck /> : null}
-          </div>
+          <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
         </a>
       </li>
     );
@@ -131,7 +129,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withRouter(DialogCreateBoard));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DialogCreateBoard));

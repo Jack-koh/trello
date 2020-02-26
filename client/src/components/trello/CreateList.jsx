@@ -68,8 +68,7 @@ function AddList(props) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateTrelloList: payload =>
-      dispatch(actions.createTrelloListStart(payload))
+    onCreateTrelloList: payload => dispatch(actions.createTrelloListStart(payload))
   };
 };
 

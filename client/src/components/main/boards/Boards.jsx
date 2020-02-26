@@ -1,11 +1,11 @@
-import React from "react";
-import { MdPersonOutline } from "react-icons/md";
-import "./Boards.scss";
-import BoardItems from "./boardItem/BoardItems";
-import CreateBoard from "./createBoard/CreateBoard";
+import React from 'react';
+import { MdPersonOutline } from 'react-icons/md';
+import './Boards.scss';
+import BoardItems from './boardItem/BoardItems';
+import CreateBoard from './createBoard/CreateBoard';
 
 function Board() {
-  console.log("Board - created");
+  console.log('Board - created');
 
   return (
     <section className="board_wrap">

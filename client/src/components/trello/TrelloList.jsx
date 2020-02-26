@@ -19,11 +19,7 @@ function TrelloList() {
     <article className="trello_list_wrapper">
       <div className="trello_list_content">
         <div className="trello_list_header">
-          <textarea
-            type="text"
-            value={text}
-            onChange={e => autosizeHandler(e)}
-          />
+          <textarea type="text" value={text} onChange={e => autosizeHandler(e)} />
           <div className="trello_list_more">
             <MdMoreHoriz />
           </div>

@@ -12,8 +12,7 @@
   background-color: hsla(0, 0%, 100%, 0.24);
   cursor: pointer;
   border-radius: 3px;
-  transition: background 85ms ease-in, opacity 40ms ease-in,
-    border-color 85ms ease-in;
+  transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
 
   &:hover {
     background-color: hsla(0, 0%, 100%, 0.32);
