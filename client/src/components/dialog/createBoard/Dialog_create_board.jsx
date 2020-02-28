@@ -1,45 +1,45 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import * as actions from 'store/actions';
-import { MdClose } from 'react-icons/md';
-import { FaCheck } from 'react-icons/fa';
-import './Dialog_create_board.scss';
+import React, { useState, useEffect, useRef } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import * as actions from 'store/actions'
+import { MdClose } from 'react-icons/md'
+import { FaCheck } from 'react-icons/fa'
+import './Dialog_create_board.scss'
 
-import Spinner from 'shared/spinner/Spinner';
-import Backdrop from 'components/dialog/Backdrop';
-import { utilSetVisible } from 'shared/utility';
+import Spinner from 'shared/spinner/Spinner'
+import Backdrop from 'components/dialog/Backdrop'
+import { utilSetVisible } from 'shared/utility'
 
-export const utilSetVisibility = utilSetVisible;
+export const utilSetVisibility = utilSetVisible
 
 function DialogCreateBoard(props) {
-  const { setVisibility, closeDialog, history, list, loading } = props;
-  console.log('DialogCreateBoard - check');
-  const wrapperRef = useRef(null);
-  const isFirstRun = useRef(true);
-  const [boardTitle, setBoardTitle] = useState('');
-  const [bgName, setBgName] = useState('bg-forest');
+  const { setVisibility, closeDialog, history, list, loading } = props
+  console.log('DialogCreateBoard - check')
+  const wrapperRef = useRef(null)
+  const isFirstRun = useRef(true)
+  const [boardTitle, setBoardTitle] = useState('')
+  const [bgName, setBgName] = useState('bg-forest')
 
   useEffect(() => {
     const clickOutsideHandler = e => {
-      if (wrapperRef.current.contains(e.target)) return;
-      setVisibility(e);
-    };
-    document.addEventListener('click', clickOutsideHandler, true);
+      if (wrapperRef.current.contains(e.target)) return
+      setVisibility(e)
+    }
+    document.addEventListener('click', clickOutsideHandler, true)
     return () => {
-      document.removeEventListener('click', clickOutsideHandler, true);
-    };
-  }, [setVisibility]);
+      document.removeEventListener('click', clickOutsideHandler, true)
+    }
+  }, [setVisibility])
 
   useEffect(() => {
     if (isFirstRun.current) {
-      isFirstRun.current = false;
+      isFirstRun.current = false
     } else {
-      closeDialog();
-      const trello = JSON.parse(localStorage.getItem('trello'));
-      history.push(`/board/${trello.title}`);
+      closeDialog()
+      const trello = JSON.parse(localStorage.getItem('trello'))
+      history.push(`/board/${trello.title}`)
     }
-  }, [closeDialog, history, list]);
+  }, [closeDialog, history, list])
 
   const backgroundList = [
     { type: 'image', name: 'bg-forest' },
@@ -51,16 +51,16 @@ function DialogCreateBoard(props) {
     { type: 'color', name: 'bg-green' },
     { type: 'color', name: 'bg-brown' },
     { type: 'color', name: 'bg-brown' }
-  ];
+  ]
 
   const setBgHandler = item => {
-    setBgName(item.name);
-  };
+    setBgName(item.name)
+  }
 
   const createBoardHandler = async e => {
-    e.preventDefault();
-    const background = backgroundList.find(el => el.name === bgName);
-    const userData = JSON.parse(localStorage.getItem('user-data'));
+    e.preventDefault()
+    const background = backgroundList.find(el => el.name === bgName)
+    const userData = JSON.parse(localStorage.getItem('user-data'))
     const payload = {
       userNo: userData.userNo,
       userEmail: userData.email,
@@ -68,24 +68,23 @@ function DialogCreateBoard(props) {
       title: boardTitle,
       background,
       favorite: false
-    };
-    props.onCreateBoard(payload);
-  };
+    }
+    props.onCreateBoard(payload)
+  }
 
-  const setBackgroundHandler = (e, item) => {
-    e.preventDefault();
-    setBgHandler(item);
-  };
+  const setBackgroundHandler = item => {
+    setBgHandler(item)
+  }
 
   const backgroundEl = backgroundList.map((item, i) => {
     return (
       <li key={i} className="choice_card">
-        <a href="#" onClick={e => setBackgroundHandler(e, item)}>
+        <a href="#" onClick={setBackgroundHandler.bind(this, item)}>
           <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
         </a>
       </li>
-    );
-  });
+    )
+  })
 
   return (
     <>
@@ -113,20 +112,20 @@ function DialogCreateBoard(props) {
       </div>
       <Backdrop />
     </>
-  );
+  )
 }
 
 const mapStateToProps = state => {
   return {
     list: state.boards.list,
     loading: state.boards.createLoading
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     onCreateBoard: payload => dispatch(actions.createBoardStart(payload))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DialogCreateBoard));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DialogCreateBoard))

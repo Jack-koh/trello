@@ -1,40 +1,40 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter, Link } from 'react-router-dom';
-import './Signup.scss';
-import axios from 'axios';
-import Spinner from 'shared/spinner/Spinner';
+import React, { useState, useEffect } from 'react'
+import { withRouter, Link } from 'react-router-dom'
+import './Signup.scss'
+import axios from 'axios'
+import Spinner from 'shared/spinner/Spinner'
 
 function Signup(props) {
-  console.log('Login - check');
-  const { userData, history, location } = props;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [loading, setloading] = useState(false);
+  console.log('Login - check')
+  const { userData, history, location } = props
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [loading, setloading] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) history.push('/main');
-  }, [userData, history]);
+    const token = localStorage.getItem('token')
+    if (token) history.push('/main')
+  }, [userData, history])
 
   useEffect(() => {
-    setEmail('');
-    setPassword('');
-    setName('');
-  }, [location]);
+    setEmail('')
+    setPassword('')
+    setName('')
+  }, [location])
 
   const submitHandler = async event => {
-    event.preventDefault();
-    const params = { email, password, name };
+    event.preventDefault()
+    const params = { email, password, name }
     try {
-      setloading(true);
-      await axios.put('auth/signup', params);
-      setloading(false);
-      history.push('/Login');
+      setloading(true)
+      await axios.put('auth/signup', params)
+      setloading(false)
+      history.push('/Login')
     } catch (err) {
-      setloading(false);
+      setloading(false)
     }
-  };
+  }
 
   return (
     <main className="signup_page">
@@ -75,7 +75,7 @@ function Signup(props) {
         </div>
       </section>
     </main>
-  );
+  )
 }
 
-export default withRouter(Signup);
+export default withRouter(Signup)

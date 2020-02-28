@@ -1,12 +1,12 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md';
+import React from 'react'
+import { NavLink } from 'react-router-dom'
+import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md'
 
-import './SideBar.scss';
+import './SideBar.scss'
 
 const SideBar = props => {
-  console.log('SideBar - check');
-  const { children } = props;
+  console.log('SideBar - check')
+  const { children } = props
   return (
     <main className="main_screen">
       <nav className="side_bar_wrap">
@@ -33,7 +33,7 @@ const SideBar = props => {
       </nav>
       {children}
     </main>
-  );
-};
+  )
+}
 
-export default SideBar;
+export default SideBar

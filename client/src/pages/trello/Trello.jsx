@@ -1,32 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
-import { MdStarBorder, MdStar } from 'react-icons/md';
-import * as actions from 'store/actions';
-import './Trello.scss';
+import React, { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
+import { MdStarBorder, MdStar } from 'react-icons/md'
+import * as actions from 'store/actions'
+import './Trello.scss'
 
-import TrelloList from 'components/trello/TrelloList';
-import CreateList from 'components/trello/CreateList';
+import TrelloList from 'components/trello/TrelloList'
+import CreateList from 'components/trello/CreateList'
 
 function Board(props) {
-  console.log('Board - check');
-  const { onGetTelloList, trelloList } = props;
-  const [favorite, setFavorite] = useState(false);
-  const [trello] = useState(JSON.parse(localStorage.getItem('trello')));
-  const [trelloLists, setTrelloLists] = useState(false);
+  console.log('Board - check')
+  const { onGetTelloList, trelloList } = props
+  const [favorite, setFavorite] = useState(false)
+  const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
+  const [trelloLists, setTrelloLists] = useState(false)
 
   useEffect(() => {
-    onGetTelloList({ boardNo: trello.boardNo });
-  }, [onGetTelloList, trello.boardNo]);
+    onGetTelloList({ boardNo: trello.boardNo })
+  }, [onGetTelloList, trello.boardNo])
 
   useEffect(() => {
-    setTrelloLists(trelloList);
-  }, [trelloList]);
+    setTrelloLists(trelloList)
+  }, [trelloList])
 
   const setFavoriteHandler = () => {
-    setFavorite(!favorite);
-  };
+    setFavorite(!favorite)
+  }
 
-  console.log(trelloLists);
+  console.log(trelloLists)
 
   return (
     <main className={`trello_screen ${trello && trello.background.name}`}>
@@ -47,19 +47,19 @@ function Board(props) {
         <CreateList />
       </section>
     </main>
-  );
+  )
 }
 
 const mapStateToProps = state => {
   return {
     trelloList: state.trello.list
-  };
-};
+  }
+}
 
 const mapDispatchToProp = dispatch => {
   return {
     onGetTelloList: params => dispatch(actions.getTrelloListsStart(params))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProp)(Board);
+export default connect(mapStateToProps, mapDispatchToProp)(Board)

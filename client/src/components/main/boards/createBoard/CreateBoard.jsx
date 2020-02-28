@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import DialogCreateBoard, {
   utilSetVisibility
-} from 'components/dialog/createBoard/Dialog_create_board';
-import './CreateBoard.scss';
+} from 'components/dialog/createBoard/Dialog_create_board'
+import './CreateBoard.scss'
 
 function CreateBoard() {
-  console.log('CreateBoard - check');
-  const [dialog, setDialog] = useState(false);
-  const onCreateDialogHandler = e => {
-    e.preventDefault();
-    setDialog(!dialog);
-  };
+  console.log('CreateBoard - check')
+  const [dialog, setDialog] = useState(false)
+  const onCreateDialogHandler = () => {
+    setDialog(!dialog)
+  }
   return (
     <>
       <li className="create_board bg_gray">
@@ -28,7 +27,7 @@ function CreateBoard() {
         />
       )}
     </>
-  );
+  )
 }
 
-export default CreateBoard;
+export default CreateBoard

@@ -1,34 +1,33 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import * as actions from 'store/actions';
-import './BoardItems.scss';
-import { MdStarBorder } from 'react-icons/md';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
+import * as actions from 'store/actions'
+import './BoardItems.scss'
+import { MdStarBorder } from 'react-icons/md'
 
 const BoardItems = props => {
-  const { boardItems, onGetBoardItem, history } = props;
-  console.log('BoardItems - check');
+  const { boardItems, onGetBoardItem, history } = props
+  console.log('BoardItems - check')
 
   useEffect(() => {
-    onGetBoardItem();
-  }, [onGetBoardItem]);
+    onGetBoardItem()
+  }, [onGetBoardItem])
 
-  const onEnterTrelloHandler = (e, item) => {
-    e.preventDefault();
-    history.push(`/board/${item.title}`);
-    localStorage.setItem('trello', JSON.stringify(item));
-  };
+  const onEnterTrelloHandler = item => {
+    history.push(`/board/${item.title}`)
+    localStorage.setItem('trello', JSON.stringify(item))
+  }
 
   const onFavoriteHandler = e => {
-    e.stopPropagation();
-  };
+    e.stopPropagation()
+  }
 
   const itemEl =
     boardItems &&
     boardItems.map((item, i) => {
       return (
         <li key={i} className={`board_item ${item.background.name}`}>
-          <a href="#" onClick={e => onEnterTrelloHandler(e, item)}>
+          <a href="#" onClick={onEnterTrelloHandler.bind(this, item)}>
             <div className="board_item_inner">
               <span className="item_title">{item.title}</span>
             </div>
@@ -37,23 +36,23 @@ const BoardItems = props => {
             </div>
           </a>
         </li>
-      );
-    });
-  return <>{boardItems && !!boardItems.length && itemEl}</>;
-};
+      )
+    })
+  return <>{boardItems && !!boardItems.length && itemEl}</>
+}
 
 const mapStateToProps = state => {
   return {
     boardItems: state.boards.list
-  };
-};
+  }
+}
 
 const mapDispatchToProp = dispatch => {
   return {
     onGetBoardItem: () => {
-      dispatch(actions.getBoardsStart());
+      dispatch(actions.getBoardsStart())
     }
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProp)(withRouter(BoardItems));
+export default connect(mapStateToProps, mapDispatchToProp)(withRouter(BoardItems))

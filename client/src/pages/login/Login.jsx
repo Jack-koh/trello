@@ -1,39 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import './Login.scss';
-import * as actions from 'store/actions';
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Link } from 'react-router-dom'
+import './Login.scss'
+import * as actions from 'store/actions'
 
-import Spinner from 'shared/spinner/Spinner';
+import Spinner from 'shared/spinner/Spinner'
 
 function Login(props) {
-  console.log('Login - check');
-  const { userData, history, location } = props;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [loading, setloading] = useState(false);
+  console.log('Login - check')
+  const { userData, history, location } = props
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [loading, setloading] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) history.push('/main/boards');
-  }, [userData, history]);
+    const token = localStorage.getItem('token')
+    if (token) history.push('/main/boards')
+  }, [userData, history])
 
   useEffect(() => {
-    setEmail('');
-    setPassword('');
-    setName('');
-  }, [location]);
+    setEmail('')
+    setPassword('')
+    setName('')
+  }, [location])
 
   useEffect(() => {
-    setloading(userData.loading);
-  }, [userData]);
+    setloading(userData.loading)
+  }, [userData])
 
   const submitHandler = async e => {
-    e.preventDefault();
-    const params = { email, password, name };
-    props.onLogin(params);
-  };
+    e.preventDefault()
+    const params = { email, password, name }
+    props.onLogin(params)
+  }
 
   return (
     <main className="login_page">
@@ -71,19 +71,19 @@ function Login(props) {
         </div>
       </section>
     </main>
-  );
+  )
 }
 
 const mapStateToProps = state => {
   return {
     userData: state.auth
-  };
-};
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: userData => dispatch(actions.loginStart(userData))
-  };
-};
+  }
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))

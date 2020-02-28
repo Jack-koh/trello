@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import {
   MdHome,
   MdPoll,
@@ -8,33 +8,33 @@ import {
   MdInfoOutline,
   MdAddAlert,
   MdAccountCircle
-} from 'react-icons/md';
-import UserPopover, { utilSetVisibility } from 'components/popover/user/UserPopover';
-import './Gnb.scss';
+} from 'react-icons/md'
+import UserPopover, { utilSetVisibility } from 'components/popover/user/UserPopover'
+import './Gnb.scss'
 
 const Gnb = props => {
-  console.log('Gnb - check');
-  const { children, location, history } = props;
-  const [userPopover, setUserPopover] = useState(false);
-  const [background, setBackground] = useState({ background: '#026aa7' });
+  console.log('Gnb - check')
+  const { children, location, history } = props
+  const [userPopover, setUserPopover] = useState(false)
+  const [background, setBackground] = useState({ background: '#026aa7' })
 
   useEffect(() => {
-    const main = location.pathname.substring(1).split('/')[0];
+    const main = location.pathname.substring(1).split('/')[0]
     main !== 'main'
       ? setBackground({ background: 'rgba(0,0,0,.15)' })
-      : setBackground({ background: '#026aa7' });
-  }, [location]);
+      : setBackground({ background: '#026aa7' })
+  }, [location])
 
   const onDialogHandler = e => {
-    e.preventDefault();
-    setUserPopover(!userPopover);
-  };
+    e.preventDefault()
+    setUserPopover(!userPopover)
+  }
 
   const toHomeHandler = e => {
-    e.preventDefault();
-    if (location.pathname === '/main/boards') return;
-    history.push('/main/boards');
-  };
+    e.preventDefault()
+    if (location.pathname === '/main/boards') return
+    history.push('/main/boards')
+  }
 
   return (
     <>
@@ -73,7 +73,7 @@ const Gnb = props => {
       </header>
       {children}
     </>
-  );
-};
+  )
+}
 
-export default withRouter(Gnb);
+export default withRouter(Gnb)
