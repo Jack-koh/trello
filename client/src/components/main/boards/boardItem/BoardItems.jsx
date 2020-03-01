@@ -27,14 +27,14 @@ const BoardItems = props => {
     boardItems.map((item, i) => {
       return (
         <li key={i} className={`board_item ${item.background.name}`}>
-          <a href="#" onClick={onEnterTrelloHandler.bind(this, item)}>
+          <div onClick={onEnterTrelloHandler.bind(this, item)}>
             <div className="board_item_inner">
               <span className="item_title">{item.title}</span>
             </div>
             <div className="board_hover_action">
               <MdStarBorder onClick={e => onFavoriteHandler(e, item)} />
             </div>
-          </a>
+          </div>
         </li>
       )
     })

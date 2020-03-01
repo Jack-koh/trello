@@ -1,37 +1,37 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
-import * as actions from 'store/actions';
-import './CreateList.scss';
-import { MdAdd, MdClose } from 'react-icons/md';
-import { utilSetVisible } from 'shared/utility';
+import React, { useState, useEffect, useRef } from 'react'
+import { connect } from 'react-redux'
+import * as actions from 'store/actions'
+import './CreateList.scss'
+import { MdAdd, MdClose } from 'react-icons/md'
+import { utilSetVisible } from 'shared/utility'
 
 function AddList(props) {
-  console.log('AddList - check');
-  const wrapperRef = useRef(null);
-  const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [trelloData] = useState(JSON.parse(localStorage.getItem('trello')));
+  console.log('AddList - check')
+  const wrapperRef = useRef(null)
+  const [showForm, setShowForm] = useState(false)
+  const [title, setTitle] = useState('')
+  const [trelloData] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
     const setVisibility = e => {
-      if (wrapperRef.current.contains(e.target)) return;
-      utilSetVisible(e, showForm, setShowForm);
-    };
-    document.addEventListener('click', setVisibility);
-    return () => document.removeEventListener('click', setVisibility);
-  }, [showForm, trelloData.boardNo]);
+      if (wrapperRef.current.contains(e.target)) return
+      utilSetVisible(e, showForm, setShowForm)
+    }
+    document.addEventListener('click', setVisibility)
+    return () => document.removeEventListener('click', setVisibility)
+  }, [showForm, trelloData.boardNo])
 
   const submitHandler = async e => {
-    e.preventDefault();
-    const { boardNo, userNo, userEmail, userName } = trelloData;
-    const payload = { boardNo, userNo, userEmail, userName, title };
-    props.onCreateTrelloList(payload);
-  };
+    e.preventDefault()
+    const { boardNo, userNo, userEmail, userName } = trelloData
+    const payload = { boardNo, userNo, userEmail, userName, title }
+    props.onCreateTrelloList(payload)
+  }
 
   const closeHandler = e => {
-    e.stopPropagation();
-    setShowForm(false);
-  };
+    e.stopPropagation()
+    setShowForm(false)
+  }
 
   return (
     <article
@@ -63,13 +63,13 @@ function AddList(props) {
         )}
       </form>
     </article>
-  );
+  )
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateTrelloList: payload => dispatch(actions.createTrelloListStart(payload))
-  };
-};
+    onCreateTrelloList: payload => dispatch(actions.createTrelloItemStart(payload))
+  }
+}
 
-export default connect(null, mapDispatchToProps)(React.memo(AddList));
+export default connect(null, mapDispatchToProps)(React.memo(AddList))

@@ -1,9 +1,9 @@
-const Boards = require("../models/boards");
-const Relation = require("../models/relations/user_boards");
+const Boards = require('../models/boards');
+const Relation = require('../models/relations/user_boards');
 
 exports.get = async (req, res, next) => {
   try {
-    const list = await Relation.find({ userNo: req.query.userNo }, { _id: 0 });
+    const list = await Relation.find({ userNo: req.query.userNo });
     res.status(200).json({ list });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;

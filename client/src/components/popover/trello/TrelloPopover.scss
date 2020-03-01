@@ -1,18 +1,18 @@
-.user_popover {
+.trello_popover {
   position: absolute;
   top: 40px;
-  right: 0;
+  left: 0;
   z-index: 10;
 
-  .user_popover_content {
+  .trello_popover_content {
     background-color: #ffffff;
     border-radius: 3px;
     box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
 
-    .user_popover_inner {
+    .trello_popover_inner {
       width: 300px;
 
-      .user_popover_title {
+      .trello_popover_title {
         margin: 0 12px 8px;
         color: #5e6c84;
         font-size: 14px;

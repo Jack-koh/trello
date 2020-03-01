@@ -7,6 +7,7 @@
   justify-content: center;
 
   .side_bar_wrap {
+    padding: 0 16px;
     ul {
       margin-top: 40px;
       width: 240px;
@@ -27,6 +28,7 @@
           transition: all 0.1s;
 
           svg {
+            margin-top: 2px;
             color: #42526e;
           }
 
@@ -46,6 +48,12 @@
 
           svg {
             color: #0079bf;
+          }
+
+          &:hover {
+            svg {
+              color: #0079bf;
+            }
           }
         }
 

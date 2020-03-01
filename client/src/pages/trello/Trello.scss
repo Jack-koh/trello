@@ -43,7 +43,7 @@
       .trello_title {
         padding: 0 12px;
         line-height: 20px;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
         border-radius: 3px;
       }
@@ -79,6 +79,13 @@
   .trello_content {
     display: flex;
     flex: 1;
-    margin-bottom: 8px;
+    overflow-x: scroll;
+    padding-bottom: 8px;
+
+    .trello_items {
+      display: flex;
+      padding: 0 4px;
+      margin-top: 4px;
+    }
   }
 }

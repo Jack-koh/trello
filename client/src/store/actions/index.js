@@ -1,8 +1,10 @@
-export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
-export { getBoardsStart, getBoardsSuccess, createBoardStart, createBoardSuccess } from './boards';
+export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth'
+export { getBoardsStart, getBoardsSuccess, createBoardStart, createBoardSuccess } from './boards'
 export {
-  getTrelloListsStart,
+  getTrelloListStart,
   getTrellosListsSuccess,
-  createTrelloListStart,
-  createTrelloListSuccess
-} from './trello';
+  createTrelloItemStart,
+  createTrelloItemSuccess,
+  updateTrelloItemStart,
+  updateTrelloItemSuccess
+} from './trello'

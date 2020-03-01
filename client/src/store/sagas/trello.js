@@ -1,21 +1,30 @@
-import axios from 'axios';
-import { put } from 'redux-saga/effects';
-import * as actions from '../actions';
+import axios from 'axios'
+import { put } from 'redux-saga/effects'
+import * as actions from '../actions'
 
-export function* createTrelloList(action) {
+export function* createTrelloItem(action) {
   try {
-    const respData = yield axios.post('trello/create', action.payload);
-    yield put(actions.createTrelloListSuccess(respData.data.list));
+    const respData = yield axios.post('trello/create', action.payload)
+    yield put(actions.createTrelloItemSuccess(respData.data.list))
   } catch (err) {
-    console.log('createTrelloList err ----');
+    console.log('createTrelloItem err ----')
   }
 }
 
-export function* getTrelloLists(action) {
+export function* getTrelloList(action) {
   try {
-    const respData = yield axios.get('trello/get', { params: action.params });
-    yield put(actions.getTrellosListsSuccess(respData.data.list));
+    const respData = yield axios.get('trello/get', { params: action.params })
+    yield put(actions.getTrellosListsSuccess(respData.data.list))
   } catch (err) {
-    console.log('getTrelloLists err ----');
+    console.log('getTrelloList err ----')
+  }
+}
+
+export function* updateTrelloItem(action) {
+  try {
+    const respData = yield axios.put('trello/update', action.payload)
+    yield put(actions.updateTrelloItemSuccess(respData.data.list))
+  } catch (err) {
+    console.log('updateTrelloItem err ----')
   }
 }

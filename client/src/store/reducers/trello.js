@@ -1,42 +1,50 @@
-import { updateObject } from 'shared/utility';
-import * as type from '../actions/types';
+import { updateObject } from 'shared/utility'
+import * as type from '../actions/types'
 
 const initialState = {
   loading: false,
   list: []
-};
+}
 
 const loadingStart = state => {
-  return updateObject(state, { loading: true });
-};
+  return updateObject(state, { loading: true })
+}
 
-const getTrelloListsSuccess = (state, list) => {
+const getTrelloListSuccess = (state, list) => {
   return updateObject(state, {
     list,
     loading: false
-  });
-};
+  })
+}
 
-const createTrelloListSuccess = (state, item) => {
+const createTrelloItemSuccess = (state, item) => {
   return updateObject(state, {
     list: [...state.list, item],
     loading: false
-  });
-};
+  })
+}
+
+const updateTrelloItemSuccess = (state, item) => {
+  return
+}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case type.GET_TRELLO_LIST_START:
-      return loadingStart(state);
+      return loadingStart(state)
     case type.GET_TRELLO_LIST_SUCCESS:
-      return getTrelloListsSuccess(state, action.list);
-    case type.CREATE_TRELLO_LIST_START:
-      return loadingStart(state);
-    case type.CREATE_TRELLO_LIST_SUCCESS:
-      return createTrelloListSuccess(state, action.item);
+      return getTrelloListSuccess(state, action.list)
+    case type.CREATE_TRELLO_ITEM_START:
+      return loadingStart(state)
+    case type.CREATE_TRELLO_ITEM_SUCCESS:
+      return createTrelloItemSuccess(state, action.item)
+    case type.UPDATE_TRELLO_ITEM_START:
+      return loadingStart(state)
+    case type.UPDATE_TRELLO_ITEM_SUCCESS:
+      return updateTrelloItemSuccess(state, action.item)
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default reducer;
+export default reducer

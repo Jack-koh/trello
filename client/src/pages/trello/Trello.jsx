@@ -9,24 +9,17 @@ import CreateList from 'components/trello/CreateList'
 
 function Board(props) {
   console.log('Board - check')
-  const { onGetTelloList, trelloList } = props
+  const { onGetTelloList } = props
   const [favorite, setFavorite] = useState(false)
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
-  const [trelloLists, setTrelloLists] = useState(false)
 
   useEffect(() => {
     onGetTelloList({ boardNo: trello.boardNo })
   }, [onGetTelloList, trello.boardNo])
 
-  useEffect(() => {
-    setTrelloLists(trelloList)
-  }, [trelloList])
-
   const setFavoriteHandler = () => {
     setFavorite(!favorite)
   }
-
-  console.log(trelloLists)
 
   return (
     <main className={`trello_screen ${trello && trello.background.name}`}>
@@ -43,8 +36,10 @@ function Board(props) {
         </div>
       </section>
       <section className="trello_content">
-        <TrelloList />
-        <CreateList />
+        <div className="trello_items">
+          <TrelloList />
+          <CreateList />
+        </div>
       </section>
     </main>
   )
@@ -58,7 +53,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProp = dispatch => {
   return {
-    onGetTelloList: params => dispatch(actions.getTrelloListsStart(params))
+    onGetTelloList: params => dispatch(actions.getTrelloListStart(params))
   }
 }
 

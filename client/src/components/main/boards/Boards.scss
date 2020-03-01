@@ -3,7 +3,7 @@
   width: 860px;
 
   .board_inner_area {
-    padding-left: 34px;
+    padding-left: 18px;
 
     .board_section {
       padding: 0 0 20px;
@@ -16,11 +16,13 @@
         svg {
           width: 24px;
           height: 24px;
+          color: #172b4d;
         }
 
         span {
           text-indent: 10px;
           font-weight: 700;
+          color: #172b4d;
         }
       }
 

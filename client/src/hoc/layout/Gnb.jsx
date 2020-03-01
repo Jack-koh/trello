@@ -25,13 +25,11 @@ const Gnb = props => {
       : setBackground({ background: '#026aa7' })
   }, [location])
 
-  const onDialogHandler = e => {
-    e.preventDefault()
+  const popoverHandler = () => {
     setUserPopover(!userPopover)
   }
 
-  const toHomeHandler = e => {
-    e.preventDefault()
+  const toHomeHandler = () => {
     if (location.pathname === '/main/boards') return
     history.push('/main/boards')
   }
@@ -40,13 +38,13 @@ const Gnb = props => {
     <>
       <header className="gnb_wrap" style={background}>
         <div className="gnb_left">
-          <a href="#" className="rectangle_btn" onClick={toHomeHandler}>
+          <div className="rectangle_btn" onClick={toHomeHandler}>
             <MdHome />
-          </a>
-          <a href="#" className="board_btn">
+          </div>
+          <div className="board_btn">
             <MdPoll />
             Boards
-          </a>
+          </div>
           <div className="search_input_wrap">
             <input className="search_input" />
             <MdSearch />
@@ -54,21 +52,21 @@ const Gnb = props => {
         </div>
         <div className="logo" />
         <div className="gnb_right">
-          <a href="#" className="rectangle_btn">
+          <div className="rectangle_btn">
             <MdAdd />
-          </a>
-          <a href="#" className="rectangle_btn">
+          </div>
+          <div className="rectangle_btn">
             <MdInfoOutline />
-          </a>
-          <a href="#" className="rectangle_btn">
+          </div>
+          <div className="rectangle_btn">
             <MdAddAlert />
-          </a>
-          <a href="#" className="circle_btn" onClick={onDialogHandler}>
-            <MdAccountCircle />
+          </div>
+          <div className="circle_btn">
+            <MdAccountCircle onClick={popoverHandler} />
             {userPopover && (
               <UserPopover setVisibility={e => utilSetVisibility(e, userPopover, setUserPopover)} />
             )}
-          </a>
+          </div>
         </div>
       </header>
       {children}

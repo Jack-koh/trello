@@ -79,9 +79,9 @@ function DialogCreateBoard(props) {
   const backgroundEl = backgroundList.map((item, i) => {
     return (
       <li key={i} className="choice_card">
-        <a href="#" onClick={setBackgroundHandler.bind(this, item)}>
+        <div onClick={setBackgroundHandler.bind(this, item)}>
           <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
-        </a>
+        </div>
       </li>
     )
   })

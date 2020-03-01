@@ -1,5 +1,5 @@
 @mixin list-wrapper {
-  width: 272px;
+  min-width: 272px;
   margin: 0 4px;
   box-sizing: border-box;
   white-space: nowrap;

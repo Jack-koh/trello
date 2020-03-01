@@ -13,12 +13,12 @@ function CreateBoard() {
   return (
     <>
       <li className="create_board bg_gray">
-        <a href="#" onClick={onCreateDialogHandler}>
+        <div onClick={onCreateDialogHandler}>
           <div className="create_board_inner">
             <span className="create_item_title">Create new board</span>
           </div>
           <div className="create_hover_action" />
-        </a>
+        </div>
       </li>
       {dialog && (
         <DialogCreateBoard
