@@ -5,7 +5,6 @@ import { utilSetVisible } from 'shared/utility'
 
 export const utilSetVisibility = utilSetVisible
 function TrelloPopover(props) {
-  console.log('TrelloPopover - check')
   const { setVisibility } = props
   const wrapperRef = useRef(null)
 

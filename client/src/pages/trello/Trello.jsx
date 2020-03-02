@@ -8,7 +8,6 @@ import TrelloList from 'components/trello/TrelloList'
 import CreateList from 'components/trello/CreateList'
 
 function Board(props) {
-  console.log('Board - check')
   const { onGetTelloList } = props
   const [favorite, setFavorite] = useState(false)
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))

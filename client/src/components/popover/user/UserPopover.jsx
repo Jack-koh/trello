@@ -8,7 +8,6 @@ import { utilSetVisible } from 'shared/utility'
 export const utilSetVisibility = utilSetVisible
 
 function UserPopover(props) {
-  console.log('UserPopover - check')
   const { setVisibility } = props
   const wrapperRef = useRef(null)
   const [userEmail, setUserEmail] = useState('')

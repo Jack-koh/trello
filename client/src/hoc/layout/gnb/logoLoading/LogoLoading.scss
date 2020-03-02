@@ -1,0 +1,73 @@
+.logo {
+    width: 80px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-image: url('https://a.trellocdn.com/prgb/dist/images/header-logo-2x.01ef898811a879595cea.png');
+    background-position: 100% 0;
+    background-repeat: no-repeat;
+    background-size: 80px 30px;
+    cursor: pointer;
+    display: inline-block;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  .logo_animation {
+    width: 14px;
+    height: 14px;
+    padding: 2px;
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 28px);
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 2px;
+    background-color: #9ac3dc;
+
+    .animation_bar_left {
+      width: 6px;
+      height: 13.5px;
+      border-radius: 2px;
+      background-color: rgb(2, 106, 167);
+      animation-name: animation_bar_left;
+      animation-duration: 0.3s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    .animation_bar_right {
+      width: 6px;
+      height: 8px;
+      border-radius: 2px;
+      background-color: rgb(2, 106, 167);
+      animation-name: animation_bar_right;
+      animation-duration: 0.3s;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    }
+
+    @keyframes animation_bar_left {
+      from {
+        height: 13.5px;
+      }
+      to {
+        height: 8px;
+      }
+    }
+
+    @keyframes animation_bar_right {
+      from {
+        height: 8px;
+      }
+      to {
+        height: 13.5px;
+      }
+    }
+  }

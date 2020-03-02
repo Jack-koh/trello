@@ -6,7 +6,6 @@ import { MdAdd, MdClose } from 'react-icons/md'
 import { utilSetVisible } from 'shared/utility'
 
 function AddList(props) {
-  console.log('AddList - check')
   const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')

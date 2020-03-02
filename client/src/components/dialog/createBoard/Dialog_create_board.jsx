@@ -14,7 +14,6 @@ export const utilSetVisibility = utilSetVisible
 
 function DialogCreateBoard(props) {
   const { setVisibility, closeDialog, history, list, loading } = props
-  console.log('DialogCreateBoard - check')
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')

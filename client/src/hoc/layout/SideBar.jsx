@@ -5,7 +5,6 @@ import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md'
 import './SideBar.scss'
 
 const SideBar = props => {
-  console.log('SideBar - check')
   const { children } = props
   return (
     <main className="main_screen">

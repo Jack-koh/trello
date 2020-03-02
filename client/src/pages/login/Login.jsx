@@ -7,7 +7,6 @@ import * as actions from 'store/actions'
 import Spinner from 'shared/spinner/Spinner'
 
 function Login(props) {
-  console.log('Login - check')
   const { userData, history, location } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

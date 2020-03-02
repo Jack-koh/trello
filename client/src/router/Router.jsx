@@ -5,7 +5,7 @@ import AuthCheck from 'hoc/authCheck';
 import Login from 'pages/login/Login';
 import Signup from 'pages/signup/Signup';
 import Main from 'pages/main/Main';
-import Gnb from 'hoc/layout/Gnb';
+import Gnb from 'hoc/layout/gnb/Gnb';
 import Trello from 'pages/trello/Trello';
 
 function Router(props) {

@@ -5,7 +5,6 @@ import axios from 'axios'
 import Spinner from 'shared/spinner/Spinner'
 
 function Signup(props) {
-  console.log('Login - check')
   const { userData, history, location } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')

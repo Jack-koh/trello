@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import * as actions from 'store/actions'
 
 function AuthCheck(props) {
-  console.log('AuthCheck - check')
   const { children, autoAuthCheck, history } = props
   useEffect(() => {
     autoAuthCheck()

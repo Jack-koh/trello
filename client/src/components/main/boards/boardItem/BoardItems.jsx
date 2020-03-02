@@ -7,7 +7,6 @@ import { MdStarBorder } from 'react-icons/md'
 
 const BoardItems = props => {
   const { boardItems, onGetBoardItem, history } = props
-  console.log('BoardItems - check')
 
   useEffect(() => {
     onGetBoardItem()

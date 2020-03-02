@@ -24,7 +24,7 @@ function TrelloItem(props) {
   }
 
   const updateTitle = () => {
-    onUpdateTitle({ _id: listData._id, title: text })
+    if (listData.title !== text) onUpdateTitle({ _id: listData._id, title: text })
   }
 
   const test = e => {
@@ -40,6 +40,7 @@ function TrelloItem(props) {
       <div className="trello_list_header">
         <textarea
           type="text"
+          spellCheck="false"
           value={text}
           onChange={e => autosizeHandler(e)}
           onBlur={updateTitle}

@@ -5,7 +5,6 @@ import DialogCreateBoard, {
 import './CreateBoard.scss'
 
 function CreateBoard() {
-  console.log('CreateBoard - check')
   const [dialog, setDialog] = useState(false)
   const onCreateDialogHandler = () => {
     setDialog(!dialog)
