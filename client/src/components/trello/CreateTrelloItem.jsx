@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'store/actions'
-import './CreateList.scss'
+import './CreateTrelloItem.scss'
 import { MdAdd, MdClose } from 'react-icons/md'
 import { utilSetVisible } from 'shared/utility'
 
+import BtnLoading from 'shared/btnLoading/BtnLoading'
+
 function AddList(props) {
+  const { loading, trelloList } = props
   const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
@@ -20,11 +23,18 @@ function AddList(props) {
     return () => document.removeEventListener('click', setVisibility)
   }, [showForm, trelloData.boardNo])
 
+  useEffect(() => {
+    setShowForm(false)
+  }, [trelloList])
+
   const submitHandler = async e => {
     e.preventDefault()
-    const { boardNo, userNo, userEmail, userName } = trelloData
-    const payload = { boardNo, userNo, userEmail, userName, title }
-    props.onCreateTrelloList(payload)
+    if (title.length > 0) {
+      const { boardNo, userNo, userEmail, userName } = trelloData
+      const payload = { boardNo, userNo, userEmail, userName, title }
+      props.onCreateTrelloList(payload)
+    }
+    setTitle('')
   }
 
   const closeHandler = e => {
@@ -53,8 +63,8 @@ function AddList(props) {
               onChange={e => setTitle(e.target.value)}
             />
             <div className="list_add_control">
-              <button type="button" className="submit">
-                Add List
+              <button type="submit" className="submit">
+                {loading ? <BtnLoading /> : 'Add List'}
               </button>
               <MdClose onClick={e => closeHandler(e)} />
             </div>
@@ -65,10 +75,17 @@ function AddList(props) {
   )
 }
 
+const mapStateToProps = state => {
+  return {
+    loading: state.trellos.loading,
+    trelloList: state.trellos.list
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onCreateTrelloList: payload => dispatch(actions.createTrelloItemStart(payload))
   }
 }
 
-export default connect(null, mapDispatchToProps)(React.memo(AddList))
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AddList))

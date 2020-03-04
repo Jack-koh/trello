@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import './Gnb.scss'
 
-import LogoLoading from './logoLoading/LogoLoading'
+import GnbLoading from './gnbLoading/GnbLoading'
 import GnbLeft from './gnbLeft/GnbLeft'
 import GnbRight from './gnbRight/GnbRight'
 
@@ -21,7 +21,7 @@ const Gnb = props => {
     <>
       <header className="gnb_wrap" style={background}>
         <GnbLeft />
-        <LogoLoading />
+        <GnbLoading />
         <GnbRight />
       </header>
       {children}

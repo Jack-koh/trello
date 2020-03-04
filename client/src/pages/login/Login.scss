@@ -50,10 +50,6 @@
       background-color: #5aac44;
       transition: background-color 0.1s;
 
-      &:disabled {
-        background-color: #cccccc;
-      }
-
       &:hover {
         background-color: #7cc868;
       }

@@ -1,10 +1,10 @@
-import React from 'react';
-import './Spinner.scss';
+import React from 'react'
+import './BtnLoading.scss'
 
-function Spinner() {
+function BtnLoading() {
   return (
-    <div className="spinner-wrap">
-      <div className="spinner">
+    <div className="btnLoading_wrap">
+      <div className="loading">
         <div className="rect1" />
         <div className="rect2" />
         <div className="rect3" />
@@ -12,7 +12,7 @@ function Spinner() {
         <div className="rect5" />
       </div>
     </div>
-  );
+  )
 }
 
-export default Spinner;
+export default BtnLoading

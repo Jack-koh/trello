@@ -3,13 +3,16 @@ import axios from 'axios'
 import * as actions from '../actions/index'
 
 export function* getBoardList(action) {
+  yield put(actions.loadingStart())
   try {
     const respData = yield axios.get('boards/get', {
       params: { userNo: action.userNo }
     })
     yield put(actions.getBoardsSuccess(respData.data.list))
+    yield put(actions.loadingFinished())
   } catch (err) {
     console.log('getBoardList err ----')
+    yield put(actions.loadingFinished())
   }
 }
 

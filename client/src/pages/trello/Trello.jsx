@@ -5,16 +5,20 @@ import * as actions from 'store/actions'
 import './Trello.scss'
 
 import TrelloList from 'components/trello/TrelloList'
-import CreateList from 'components/trello/CreateList'
+import CreateTrelloItem from 'components/trello/CreateTrelloItem'
 
-function Board(props) {
-  const { onGetTelloList } = props
+function Trello(props) {
+  const { onGetTelloList, onInitTrelloList } = props
   const [favorite, setFavorite] = useState(false)
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
     onGetTelloList({ boardNo: trello.boardNo })
-  }, [onGetTelloList, trello.boardNo])
+
+    return () => {
+      onInitTrelloList()
+    }
+  }, [onGetTelloList, onInitTrelloList, trello.boardNo])
 
   const setFavoriteHandler = () => {
     setFavorite(!favorite)
@@ -34,10 +38,11 @@ function Board(props) {
           <div className="trello_trans_box">Show Menu</div>
         </div>
       </section>
+
       <section className="trello_content">
         <div className="trello_items">
           <TrelloList />
-          <CreateList />
+          <CreateTrelloItem />
         </div>
       </section>
     </main>
@@ -46,14 +51,15 @@ function Board(props) {
 
 const mapStateToProps = state => {
   return {
-    trelloList: state.trello.list
+    trelloList: state.trellos.list
   }
 }
 
 const mapDispatchToProp = dispatch => {
   return {
-    onGetTelloList: params => dispatch(actions.getTrelloListStart(params))
+    onGetTelloList: params => dispatch(actions.getTrelloListStart(params)),
+    onInitTrelloList: () => dispatch(actions.initTrelloList())
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(Board)
+export default connect(mapStateToProps, mapDispatchToProp)(Trello)

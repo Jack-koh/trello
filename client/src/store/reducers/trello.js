@@ -1,20 +1,23 @@
 import { updateObject } from 'shared/utility'
-import * as type from '../actions/types'
+import * as types from 'store/types'
 
 const initialState = {
-  loading: false,
-  list: []
+  list: [],
+  loading: false
 }
 
-const loadingStart = state => {
-  return updateObject(state, { loading: true })
+const initTrelloList = state => {
+  return updateObject(state, { list: [] })
 }
 
 const getTrelloListSuccess = (state, list) => {
   return updateObject(state, {
-    list,
-    loading: false
+    list
   })
+}
+
+const createTrelloItemStart = state => {
+  return updateObject(state, { loading: true })
 }
 
 const createTrelloItemSuccess = (state, item) => {
@@ -24,27 +27,21 @@ const createTrelloItemSuccess = (state, item) => {
   })
 }
 
-const updateTrelloItemSuccess = (state, item) => {
-  return
-}
+const updateTrelloItemSuccess = (state, item) => {}
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.GET_TRELLO_LIST_START:
-      return loadingStart(state)
-    case type.GET_TRELLO_LIST_SUCCESS:
+    case types.INIT_TRELLO_LIST:
+      return initTrelloList(state, action.list)
+    case types.GET_TRELLO_LIST_SUCCESS:
       return getTrelloListSuccess(state, action.list)
-    case type.CREATE_TRELLO_ITEM_START:
-      return loadingStart(state)
-    case type.CREATE_TRELLO_ITEM_SUCCESS:
+    case types.CREATE_TRELLO_ITEM_START:
+      return createTrelloItemStart(state)
+    case types.CREATE_TRELLO_ITEM_SUCCESS:
       return createTrelloItemSuccess(state, action.item)
-    case type.UPDATE_TRELLO_ITEM_START:
-      return loadingStart(state)
-    case type.UPDATE_TRELLO_ITEM_SUCCESS:
+    case types.UPDATE_TRELLO_ITEM_SUCCESS:
       return updateTrelloItemSuccess(state, action.item)
     default:
       return state
   }
 }
-
-export default reducer

@@ -1,0 +1,147 @@
+@mixin common_animation {
+  width: 7px;
+  align-self: flex-end;
+  background-color: #fff;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@mixin common_logo {
+  height: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-image: url('/images/logo.png');
+  background-position: 100% 0;
+  background-repeat: no-repeat;
+  background-size: 80px 30px;
+}
+
+.logo {
+  @include common_logo;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  cursor: pointer;
+  opacity: 0.6;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logo_animation_wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-204%, -50%);
+  opacity: 0.6;
+
+  .text_logo {
+    @include common_logo;
+    width: 59px;
+    transform: translate(15%, -50%);
+  }
+
+  .logo_animation {
+    width: 14px;
+    height: 14px;
+    padding: 2px;
+    box-shadow: inset 0 0 0 2.5px #fff;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 2px;
+    overflow: hidden;
+
+    .middle_bar {
+      width: 2px;
+      height: calc(100% - 4px);
+      position: absolute;
+      left: 8px;
+      background-color: #fff;
+    }
+
+    .animation_bar_left {
+      @include common_animation;
+      animation-name: animation_bar_left;
+      height: 0;
+    }
+
+    .animation_bar_right {
+      @include common_animation;
+      animation-name: animation_bar_right;
+      height: 7px;
+    }
+  }
+}
+@keyframes animation_bar_left {
+  0% {
+    height: 0;
+  }
+  10% {
+    height: 7px;
+  }
+  20% {
+    height: 0;
+  }
+  30% {
+    height: 7px;
+  }
+  40% {
+    height: 0;
+  }
+  50% {
+    height: 7px;
+  }
+  60% {
+    height: 0;
+  }
+  70% {
+    height: 7px;
+  }
+  80% {
+    height: 0;
+  }
+  90% {
+    height: 7px;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+@keyframes animation_bar_right {
+  0% {
+    height: 7px;
+  }
+  10% {
+    height: 0;
+  }
+  20% {
+    height: 7px;
+  }
+  30% {
+    height: 0;
+  }
+  40% {
+    height: 7px;
+  }
+  50% {
+    height: 0;
+  }
+  60% {
+    height: 7px;
+  }
+  70% {
+    height: 0;
+  }
+  80% {
+    height: 7px;
+  }
+  90% {
+    height: 0;
+  }
+  100% {
+    height: 7px;
+  }
+}

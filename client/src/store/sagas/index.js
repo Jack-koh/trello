@@ -1,4 +1,4 @@
-import * as type from 'store/actions/types'
+import * as type from 'store/types'
 import { takeEvery } from 'redux-saga/effects'
 import { login } from './auth'
 import { getBoardList, createBoardItem } from './boards'

@@ -37,7 +37,7 @@ const BoardItems = props => {
         </li>
       )
     })
-  return <>{boardItems && !!boardItems.length && itemEl}</>
+  return <>{itemEl}</>
 }
 
 const mapStateToProps = state => {

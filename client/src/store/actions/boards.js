@@ -1,35 +1,33 @@
-import * as type from 'store/actions/types';
+import * as types from 'store/types'
 
 export const getBoardsStart = () => {
-  const userData = JSON.parse(localStorage.getItem('user-data'));
+  const userData = JSON.parse(localStorage.getItem('user-data'))
   if (userData) {
     return {
-      type: type.GET_BOARDS_START,
+      type: types.GET_BOARDS_START,
       userNo: userData.userNo
-    };
+    }
   }
-  return {
-    type: type.GET_BOARDS_FAIL
-  };
-};
+  return {}
+}
 
 export const getBoardsSuccess = payload => {
   return {
-    type: type.GET_BOARDS_SUCCESS,
+    type: types.GET_BOARDS_SUCCESS,
     items: payload
-  };
-};
+  }
+}
 
 export const createBoardStart = payload => {
   return {
-    type: type.CREATE_BOARD_START,
+    type: types.CREATE_BOARD_START,
     payload
-  };
-};
+  }
+}
 
 export const createBoardSuccess = payload => {
   return {
-    type: type.CREATE_BOARD_SUCCESS,
+    type: types.CREATE_BOARD_SUCCESS,
     item: payload
-  };
-};
+  }
+}

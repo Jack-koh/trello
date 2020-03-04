@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import './Signup.scss'
 import axios from 'axios'
-import Spinner from 'shared/spinner/Spinner'
+import BtnLoading from 'shared/btnLoading/BtnLoading'
 
 function Signup(props) {
   const { userData, history, location } = props
@@ -64,7 +64,7 @@ function Signup(props) {
             onChange={event => setName(event.target.value)}
           />
           <button type="submit" className="signup-button">
-            {loading ? <Spinner /> : 'Continue'}
+            {loading ? <BtnLoading /> : 'Continue'}
           </button>
         </form>
         <div className="auth_utils">

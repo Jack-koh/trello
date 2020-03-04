@@ -50,6 +50,12 @@ button {
   outline: none;
 }
 
+button:disabled {
+  background-color: #f4f5f7 !important;
+  color: #a5adba;
+  cursor: initial;
+}
+
 #root {
   display: flex;
   flex-direction: column;

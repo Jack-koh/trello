@@ -4,7 +4,7 @@ import { withRouter, Link } from 'react-router-dom'
 import './Login.scss'
 import * as actions from 'store/actions'
 
-import Spinner from 'shared/spinner/Spinner'
+import BtnLoading from 'shared/btnLoading/BtnLoading'
 
 function Login(props) {
   const { userData, history, location } = props
@@ -56,7 +56,7 @@ function Login(props) {
             onChange={event => setPassword(event.target.value)}
           />
           <button type="submit" className="login_button">
-            {loading ? <Spinner /> : 'Log In'}
+            {loading ? <BtnLoading /> : 'Log In'}
           </button>
         </form>
         <div className="auth_utils">

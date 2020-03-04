@@ -1,44 +1,44 @@
-import * as type from 'store/actions/types';
+import * as types from 'store/types'
 
 export const loginStart = payload => {
   return {
-    type: type.LOGIN_START,
+    type: types.LOGIN_START,
     user: {
       email: payload.email,
       password: payload.password
     }
-  };
-};
+  }
+}
 
 export const loginSuccess = () => {
   return {
-    type: type.LOGIN_SUCCESS
-  };
-};
+    type: types.LOGIN_SUCCESS
+  }
+}
 
 export const loginFail = () => {
   return {
-    type: type.LOGIN_FAIL
-  };
-};
+    type: types.LOGIN_FAIL
+  }
+}
 
 export const logout = () => {
-  return { type: type.LOGOUT };
-};
+  return { type: types.LOGOUT }
+}
 
 export const authCheck = () => {
   return dispatch => {
-    const token = localStorage.getItem('token');
-    const user = JSON.parse(localStorage.getItem('user-data'));
+    const token = localStorage.getItem('token')
+    const user = JSON.parse(localStorage.getItem('user-data'))
     if (!token) {
-      dispatch(logout());
+      dispatch(logout())
     } else {
-      const now = new Date().getTime() / 1000;
+      const now = new Date().getTime() / 1000
       if (now >= user.expiration) {
-        dispatch(logout());
+        dispatch(logout())
       } else {
-        dispatch(loginSuccess());
+        dispatch(loginSuccess())
       }
     }
-  };
-};
+  }
+}

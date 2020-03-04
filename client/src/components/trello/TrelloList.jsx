@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import './TrelloList.scss'
 
@@ -19,7 +19,7 @@ function TrelloList(props) {
 
 const mapStateToProps = state => {
   return {
-    trelloList: state.trello.list
+    trelloList: state.trellos.list
   }
 }
 

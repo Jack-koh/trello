@@ -1,43 +1,49 @@
-import * as type from './types'
+import * as types from 'store/types'
 
 export const getTrelloListStart = params => {
   return {
-    type: type.GET_TRELLO_LIST_START,
+    type: types.GET_TRELLO_LIST_START,
     params
   }
 }
 
-export const getTrellosListsSuccess = payload => {
+export const getTrelloListSuccess = payload => {
   return {
-    type: type.GET_TRELLO_LIST_SUCCESS,
+    type: types.GET_TRELLO_LIST_SUCCESS,
     list: payload
   }
 }
 
 export const createTrelloItemStart = payload => {
   return {
-    type: type.CREATE_TRELLO_ITEM_START,
+    type: types.CREATE_TRELLO_ITEM_START,
     payload
   }
 }
 
 export const createTrelloItemSuccess = payload => {
   return {
-    type: type.CREATE_TRELLO_ITEM_SUCCESS,
+    type: types.CREATE_TRELLO_ITEM_SUCCESS,
     item: payload
   }
 }
 
 export const updateTrelloItemStart = payload => {
   return {
-    type: type.UPDATE_TRELLO_ITEM_START,
+    type: types.UPDATE_TRELLO_ITEM_START,
     payload
   }
 }
 
 export const updateTrelloItemSuccess = payload => {
   return {
-    type: type.UPDATE_TRELLO_ITEM_SUCCESS,
+    type: types.UPDATE_TRELLO_ITEM_SUCCESS,
     item: payload
+  }
+}
+
+export const initTrelloList = () => {
+  return {
+    type: types.INIT_TRELLO_LIST
   }
 }

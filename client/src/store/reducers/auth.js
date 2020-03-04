@@ -1,4 +1,4 @@
-import * as type from 'store/actions/types';
+import * as types from 'store/types'
 import { updateObject } from 'shared/utility';
 
 const initialState = {
@@ -31,19 +31,17 @@ const logout = state => {
   });
 };
 
-const reducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case type.LOGIN_SUCCESS:
+    case types.LOGIN_SUCCESS:
       return loginSuccess(state, action.user);
-    case type.LOGIN_FAIL:
+    case types.LOGIN_FAIL:
       return loginFail();
-    case type.LOGIN_START:
+    case types.LOGIN_START:
       return loginStart();
-    case type.LOGOUT:
+    case types.LOGOUT:
       return logout();
     default:
       return state;
   }
 };
-
-export default reducer;

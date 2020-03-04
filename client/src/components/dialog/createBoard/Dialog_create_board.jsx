@@ -6,7 +6,7 @@ import { MdClose } from 'react-icons/md'
 import { FaCheck } from 'react-icons/fa'
 import './Dialog_create_board.scss'
 
-import Spinner from 'shared/spinner/Spinner'
+import BtnLoading from 'shared/btnLoading/BtnLoading'
 import Backdrop from 'components/dialog/Backdrop'
 import { utilSetVisible } from 'shared/utility'
 
@@ -18,6 +18,7 @@ function DialogCreateBoard(props) {
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
   const [bgName, setBgName] = useState('bg-forest')
+  console.log(bgName)
 
   useEffect(() => {
     const clickOutsideHandler = e => {
@@ -72,15 +73,14 @@ function DialogCreateBoard(props) {
   }
 
   const setBackgroundHandler = item => {
+    console.log(item)
     setBgHandler(item)
   }
 
   const backgroundEl = backgroundList.map((item, i) => {
     return (
-      <li key={i} className="choice_card">
-        <div onClick={setBackgroundHandler.bind(this, item)}>
-          <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
-        </div>
+      <li key={i} className="choice_card" onClick={setBackgroundHandler.bind(this, item)}>
+        <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
       </li>
     )
   })
@@ -103,8 +103,8 @@ function DialogCreateBoard(props) {
           </div>
 
           <div className="bottom_utils">
-            <button type="button" disabled={boardTitle.length === 0}>
-              {loading ? <Spinner /> : 'Create Board'}
+            <button type="submit" disabled={boardTitle.length === 0}>
+              {loading ? <BtnLoading /> : 'Create Board'}
             </button>
           </div>
         </form>

@@ -12,19 +12,25 @@ export function* createTrelloItem(action) {
 }
 
 export function* getTrelloList(action) {
+  yield put(actions.loadingStart())
   try {
     const respData = yield axios.get('trello/get', { params: action.params })
-    yield put(actions.getTrellosListsSuccess(respData.data.list))
+    yield put(actions.getTrelloListSuccess(respData.data.list))
+    yield put(actions.loadingFinished())
   } catch (err) {
     console.log('getTrelloList err ----')
+    yield put(actions.loadingFinished())
   }
 }
 
 export function* updateTrelloItem(action) {
+  yield put(actions.loadingStart())
   try {
     const respData = yield axios.put('trello/update', action.payload)
     yield put(actions.updateTrelloItemSuccess(respData.data.list))
+    yield put(actions.loadingFinished())
   } catch (err) {
     console.log('updateTrelloItem err ----')
+    yield put(actions.loadingFinished())
   }
 }

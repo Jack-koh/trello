@@ -1,12 +1,10 @@
-import React from 'react';
-import { MdPersonOutline } from 'react-icons/md';
-import './Boards.scss';
-import BoardItems from './boardItem/BoardItems';
-import CreateBoard from './createBoard/CreateBoard';
+import React from 'react'
+import { MdPersonOutline } from 'react-icons/md'
+import './Boards.scss'
+import BoardItems from './boardItem/BoardItems'
+import CreateBoard from './createBoard/CreateBoard'
 
-function Board() {
-  console.log('Board - created');
-
+function Board(props) {
   return (
     <section className="board_wrap">
       <div className="board_inner_area">
@@ -22,7 +20,7 @@ function Board() {
         </div>
       </div>
     </section>
-  );
+  )
 }
 
-export default Board;
+export default Board
