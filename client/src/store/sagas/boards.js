@@ -17,10 +17,18 @@ export function* getBoardList(action) {
 }
 
 export function* createBoardItem(action) {
+  const { userNo, userEmail, userName, title, background, favorite } = action.payload
   try {
-    const respData = yield axios.post('boards/create', action.payload)
-    yield localStorage.setItem('trello', JSON.stringify(respData.data.list))
-    yield put(actions.createBoardSuccess(respData.data.list))
+    const respData = yield axios.post('boards/create', {
+      userNo,
+      userEmail,
+      userName,
+      title,
+      background,
+      favorite
+    })
+    yield localStorage.setItem('trello', JSON.stringify(respData.data.item))
+    yield put(actions.createBoardSuccess(respData.data.item))
   } catch (err) {
     console.log('createBoardItem err ----')
   }

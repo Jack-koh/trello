@@ -1,12 +1,17 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import * as actions from 'store/actions'
 import './TrelloPopover.scss'
 import { utilSetVisible } from 'shared/utility'
+import BtnLoading from 'shared/btnLoading/BtnLoading'
 
 export const utilSetVisibility = utilSetVisible
 function TrelloPopover(props) {
+  const { loading, listId, onDeleteItemHandler } = props
   const { setVisibility } = props
   const wrapperRef = useRef(null)
+  const [onDelete, setOnDelete] = useState(false)
 
   useEffect(() => {
     // 클릭 아웃사이드 기능 생성 및 제거1
@@ -22,6 +27,15 @@ function TrelloPopover(props) {
     }
   }, [setVisibility, wrapperRef])
 
+  const checkDeleteHandler = () => {
+    setOnDelete(true)
+  }
+
+  const deleteHandler = e => {
+    e.stopPropagation()
+    onDeleteItemHandler(listId)
+  }
+
   return (
     <div ref={wrapperRef} className="trello_popover">
       <div className="trello_popover_content">
@@ -30,19 +44,26 @@ function TrelloPopover(props) {
           <nav>
             <ul>
               <li>
-                <div>Add Card...</div>
+                <div className="actions_title">Add Card...</div>
               </li>
               <li>
-                <div>Copy List...</div>
+                <div className="actions_title">Copy List...</div>
               </li>
               <li>
-                <div>Move List...</div>
+                <div className="actions_title">Move List...</div>
               </li>
               <li className="line_break">
-                <div>Delete List...</div>
+                <div className="actions_title" onClick={checkDeleteHandler}>
+                  Delete List...
+                  {onDelete && (
+                    <button type="button" onClick={e => deleteHandler(e)}>
+                      {loading ? <BtnLoading /> : 'Delete Trello'}
+                    </button>
+                  )}
+                </div>
               </li>
               <li>
-                <div>Move All Cards in This List...</div>
+                <div className="actions_title">Move All Cards in This List...</div>
               </li>
             </ul>
           </nav>
@@ -52,4 +73,16 @@ function TrelloPopover(props) {
   )
 }
 
-export default withRouter(TrelloPopover)
+const mapStateToProps = state => {
+  return {
+    loading: state.trellos.loading
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onDeleteItemHandler: listId => dispatch(actions.deleteTrelloItemStart(listId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TrelloPopover))

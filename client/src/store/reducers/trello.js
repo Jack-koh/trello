@@ -6,6 +6,10 @@ const initialState = {
   loading: false
 }
 
+const loading = state => {
+  return updateObject(state, { loading: true })
+}
+
 const initTrelloList = state => {
   return updateObject(state, { list: [] })
 }
@@ -16,10 +20,6 @@ const getTrelloListSuccess = (state, list) => {
   })
 }
 
-const createTrelloItemStart = state => {
-  return updateObject(state, { loading: true })
-}
-
 const createTrelloItemSuccess = (state, item) => {
   return updateObject(state, {
     list: [...state.list, item],
@@ -27,7 +27,12 @@ const createTrelloItemSuccess = (state, item) => {
   })
 }
 
-const updateTrelloItemSuccess = (state, item) => {}
+const deleteTrelloItemSuccess = (state, _id) => {
+  return updateObject(state, {
+    list: state.list.filter(el => el._id !== _id),
+    loading: false
+  })
+}
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -36,11 +41,13 @@ export const reducer = (state = initialState, action) => {
     case types.GET_TRELLO_LIST_SUCCESS:
       return getTrelloListSuccess(state, action.list)
     case types.CREATE_TRELLO_ITEM_START:
-      return createTrelloItemStart(state)
+      return loading(state)
     case types.CREATE_TRELLO_ITEM_SUCCESS:
       return createTrelloItemSuccess(state, action.item)
-    case types.UPDATE_TRELLO_ITEM_SUCCESS:
-      return updateTrelloItemSuccess(state, action.item)
+    case types.DELETE_TRELLO_ITEM_START:
+      return loading(state)
+    case types.DELETE_TRELLO_ITEM_SUCCESS:
+      return deleteTrelloItemSuccess(state, action._id)
     default:
       return state
   }

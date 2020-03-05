@@ -24,7 +24,7 @@ const createBoardSuccess = (state, item) => {
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case types.GET_BOARDS_SUCCESS:
-      return getBoardsSuccess(state, action.items)
+      return getBoardsSuccess(state, action.list)
     case types.CREATE_BOARD_START:
       return loadingStart(state)
     case types.CREATE_BOARD_SUCCESS:

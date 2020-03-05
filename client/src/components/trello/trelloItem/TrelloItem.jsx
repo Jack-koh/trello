@@ -15,6 +15,10 @@ function TrelloItem(props) {
     setText(listData.title)
   }, [listData.title])
 
+  useEffect(() => {
+    setTrelloPopover(false)
+  }, [listData])
+
   const autosizeHandler = e => {
     const obj = e.target
     setText(obj.value)
@@ -52,6 +56,7 @@ function TrelloItem(props) {
             </div>
             {trelloPopover && (
               <TrelloPopover
+                listId={listData._id}
                 setVisibility={e => utilSetVisibility(e, trelloPopover, setTrelloPopover)}
               />
             )}
@@ -69,14 +74,10 @@ function TrelloItem(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {}
-}
-
 const mapDispatchToProps = dispatch => {
   return {
     onUpdateTitle: payload => dispatch(actions.updateTrelloItemStart(payload))
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrelloItem)
+export default connect(null, mapDispatchToProps)(TrelloItem)

@@ -5,7 +5,7 @@ import './index.css'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import { auth, boards, trello } from 'store/sagas/index'
+import { auth, boards, trello } from 'store/sagas'
 
 import { authReducer, boardsReducer, trelloReducer, loadingReducer } from 'store/reducers'
 import { BrowserRouter } from 'react-router-dom'

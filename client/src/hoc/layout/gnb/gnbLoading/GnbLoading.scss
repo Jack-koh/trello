@@ -10,8 +10,8 @@
 @mixin common_logo {
   height: 30px;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: calc(50% - 0.1px);
+  left: calc(50% - 0.1px);
   background-image: url('/images/logo.png');
   background-position: 100% 0;
   background-repeat: no-repeat;

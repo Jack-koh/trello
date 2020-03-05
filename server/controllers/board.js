@@ -34,7 +34,7 @@ exports.create = async (req, res, next) => {
       favorite
     });
     const respData = await relation.save();
-    res.status(201).json({ list: respData });
+    res.status(201).json({ item: respData });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);

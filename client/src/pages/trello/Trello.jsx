@@ -13,7 +13,7 @@ function Trello(props) {
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
-    onGetTelloList({ boardNo: trello.boardNo })
+    onGetTelloList(trello.boardNo)
 
     return () => {
       onInitTrelloList()

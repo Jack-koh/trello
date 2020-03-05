@@ -8,5 +8,7 @@ export {
   createTrelloItemStart,
   createTrelloItemSuccess,
   updateTrelloItemStart,
-  updateTrelloItemSuccess
+  updateTrelloItemSuccess,
+  deleteTrelloItemStart,
+  deleteTrelloItemSuccess
 } from './trello'

@@ -11,23 +11,24 @@ export const getBoardsStart = () => {
   return {}
 }
 
-export const getBoardsSuccess = payload => {
+export const getBoardsSuccess = list => {
   return {
     type: types.GET_BOARDS_SUCCESS,
-    items: payload
+    list
   }
 }
 
 export const createBoardStart = payload => {
+  const { userNo, userEmail, userName, title, background, favorite } = payload
   return {
     type: types.CREATE_BOARD_START,
-    payload
+    payload: { userNo, userEmail, userName, title, background, favorite }
   }
 }
 
-export const createBoardSuccess = payload => {
+export const createBoardSuccess = item => {
   return {
     type: types.CREATE_BOARD_SUCCESS,
-    item: payload
+    item
   }
 }

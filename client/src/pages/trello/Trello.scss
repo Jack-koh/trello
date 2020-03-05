@@ -79,7 +79,7 @@
   .trello_content {
     display: flex;
     flex: 1;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding-bottom: 8px;
 
     .trello_items {
