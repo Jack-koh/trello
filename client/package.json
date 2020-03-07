@@ -6,6 +6,7 @@
     "axios": "^0.19.2",
     "http-proxy-middleware": "^1.0.1",
     "node-sass": "^4.13.1",
+    "npm-check-updates": "^4.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",
@@ -35,8 +36,7 @@
       ">0.2%",
       "last 1 chrome version",
       "last 1 firefox version",
-      "last 1 safari version",
-      "ie 11"
+      "last 1 safari version"
     ]
   },
   "devDependencies": {
@@ -46,7 +46,7 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.18.3",
+    "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "prettier": "^1.19.1"
   }

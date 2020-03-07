@@ -1,9 +1,9 @@
-@mixin common_button {
-  margin-right: 5px;
+@mixin common_button() {
+  margin-right: 0.5rem;
   color: #ffffff;
   display: flex;
   align-items: center;
-  border-radius: 5px;
+  border-radius: 0.5rem;
   background-color: hsla(0, 0%, 100%, 0.3);
   transition: background-color 0.3s;
   cursor: pointer;
@@ -14,9 +14,9 @@
 }
 
 .gnb_wrap {
-  width: calc(100% - 8px);
-  height: 32px;
-  padding: 4px;
+  width: calc(100% - 0.8rem);
+  height: 4rem;
+  padding: 0.4rem;
   position: fixed;
   z-index: 10;
   display: flex;
@@ -29,16 +29,16 @@
 
     .board_btn {
       @include common_button;
-      width: 84px;
+      width: 8.4rem;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 1.4rem;
       justify-content: space-around;
-      padding: 0 6px;
+      padding: 0 0.6rem;
       box-sizing: border-box;
 
       svg {
-        width: 20px;
-        height: 20px;
+        width: 2rem;
+        height: 2rem;
       }
     }
 
@@ -46,28 +46,28 @@
       position: relative;
 
       .search_input {
-        width: 180px;
-        height: 32px;
-        font-size: 13px;
+        width: 18rem;
+        height: 3.2rem;
+        font-size: 1.3rem;
         color: #172b4d;
-        padding-left: 8px;
+        padding-left: 0.8rem;
         background-color: hsla(0, 0%, 100%, 0.3);
-        border-radius: 5px;
+        border-radius: 0.5rem;
         transition: all 0.1s;
 
         &:focus {
-          width: 280px;
+          width: 28rem;
           background-color: #ffffff;
-          padding-right: 54px;
+          padding-right: 5.4rem;
         }
       }
 
       svg {
-        width: 20px;
-        height: 20px;
+        width: 2rem;
+        height: 2rem;
         position: absolute;
-        right: 6px;
-        top: 6px;
+        right: 0.6rem;
+        top: 0.6rem;
         color: #ffffff;
         cursor: pointer;
       }
@@ -80,19 +80,19 @@
 
   .rectangle_btn {
     @include common_button;
-    width: 32px;
-    height: 32px;
+    width: 3.2rem;
+    height: 3.2rem;
     justify-content: center;
 
     svg {
-      width: 20px;
-      height: 20px;
+      width: 2rem;
+      height: 2rem;
     }
   }
 
   .circle_btn {
-    width: 32px;
-    height: 32px;
+    width: 3.2rem;
+    height: 3.2rem;
     position: relative;
     border-radius: 50%;
     display: flex;

@@ -1,15 +1,13 @@
 .board_item {
   position: relative;
-  width: 23%;
-  margin: 0 2% 8px 0;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0.3rem;
   overflow: hidden;
 
   .board_item_inner {
     display: flex;
-    height: 80px;
-    padding: 8px;
+    height: 9.6rem;
+    padding: 0.8rem;
     position: relative;
     flex-direction: column;
     justify-content: space-between;
@@ -17,8 +15,8 @@
     .item_title {
       color: #ffffff;
       font-weight: 700;
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 1.4rem;
+      line-height: 2rem;
       position: relative;
       z-index: 5;
       text-decoration: none;
@@ -39,8 +37,8 @@
     svg {
       color: #ffffff;
       position: absolute;
-      bottom: 6px;
-      right: -14px;
+      bottom: 0.6rem;
+      right: -1.4rem;
       transition: all 0.1s;
     }
   }
@@ -51,8 +49,8 @@
       opacity: 1;
 
       svg {
-        bottom: 6px;
-        right: 6px;
+        bottom: 0.6rem;
+        right: 0.6rem;
       }
     }
   }

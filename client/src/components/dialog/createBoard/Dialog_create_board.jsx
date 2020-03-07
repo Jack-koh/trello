@@ -18,7 +18,6 @@ function DialogCreateBoard(props) {
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
   const [bgName, setBgName] = useState('bg-forest')
-  console.log(bgName)
 
   useEffect(() => {
     const clickOutsideHandler = e => {
@@ -79,7 +78,11 @@ function DialogCreateBoard(props) {
 
   const backgroundEl = backgroundList.map((item, i) => {
     return (
-      <li key={i} className="choice_card" onClick={setBackgroundHandler.bind(this, item)}>
+      <li
+        key={i}
+        className="choose_background_item"
+        onClick={setBackgroundHandler.bind(this, item)}
+      >
         <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
       </li>
     )
@@ -99,7 +102,7 @@ function DialogCreateBoard(props) {
                 onChange={e => setBoardTitle(e.target.value)}
               />
             </div>
-            <ul className="card_background">{backgroundEl}</ul>
+            <ul className="choose_background">{backgroundEl}</ul>
           </div>
 
           <div className="bottom_utils">

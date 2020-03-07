@@ -23,8 +23,8 @@ function TrelloItem(props) {
     const obj = e.target
     setText(obj.value)
     // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
-    obj.style.cssText = 'height:20px; padding: 0'
-    obj.style.cssText = `height: ${obj.scrollHeight}px`
+    obj.style.cssText = 'height:2.8rem; padding: 0'
+    obj.style.cssText = `height: ${obj.scrollHeight / 10}rem`
   }
 
   const updateTitle = () => {

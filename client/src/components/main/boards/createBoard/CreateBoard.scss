@@ -1,15 +1,13 @@
 .create_board {
   position: relative;
-  width: 23%;
-  margin: 0 2% 8px 0;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0.3rem;
   overflow: hidden;
 
   .create_board_inner {
     display: flex;
-    height: 80px;
-    padding: 8px;
+    height: 9.6rem;
+    padding: 0.8rem;
     position: relative;
     flex-direction: column;
     justify-content: space-between;
@@ -17,7 +15,7 @@
     align-items: center;
 
     .create_item_title {
-      font-size: 14px;
+      font-size: 1.4rem;
       color: #506486;
     }
   }
@@ -42,8 +40,8 @@
       opacity: 1;
 
       svg {
-        bottom: 6px;
-        right: 6px;
+        bottom: 0.6rem;
+        right: 0.6rem;
       }
     }
   }

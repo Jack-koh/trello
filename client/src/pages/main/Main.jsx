@@ -5,6 +5,7 @@ import SideBar from 'hoc/layout/SideBar'
 import Board from 'components/main/boards/Boards'
 import Tamplate from 'components/main/template/Tamplate'
 import Home from 'components/main/home/Home'
+import './Main.scss'
 
 function Main() {
   console.log('Main - created')

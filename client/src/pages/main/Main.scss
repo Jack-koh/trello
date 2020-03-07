@@ -1,0 +1,8 @@
+.main_screen {
+  padding-top: 8rem;
+  flex: 1;
+  display: grid;
+  grid-template-columns: 272px minmax(auto, 84rem);
+  grid-template-areas: 'sidebar content';
+  justify-content: center;
+}

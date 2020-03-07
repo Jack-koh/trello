@@ -1,34 +1,33 @@
 .board_wrap {
-  margin-top: 40px;
-  width: 860px;
+  padding: 0 1.6rem;
 
   .board_inner_area {
-    padding-left: 18px;
-
     .board_section {
-      padding: 0 0 20px;
+      padding: 0 0 2rem;
 
       .board_title {
         display: flex;
         align-items: center;
-        margin-bottom: 11px;
+        margin-bottom: 1.1rem;
 
         svg {
-          width: 24px;
-          height: 24px;
+          width: 2.4rem;
+          height: 2.4rem;
           color: #172b4d;
         }
 
         span {
-          text-indent: 10px;
+          text-indent: 1rem;
           font-weight: 700;
+          font-size: 1.6rem;
           color: #172b4d;
         }
       }
 
       .board_item_section {
-        display: flex;
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(14.9rem, 1fr));
+        grid-gap: 1.6rem;
       }
     }
   }

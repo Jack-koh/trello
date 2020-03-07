@@ -5,18 +5,18 @@
   transform: translate(-50%, -50%);
 
   .loading {
-    height: 16px;
+    height: 1.6rem;
     text-align: center;
-    font-size: 10px;
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     > div {
       background-color: #fff;
       height: 100%;
-      width: 2px;
+      width: 0.2rem;
       display: inline-block;
-      margin: 0 1px;
+      margin: 0 0.1rem;
 
       -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
       animation: sk-stretchdelay 1.2s infinite ease-in-out;

@@ -1,11 +1,11 @@
 @mixin trello_header_div {
   color: #fff;
-  height: 32px;
+  height: 3.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-right: 4px;
+  margin-right: 0.4rem;
 
   &:hover {
     background-color: hsla(0, 0%, 100%, 0.32);
@@ -13,15 +13,15 @@
 }
 
 @mixin trello_trans_box {
-  line-height: 20px;
-  padding: 0 10px;
-  font-size: 14px;
+  line-height: 2rem;
+  padding: 0 1rem;
+  font-size: 1.4rem;
   background-color: hsla(0, 0%, 100%, 0.24);
-  border-radius: 3px;
+  border-radius: 0.3rem;
 }
 
 .trello_screen {
-  padding-top: 40px;
+  padding-top: 4rem;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -29,7 +29,7 @@
   .trello_header {
     position: relative;
     height: auto;
-    padding: 8px 4px 4px 8px;
+    padding: 0.8rem 0.4rem 0.4rem 0.8rem;
     display: flex;
     justify-content: space-between;
 
@@ -41,18 +41,18 @@
       }
 
       .trello_title {
-        padding: 0 12px;
-        line-height: 20px;
-        font-size: 18px;
+        padding: 0 1.2rem;
+        line-height: 2rem;
+        font-size: 1.8rem;
         font-weight: 700;
-        border-radius: 3px;
+        border-radius: 0.3rem;
       }
 
       .trello_favorite {
-        width: 32px;
-        font-size: 18px;
+        width: 3.2rem;
+        font-size: 1.8rem;
         background-color: hsla(0, 0%, 100%, 0.24);
-        border-radius: 3px;
+        border-radius: 0.3rem;
         transition: color 0.1s;
 
         &.true {
@@ -80,12 +80,12 @@
     display: flex;
     flex: 1;
     overflow-x: auto;
-    padding-bottom: 8px;
+    padding-bottom: 0.8rem;
 
     .trello_items {
       display: flex;
-      padding: 0 4px;
-      margin-top: 4px;
+      padding: 0 0.4rem;
+      margin-top: 0.4rem;
     }
   }
 }

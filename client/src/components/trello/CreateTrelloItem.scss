@@ -1,17 +1,17 @@
 @mixin list-wrapper {
-  min-width: 272px;
-  margin: 0 4px;
+  min-width: 27.2rem;
+  margin: 0 0.4rem;
   box-sizing: border-box;
   white-space: nowrap;
 }
 
 .add_list_wrapper {
   @include list-wrapper;
-  min-height: 36px;
-  padding: 4px;
+  min-height: 3.6rem;
+  padding: 0.4rem;
   background-color: hsla(0, 0%, 100%, 0.24);
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 0.3rem;
   transition: background 85ms ease-in, opacity 40ms ease-in, border-color 85ms ease-in;
 
   &:hover {
@@ -19,11 +19,11 @@
   }
 
   &.off {
-    height: 40px;
+    height: 4rem;
   }
 
   &.on {
-    height: 80px;
+    height: 8rem;
     background-color: #ebecf0;
     .place_holder {
       display: none;
@@ -34,43 +34,43 @@
       display: flex;
       align-items: center;
       color: #fff;
-      padding: 6px 8px;
+      padding: 0.6rem 0.8rem;
       transition: color 85ms ease-in;
 
       .add_icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 2px;
+        width: 2rem;
+        height: 2rem;
+        margin-right: 0.2rem;
       }
 
       > span {
-        font-size: 14px;
+        font-size: 1.4rem;
       }
     }
 
     > .list_name_input {
-      width: calc(100% - 24px);
-      line-height: 20px;
+      width: 100%;
+      line-height: 2rem;
       display: block;
-      padding: 8px 12px;
+      padding: 0.8rem 1.2rem;
       color: #172b4d;
       -webkit-appearance: none;
       background: #fff;
-      box-shadow: inset 0 0 0 2px #0079bf;
+      box-shadow: inset 0 0 0 0.2rem #0079bf;
       transition: margin 85ms ease-in, background 85ms ease-in;
     }
 
     .list_add_control {
       display: flex;
       align-items: center;
-      height: 32px;
-      margin-top: 4px;
+      height: 3.2rem;
+      margin-top: 0.4rem;
       transition: margin 85ms ease-in, height 85ms ease-in;
       overflow: hidden;
 
       .submit {
-        width: 74px;
-        height: 32px;
+        width: 7.4rem;
+        height: 3.2rem;
         background-color: #5aac44;
         color: #fff;
 
@@ -80,10 +80,10 @@
       }
 
       svg {
-        margin-left: 6px;
+        margin-left: 0.6rem;
         color: #42526e;
-        width: 24px;
-        height: 24px;
+        width: 2.4rem;
+        height: 2.4rem;
         transition: color 0.2s;
 
         &:hover {
