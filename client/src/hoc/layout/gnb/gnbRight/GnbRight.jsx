@@ -22,7 +22,7 @@ function GnbRight() {
       <div className="rectangle_btn">
         <MdAddAlert />
       </div>
-      <div className="circle_btn">
+      <div className="user_btn">
         <MdAccountCircle onClick={popoverHandler} />
         {userPopover && (
           <UserPopover setVisibility={e => utilSetVisibility(e, userPopover, setUserPopover)} />

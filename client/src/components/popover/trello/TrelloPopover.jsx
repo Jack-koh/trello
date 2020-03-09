@@ -55,12 +55,15 @@ function TrelloPopover(props) {
               <li className="line_break">
                 <div className="actions_title" onClick={checkDeleteHandler}>
                   Delete List...
-                  {onDelete && (
-                    <button type="button" onClick={e => deleteHandler(e)}>
+                </div>
+                {onDelete && (
+                  <div>
+                    <input className="delete_input" type="text" />
+                    <button className="delete_btn" type="button" onClick={e => deleteHandler(e)}>
                       {loading ? <BtnLoading /> : 'Delete Trello'}
                     </button>
-                  )}
-                </div>
+                  </div>
+                )}
               </li>
               <li>
                 <div className="actions_title">Move All Cards in This List...</div>

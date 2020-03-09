@@ -13,8 +13,22 @@
   }
 }
 
+@mixin lectangle_btn {
+  .rectangle_btn {
+    @include common_button;
+    width: 3.2rem;
+    height: 3.2rem;
+    justify-content: center;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
 .gnb_wrap {
-  width: calc(100% - 0.8rem);
+  width: 100%;
   height: 4rem;
   padding: 0.4rem;
   position: fixed;
@@ -25,6 +39,7 @@
   justify-content: space-between;
 
   .gnb_left {
+    @include lectangle_btn;
     display: flex;
 
     .board_btn {
@@ -75,35 +90,24 @@
   }
 
   .gnb_right {
+    @include lectangle_btn;
     display: flex;
-  }
 
-  .rectangle_btn {
-    @include common_button;
-    width: 3.2rem;
-    height: 3.2rem;
-    justify-content: center;
-
-    svg {
-      width: 2rem;
-      height: 2rem;
-    }
-  }
-
-  .circle_btn {
-    width: 3.2rem;
-    height: 3.2rem;
-    position: relative;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    svg {
-      width: 100%;
-      height: 100%;
-      color: hsla(0, 0%, 100%, 0.5);
-      cursor: pointer;
+    .user_btn {
+      width: 3.2rem;
+      height: 3.2rem;
+      position: relative;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      svg {
+        width: 100%;
+        height: 100%;
+        color: hsla(0, 0%, 100%, 0.5);
+        cursor: pointer;
+      }
     }
   }
 }

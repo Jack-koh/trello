@@ -48,14 +48,16 @@
             background-color: rgba(9, 30, 66, 0.04);
           }
 
-          button {
-            position: absolute;
-            top: 0;
-            right: 1rem;
-            width: 10rem;
+          .delete_input {
+            width: 200rem;
+            height: 100%;
+          }
+
+          .delete_btn {
+            padding: 0 10px;
             height: 3.2rem;
             font-size: 1.2rem;
-            color: #ffffff;
+            color: #fff;
             background-color: #cd3232;
             text-align: center;
             line-height: 3.2rem;
