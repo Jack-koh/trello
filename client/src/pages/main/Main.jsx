@@ -8,8 +8,6 @@ import Home from 'components/main/home/Home'
 import './Main.scss'
 
 function Main() {
-  console.log('Main - created')
-
   return (
     <SideBar>
       <Route path="/main/boards" component={Board} />

@@ -57,8 +57,8 @@ function TrelloPopover(props) {
                   Delete List...
                 </div>
                 {onDelete && (
-                  <div>
-                    <input className="delete_input" type="text" />
+                  <div className="delete_form_field">
+                    <input className="delete_input" type="text" autoFocus="true" />
                     <button className="delete_btn" type="button" onClick={e => deleteHandler(e)}>
                       {loading ? <BtnLoading /> : 'Delete Trello'}
                     </button>
