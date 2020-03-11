@@ -1,3 +1,5 @@
+@import 'util.scss';
+
 .create_board_dialog {
   width: 40rem;
   position: fixed;
@@ -89,23 +91,8 @@
   .bottom_utils {
     margin-top: 0.8rem;
 
-    button {
-      width: 10.4rem;
-      height: 3.2rem;
-      font-size: 1.2rem;
-      color: #ffffff;
-      background-color: #5aac44;
-      text-align: center;
-      line-height: 3.2rem;
-      border-radius: 0.3rem;
-
-      &:disabled {
-        color: #a5adba;
-      }
-
-      &:active {
-        background-color: #49852e;
-      }
+    button[type='submit'].green_submit {
+      @include green_submit(10.4rem);
     }
   }
 }

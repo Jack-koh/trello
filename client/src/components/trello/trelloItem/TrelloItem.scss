@@ -1,3 +1,5 @@
+@import 'util.scss';
+
 .trello_list_content {
   position: relative;
   display: flex;
@@ -63,13 +65,13 @@
     }
   }
 
-  .trello_list_composer {
+  .trello_card_composer {
     padding: 0 0.8rem;
     margin-bottom: 0.9rem;
 
     form {
       cursor: pointer;
-      .trello_list_add_card {
+      .open_card_form {
         &:hover {
           background-color: rgba(9, 30, 66, 0.08);
           color: #172b4d;
@@ -87,8 +89,53 @@
         svg {
           width: 2rem;
           height: 2rem;
-          padding-top: .2rem;
+          padding-top: 0.2rem;
           font-size: 1.6rem;
+        }
+      }
+
+      .util_card_form {
+        .trello_card {
+          display: block;
+          padding: 6px 8px 2px;
+          background-color: #fff;
+          border-radius: 3px;
+          box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
+          margin-bottom: 8px;
+          min-height: 20px;
+          cursor: pointer;
+
+          textarea {
+            width: 100%;
+            color: #172b4d;
+            font-size: 1.4rem;
+            resize: none;
+          }
+        }
+
+        .card_add_control {
+          display: flex;
+          align-items: center;
+          height: 3.2rem;
+          margin-top: 0.4rem;
+          transition: margin 85ms ease-in, height 85ms ease-in;
+          overflow: hidden;
+
+          button[type='submit'].green_submit {
+            @include green_submit(8.2rem);
+          }
+
+          svg {
+            margin-left: 0.6rem;
+            color: #42526e;
+            width: 2.4rem;
+            height: 2.4rem;
+            transition: color 0.2s;
+
+            &:hover {
+              color: #333;
+            }
+          }
         }
       }
     }

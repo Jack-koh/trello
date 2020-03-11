@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from 'store/actions'
 import './CreateTrelloItem.scss'
 import { MdAdd, MdClose } from 'react-icons/md'
-import { utilSetVisible } from 'shared/utility'
+import { utilSetToggle } from 'shared/utility'
 
 import BtnLoading from 'shared/btnLoading/BtnLoading'
 
@@ -15,12 +15,12 @@ function AddList(props) {
   const [trelloData] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
-    const setVisibility = e => {
+    const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return
-      utilSetVisible(e, showForm, setShowForm)
+      utilSetToggle(e, showForm, setShowForm)
     }
-    document.addEventListener('click', setVisibility)
-    return () => document.removeEventListener('click', setVisibility)
+    document.addEventListener('click', clickOutsideHandler)
+    return () => document.removeEventListener('click', clickOutsideHandler)
   }, [showForm, trelloData.boardNo])
 
   useEffect(() => {
@@ -64,7 +64,7 @@ function AddList(props) {
               autoFocus
             />
             <div className="list_add_control">
-              <button type="submit" className="submit">
+              <button className="green_submit" type="submit">
                 {loading ? <BtnLoading /> : 'Add List'}
               </button>
               <MdClose onClick={e => closeHandler(e)} />

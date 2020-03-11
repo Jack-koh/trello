@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import DialogCreateBoard, {
-  utilSetVisibility
-} from 'components/dialog/createBoard/Dialog_create_board'
+import DialogCreateBoard from 'components/dialog/createBoard/Dialog_create_board'
+import { utilSetToggle } from 'shared/utility'
 import './CreateBoard.scss'
 
 function CreateBoard() {
@@ -22,7 +21,7 @@ function CreateBoard() {
       {dialog && (
         <DialogCreateBoard
           closeDialog={() => setDialog(false)}
-          setVisibility={e => utilSetVisibility(e, dialog, setDialog)}
+          utilSetToggle={e => utilSetToggle(e, dialog, setDialog)}
         />
       )}
     </>

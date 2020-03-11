@@ -8,12 +8,9 @@ import './Dialog_create_board.scss'
 
 import BtnLoading from 'shared/btnLoading/BtnLoading'
 import Backdrop from 'components/dialog/Backdrop'
-import { utilSetVisible } from 'shared/utility'
-
-export const utilSetVisibility = utilSetVisible
 
 function DialogCreateBoard(props) {
-  const { setVisibility, closeDialog, history, list, loading } = props
+  const { utilSetToggle, closeDialog, history, list, loading } = props
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
@@ -22,13 +19,13 @@ function DialogCreateBoard(props) {
   useEffect(() => {
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return
-      setVisibility(e)
+      utilSetToggle(e)
     }
     document.addEventListener('click', clickOutsideHandler, true)
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [setVisibility])
+  }, [utilSetToggle])
 
   useEffect(() => {
     if (isFirstRun.current) {
@@ -72,7 +69,6 @@ function DialogCreateBoard(props) {
   }
 
   const setBackgroundHandler = item => {
-    console.log(item)
     setBgHandler(item)
   }
 
@@ -106,7 +102,7 @@ function DialogCreateBoard(props) {
           </div>
 
           <div className="bottom_utils">
-            <button type="submit" disabled={boardTitle.length === 0}>
+            <button className="green_submit" type="submit" disabled={boardTitle.length === 0}>
               {loading ? <BtnLoading /> : 'Create Board'}
             </button>
           </div>

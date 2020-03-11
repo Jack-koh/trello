@@ -3,12 +3,9 @@ import { withRouter } from 'react-router-dom'
 import './UserPopover.scss'
 import { connect } from 'react-redux'
 import * as actions from 'store/actions'
-import { utilSetVisible } from 'shared/utility'
-
-export const utilSetVisibility = utilSetVisible
 
 function UserPopover(props) {
-  const { setVisibility } = props
+  const { utilSetToggle } = props
   const wrapperRef = useRef(null)
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
@@ -17,7 +14,7 @@ function UserPopover(props) {
     // 클릭 아웃사이드 기능 생성 및 제거1
     const clickOutsideHandler = e => {
       if (wrapperRef.current.parentElement.contains(e.target)) return
-      setVisibility(e)
+      utilSetToggle(e)
     }
 
     document.addEventListener('click', clickOutsideHandler, true)
@@ -31,7 +28,7 @@ function UserPopover(props) {
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [setVisibility])
+  }, [utilSetToggle])
 
   const logoutHandler = () => {
     props.onLogout()

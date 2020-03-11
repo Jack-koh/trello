@@ -1,3 +1,5 @@
+@import 'util.scss';
+
 .trello_popover {
   position: absolute;
   top: 4rem;
@@ -54,7 +56,7 @@
             padding: 0 1.2rem;
             display: flex;
 
-            input.delete_input {
+            input[type='text'].delete_input {
               height: 100%;
               padding: 0.8rem 1.2rem;
               line-height: 2rem;
@@ -64,16 +66,9 @@
               background-color: #fff;
             }
 
-            .delete_btn {
-              width: 9rem;
-              padding: 0 10px;
-              font-size: 1.2rem;
-              color: #fff;
-              background-color: #cd3232;
-              text-align: center;
-              line-height: 3.2rem;
-              border-radius: 0.3rem;
-              margin-left: 8px;
+            button[type='submit'].red_submit {
+              @include red_submit(10rem);
+              margin-left: 0.6rem;
             }
           }
         }

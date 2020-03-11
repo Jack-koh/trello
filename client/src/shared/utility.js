@@ -5,6 +5,6 @@ export const updateObject = (oldObject, updatedProperties) => {
   }
 }
 
-export const utilSetVisible = (e, state, setState) => {
+export const utilSetToggle = (e, state, setState) => {
   if (state) setState(!state)
 }

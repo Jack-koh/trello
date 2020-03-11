@@ -3,13 +3,10 @@ import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import * as actions from 'store/actions'
 import './TrelloPopover.scss'
-import { utilSetVisible } from 'shared/utility'
 import BtnLoading from 'shared/btnLoading/BtnLoading'
 
-export const utilSetVisibility = utilSetVisible
 function TrelloPopover(props) {
-  const { loading, _id, title, onDeleteItemHandler } = props
-  const { setVisibility } = props
+  const { loading, _id, title, utilSetToggle, onDeleteItemHandler } = props
   const wrapperRef = useRef(null)
   const [onDelete, setOnDelete] = useState(false)
   const [confirmTitle, setConfirmTitle] = useState('')
@@ -18,7 +15,7 @@ function TrelloPopover(props) {
     // 클릭 아웃사이드 기능 생성 및 제거1
     const clickOutsideHandler = e => {
       if (wrapperRef.current.parentElement.contains(e.target)) return
-      setVisibility(e)
+      utilSetToggle(e)
     }
 
     document.addEventListener('click', clickOutsideHandler, true)
@@ -26,14 +23,14 @@ function TrelloPopover(props) {
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [setVisibility, wrapperRef])
+  }, [utilSetToggle, wrapperRef])
 
   const toggleDeleteHandler = () => {
     setOnDelete(!onDelete)
   }
 
   const submitdeleteHandler = e => {
-    e.stopPropagation()
+    e.preventDefault()
     onDeleteItemHandler({ confirmTitle, _id })
   }
 
@@ -58,7 +55,7 @@ function TrelloPopover(props) {
                   Delete List...
                 </div>
                 {onDelete && (
-                  <div className="delete_form_field">
+                  <form className="delete_form_field" onSubmit={e => submitdeleteHandler(e)}>
                     <input
                       className="delete_input"
                       type="text"
@@ -66,15 +63,10 @@ function TrelloPopover(props) {
                       placeholder={`Type list name ${title}`}
                       onChange={e => setConfirmTitle(e.target.value)}
                     />
-                    <button
-                      className="delete_btn"
-                      disabled={title !== confirmTitle}
-                      type="button"
-                      onClick={e => submitdeleteHandler(e)}
-                    >
+                    <button className="red_submit" disabled={title !== confirmTitle} type="submit">
                       {loading ? <BtnLoading /> : 'Delete Trello'}
                     </button>
-                  </div>
+                  </form>
                 )}
               </li>
               <li>

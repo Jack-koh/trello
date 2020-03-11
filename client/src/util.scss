@@ -1,0 +1,26 @@
+@mixin submit_button($width, $base, $hover, $active) {
+  width: $width;
+  height: 3.2rem;
+  background-color: $base;
+  color: #fff;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+  &:disabled {
+    color: #a5adba;
+  }
+
+  &:active {
+    background-color: $active;
+  }
+}
+
+@mixin green_submit($width) {
+  @include submit_button($width, #61bd4f, #61bd4f, #49852e);
+}
+
+@mixin red_submit($width) {
+  @include submit_button($width, #cd3232, #e64747, #a82727);
+}

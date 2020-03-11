@@ -1,3 +1,5 @@
+@import 'util.scss';
+
 @mixin list-wrapper {
   min-width: 27.2rem;
   margin: 0 0.4rem;
@@ -68,15 +70,8 @@
       transition: margin 85ms ease-in, height 85ms ease-in;
       overflow: hidden;
 
-      .submit {
-        width: 7.4rem;
-        height: 3.2rem;
-        background-color: #5aac44;
-        color: #fff;
-
-        &:hover {
-          background-color: #61bd4f;
-        }
+      button[type='submit'].green_submit {
+        @include green_submit(8.2rem);
       }
 
       svg {
