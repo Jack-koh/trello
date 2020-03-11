@@ -2,7 +2,7 @@
   padding-top: 8rem;
   flex: 1;
   display: grid;
-  grid-template-columns: 272px minmax(auto, 84rem);
+  grid-template-columns: minmax(10rem, 27.2rem) minmax(14.9rem, 84rem);
   grid-template-areas: 'sidebar content';
   justify-content: center;
 }

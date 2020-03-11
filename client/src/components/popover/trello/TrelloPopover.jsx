@@ -8,10 +8,11 @@ import BtnLoading from 'shared/btnLoading/BtnLoading'
 
 export const utilSetVisibility = utilSetVisible
 function TrelloPopover(props) {
-  const { loading, listId, onDeleteItemHandler } = props
+  const { loading, _id, title, onDeleteItemHandler } = props
   const { setVisibility } = props
   const wrapperRef = useRef(null)
   const [onDelete, setOnDelete] = useState(false)
+  const [confirmTitle, setConfirmTitle] = useState('')
 
   useEffect(() => {
     // 클릭 아웃사이드 기능 생성 및 제거1
@@ -27,13 +28,13 @@ function TrelloPopover(props) {
     }
   }, [setVisibility, wrapperRef])
 
-  const checkDeleteHandler = () => {
-    setOnDelete(true)
+  const toggleDeleteHandler = () => {
+    setOnDelete(!onDelete)
   }
 
-  const deleteHandler = e => {
+  const submitdeleteHandler = e => {
     e.stopPropagation()
-    onDeleteItemHandler(listId)
+    onDeleteItemHandler({ confirmTitle, _id })
   }
 
   return (
@@ -53,13 +54,24 @@ function TrelloPopover(props) {
                 <div className="actions_title">Move List...</div>
               </li>
               <li className="line_break">
-                <div className="actions_title" onClick={checkDeleteHandler}>
+                <div className="actions_title" onClick={toggleDeleteHandler}>
                   Delete List...
                 </div>
                 {onDelete && (
                   <div className="delete_form_field">
-                    <input className="delete_input" type="text" autoFocus="true" />
-                    <button className="delete_btn" type="button" onClick={e => deleteHandler(e)}>
+                    <input
+                      className="delete_input"
+                      type="text"
+                      autoFocus
+                      placeholder={`Type list name ${title}`}
+                      onChange={e => setConfirmTitle(e.target.value)}
+                    />
+                    <button
+                      className="delete_btn"
+                      disabled={title !== confirmTitle}
+                      type="button"
+                      onClick={e => submitdeleteHandler(e)}
+                    >
                       {loading ? <BtnLoading /> : 'Delete Trello'}
                     </button>
                   </div>
@@ -84,7 +96,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteItemHandler: listId => dispatch(actions.deleteTrelloItemStart(listId))
+    onDeleteItemHandler: params => dispatch(actions.deleteTrelloItemStart(params))
   }
 }
 

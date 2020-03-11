@@ -6,7 +6,6 @@
     "axios": "^0.19.2",
     "http-proxy-middleware": "^1.0.1",
     "node-sass": "^4.13.1",
-    "npm-check-updates": "^4.0.4",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-icons": "^3.9.0",

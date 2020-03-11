@@ -5,11 +5,10 @@ import './index.scss'
 import thunk from 'redux-thunk'
 import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
-import { auth, boards, trello } from 'store/sagas'
-
-import { authReducer, boardsReducer, trelloReducer, loadingReducer } from 'store/reducers'
-import { BrowserRouter } from 'react-router-dom'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
+
+import { auth, boards, trello } from 'store/sagas'
+import { authReducer, boardsReducer, trelloReducer, loadingReducer } from 'store/reducers'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -40,9 +39,7 @@ sagaMiddleware.run(trello)
 
 const app = (
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </Provider>
 )
 

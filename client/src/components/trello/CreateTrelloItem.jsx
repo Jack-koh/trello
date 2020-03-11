@@ -61,7 +61,7 @@ function AddList(props) {
               placeholder="Enter list title..."
               className="list_name_input"
               onChange={e => setTitle(e.target.value)}
-              autoFocus="true"
+              autoFocus
             />
             <div className="list_add_control">
               <button type="submit" className="submit">

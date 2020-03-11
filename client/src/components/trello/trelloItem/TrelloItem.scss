@@ -30,6 +30,7 @@
       &:focus {
         box-shadow: inset 0 0 0 0.2rem #0079bf;
         background-color: #fff;
+        cursor: initial;
       }
     }
 
@@ -63,18 +64,32 @@
   }
 
   .trello_list_composer {
-    position: relative;
-    padding: 0.6rem 0.8rem;
+    padding: 0 0.8rem;
     margin-bottom: 0.9rem;
 
-    .trello_list_add_card {
-      display: flex;
-      font-size: 1.4rem;
-      color: #5e6c84;
-      svg {
-        width: 2rem;
-        height: 2rem;
-        font-size: 1.6rem;
+    form {
+      cursor: pointer;
+      .trello_list_add_card {
+        &:hover {
+          background-color: rgba(9, 30, 66, 0.08);
+          color: #172b4d;
+
+          svg {
+            color: #42526e;
+          }
+        }
+        padding: 4px 8px;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+        color: #5e6c84;
+        svg {
+          width: 2rem;
+          height: 2rem;
+          padding-top: .2rem;
+          font-size: 1.6rem;
+        }
       }
     }
   }

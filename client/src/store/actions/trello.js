@@ -34,7 +34,7 @@ export const updateTrelloItemStart = payload => {
     type: types.UPDATE_TRELLO_ITEM_START,
     payload: {
       _id: payload._id,
-      title: payload.title
+      updateTitle: payload.updateTitle
     }
   }
 }
@@ -46,10 +46,13 @@ export const updateTrelloItemSuccess = item => {
   }
 }
 
-export const deleteTrelloItemStart = listId => {
+export const deleteTrelloItemStart = params => {
   return {
     type: types.DELETE_TRELLO_ITEM_START,
-    listId
+    params: {
+      _id: params._id,
+      confirmTitle: params.confirmTitle,
+    }
   }
 }
 

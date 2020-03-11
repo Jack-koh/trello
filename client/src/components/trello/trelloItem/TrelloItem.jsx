@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import * as actions from 'store/actions'
 import { MdMoreHoriz, MdAdd } from 'react-icons/md'
@@ -8,11 +8,13 @@ import TrelloPopover, { utilSetVisibility } from 'components/popover/trello/Trel
 
 function TrelloItem(props) {
   const { listData, onUpdateTitle } = props
-  const [text, setText] = useState('text')
+  const addCardRef = useRef('')
+  const [title, setTitle] = useState('')
   const [trelloPopover, setTrelloPopover] = useState(false)
+  const [toggleAddCard, setToggleAddCard] = useState(false)
 
   useEffect(() => {
-    setText(listData.title)
+    setTitle(listData.title)
   }, [listData.title])
 
   useEffect(() => {
@@ -21,18 +23,31 @@ function TrelloItem(props) {
 
   const autosizeHandler = e => {
     const obj = e.target
-    setText(obj.value)
+    setTitle(obj.value)
     // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
     obj.style.cssText = 'height:2.8rem; padding: 0'
     obj.style.cssText = `height: ${obj.scrollHeight / 10}rem`
   }
 
   const updateTitle = () => {
-    if (listData.title !== text) onUpdateTitle({ _id: listData._id, title: text })
+    if (listData.title !== title) onUpdateTitle({ _id: listData._id, updateTitle: title })
   }
 
-  const test = e => {
-    e.preventDefault()
+  const toggleAddCardFormHandler = e => {
+    const clickOutsideHandler = () => {
+      if (addCardRef.current.contains(e.target)) console.log('chceck')
+    }
+
+    document.removeEventListener('click', clickOutsideHandler)
+    document.addEventListener('click', clickOutsideHandler, true)
+    // console.log()
+    // if (addCardRef.current.contains(e.target)) {
+    //   console.log(`1${  toggleAddCard}`)
+    // } else {
+    //   setToggleAddCard(!toggleAddCard)
+    //   console.log(`2${  toggleAddCard}`)
+
+    // };
   }
 
   const popoverHandler = () => {
@@ -45,7 +60,7 @@ function TrelloItem(props) {
         <textarea
           type="text"
           spellCheck="false"
-          value={text}
+          value={title}
           onChange={e => autosizeHandler(e)}
           onBlur={updateTitle}
         />
@@ -56,7 +71,8 @@ function TrelloItem(props) {
             </div>
             {trelloPopover && (
               <TrelloPopover
-                listId={listData._id}
+                _id={listData._id}
+                title={title}
                 setVisibility={e => utilSetVisibility(e, trelloPopover, setTrelloPopover)}
               />
             )}
@@ -65,10 +81,12 @@ function TrelloItem(props) {
       </div>
       <div className="trello_list_cards" />
       <div className="trello_list_composer">
-        <div className="trello_list_add_card" onClick={e => test(e)}>
-          <MdAdd />
-          Add a card
-        </div>
+        <form onClick={toggleAddCardFormHandler} ref={addCardRef}>
+          <div className="trello_list_add_card">
+            <MdAdd />
+            Add a card
+          </div>
+        </form>
       </div>
     </div>
   )

@@ -17,7 +17,7 @@ function DialogCreateBoard(props) {
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
-  const [bgName, setBgName] = useState('bg-forest')
+  const [bgName, setBgName] = useState('bg_forest')
 
   useEffect(() => {
     const clickOutsideHandler = e => {
@@ -41,10 +41,10 @@ function DialogCreateBoard(props) {
   }, [closeDialog, history, list])
 
   const backgroundList = [
-    { type: 'image', name: 'bg-forest' },
-    { type: 'image', name: 'bg-sandcave' },
-    { type: 'image', name: 'bg-bird' },
-    { type: 'image', name: 'bg-mountain' },
+    { type: 'image', name: 'bg_forest' },
+    { type: 'image', name: 'bg_sandcave' },
+    { type: 'image', name: 'bg_bird' },
+    { type: 'image', name: 'bg_mountain' },
     { type: 'color', name: 'bg-blue' },
     { type: 'color', name: 'bg-yellow' },
     { type: 'color', name: 'bg-green' },

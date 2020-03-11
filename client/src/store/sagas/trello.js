@@ -31,10 +31,10 @@ export function* getTrelloList(action) {
 }
 
 export function* updateTrelloItem(action) {
-  const { _id, title } = action.payload
+  const { _id, updateTitle } = action.payload
   yield put(actions.loadingStart())
   try {
-    const respData = yield axios.put('trello/update', { _id, title })
+    const respData = yield axios.put('trello/update', { _id, updateTitle })
     yield put(actions.updateTrelloItemSuccess(respData.data.list))
     yield put(actions.loadingFinished())
   } catch (err) {
@@ -44,8 +44,9 @@ export function* updateTrelloItem(action) {
 }
 
 export function* deleteTrelloItem(action) {
+  const { _id, confirmTitle } = action.params
   try {
-    const respData = yield axios.put('trello/delete', { _id: action.listId })
+    const respData = yield axios.delete('trello/delete', { params: { _id, confirmTitle } })
     yield put(actions.deleteTrelloItemSuccess(respData.data._id))
   } catch (err) {
     console.log('updateTrelloItem err ----')

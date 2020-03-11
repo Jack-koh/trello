@@ -30,10 +30,10 @@ exports.create = async (req, res, next) => {
 };
 
 exports.update = async (req, res, next) => {
-  const { _id, title } = req.body;
+  const { _id, updateTitle } = req.body;
   try {
-    await Trellos.updateOne({ _id }, { title });
-    res.status(200).json({ message: "success update", _id, title });
+    await Trellos.updateOne({ _id }, { title: updateTitle });
+    res.status(200).json({ message: "success update", _id, updateTitle });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
@@ -41,10 +41,15 @@ exports.update = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
-  const { _id } = req.body;
+  const { _id, confirmTitle } = req.query;
   try {
-    await Trellos.deleteOne({ _id });
-    res.status(200).json({ message: "success delete", _id });
+    const target = await Trellos.findOne({_id})
+    console.log(target.title)
+    console.log(confirmTitle)
+    if(target.title === confirmTitle) {
+      await Trellos.deleteOne({ _id });
+      res.status(200).json({ message: "success delete", _id });
+    }
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
