@@ -1,5 +1,5 @@
 import { updateObject } from 'shared/utility'
-import * as types from 'store/types'
+import * as type from 'store/types'
 
 const initialState = {
   Progress: false
@@ -13,11 +13,11 @@ const loadingFinished = state => {
   return updateObject(state, { Progress: false })
 }
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.LOADING_START:
+export const reducer = (state = initialState, act) => {
+  switch (act.type) {
+    case type.LOADING_START:
       return loadingStart()
-    case types.LOADING_FINISHED:
+    case type.LOADING_FINISHED:
       return loadingFinished()
     default:
       return state

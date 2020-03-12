@@ -1,7 +1,7 @@
 @mixin common_animation() {
   width: 0.7rem;
   align-self: flex-end;
-  background-color: #fff;
+  background-color: var(--pure-white);
   animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-direction: alternate;
@@ -50,14 +50,14 @@
     height: 1.8rem;
     padding: 0.2rem;
     margin-left: 0.3rem;
-    box-shadow: inset 0 0 0 0.2rem #fff;
+    box-shadow: inset 0 0 0 0.2rem var(--pure-white);
     display: flex;
     border-radius: 0.2rem;
 
     .middle_bar {
       width: 0.2rem;
       height: 1.4rem;
-      background-color: #fff;
+      background-color: var(--pure-white);
     }
 
     .animation_bar_left {

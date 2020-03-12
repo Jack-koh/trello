@@ -6,10 +6,10 @@ import TrelloItem from './trelloItem/TrelloItem'
 
 function TrelloList(props) {
   const { trelloList } = props
-  const trelloListEl = trelloList.map((listData, i) => {
+  const trelloListEl = trelloList.map((trelloData, i) => {
     return (
       <article key={i} className="trello_list_wrapper">
-        <TrelloItem listData={listData} />
+        <TrelloItem trelloData={trelloData} />
       </article>
     )
   })
@@ -19,7 +19,7 @@ function TrelloList(props) {
 
 const mapStateToProps = state => {
   return {
-    trelloList: state.trellos.list
+    trelloList: state.trello.list
   }
 }
 

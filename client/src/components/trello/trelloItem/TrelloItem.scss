@@ -1,4 +1,4 @@
-@import 'util.scss';
+
 
 .trello_list_content {
   position: relative;
@@ -12,29 +12,6 @@
   .trello_list_header {
     position: relative;
     padding: 0.6rem 0.8rem;
-    textarea {
-      width: 22.8rem;
-      height: 2.8rem;
-      line-height: 2rem;
-      min-height: 1.2rem;
-      max-height: 25.6rem;
-      display: block;
-      padding: 0.4rem 0.8rem;
-      color: #172b4d;
-      font-size: 1.4rem;
-      font-weight: 600;
-      resize: none;
-      overflow: hidden;
-      overflow-wrap: break-word;
-      background: transparent;
-      cursor: pointer;
-
-      &:focus {
-        box-shadow: inset 0 0 0 0.2rem #0079bf;
-        background-color: #fff;
-        cursor: initial;
-      }
-    }
 
     .trello_list_more {
       position: absolute;
@@ -65,79 +42,28 @@
     }
   }
 
-  .trello_card_composer {
-    padding: 0 0.8rem;
-    margin-bottom: 0.9rem;
+  .card_form_button {
+    margin: 0 0.8rem 0.9rem;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(9, 30, 66, 0.08);
+      color: var(--dark-blue);
 
-    form {
-      cursor: pointer;
-      .open_card_form {
-        &:hover {
-          background-color: rgba(9, 30, 66, 0.08);
-          color: #172b4d;
-
-          svg {
-            color: #42526e;
-          }
-        }
-        padding: 4px 8px;
-        border-radius: 3px;
-        display: flex;
-        align-items: center;
-        font-size: 1.4rem;
-        color: #5e6c84;
-        svg {
-          width: 2rem;
-          height: 2rem;
-          padding-top: 0.2rem;
-          font-size: 1.6rem;
-        }
+      svg {
+        color: #42526e;
       }
-
-      .util_card_form {
-        .trello_card {
-          display: block;
-          padding: 6px 8px 2px;
-          background-color: #fff;
-          border-radius: 3px;
-          box-shadow: 0 1px 0 rgba(9, 30, 66, 0.25);
-          margin-bottom: 8px;
-          min-height: 20px;
-          cursor: pointer;
-
-          textarea {
-            width: 100%;
-            color: #172b4d;
-            font-size: 1.4rem;
-            resize: none;
-          }
-        }
-
-        .card_add_control {
-          display: flex;
-          align-items: center;
-          height: 3.2rem;
-          margin-top: 0.4rem;
-          transition: margin 85ms ease-in, height 85ms ease-in;
-          overflow: hidden;
-
-          button[type='submit'].green_submit {
-            @include green_submit(8.2rem);
-          }
-
-          svg {
-            margin-left: 0.6rem;
-            color: #42526e;
-            width: 2.4rem;
-            height: 2.4rem;
-            transition: color 0.2s;
-
-            &:hover {
-              color: #333;
-            }
-          }
-        }
-      }
+    }
+    padding: 4px 8px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: #5e6c84;
+    svg {
+      width: 2rem;
+      height: 2rem;
+      padding-top: 0.2rem;
+      font-size: 1.6rem;
     }
   }
 }

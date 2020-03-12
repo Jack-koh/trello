@@ -1,6 +1,6 @@
 @mixin common_button() {
   margin-right: 0.5rem;
-  color: #ffffff;
+  color: var(--pure-white);
   display: flex;
   align-items: center;
   border-radius: 0.5rem;
@@ -64,7 +64,7 @@
         width: 18rem;
         height: 3.2rem;
         font-size: 1.3rem;
-        color: #172b4d;
+        color: var(--dark-blue);
         padding-left: 0.8rem;
         background-color: hsla(0, 0%, 100%, 0.3);
         border-radius: 0.5rem;
@@ -72,7 +72,7 @@
 
         &:focus {
           width: 28rem;
-          background-color: #ffffff;
+          background-color: var(--pure-white);
           padding-right: 5.4rem;
         }
       }
@@ -83,7 +83,7 @@
         position: absolute;
         right: 0.6rem;
         top: 0.6rem;
-        color: #ffffff;
+        color: var(--pure-white);
         cursor: pointer;
       }
     }

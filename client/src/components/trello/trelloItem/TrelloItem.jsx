@@ -1,48 +1,37 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions'
-import { MdMoreHoriz, MdAdd, MdClose } from 'react-icons/md'
+import * as action from 'store/actions'
+import { MdMoreHoriz, MdAdd } from 'react-icons/md'
 import './TrelloItem.scss'
-import { utilSetToggle } from 'shared/utility'
-import TrelloPopover from 'components/popover/trello/TrelloPopover'
+import { utilToggleHandler } from 'shared/utility'
 
-import BtnLoading from 'shared/btnLoading/BtnLoading'
+import TrelloPopover from 'components/trello/trelloItem/trelloPopover/TrelloPopover'
+import { Textarea } from 'components/custom/Elements'
+import CardAddForm from './createCard/CreateCard'
 
 function TrelloItem(props) {
-  const { listData, onUpdateTitle } = props
-  const addCardRef = useRef(null)
+  const { trelloData, onUpdateTitle } = props
   const [title, setTitle] = useState('')
   const [trelloPopover, setTrelloPopover] = useState(false)
-  const [toggleAddCard, setToggleAddCard] = useState(false)
-  const [loading] = useState(false)
+  const [addCardStatus, setAddCardStatus] = useState(false)
 
   useEffect(() => {
-    setTitle(listData.title)
-  }, [listData.title])
+    setTitle(trelloData.title)
+  }, [trelloData.title])
 
   useEffect(() => {
     setTrelloPopover(false)
-  }, [listData])
-
-  useEffect(() => {
-    const clickOutsideHandler = e => {
-      if (addCardRef.current.contains(e.target)) return
-      setToggleAddCard(false)
-    }
-    document.addEventListener('click', clickOutsideHandler)
-    return () => document.removeEventListener('click', clickOutsideHandler)
-  }, [toggleAddCard])
+  }, [trelloData])
 
   const autosizeHandler = e => {
-    const obj = e.target
-    setTitle(obj.value)
+    setTitle(e.target.value)
     // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
-    obj.style.cssText = 'height:2.8rem; padding: 0'
-    obj.style.cssText = `height: ${obj.scrollHeight / 10}rem`
+    e.target.style.cssText = 'height:2.8rem;'
+    e.target.style.cssText = `height: ${e.target.scrollHeight / 10}rem`
   }
 
   const updateTitle = () => {
-    if (listData.title !== title) onUpdateTitle({ _id: listData._id, updateTitle: title })
+    if (trelloData.title !== title) onUpdateTitle({ _id: trelloData._id, updateTitle: title })
   }
 
   const popoverHandler = () => {
@@ -52,9 +41,9 @@ function TrelloItem(props) {
   return (
     <div className="trello_list_content">
       <div className="trello_list_header">
-        <textarea
+        <Textarea
+          className="trello_title"
           type="text"
-          spellCheck="false"
           value={title}
           onChange={e => autosizeHandler(e)}
           onBlur={updateTitle}
@@ -66,41 +55,33 @@ function TrelloItem(props) {
             </div>
             {trelloPopover && (
               <TrelloPopover
-                _id={listData._id}
+                _id={trelloData._id}
                 title={title}
-                utilSetToggle={e => utilSetToggle(e, trelloPopover, setTrelloPopover)}
+                utilToggleHandler={() => utilToggleHandler(trelloPopover, setTrelloPopover)}
               />
             )}
           </div>
         </div>
       </div>
       <div className="trello_cards_wrapper" />
-      <div className="trello_card_composer">
-        <form onClick={() => setToggleAddCard(true)} ref={addCardRef}>
-          <div className="open_card_form">
-            <MdAdd />
-            Add a card
-          </div>
-          <div className="util_card_form">
-            <div className="trello_card">
-              <textarea />
-            </div>
-            <div className="card_add_control">
-              <button className="green_submit" type="submit">
-                {loading ? <BtnLoading /> : 'Add Card'}
-              </button>
-              <MdClose onClick={() => setToggleAddCard(false)} />
-            </div>
-          </div>
-        </form>
-      </div>
+      {addCardStatus ? (
+        <CardAddForm
+          trelloData={trelloData}
+          utilToggleHandler={() => utilToggleHandler(addCardStatus, setAddCardStatus)}
+        />
+      ) : (
+        <div className="card_form_button" onClick={() => setAddCardStatus(true)}>
+          <MdAdd />
+          Add a card
+        </div>
+      )}
     </div>
   )
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onUpdateTitle: payload => dispatch(actions.updateTrelloItemStart(payload))
+    onUpdateTitle: payload => dispatch(action.updateTrelloItemStart(payload))
   }
 }
 

@@ -1,8 +1,8 @@
-const Trellos = require("../models/trellos");
+const Trello = require("../models/trello");
 
 exports.get = async (req, res, next) => {
   try {
-    const list = await Trellos.find({ boardNo: req.query.boardNo });
+    const list = await Trello.find({ boardNo: req.query.boardNo });
     res.status(200).json({ list });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
@@ -13,7 +13,7 @@ exports.get = async (req, res, next) => {
 exports.create = async (req, res, next) => {
   const { boardNo, userNo, userName, userEmail, title } = req.body;
   try {
-    const trellos = new Trellos({
+    const trello = new Trello({
       creatorNo: userNo,
       creatorEmail: userEmail,
       creatorName: userName,
@@ -21,7 +21,7 @@ exports.create = async (req, res, next) => {
       title
     });
 
-    const respData = await trellos.save();
+    const respData = await trello.save();
     res.status(201).json({ item: respData });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
@@ -32,7 +32,7 @@ exports.create = async (req, res, next) => {
 exports.update = async (req, res, next) => {
   const { _id, updateTitle } = req.body;
   try {
-    await Trellos.updateOne({ _id }, { title: updateTitle });
+    await Trello.updateOne({ _id }, { title: updateTitle });
     res.status(200).json({ message: "success update", _id, updateTitle });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
@@ -43,11 +43,9 @@ exports.update = async (req, res, next) => {
 exports.delete = async (req, res, next) => {
   const { _id, confirmTitle } = req.query;
   try {
-    const target = await Trellos.findOne({_id})
-    console.log(target.title)
-    console.log(confirmTitle)
+    const target = await Trello.findOne({_id})
     if(target.title === confirmTitle) {
-      await Trellos.deleteOne({ _id });
+      await Trello.deleteOne({ _id });
       res.status(200).json({ message: "success delete", _id });
     }
   } catch (err) {

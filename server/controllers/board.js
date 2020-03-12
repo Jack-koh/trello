@@ -1,5 +1,5 @@
-const Boards = require('../models/boards');
-const Relation = require('../models/relations/user_boards');
+const Board = require("../models/board");
+const Relation = require("../models/relations/user_board");
 
 exports.get = async (req, res, next) => {
   try {
@@ -15,13 +15,13 @@ exports.create = async (req, res, next) => {
   const { title, background, userNo, userName, userEmail, favorite } = req.body;
 
   try {
-    const boards = new Boards({
+    const board = new Board({
       creatorNo: userNo,
       creatorEmail: userEmail,
       creatorName: userName,
       title
     });
-    const result = await boards.save();
+    const result = await board.save();
 
     // user & board relation 저장
     const relation = new Relation({

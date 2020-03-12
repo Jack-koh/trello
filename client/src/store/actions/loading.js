@@ -1,13 +1,13 @@
-import * as types from 'store/types'
+import * as type from 'store/types'
 
 export const loadingStart = () => {
   return {
-    type: types.LOADING_START
+    type: type.LOADING_START
   }
 }
 
 export const loadingFinished = () => {
   return {
-    type: types.LOADING_FINISHED
+    type: type.LOADING_FINISHED
   }
 }

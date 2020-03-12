@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as actions from 'store/actions'
-import './BoardItems.scss'
+import * as action from 'store/actions'
+import './BoardList.scss'
 import { MdStarBorder } from 'react-icons/md'
 
-const BoardItems = props => {
-  const { boardItems, onGetBoardItem, history } = props
+const BoardList = props => {
+  const { boardList, onGetBoardItem, history } = props
 
   useEffect(() => {
     onGetBoardItem()
@@ -21,9 +21,9 @@ const BoardItems = props => {
     e.stopPropagation()
   }
 
-  const itemEl =
-    boardItems &&
-    boardItems.map((item, i) => {
+  const boardItem =
+    boardList &&
+    boardList.map((item, i) => {
       return (
         <li key={i} className={`board_item ${item.background.name}`}>
           <div onClick={onEnterTrelloHandler.bind(this, item)}>
@@ -37,21 +37,21 @@ const BoardItems = props => {
         </li>
       )
     })
-  return <>{itemEl}</>
+  return <>{boardItem}</>
 }
 
 const mapStateToProps = state => {
   return {
-    boardItems: state.boards.list
+    boardList: state.board.list
   }
 }
 
 const mapDispatchToProp = dispatch => {
   return {
     onGetBoardItem: () => {
-      dispatch(actions.getBoardsStart())
+      dispatch(action.getBoardListStart())
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(withRouter(BoardItems))
+export default connect(mapStateToProps, mapDispatchToProp)(withRouter(BoardList))

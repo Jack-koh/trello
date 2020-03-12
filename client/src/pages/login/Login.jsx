@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import './Login.scss'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 
-import BtnLoading from 'shared/btnLoading/BtnLoading'
+import { Button } from 'components/custom/Elements'
 
 function Login(props) {
   const { userData, history, location } = props
@@ -15,7 +15,7 @@ function Login(props) {
 
   useEffect(() => {
     const token = localStorage.getItem('token')
-    if (token) history.push('/main/boards')
+    if (token) history.push('/main/board')
   }, [userData, history])
 
   useEffect(() => {
@@ -28,7 +28,7 @@ function Login(props) {
     setloading(userData.loading)
   }, [userData])
 
-  const submitHandler = async e => {
+  const loginSubmit = async e => {
     e.preventDefault()
     const params = { email, password, name }
     props.onLogin(params)
@@ -44,7 +44,7 @@ function Login(props) {
       </header>
       <section className="form_wrap">
         <h1>Log in to Trello</h1>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={loginSubmit}>
           <input
             type="text"
             placeholder="Enter email"
@@ -55,9 +55,7 @@ function Login(props) {
             placeholder="Enter password"
             onChange={event => setPassword(event.target.value)}
           />
-          <button type="submit" className="login_button">
-            {loading ? <BtnLoading /> : 'Log In'}
-          </button>
+          <Button className="login_submit" type="submit" text="Log In" loading={loading} />
         </form>
         <div className="auth_utils">
           <Link to="/find-password" className="find_pw">
@@ -81,7 +79,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: userData => dispatch(actions.loginStart(userData))
+    onLogin: userData => dispatch(action.loginStart(userData))
   }
 }
 

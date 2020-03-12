@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
 import './UserPopover.scss'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 
 function UserPopover(props) {
-  const { utilSetToggle } = props
+  const { utilToggleHandler } = props
   const wrapperRef = useRef(null)
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
@@ -14,7 +14,7 @@ function UserPopover(props) {
     // 클릭 아웃사이드 기능 생성 및 제거1
     const clickOutsideHandler = e => {
       if (wrapperRef.current.parentElement.contains(e.target)) return
-      utilSetToggle(e)
+      utilToggleHandler()
     }
 
     document.addEventListener('click', clickOutsideHandler, true)
@@ -28,7 +28,7 @@ function UserPopover(props) {
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [utilSetToggle])
+  }, [utilToggleHandler])
 
   const logoutHandler = () => {
     props.onLogout()
@@ -73,7 +73,7 @@ function UserPopover(props) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogout: () => dispatch(actions.logout())
+    onLogout: () => dispatch(action.logout())
   }
 }
 

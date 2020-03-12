@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import DialogCreateBoard from 'components/dialog/createBoard/Dialog_create_board'
-import { utilSetToggle } from 'shared/utility'
+import { utilToggleHandler } from 'shared/utility'
 import './CreateBoard.scss'
 
 function CreateBoard() {
@@ -21,7 +21,7 @@ function CreateBoard() {
       {dialog && (
         <DialogCreateBoard
           closeDialog={() => setDialog(false)}
-          utilSetToggle={e => utilSetToggle(e, dialog, setDialog)}
+          utilToggleHandler={() => utilToggleHandler(dialog, setDialog)}
         />
       )}
     </>

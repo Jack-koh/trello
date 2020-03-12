@@ -1,17 +1,19 @@
 :root {
+  --dark-blue: #172b4d;
+  --pure-white: #fff;
 }
 
 .bg-green {
-  background-color: rgb(75, 191, 107);
+  background-color: #4bbf6b;
 }
 .bg-yellow {
-  background-color: rgb(210, 144, 52);
+  background-color: #d29034;
 }
 .bg-blue {
-  background-color: rgb(0, 121, 191);
+  background-color: #0079bf;
 }
 .bg-brown {
-  background-color: rgb(176, 70, 50);
+  background-color: #b04632;
 }
 .bg_gray {
   background-color: rgba(9, 30, 66, 0.08);
@@ -82,23 +84,9 @@ textarea {
   border: none;
   outline: none;
   border-radius: 0.3rem;
-  color: #172b4d;
+  color: var(--dark-blue);
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans,
     Helvetica Neue, sans-serif;
-}
-
-button {
-  position: relative;
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  outline: none;
-}
-
-button:disabled {
-  background-color: #f4f5f7 !important;
-  color: #a5adba !important;
-  cursor: initial;
 }
 
 #root {

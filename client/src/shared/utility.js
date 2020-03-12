@@ -5,6 +5,7 @@ export const updateObject = (oldObject, updatedProperties) => {
   }
 }
 
-export const utilSetToggle = (e, state, setState) => {
+export const utilToggleHandler = (state, setState) => {
   if (state) setState(!state)
+  return false;
 }

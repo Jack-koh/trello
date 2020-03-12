@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from 'react-icons/md'
-import { utilSetToggle } from 'shared/utility'
+import { utilToggleHandler } from 'shared/utility'
 import UserPopover from 'components/popover/user/UserPopover'
 
 function GnbRight() {
@@ -25,7 +25,7 @@ function GnbRight() {
       <div className="user_btn">
         <MdAccountCircle onClick={popoverHandler} />
         {userPopover && (
-          <UserPopover utilSetToggle={e => utilSetToggle(e, userPopover, setUserPopover)} />
+          <UserPopover utilToggleHandler={() => utilToggleHandler(userPopover, setUserPopover)} />
         )}
       </div>
     </div>

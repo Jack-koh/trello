@@ -12,38 +12,31 @@ autoIncrement.initialize(connection);
 
 const Schema = mongoose.Schema(
   {
-    creatorNo: {
-      type: Number,
-      required: true
-    },
-    creatorName: {
-      type: String,
-      required: true
-    },
-    creatorEmail: {
-      type: String,
-      required: true
-    },
-    boardNo: {
-      type: Number,
-      required: true
-    },
     title: {
       type: String,
       require: true
     },
-    cards: {
-      type: Object
+    creatorNo: {
+      type: Number,
+      require: true
+    },
+    creatorEmail: {
+      type: String,
+      require: true
+    },
+    creatorName: {
+      type: String,
+      require: true
     }
   },
   { timestamps: true }
 );
 
 Schema.plugin(autoIncrement.plugin, {
-  model: "trellos",
-  field: "trelloNo",
+  model: "board",
+  field: "boardNo",
   startAt: 1,
   increment: 1
 });
 
-module.exports = mongoose.model("trellos", Schema);
+module.exports = mongoose.model("board", Schema);

@@ -5,8 +5,8 @@ import { MdHome, MdPoll, MdSearch } from 'react-icons/md'
 function GnbRight(props) {
   const { location, history } = props
   const toHomeHandler = () => {
-    if (location.pathname === '/main/boards') return
-    history.push('/main/boards')
+    if (location.pathname === '/main/board') return
+    history.push('/main/board')
   }
   return (
     <div className="gnb_left">

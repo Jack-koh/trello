@@ -5,7 +5,7 @@
   z-index: 10;
 
   .user_popover_content {
-    background-color: #ffffff;
+    background-color: var(--pure-white);
     border-radius: 0.3rem;
     box-shadow: 0 0.8rem 1.6rem -0.4rem rgba(9, 30, 66, 0.25), 0 0 0 0.1rem rgba(9, 30, 66, 0.08);
 
@@ -26,7 +26,7 @@
 
         li {
           > div {
-            color: #172b4d;
+            color: var(--dark-blue);
             font-size: 1.4rem;
             line-height: 2rem;
             padding: 0.6rem 1.2rem;

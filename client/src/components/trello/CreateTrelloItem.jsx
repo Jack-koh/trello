@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 import './CreateTrelloItem.scss'
 import { MdAdd, MdClose } from 'react-icons/md'
-import { utilSetToggle } from 'shared/utility'
+import { utilToggleHandler } from 'shared/utility'
 
-import BtnLoading from 'shared/btnLoading/BtnLoading'
+import { Button } from 'components/custom/Elements'
 
 function AddList(props) {
   const { loading, trelloList } = props
@@ -17,7 +17,7 @@ function AddList(props) {
   useEffect(() => {
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return
-      utilSetToggle(e, showForm, setShowForm)
+      utilToggleHandler(showForm, setShowForm)
     }
     document.addEventListener('click', clickOutsideHandler)
     return () => document.removeEventListener('click', clickOutsideHandler)
@@ -27,7 +27,7 @@ function AddList(props) {
     setShowForm(false)
   }, [trelloList])
 
-  const submitHandler = async e => {
+  const createTrelloSubmit = async e => {
     e.preventDefault()
     if (title.length > 0) {
       const { boardNo, userNo, userEmail, userName } = trelloData
@@ -48,7 +48,7 @@ function AddList(props) {
       className={`add_list_wrapper ${showForm ? 'on' : 'off'}`}
       onClick={() => setShowForm(true)}
     >
-      <form onSubmit={e => submitHandler(e)}>
+      <form onSubmit={e => createTrelloSubmit(e)}>
         {!showForm ? (
           <div className="place_holder">
             <MdAdd className="add_icon" />
@@ -64,9 +64,7 @@ function AddList(props) {
               autoFocus
             />
             <div className="list_add_control">
-              <button className="green_submit" type="submit">
-                {loading ? <BtnLoading /> : 'Add List'}
-              </button>
+              <Button className="green_submit" type="submit" text="Add List" loading={loading} />
               <MdClose onClick={e => closeHandler(e)} />
             </div>
           </>
@@ -78,14 +76,14 @@ function AddList(props) {
 
 const mapStateToProps = state => {
   return {
-    loading: state.trellos.loading,
-    trelloList: state.trellos.list
+    loading: state.trello.loading,
+    trelloList: state.trello.list
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateTrelloList: payload => dispatch(actions.createTrelloItemStart(payload))
+    onCreateTrelloList: payload => dispatch(action.createTrelloItemStart(payload))
   }
 }
 

@@ -11,7 +11,7 @@ const SideBar = props => {
       <nav className="side_bar_wrap">
         <ul>
           <li className="navigation_item">
-            <NavLink to="/main/boards" exact activeClassName="active">
+            <NavLink to="/main/board" exact activeClassName="active">
               <MdPoll />
               <span>Boards</span>
             </NavLink>

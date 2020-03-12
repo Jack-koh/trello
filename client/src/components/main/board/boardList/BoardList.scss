@@ -13,7 +13,7 @@
     justify-content: space-between;
 
     .item_title {
-      color: #ffffff;
+      color: var(--pure-white);
       font-weight: 700;
       font-size: 1.4rem;
       line-height: 2rem;
@@ -36,7 +36,7 @@
 
     svg {
       font-size: 1.6rem;
-      color: #ffffff;
+      color: var(--pure-white);
       position: absolute;
       bottom: 0.6rem;
       right: -1.4rem;

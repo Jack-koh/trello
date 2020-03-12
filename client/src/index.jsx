@@ -7,8 +7,8 @@ import { Provider } from 'react-redux'
 import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
-import { auth, boards, trello } from 'store/sagas'
-import { authReducer, boardsReducer, trelloReducer, loadingReducer } from 'store/reducers'
+import { auth, board, trello, card } from 'store/sagas'
+import { authReducer, boardReducer, trelloReducer, loadingReducer } from 'store/reducers'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -20,22 +20,17 @@ const composeEnhancers =
 const reducer = combineReducers({
   loading: loadingReducer,
   auth: authReducer,
-  boards: boardsReducer,
-  trellos: trelloReducer
+  board: boardReducer,
+  trello: trelloReducer
 })
 const sagaMiddleware = createSagaMiddleware()
 const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware))
 const store = createStore(reducer, enhencer)
 
-// const sagaGenerater = list => {
-//   for (let saga of list) {
-//     sagaMiddleware.run(saga);
-//   }
-// };
-// sagaGenerater([auth, boards, trello]);
 sagaMiddleware.run(auth)
-sagaMiddleware.run(boards)
+sagaMiddleware.run(board)
 sagaMiddleware.run(trello)
+sagaMiddleware.run(card)
 
 const app = (
   <Provider store={store}>

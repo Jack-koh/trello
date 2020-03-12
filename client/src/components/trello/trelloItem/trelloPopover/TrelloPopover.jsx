@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 import './TrelloPopover.scss'
-import BtnLoading from 'shared/btnLoading/BtnLoading'
+import { Button } from 'components/custom/Elements'
 
 function TrelloPopover(props) {
-  const { loading, _id, title, utilSetToggle, onDeleteItemHandler } = props
+  const { loading, _id, title, utilToggleHandler, onDeleteItemHandler } = props
   const wrapperRef = useRef(null)
   const [onDelete, setOnDelete] = useState(false)
   const [confirmTitle, setConfirmTitle] = useState('')
@@ -15,7 +15,7 @@ function TrelloPopover(props) {
     // 클릭 아웃사이드 기능 생성 및 제거1
     const clickOutsideHandler = e => {
       if (wrapperRef.current.parentElement.contains(e.target)) return
-      utilSetToggle(e)
+      utilToggleHandler()
     }
 
     document.addEventListener('click', clickOutsideHandler, true)
@@ -23,13 +23,13 @@ function TrelloPopover(props) {
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [utilSetToggle, wrapperRef])
+  }, [utilToggleHandler, wrapperRef])
 
   const toggleDeleteHandler = () => {
     setOnDelete(!onDelete)
   }
 
-  const submitdeleteHandler = e => {
+  const deleteTrelloSubmit = e => {
     e.preventDefault()
     onDeleteItemHandler({ confirmTitle, _id })
   }
@@ -55,7 +55,7 @@ function TrelloPopover(props) {
                   Delete List...
                 </div>
                 {onDelete && (
-                  <form className="delete_form_field" onSubmit={e => submitdeleteHandler(e)}>
+                  <form className="delete_form_field" onSubmit={e => deleteTrelloSubmit(e)}>
                     <input
                       className="delete_input"
                       type="text"
@@ -63,9 +63,13 @@ function TrelloPopover(props) {
                       placeholder={`Type list name ${title}`}
                       onChange={e => setConfirmTitle(e.target.value)}
                     />
-                    <button className="red_submit" disabled={title !== confirmTitle} type="submit">
-                      {loading ? <BtnLoading /> : 'Delete Trello'}
-                    </button>
+                    <Button
+                      className="red_submit"
+                      type="submit"
+                      text="Delete Trello"
+                      loading={loading}
+                      disabled={title !== confirmTitle}
+                    />
                   </form>
                 )}
               </li>
@@ -82,13 +86,13 @@ function TrelloPopover(props) {
 
 const mapStateToProps = state => {
   return {
-    loading: state.trellos.loading
+    loading: state.trello.loading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onDeleteItemHandler: params => dispatch(actions.deleteTrelloItemStart(params))
+    onDeleteItemHandler: params => dispatch(action.deleteTrelloItemStart(params))
   }
 }
 

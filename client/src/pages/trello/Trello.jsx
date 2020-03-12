@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { MdStarBorder, MdStar } from 'react-icons/md'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 import './Trello.scss'
 
 import TrelloList from 'components/trello/TrelloList'
@@ -51,14 +51,14 @@ function Trello(props) {
 
 const mapStateToProps = state => {
   return {
-    trelloList: state.trellos.list
+    trelloList: state.trello.list
   }
 }
 
 const mapDispatchToProp = dispatch => {
   return {
-    onGetTelloList: params => dispatch(actions.getTrelloListStart(params)),
-    onInitTrelloList: () => dispatch(actions.initTrelloList())
+    onGetTelloList: params => dispatch(action.getTrelloListStart(params)),
+    onInitTrelloList: () => dispatch(action.initTrelloList())
   }
 }
 

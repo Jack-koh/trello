@@ -8,7 +8,7 @@ function Backdrop() {
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    color: '#ffffff',
+    color: 'var(--pure-white)',
     zIndex: 10
   };
 

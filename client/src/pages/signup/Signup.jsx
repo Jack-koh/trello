@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import './Signup.scss'
 import axios from 'axios'
-import BtnLoading from 'shared/btnLoading/BtnLoading'
+
+import { Button } from 'components/custom/Elements'
 
 function Signup(props) {
   const { userData, history, location } = props
@@ -22,7 +23,7 @@ function Signup(props) {
     setName('')
   }, [location])
 
-  const submitHandler = async event => {
+  const signupSubmit = async event => {
     event.preventDefault()
     const params = { email, password, name }
     try {
@@ -45,7 +46,7 @@ function Signup(props) {
       </header>
       <section className="form_wrap">
         <h1>Sign in to Trello</h1>
-        <form onSubmit={submitHandler}>
+        <form onSubmit={signupSubmit}>
           <input
             type="text"
             placeholder="Enter email"
@@ -63,9 +64,7 @@ function Signup(props) {
             value={name}
             onChange={event => setName(event.target.value)}
           />
-          <button type="submit" className="signup-button">
-            {loading ? <BtnLoading /> : 'Continue'}
-          </button>
+          <Button className="signup_submit" type="submit" text="Continue" loading={loading} />
         </form>
         <div className="auth_utils">
           <Link to="/Login" className="sign_up">

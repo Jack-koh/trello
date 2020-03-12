@@ -1,10 +1,10 @@
 import React from 'react'
 import { MdPersonOutline } from 'react-icons/md'
-import './Boards.scss'
-import BoardItems from './boardItem/BoardItems'
+import './Board.scss'
+import BoardList from './boardList/BoardList'
 import CreateBoard from './createBoard/CreateBoard'
 
-function Board(props) {
+function Board() {
   return (
     <section className="board_wrap">
       <div className="board_inner_area">
@@ -14,7 +14,7 @@ function Board(props) {
             <span>Personal Boards</span>
           </div>
           <ul className="board_item_section">
-            <BoardItems />
+            <BoardList />
             <CreateBoard />
           </ul>
         </div>

@@ -40,4 +40,4 @@ const Schema = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("user_boards", Schema);
+module.exports = mongoose.model("user_board", Schema);

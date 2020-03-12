@@ -13,7 +13,7 @@
     height: 42rem;
     padding: 2.5rem 4rem;
     margin: 0 auto;
-    background-color: #ffffff;
+    background-color: var(--pure-white);
     border-radius: 0.3rem;
     box-shadow: rgba(0, 0, 0, 0.1) 0 0 1rem;
 
@@ -50,7 +50,7 @@
       height: 3.6rem;
       position: relative;
       text-align: center;
-      color: #ffffff;
+      color: var(--pure-white);
       background-color: #0052cc;
       transition: background-color 0.1s;
 

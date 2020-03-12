@@ -1,8 +1,8 @@
-import * as types from 'store/types'
+import * as type from 'store/types'
 
 export const loginStart = payload => {
   return {
-    type: types.LOGIN_START,
+    type: type.LOGIN_START,
     user: {
       email: payload.email,
       password: payload.password
@@ -12,18 +12,18 @@ export const loginStart = payload => {
 
 export const loginSuccess = () => {
   return {
-    type: types.LOGIN_SUCCESS
+    type: type.LOGIN_SUCCESS
   }
 }
 
 export const loginFail = () => {
   return {
-    type: types.LOGIN_FAIL
+    type: type.LOGIN_FAIL
   }
 }
 
 export const logout = () => {
-  return { type: types.LOGOUT }
+  return { type: type.LOGOUT }
 }
 
 export const authCheck = () => {

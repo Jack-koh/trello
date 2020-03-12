@@ -1,5 +1,3 @@
-@import 'util.scss';
-
 .trello_popover {
   position: absolute;
   top: 4rem;
@@ -7,7 +5,7 @@
   z-index: 10;
 
   .trello_popover_content {
-    background-color: #ffffff;
+    background-color: var(--pure-white);
     border-radius: 0.3rem;
     box-shadow: 0 0.8rem 1.6rem -0.4rem rgba(9, 30, 66, 0.25), 0 0 0 0.1rem rgba(9, 30, 66, 0.08);
 
@@ -39,7 +37,7 @@
           .actions_title {
             position: relative;
             overflow: hidden;
-            color: #172b4d;
+            color: var(--dark-blue);
             font-size: 1.4rem;
             line-height: 2rem;
             padding: 0.6rem 1.2rem;
@@ -60,15 +58,11 @@
               height: 100%;
               padding: 0.8rem 1.2rem;
               line-height: 2rem;
-              color: #172b4d;
+              margin-right: .6rem;
+              color: var(--dark-blue);
               flex-grow: 1;
               box-shadow: inset 0 0 0 0.2rem #0079bf;
-              background-color: #fff;
-            }
-
-            button[type='submit'].red_submit {
-              @include red_submit(10rem);
-              margin-left: 0.6rem;
+              background-color: var(--pure-white);
             }
           }
         }

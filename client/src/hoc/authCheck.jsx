@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 
 function AuthCheck(props) {
   const { children, autoAuthCheck, history } = props
@@ -15,7 +15,7 @@ function AuthCheck(props) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    autoAuthCheck: () => dispatch(actions.authCheck())
+    autoAuthCheck: () => dispatch(action.authCheck())
   }
 }
 

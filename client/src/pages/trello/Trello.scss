@@ -1,5 +1,5 @@
 @mixin trello_header_div {
-  color: #fff;
+  color: var(--pure-white);
   height: 3.2rem;
   display: flex;
   align-items: center;

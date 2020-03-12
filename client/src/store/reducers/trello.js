@@ -1,5 +1,5 @@
 import { updateObject } from 'shared/utility'
-import * as types from 'store/types'
+import * as type from 'store/types'
 
 const initialState = {
   list: [],
@@ -34,20 +34,20 @@ const deleteTrelloItemSuccess = (state, _id) => {
   })
 }
 
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case types.INIT_TRELLO_LIST:
-      return initTrelloList(state, action.list)
-    case types.GET_TRELLO_LIST_SUCCESS:
-      return getTrelloListSuccess(state, action.list)
-    case types.CREATE_TRELLO_ITEM_START:
+export const reducer = (state = initialState, act) => {
+  switch (act.type) {
+    case type.INIT_TRELLO_LIST:
+      return initTrelloList(state, act.list)
+    case type.GET_TRELLO_LIST_SUCCESS:
+      return getTrelloListSuccess(state, act.list)
+    case type.CREATE_TRELLO_ITEM_START:
       return loading(state)
-    case types.CREATE_TRELLO_ITEM_SUCCESS:
-      return createTrelloItemSuccess(state, action.item)
-    case types.DELETE_TRELLO_ITEM_START:
+    case type.CREATE_TRELLO_ITEM_SUCCESS:
+      return createTrelloItemSuccess(state, act.item)
+    case type.DELETE_TRELLO_ITEM_START:
       return loading(state)
-    case types.DELETE_TRELLO_ITEM_SUCCESS:
-      return deleteTrelloItemSuccess(state, action._id)
+    case type.DELETE_TRELLO_ITEM_SUCCESS:
+      return deleteTrelloItemSuccess(state, act._id)
     default:
       return state
   }

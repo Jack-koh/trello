@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import * as actions from 'store/actions'
+import * as action from 'store/actions'
 import { MdClose } from 'react-icons/md'
 import { FaCheck } from 'react-icons/fa'
 import './Dialog_create_board.scss'
 
-import BtnLoading from 'shared/btnLoading/BtnLoading'
 import Backdrop from 'components/dialog/Backdrop'
+import { Button } from 'components/custom/Elements'
 
 function DialogCreateBoard(props) {
-  const { utilSetToggle, closeDialog, history, list, loading } = props
+  const { utilToggleHandler, closeDialog, history, list, loading } = props
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
@@ -19,13 +19,13 @@ function DialogCreateBoard(props) {
   useEffect(() => {
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return
-      utilSetToggle(e)
+      utilToggleHandler()
     }
     document.addEventListener('click', clickOutsideHandler, true)
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [utilSetToggle])
+  }, [utilToggleHandler])
 
   useEffect(() => {
     if (isFirstRun.current) {
@@ -53,7 +53,7 @@ function DialogCreateBoard(props) {
     setBgName(item.name)
   }
 
-  const createBoardHandler = async e => {
+  const createBoardSubmit = async e => {
     e.preventDefault()
     const background = backgroundList.find(el => el.name === bgName)
     const userData = JSON.parse(localStorage.getItem('user-data'))
@@ -87,7 +87,7 @@ function DialogCreateBoard(props) {
   return (
     <>
       <div className="create_board_dialog" ref={wrapperRef}>
-        <form onSubmit={createBoardHandler}>
+        <form onSubmit={createBoardSubmit}>
           <div className="set_board">
             <div className={`board_card ${bgName}`}>
               <MdClose onClick={closeDialog} />
@@ -102,9 +102,13 @@ function DialogCreateBoard(props) {
           </div>
 
           <div className="bottom_utils">
-            <button className="green_submit" type="submit" disabled={boardTitle.length === 0}>
-              {loading ? <BtnLoading /> : 'Create Board'}
-            </button>
+            <Button
+              className="green_submit"
+              type="submit"
+              text="Create Board"
+              loading={loading}
+              disabled={boardTitle.length === 0}
+            />
           </div>
         </form>
       </div>
@@ -115,14 +119,14 @@ function DialogCreateBoard(props) {
 
 const mapStateToProps = state => {
   return {
-    list: state.boards.list,
-    loading: state.boards.createLoading
+    list: state.board.list,
+    loading: state.board.createLoading
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onCreateBoard: payload => dispatch(actions.createBoardStart(payload))
+    onCreateBoard: payload => dispatch(action.createBoardItemStart(payload))
   }
 }
 
