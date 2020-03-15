@@ -26,27 +26,27 @@
 
       .board_item_section {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(14.9rem, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(14.9rem, 0.25fr));
         grid-gap: 1.6rem;
       }
     }
   }
 }
 
-// @media screen and (min-width: 78.3rem) and (max-width: 94.7rem) {
-//   .board_item_section {
-//     grid-template-columns: repeat(auto-fit, minmax(14.9rem, 0.33fr)) !important;
-//   }
-// }
+@mixin media_grid($max) {
+  .board_item_section {
+    grid-template-columns: repeat(auto-fit, minmax(14.9rem, $max)) !important;
+  }
+}
 
-// @media screen and (min-width: 61.8rem) and (max-width: 78.2rem) {
-//   .board_item_section {
-//     grid-template-columns: repeat(auto-fit, minmax(14.9rem, 0.5fr)) !important;
-//   }
-// }
+@media screen and (min-width: 783px) and (max-width: 947px) {
+  @include media_grid(0.33fr);
+}
 
-// @media screen and (max-width: 61.7rem) {
-//   .board_item_section {
-//     grid-template-columns: repeat(auto-fit, minmax(14.9rem, 1fr)) !important;
-//   }
-// }
+@media screen and (min-width: 618px) and (max-width: 782px) {
+  @include media_grid(0.5fr);
+}
+
+@media screen and (max-width: 617px) {
+  @include media_grid(1fr);
+}
