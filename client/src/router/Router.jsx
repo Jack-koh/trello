@@ -1,17 +1,17 @@
-import React from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import AuthCheck from 'hoc/authCheck';
+import React from 'react'
+import { Route, Switch, withRouter, Redirect } from 'react-router-dom'
+import AuthCheck from 'hoc/authCheck'
 
-import Login from 'pages/login/Login';
-import Signup from 'pages/signup/Signup';
-import Main from 'pages/main/Main';
-import Gnb from 'hoc/layout/gnb/Gnb';
-import Trello from 'pages/trello/Trello';
+import Login from 'pages/login/Login'
+import Signup from 'pages/signup/Signup'
+import Main from 'pages/main/Main'
+import GnbLayout from 'hoc/layout/gnb/GnbLayout'
+import Trello from 'pages/trello/Trello'
 
 function Router(props) {
-  const { location, history } = props;
+  const { location, history } = props
   if (location.pathname === '/') {
-    history.push('/Login');
+    history.push('/Login')
   }
 
   return (
@@ -19,14 +19,14 @@ function Router(props) {
       <Route path="/Login" component={Login} />
       <Route path="/Signup" component={Signup} />
       <AuthCheck>
-        <Gnb>
+        <GnbLayout>
           <Route path="/main" component={Main} />
           <Route path="/board" component={Trello} />
-        </Gnb>
+        </GnbLayout>
       </AuthCheck>
       <Redirect to="/Login" />
     </Switch>
-  );
+  )
 }
 
-export default withRouter(Router);
+export default withRouter(Router)

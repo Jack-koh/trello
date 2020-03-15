@@ -32,3 +32,9 @@ export const createBoardItemSuccess = item => {
     item
   }
 }
+
+export const initBoardList = () => {
+  return {
+    type: type.INIT_BOARD_LIST
+  }
+}

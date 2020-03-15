@@ -2,15 +2,15 @@ import { updateObject } from 'shared/utility'
 import * as type from 'store/types'
 
 const initialState = {
-  Progress: false
+  progress: false
 }
 
 const loadingStart = state => {
-  return updateObject(state, { Progress: true })
+  return updateObject(state, { progress: true })
 }
 
 const loadingFinished = state => {
-  return updateObject(state, { Progress: false })
+  return updateObject(state, { progress: false })
 }
 
 export const reducer = (state = initialState, act) => {

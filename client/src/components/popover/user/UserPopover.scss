@@ -7,7 +7,7 @@
   .user_popover_content {
     background-color: var(--pure-white);
     border-radius: 0.3rem;
-    box-shadow: 0 0.8rem 1.6rem -0.4rem rgba(9, 30, 66, 0.25), 0 0 0 0.1rem rgba(9, 30, 66, 0.08);
+    box-shadow: 0 0.8rem 1.6rem -0.4rem var(--box-shadow), 0 0 0 0.1rem rgba(9, 30, 66, 0.08);
 
     .user_popover_inner {
       width: 30rem;

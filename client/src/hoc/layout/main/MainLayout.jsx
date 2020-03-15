@@ -2,7 +2,7 @@ import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md'
 
-import './SideBar.scss'
+import './MainLayout.scss'
 
 const SideBar = props => {
   const { children } = props

@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { MdPersonOutline } from 'react-icons/md'
 import './Board.scss'
 import BoardList from './boardList/BoardList'
 import CreateBoard from './createBoard/CreateBoard'
 
-function Board() {
+function Board(props) {
+  const { boardList } = props
   return (
     <section className="board_wrap">
       <div className="board_inner_area">
@@ -13,7 +15,7 @@ function Board() {
             <MdPersonOutline />
             <span>Personal Boards</span>
           </div>
-          <ul className="board_item_section">
+          <ul className={`board_item_section count_${boardList.length}`}>
             <BoardList />
             <CreateBoard />
           </ul>
@@ -23,4 +25,10 @@ function Board() {
   )
 }
 
-export default Board
+const mapStateToProps = state => {
+  return {
+    boardList: state.board.list
+  }
+}
+
+export default connect(mapStateToProps)(Board)

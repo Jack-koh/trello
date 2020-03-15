@@ -32,7 +32,7 @@ function CardAddForm(props) {
   const createCardSubmit = e => {
     e.preventDefault()
     onCreateCard({
-      trelloId: trelloData._id,
+      _id: trelloData._id,
       title
     })
   }

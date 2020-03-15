@@ -1,8 +1,7 @@
-// const Trello = require("../models/Trello");
+const Trello = require('../models/trello');
 
-// exports.create = async (req, res, next) => {
-//   const { trelloId, title } = req.body;
-//   console.log(trelloId);
-//   console.log(title);
-//   Cards.findOne({_id})
-// };
+exports.create = async (req, res, next) => {
+  const { _id, title } = req.body;
+  const result = await Trello.updateOne({ _id }, { $push: { cardList: { title } } });
+  console.log(result);
+};

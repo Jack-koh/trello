@@ -1,11 +1,11 @@
 import * as type from 'store/types'
 
 export const createCardStart = payload => {
-  const { trelloId, title } = payload
+  const { _id, title } = payload
   return {
     type: type.CREATE_CARD_START,
     payload: {
-      trelloId,
+      _id,
       title
     }
   }

@@ -24,7 +24,7 @@ function GnbLoading(props) {
 
 const mapStateToProps = state => {
   return {
-    loading: state.loading.Progress
+    loading: state.loading.progress
   }
 }
 

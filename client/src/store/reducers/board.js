@@ -6,6 +6,10 @@ const initialState = {
   list: []
 }
 
+const initBoardList = state => {
+  return updateObject(state, { list: [] })
+}
+
 const loadingStart = state => {
   return updateObject(state, { createLoading: true })
 }
@@ -23,6 +27,8 @@ const createBoardItemSuccess = (state, item) => {
 
 export const reducer = (state = initialState, act) => {
   switch (act.type) {
+    case type.INIT_BOARD_LIST:
+      return initBoardList()
     case type.GET_BOARD_LIST_SUCCESS:
       return getBoardListSuccess(state, act.list)
     case type.CREATE_BOARD_ITEM_START:

@@ -1,6 +1,12 @@
 export { loadingStart, loadingFinished } from './loading'
 export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth'
-export { getBoardListStart, getBoardListSuccess, createBoardItemStart, createBoardItemSuccess } from './board'
+export {
+  getBoardListStart,
+  getBoardListSuccess,
+  createBoardItemStart,
+  createBoardItemSuccess,
+  initBoardList
+} from './board'
 export {
   initTrelloList,
   getTrelloListStart,

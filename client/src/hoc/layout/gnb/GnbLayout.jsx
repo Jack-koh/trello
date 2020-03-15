@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import './Gnb.scss'
+import './GnbLayout.scss'
 
 import GnbLoading from './gnbLoading/GnbLoading'
 import GnbLeft from './gnbLeft/GnbLeft'

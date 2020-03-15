@@ -6,11 +6,14 @@ import './BoardList.scss'
 import { MdStarBorder } from 'react-icons/md'
 
 const BoardList = props => {
-  const { boardList, onGetBoardItem, history } = props
+  const { boardList, onGetboardList, onInitBoardList, history } = props
 
   useEffect(() => {
-    onGetBoardItem()
-  }, [onGetBoardItem])
+    onGetboardList()
+    return () => {
+      onInitBoardList()
+    }
+  }, [onGetboardList, onInitBoardList])
 
   const onEnterTrelloHandler = item => {
     history.push(`/board/${item.title}`)
@@ -21,7 +24,7 @@ const BoardList = props => {
     e.stopPropagation()
   }
 
-  const boardItem =
+  const boardItems =
     boardList &&
     boardList.map((item, i) => {
       return (
@@ -37,7 +40,7 @@ const BoardList = props => {
         </li>
       )
     })
-  return <>{boardItem}</>
+  return <>{boardItems}</>
 }
 
 const mapStateToProps = state => {
@@ -48,8 +51,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProp = dispatch => {
   return {
-    onGetBoardItem: () => {
+    onGetboardList: () => {
       dispatch(action.getBoardListStart())
+    },
+    onInitBoardList: () => {
+      dispatch(action.initBoardList())
     }
   }
 }

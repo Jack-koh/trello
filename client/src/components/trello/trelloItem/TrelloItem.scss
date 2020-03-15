@@ -1,5 +1,3 @@
-
-
 .trello_list_content {
   position: relative;
   display: flex;
@@ -9,34 +7,52 @@
   white-space: normal;
   background-color: #ebecf0;
 
-  .trello_list_header {
-    position: relative;
-    padding: 0.6rem 0.8rem;
+  .trello_card_list_wrapper {
+    margin: 0 0.8rem;
 
-    .trello_list_more {
-      position: absolute;
-      right: 0.4rem;
-      top: 0.4rem;
-      .trello_popover_wrapper {
-        position: relative;
-        .trello_list_more_icon {
-          width: 3.2rem;
-          height: 3.2rem;
-          border-radius: 0.3rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
+    .trello_card_item_wrapper {
+      position: relative;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 8px;
+      background-color: var(--pure-white);
+      border-radius: 3px;
+      min-height: 3.2rem;
+      color: var(--dark-blue);
+      font-size: 1.4rem;
+      box-shadow: 0 1px 0 var(--box-shadow);
+      cursor: pointer;
+
+      .card_edit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        right: 0.2rem;
+        top: 0.2rem;
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 0.3rem;
+        opacity: 0;
+
+        &:hover {
           svg {
-            font-size: 1.6rem;
-            color: #6b778c;
+            color: var(--dark-blue);
           }
-          &:hover {
-            background-color: rgba(9, 30, 66, 0.08);
-            svg {
-              color: #42526e;
-            }
-          }
+          background-color: #ebecf0;
+        }
+
+        svg {
+          color: #42526e;
+        }
+      }
+
+      &:hover {
+        background-color: #f4f5f7;
+        span {
+          color: #091e42;
+        }
+        .card_edit {
+          opacity: 1;
         }
       }
     }

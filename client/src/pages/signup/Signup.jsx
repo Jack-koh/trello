@@ -55,6 +55,7 @@ function Signup(props) {
           />
           <input
             className="scurity_text"
+            type="password"
             placeholder="Enter password"
             value={password}
             onChange={event => setPassword(event.target.value)}
