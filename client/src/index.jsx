@@ -8,7 +8,13 @@ import createSagaMiddleware from 'redux-saga'
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux'
 
 import { auth, board, trello, card } from 'store/sagas'
-import { authReducer, boardReducer, trelloReducer, loadingReducer } from 'store/reducers'
+import {
+  authReducer,
+  boardReducer,
+  trelloReducer,
+  loadingReducer,
+  cardReducer
+} from 'store/reducers'
 
 import App from './App'
 import * as serviceWorker from './serviceWorker'
@@ -21,7 +27,8 @@ const reducer = combineReducers({
   loading: loadingReducer,
   auth: authReducer,
   board: boardReducer,
-  trello: trelloReducer
+  trello: trelloReducer,
+  card: cardReducer
 })
 const sagaMiddleware = createSagaMiddleware()
 const enhencer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware))

@@ -1,15 +1,13 @@
 import axios from 'axios'
 import { put } from 'redux-saga/effects'
-import * as action from '../actions'
+import * as action from 'store/actions'
 
 export function* createTrelloItem(act) {
-  const { boardNo, userNo, userEmail, userName, title } = act.payload
+  const { boardNo, userNo, title } = act.payload
   try {
     const respData = yield axios.post('trello/create', {
       boardNo,
       userNo,
-      userEmail,
-      userName,
       title
     })
     yield put(action.createTrelloItemSuccess(respData.data.item))

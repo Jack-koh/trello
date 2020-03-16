@@ -6,9 +6,9 @@ import { Button, Textarea } from 'components/custom/Elements'
 import './CreateCard.scss'
 
 function CardAddForm(props) {
-  const { trelloData, utilToggleHandler, onCreateCard } = props
+  const { trelloData, card, utilToggleHandler, onCreateCard } = props
   const addCardRef = useRef(null)
-  const [loading] = useState(false)
+  const isFirstRun = useRef(true)
   const [title, setTitle] = useState('')
 
   useEffect(() => {
@@ -22,6 +22,10 @@ function CardAddForm(props) {
     }
   }, [utilToggleHandler])
 
+  useEffect(() => {
+    isFirstRun.current ? (isFirstRun.current = false) : utilToggleHandler()
+  }, [card.list, utilToggleHandler])
+
   const autosizeHandler = e => {
     setTitle(e.target.value)
     // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
@@ -31,10 +35,11 @@ function CardAddForm(props) {
 
   const createCardSubmit = e => {
     e.preventDefault()
-    onCreateCard({
-      _id: trelloData._id,
-      title
-    })
+    if (title.length) {
+      const { trelloNo, boardNo } = trelloData
+      onCreateCard({ trelloNo, boardNo, title })
+      setTitle('')
+    }
   }
 
   return (
@@ -49,7 +54,7 @@ function CardAddForm(props) {
         />
       </div>
       <div className="card_add_control">
-        <Button className="green_submit" type="submit" text="Add Card" loading={loading} />
+        <Button className="green_submit" type="submit" text="Add Card" loading={card.loading} />
         <MdClose onClick={utilToggleHandler} />
       </div>
     </form>
@@ -57,7 +62,9 @@ function CardAddForm(props) {
 }
 
 const mapStateToProps = state => {
-  return {}
+  return {
+    card: state.card
+  }
 }
 
 const mapDispatchToProps = dispatch => {

@@ -15,10 +15,10 @@ export const getTrelloListSuccess = list => {
 }
 
 export const createTrelloItemStart = payload => {
-  const { boardNo, userNo, userEmail, userName, title } = payload
+  const { boardNo, userNo, title } = payload
   return {
     type: type.CREATE_TRELLO_ITEM_START,
-    payload: { boardNo, userNo, userEmail, userName, title }
+    payload: { boardNo, userNo, title }
   }
 }
 
@@ -51,7 +51,7 @@ export const deleteTrelloItemStart = params => {
     type: type.DELETE_TRELLO_ITEM_START,
     params: {
       _id: params._id,
-      confirmTitle: params.confirmTitle,
+      confirmTitle: params.confirmTitle
     }
   }
 }

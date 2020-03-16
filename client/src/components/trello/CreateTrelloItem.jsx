@@ -8,7 +8,7 @@ import { utilToggleHandler } from 'shared/utility'
 import { Button } from 'components/custom/Elements'
 
 function AddList(props) {
-  const { loading, trelloList } = props
+  const { loading, trelloList, onCreateTrelloList } = props
   const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
@@ -27,19 +27,18 @@ function AddList(props) {
     setShowForm(false)
   }, [trelloList])
 
-  const createTrelloSubmit = async e => {
-    e.preventDefault()
-    if (title.length > 0) {
-      const { boardNo, userNo, userEmail, userName } = trelloData
-      const payload = { boardNo, userNo, userEmail, userName, title }
-      props.onCreateTrelloList(payload)
-    }
-    setTitle('')
-  }
-
   const closeHandler = e => {
     e.stopPropagation()
     setShowForm(false)
+  }
+
+  const createTrelloSubmit = async e => {
+    e.preventDefault()
+    if (title.length) {
+      const { boardNo, userNo } = trelloData
+      onCreateTrelloList({ boardNo, userNo, title })
+      setTitle('')
+    }
   }
 
   return (
@@ -65,7 +64,7 @@ function AddList(props) {
             />
             <div className="list_add_control">
               <Button className="green_submit" type="submit" text="Add List" loading={loading} />
-              <MdClose onClick={e => closeHandler(e)} />
+              <MdClose onClick={closeHandler} />
             </div>
           </>
         )}
