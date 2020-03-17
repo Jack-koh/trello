@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import { MdMoreHoriz } from 'react-icons/md'
 import { utilToggleHandler } from 'shared/utility'
@@ -8,7 +8,10 @@ import { Textarea } from 'components/custom/Elements'
 import TrelloPopover from 'components/trello/trelloItem/trelloPopover/TrelloPopover'
 
 function TrelloItemHeader(props) {
-  const { trelloItem, onUpdateTitle, dragHandleProps } = props
+  const dispatch = useDispatch()
+  const onUpdateTitle = payload => dispatch(action.updateTrelloItemStart(payload))
+
+  const { trelloItem, dragHandleProps } = props
   const [title, setTitle] = useState('')
   const [trelloPopover, setTrelloPopover] = useState(false)
   const updateTitle = () => {
@@ -60,10 +63,4 @@ function TrelloItemHeader(props) {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onUpdateTitle: payload => dispatch(action.updateTrelloItemStart(payload))
-  }
-}
-
-export default connect(null, mapDispatchToProps)(TrelloItemHeader)
+export default TrelloItemHeader

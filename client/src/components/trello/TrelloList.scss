@@ -1,11 +1,14 @@
-.trello_list {
-  min-width: 27.2rem;
-  margin: 0 0.4rem;
-  height: 100%;
-  box-sizing: border-box;
-  display: inline-block;
-  vertical-align: top;
-  white-space: nowrap;
-  margin-bottom: 0.8rem;
-  padding-bottom: 0.8rem;
+.trello_list_wrapper {
+  flex-shrink: 0;
+  .trello_list {
+    min-width: 27.2rem;
+    margin: 0 0.4rem;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    vertical-align: top;
+    white-space: nowrap;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
+  }
 }

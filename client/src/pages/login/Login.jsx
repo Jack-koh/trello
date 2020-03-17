@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter, Link } from 'react-router-dom'
 import './Login.scss'
 import * as action from 'store/actions'
@@ -7,7 +7,11 @@ import * as action from 'store/actions'
 import { Button } from 'components/custom/Elements'
 
 function Login(props) {
-  const { userData, history, location } = props
+  const userData = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const onLogin = payload => dispatch(action.loginStart(payload))
+
+  const { history, location } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -30,8 +34,7 @@ function Login(props) {
 
   const loginSubmit = async e => {
     e.preventDefault()
-    const params = { email, password, name }
-    props.onLogin(params)
+    onLogin({ email, password, name })
   }
 
   return (
@@ -71,16 +74,4 @@ function Login(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    userData: state.auth
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogin: userData => dispatch(action.loginStart(userData))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Login))
+export default withRouter(Login)

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as action from 'store/actions'
 import { MdClose } from 'react-icons/md'
@@ -10,7 +10,12 @@ import Backdrop from 'components/dialog/Backdrop'
 import { Button } from 'components/custom/Elements'
 
 function DialogCreateBoard(props) {
-  const { utilToggleHandler, closeDialog, history, list, loading } = props
+  const boardList = useSelector(state => state.board.list)
+  const loading = useSelector(state => state.board.createLoading)
+  const dispatch = useDispatch()
+  const onCreateBoard = payload => dispatch(action.createBoardItemStart(payload))
+
+  const { utilToggleHandler, closeDialog, history } = props
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
@@ -35,7 +40,7 @@ function DialogCreateBoard(props) {
       const trello = JSON.parse(localStorage.getItem('trello'))
       history.push(`/board/${trello.title}`)
     }
-  }, [closeDialog, history, list])
+  }, [closeDialog, history, boardList])
 
   const backgroundList = [
     { type: 'image', name: 'bg_forest' },
@@ -65,7 +70,7 @@ function DialogCreateBoard(props) {
       background,
       favorite: false
     }
-    props.onCreateBoard(payload)
+    onCreateBoard(payload)
   }
 
   const setBackgroundHandler = item => {
@@ -117,17 +122,4 @@ function DialogCreateBoard(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    list: state.board.list,
-    loading: state.board.createLoading
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreateBoard: payload => dispatch(action.createBoardItemStart(payload))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DialogCreateBoard))
+export default withRouter(DialogCreateBoard)

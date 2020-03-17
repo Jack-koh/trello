@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
 import './UserPopover.scss'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 
 function UserPopover(props) {
-  const { utilToggleHandler } = props
+  const dispatch = useDispatch()
+  const onLogout = () => dispatch(action.logout())
+
+  const { history, utilToggleHandler } = props
   const wrapperRef = useRef(null)
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
@@ -31,8 +34,8 @@ function UserPopover(props) {
   }, [utilToggleHandler])
 
   const logoutHandler = () => {
-    props.onLogout()
-    props.history.push('/Login')
+    onLogout()
+    history.push('/Login')
   }
 
   return (
@@ -71,10 +74,4 @@ function UserPopover(props) {
   )
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogout: () => dispatch(action.logout())
-  }
-}
-
-export default connect(null, mapDispatchToProps)(withRouter(UserPopover))
+export default withRouter(UserPopover)

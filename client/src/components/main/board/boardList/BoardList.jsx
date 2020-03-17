@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
+import React, { useEffect, useCallback } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import * as action from 'store/actions'
 import './BoardList.scss'
 import { MdStarBorder } from 'react-icons/md'
 
-const BoardList = props => {
-  const { boardList, onGetboardList, onInitBoardList, history } = props
+function BoardList(props) {
+  const boardList = useSelector(state => state.board.list)
+  const dispatch = useDispatch()
+  const onGetboardList = useCallback(() => dispatch(action.getBoardListStart()), [dispatch])
+  const onInitBoardList = useCallback(() => dispatch(action.initBoardList()), [dispatch])
+  const { history } = props
 
   useEffect(() => {
     onGetboardList()
-    return () => {
-      onInitBoardList()
-    }
+    return () => onInitBoardList()
   }, [onGetboardList, onInitBoardList])
 
   const onEnterTrelloHandler = item => {
@@ -29,7 +31,7 @@ const BoardList = props => {
     boardList.map((item, i) => {
       return (
         <li key={i} className={`board_item ${item.background.name}`}>
-          <div onClick={onEnterTrelloHandler.bind(this, item)}>
+          <div onClick={() => onEnterTrelloHandler(item)}>
             <div className="board_item_inner">
               <span className="item_title">{item.title}</span>
             </div>
@@ -43,21 +45,4 @@ const BoardList = props => {
   return <>{boardItems}</>
 }
 
-const mapStateToProps = state => {
-  return {
-    boardList: state.board.list
-  }
-}
-
-const mapDispatchToProp = dispatch => {
-  return {
-    onGetboardList: () => {
-      dispatch(action.getBoardListStart())
-    },
-    onInitBoardList: () => {
-      dispatch(action.initBoardList())
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProp)(withRouter(BoardList))
+export default withRouter(BoardList)

@@ -5,9 +5,7 @@ import './CreateBoard.scss'
 
 function CreateBoard() {
   const [dialog, setDialog] = useState(false)
-  const onCreateDialogHandler = () => {
-    setDialog(!dialog)
-  }
+  const onCreateDialogHandler = () => setDialog(!dialog)
   return (
     <>
       <li className="create_board bg_gray">

@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 
 function AuthCheck(props) {
-  const { children, autoAuthCheck, history } = props
+  const dispatch = useDispatch()
+  const autoAuthCheck = useCallback(() => dispatch(action.authCheck()), [dispatch])
+
+  const { children, history } = props
   useEffect(() => {
     autoAuthCheck()
     const token = localStorage.getItem('token')
@@ -13,10 +16,4 @@ function AuthCheck(props) {
   return <>{children}</>
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    autoAuthCheck: () => dispatch(action.authCheck())
-  }
-}
-
-export default connect(null, mapDispatchToProps)(withRouter(AuthCheck))
+export default withRouter(AuthCheck)

@@ -1,44 +1,56 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
 import * as action from 'store/actions'
 import './TrelloList.scss'
 
 import TrelloItem from './trelloItem/TrelloItem'
-import TrelloItemHeader from './trelloItem/trelloItemHeader/TrelloItemHeader'
 
 function TrelloList(props) {
-  const {
-    onGetTelloList,
-    onInitTrelloList,
-    onGetCardList,
-    onInitCardList,
-    trelloList,
-    cardList,
-    history
-  } = props
+  const trelloList = useSelector(state => state.trello.list)
+  const dispatch = useDispatch()
+  const onGetTelloList = useCallback(boardNo => dispatch(action.getTrelloListStart(boardNo)), [dispatch])
+  const onInitTrelloList = useCallback(() => dispatch(action.initTrelloList()), [dispatch])
+
+  const { history } = props
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
+  const [testList, setTestList] = useState([])
 
   useEffect(() => {
-    if (trello) {
-      const { boardNo } = trello
-      onGetTelloList(boardNo)
-      onGetCardList(boardNo)
-    } else {
-      history.go(-1)
-    }
+    trello ? onGetTelloList(trello.boardNo) : history.go(-1)
+    return () => onInitTrelloList()
+  }, [onGetTelloList, onInitTrelloList, trello, history])
 
-    return () => {
-      onInitTrelloList()
-      onInitCardList()
-    }
-  }, [onGetTelloList, onInitTrelloList, onGetCardList, onInitCardList, trello, history])
+  useEffect(() => {
+    setTestList(trelloList)
+  }, [trelloList])
 
   const dragEndHandler = result => {
     const { destination, source, draggableId, type } = result
-    console.log(result)
+    if (type === 'card') {
+      const list = [...testList]
+
+      const target = list.find(el => el._id === source.droppableId).cardList[source.index]
+
+      list.find(el => el._id === source.droppableId).cardList.splice(source.index, 1)
+      list.find(el => el._id === destination.droppableId).cardList.splice(destination.index, 0, target)
+      setTestList(list)
+
+      // console.log(testList)
+
+      // const fromCardList = [...from.cardList]
+      // const toCardList = [...to.cardList]
+      // console.log(fromCardList.splice(source.index + 1, 1))
+      // console.log(toCardList.splice(destination.index + 1, 0, from.cardList[source.index]))
+      // from.cardList.splice(source.index, 1)
+      // to.cardList.splice(destination.index, 0, from.cardList[source.index])
+    }
+    // console.log(type)
+    // console.log(destination)
+    // console.log(source)
+    // console.log(draggableId)
     // if (!destination) {
     //   return
     // }
@@ -51,13 +63,11 @@ function TrelloList(props) {
     // }
   }
 
-  const trelloListEl = trelloList.map((item, index) => {
-    const uniqueKey = `trello_${item.trelloNo}`
+  const trelloListEl = testList.map((item, index) => {
     return (
-      <Draggable key={uniqueKey} index={index} draggableId={uniqueKey}>
+      <Draggable key={item._id} index={index} draggableId={item._id}>
         {(provided, snapshot) => (
           <article
-            key={uniqueKey}
             className={`trello_list ${snapshot.isDragging ? 'isDragging' : ''}`}
             {...provided.draggableProps}
             ref={provided.innerRef}
@@ -65,7 +75,7 @@ function TrelloList(props) {
             <TrelloItem
               dragHandleProps={provided.dragHandleProps}
               trelloItem={item}
-              cardList={cardList.filter(el => el.trelloNo === item.trelloNo)}
+              cardList={item.cardList}
             />
           </article>
         )}
@@ -91,20 +101,4 @@ function TrelloList(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    trelloList: state.trello.list,
-    cardList: state.card.list
-  }
-}
-
-const mapDispatchToProp = dispatch => {
-  return {
-    onGetTelloList: boardNo => dispatch(action.getTrelloListStart(boardNo)),
-    onInitTrelloList: () => dispatch(action.initTrelloList()),
-    onGetCardList: boardNo => dispatch(action.getCardListStart(boardNo)),
-    onInitCardList: () => dispatch(action.initCardList())
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProp)(withRouter(TrelloList))
+export default withRouter(TrelloList)

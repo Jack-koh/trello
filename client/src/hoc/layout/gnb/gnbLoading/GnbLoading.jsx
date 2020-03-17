@@ -1,9 +1,9 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import './GnbLoading.scss'
 
-function GnbLoading(props) {
-  const { loading } = props
+function GnbLoading() {
+  const loading = useSelector(state => state.loading.progress)
   return (
     <>
       {loading ? (
@@ -22,10 +22,4 @@ function GnbLoading(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    loading: state.loading.progress
-  }
-}
-
-export default connect(mapStateToProps)(GnbLoading)
+export default GnbLoading

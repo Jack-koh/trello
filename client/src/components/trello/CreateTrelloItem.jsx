@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import './CreateTrelloItem.scss'
 import { MdAdd, MdClose } from 'react-icons/md'
@@ -7,8 +7,12 @@ import { utilToggleHandler } from 'shared/utility'
 
 import { Button } from 'components/custom/Elements'
 
-function CreatTrelloItem(props) {
-  const { loading, trelloList, onCreateTrelloList } = props
+function CreatTrelloItem() {
+  const loading = useSelector(state => state.trello.loading)
+  const trelloList = useSelector(state => state.trello.list)
+  const dispatch = useDispatch()
+  const onCreateTrelloList = payload => dispatch(action.createTrelloItemStart(payload))
+
   const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
@@ -73,17 +77,4 @@ function CreatTrelloItem(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    loading: state.trello.loading,
-    trelloList: state.trello.list
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreateTrelloList: payload => dispatch(action.createTrelloItemStart(payload))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(CreatTrelloItem))
+export default React.memo(CreatTrelloItem)

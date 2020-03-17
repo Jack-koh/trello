@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import { MdClose } from 'react-icons/md'
 import { Button, Textarea } from 'components/custom/Elements'
 import './CreateCard.scss'
 
 function CardAddForm(props) {
-  const { trelloItem, card, utilToggleHandler, onCreateCard } = props
+  const card = useSelector(state => state.card)
+  const dispatch = useDispatch()
+  const onCreateCard = payload => dispatch(action.createCardStart(payload))
+
+  const { trelloItem, utilToggleHandler } = props
   const addCardRef = useRef(null)
   const isFirstRun = useRef(true)
   const [title, setTitle] = useState('')
@@ -61,16 +65,4 @@ function CardAddForm(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    card: state.card
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onCreateCard: payload => dispatch(action.createCardStart(payload))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(CardAddForm)
+export default CardAddForm

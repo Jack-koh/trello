@@ -1,12 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { withRouter } from 'react-router-dom'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import './TrelloPopover.scss'
 import { Button } from 'components/custom/Elements'
 
 function TrelloPopover(props) {
-  const { loading, _id, title, utilToggleHandler, onDeleteItemHandler } = props
+  const loading = useSelector(state => state.trello.loading)
+  const dispatch = useDispatch()
+  const onDeleteItemHandler = params => dispatch(action.deleteTrelloItemStart(params))
+
+  const { _id, title, utilToggleHandler } = props
   const wrapperRef = useRef(null)
   const [onDelete, setOnDelete] = useState(false)
   const [confirmTitle, setConfirmTitle] = useState('')
@@ -84,16 +88,4 @@ function TrelloPopover(props) {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    loading: state.trello.loading
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onDeleteItemHandler: params => dispatch(action.deleteTrelloItemStart(params))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TrelloPopover))
+export default withRouter(TrelloPopover)

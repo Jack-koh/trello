@@ -6,7 +6,7 @@ import axios from 'axios'
 import { Button } from 'components/custom/Elements'
 
 function Signup(props) {
-  const { userData, history, location } = props
+  const { history, location } = props
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -15,7 +15,7 @@ function Signup(props) {
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) history.push('/main')
-  }, [userData, history])
+  }, [history])
 
   useEffect(() => {
     setEmail('')
