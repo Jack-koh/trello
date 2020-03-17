@@ -1,85 +1,89 @@
-.trello_list_content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  border-radius: 0.3rem;
-  max-height: 100%;
-  white-space: normal;
-  background-color: #ebecf0;
+.card_list_wrapper {
+  height: 100%;
+  .card_list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.3rem;
+    max-height: 100%;
+    white-space: normal;
+    background-color: #ebecf0;
 
-  .trello_card_list_wrapper {
-    margin: 0 0.8rem;
-
-    .trello_card_item_wrapper {
+    ul {
       position: relative;
-      padding: 0.6rem 0.8rem;
-      margin-bottom: 8px;
-      background-color: var(--pure-white);
-      border-radius: 3px;
-      min-height: 3.2rem;
-      color: var(--dark-blue);
-      font-size: 1.4rem;
-      box-shadow: 0 1px 0 var(--box-shadow);
-      cursor: pointer;
+      margin: 0 0.8rem;
 
-      .card_edit {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        right: 0.2rem;
-        top: 0.2rem;
-        width: 2.8rem;
-        height: 2.8rem;
-        border-radius: 0.3rem;
-        opacity: 0;
+      .trello_card_item_wrapper {
+        position: relative;
+        padding: 0.6rem 0.8rem;
+        margin-bottom: 8px;
+        background-color: var(--pure-white);
+        border-radius: 3px;
+        min-height: 3.2rem;
+        color: var(--dark-blue);
+        font-size: 1.4rem;
+        box-shadow: 0 1px 0 var(--box-shadow);
+        cursor: pointer;
+
+        .card_edit {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          right: 0.2rem;
+          top: 0.2rem;
+          width: 2.8rem;
+          height: 2.8rem;
+          border-radius: 0.3rem;
+          opacity: 0;
+
+          &:hover {
+            svg {
+              color: var(--dark-blue);
+            }
+            background-color: #ebecf0;
+          }
+
+          svg {
+            color: #42526e;
+          }
+        }
 
         &:hover {
-          svg {
-            color: var(--dark-blue);
+          background-color: #f4f5f7;
+          span {
+            color: #091e42;
           }
-          background-color: #ebecf0;
+          .card_edit {
+            opacity: 1;
+          }
         }
+      }
+    }
+
+    .card_form_button {
+      margin: 0 0.8rem 0.9rem;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(9, 30, 66, 0.08);
+        color: var(--dark-blue);
 
         svg {
           color: #42526e;
         }
       }
-
-      &:hover {
-        background-color: #f4f5f7;
-        span {
-          color: #091e42;
-        }
-        .card_edit {
-          opacity: 1;
-        }
-      }
-    }
-  }
-
-  .card_form_button {
-    margin: 0 0.8rem 0.9rem;
-    cursor: pointer;
-    &:hover {
-      background-color: rgba(9, 30, 66, 0.08);
-      color: var(--dark-blue);
-
+      padding: 4px 8px;
+      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      font-size: 1.4rem;
+      color: #5e6c84;
       svg {
-        color: #42526e;
+        width: 2rem;
+        height: 2rem;
+        padding-top: 0.2rem;
+        font-size: 1.6rem;
       }
-    }
-    padding: 4px 8px;
-    border-radius: 3px;
-    display: flex;
-    align-items: center;
-    font-size: 1.4rem;
-    color: #5e6c84;
-    svg {
-      width: 2rem;
-      height: 2rem;
-      padding-top: 0.2rem;
-      font-size: 1.6rem;
     }
   }
 }

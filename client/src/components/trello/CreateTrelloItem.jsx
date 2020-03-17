@@ -7,7 +7,7 @@ import { utilToggleHandler } from 'shared/utility'
 
 import { Button } from 'components/custom/Elements'
 
-function AddList(props) {
+function CreatTrelloItem(props) {
   const { loading, trelloList, onCreateTrelloList } = props
   const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
@@ -21,7 +21,7 @@ function AddList(props) {
     }
     document.addEventListener('click', clickOutsideHandler)
     return () => document.removeEventListener('click', clickOutsideHandler)
-  }, [showForm, trelloData.boardNo])
+  }, [showForm, trelloData])
 
   useEffect(() => {
     setShowForm(false)
@@ -42,7 +42,7 @@ function AddList(props) {
   }
 
   return (
-    <article
+    <div
       ref={wrapperRef}
       className={`add_list_wrapper ${showForm ? 'on' : 'off'}`}
       onClick={() => setShowForm(true)}
@@ -69,7 +69,7 @@ function AddList(props) {
           </>
         )}
       </form>
-    </article>
+    </div>
   )
 }
 
@@ -86,4 +86,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(React.memo(AddList))
+export default connect(mapStateToProps, mapDispatchToProps)(React.memo(CreatTrelloItem))

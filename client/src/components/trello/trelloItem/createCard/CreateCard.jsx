@@ -6,7 +6,7 @@ import { Button, Textarea } from 'components/custom/Elements'
 import './CreateCard.scss'
 
 function CardAddForm(props) {
-  const { trelloData, card, utilToggleHandler, onCreateCard } = props
+  const { trelloItem, card, utilToggleHandler, onCreateCard } = props
   const addCardRef = useRef(null)
   const isFirstRun = useRef(true)
   const [title, setTitle] = useState('')
@@ -36,7 +36,7 @@ function CardAddForm(props) {
   const createCardSubmit = e => {
     e.preventDefault()
     if (title.length) {
-      const { trelloNo, boardNo } = trelloData
+      const { trelloNo, boardNo } = trelloItem
       onCreateCard({ trelloNo, boardNo, title })
       setTitle('')
     }

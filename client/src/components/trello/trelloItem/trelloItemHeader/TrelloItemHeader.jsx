@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import * as action from 'store/actions'
 import { MdMoreHoriz } from 'react-icons/md'
 import { utilToggleHandler } from 'shared/utility'
 import './TrelloItemHeader.scss'
@@ -6,11 +8,11 @@ import { Textarea } from 'components/custom/Elements'
 import TrelloPopover from 'components/trello/trelloItem/trelloPopover/TrelloPopover'
 
 function TrelloItemHeader(props) {
-  const { trelloData, onUpdateTitle } = props
+  const { trelloItem, onUpdateTitle, dragHandleProps } = props
   const [title, setTitle] = useState('')
   const [trelloPopover, setTrelloPopover] = useState(false)
   const updateTitle = () => {
-    if (trelloData.title !== title) onUpdateTitle({ _id: trelloData._id, updateTitle: title })
+    if (trelloItem.title !== title) onUpdateTitle({ _id: trelloItem._id, updateTitle: title })
   }
   const popoverHandler = () => {
     setTrelloPopover(!trelloPopover)
@@ -25,19 +27,20 @@ function TrelloItemHeader(props) {
 
   useEffect(() => {
     setTrelloPopover(false)
-  }, [trelloData])
+  }, [trelloItem])
 
   useEffect(() => {
-    setTitle(trelloData.title)
-  }, [trelloData.title])
+    setTitle(trelloItem.title)
+  }, [trelloItem.title])
   return (
-    <div className="trello_list_header">
+    <div className="trello_list_header" {...dragHandleProps}>
       <Textarea
         className="trello_title"
         type="text"
         value={title}
         onChange={e => autosizeHandler(e)}
         onBlur={updateTitle}
+        readonly="true"
       />
       <div className="trello_list_more">
         <div className="trello_popover_wrapper">
@@ -46,7 +49,7 @@ function TrelloItemHeader(props) {
           </div>
           {trelloPopover && (
             <TrelloPopover
-              _id={trelloData._id}
+              _id={trelloItem._id}
               title={title}
               utilToggleHandler={() => utilToggleHandler(trelloPopover, setTrelloPopover)}
             />
@@ -57,4 +60,10 @@ function TrelloItemHeader(props) {
   )
 }
 
-export default TrelloItemHeader
+const mapDispatchToProps = dispatch => {
+  return {
+    onUpdateTitle: payload => dispatch(action.updateTrelloItemStart(payload))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TrelloItemHeader)

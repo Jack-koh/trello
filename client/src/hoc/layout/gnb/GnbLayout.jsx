@@ -6,7 +6,7 @@ import GnbLoading from './gnbLoading/GnbLoading'
 import GnbLeft from './gnbLeft/GnbLeft'
 import GnbRight from './gnbRight/GnbRight'
 
-const Gnb = props => {
+const GnbLayout = props => {
   const { location, children } = props
   const [background, setBackground] = useState({ background: '#026aa7' })
 
@@ -29,4 +29,4 @@ const Gnb = props => {
   )
 }
 
-export default withRouter(Gnb)
+export default withRouter(GnbLayout)

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from 'react'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 import * as action from 'store/actions'
 import './TrelloList.scss'
 
 import TrelloItem from './trelloItem/TrelloItem'
+import TrelloItemHeader from './trelloItem/trelloItemHeader/TrelloItemHeader'
 
 function TrelloList(props) {
   const {
@@ -12,33 +16,79 @@ function TrelloList(props) {
     onGetCardList,
     onInitCardList,
     trelloList,
-    cardList
+    cardList,
+    history
   } = props
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
-    const { boardNo } = trello
-    onGetTelloList(boardNo)
-    onGetCardList(boardNo)
+    if (trello) {
+      const { boardNo } = trello
+      onGetTelloList(boardNo)
+      onGetCardList(boardNo)
+    } else {
+      history.go(-1)
+    }
 
     return () => {
       onInitTrelloList()
       onInitCardList()
     }
-  }, [onGetTelloList, onInitTrelloList, onGetCardList, onInitCardList, trello])
+  }, [onGetTelloList, onInitTrelloList, onGetCardList, onInitCardList, trello, history])
 
-  const trelloListEl = trelloList.map((trelloData, i) => {
+  const dragEndHandler = result => {
+    const { destination, source, draggableId, type } = result
+    console.log(result)
+    // if (!destination) {
+    //   return
+    // }
+
+    // if (
+    //   destination.droppabledId === source.droppabledId &&
+    //   destination.index === source.index
+    // ) {
+
+    // }
+  }
+
+  const trelloListEl = trelloList.map((item, index) => {
+    const uniqueKey = `trello_${item.trelloNo}`
     return (
-      <article key={i} className="trello_list_wrapper">
-        <TrelloItem
-          trelloData={trelloData}
-          cardList={cardList.filter(el => el.trelloNo === trelloData.trelloNo)}
-        />
-      </article>
+      <Draggable key={uniqueKey} index={index} draggableId={uniqueKey}>
+        {(provided, snapshot) => (
+          <article
+            key={uniqueKey}
+            className={`trello_list ${snapshot.isDragging ? 'isDragging' : ''}`}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <TrelloItem
+              dragHandleProps={provided.dragHandleProps}
+              trelloItem={item}
+              cardList={cardList.filter(el => el.trelloNo === item.trelloNo)}
+            />
+          </article>
+        )}
+      </Draggable>
     )
   })
 
-  return trelloListEl
+  return (
+    <DragDropContext onDragEnd={dragEndHandler}>
+      <Droppable droppableId="drop_field_trello" direction="horizontal" type="trello">
+        {(provided, snapshot) => (
+          <div
+            className={`trello_list_wrapper ${snapshot.isDraggingOver ? 'isDraggingOver' : ''}`}
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+          >
+            {trelloListEl}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+    </DragDropContext>
+  )
 }
 
 const mapStateToProps = state => {
@@ -57,4 +107,4 @@ const mapDispatchToProp = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProp)(TrelloList)
+export default connect(mapStateToProps, mapDispatchToProp)(withRouter(TrelloList))
