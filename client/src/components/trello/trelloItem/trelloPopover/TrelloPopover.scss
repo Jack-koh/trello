@@ -49,10 +49,10 @@
           }
 
           .delete_form_field {
+            display: flex;
             height: 3.2rem;
             margin-top: 0.8rem;
             padding: 0 1.2rem;
-            display: flex;
 
             input[type='text'].delete_input {
               height: 100%;
@@ -60,7 +60,6 @@
               line-height: 2rem;
               margin-right: 0.6rem;
               color: var(--dark-blue);
-              flex-grow: 1;
               box-shadow: inset 0 0 0 0.2rem #0079bf;
               background-color: var(--pure-white);
             }

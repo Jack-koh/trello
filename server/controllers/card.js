@@ -1,5 +1,5 @@
-const Trello = require('../models/trello');
-const Card = require('../models/card');
+const Trello = require("../models/trello");
+const Card = require("../models/card");
 
 exports.get = async (req, res, next) => {
   const boardNo = req.query.boardNo;
@@ -8,9 +8,9 @@ exports.get = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-  const { boardNo, trelloNo, title } = req.body;
-  const card = new Card({ boardNo, trelloNo, title });
+  const { trelloId, trelloNo, title } = req.body;
+  const card = new Card({ trelloId, trelloNo, title });
   const respData = await card.save();
-  await Trello.updateOne({ trelloNo }, { $push: { cardList: respData } });
+  // await Trello.updateOne({ trelloNo }, { $push: { cardList: respData } });
   res.status(201).json({ item: respData });
 };

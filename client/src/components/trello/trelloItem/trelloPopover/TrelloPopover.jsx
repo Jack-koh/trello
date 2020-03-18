@@ -70,7 +70,7 @@ function TrelloPopover(props) {
                     <Button
                       className="red_submit"
                       type="submit"
-                      text="Delete Trello"
+                      text="Delete"
                       loading={loading}
                       disabled={title !== confirmTitle}
                     />

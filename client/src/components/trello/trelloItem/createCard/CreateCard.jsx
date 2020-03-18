@@ -40,8 +40,8 @@ function CardAddForm(props) {
   const createCardSubmit = e => {
     e.preventDefault()
     if (title.length) {
-      const { trelloNo, boardNo } = trelloItem
-      onCreateCard({ trelloNo, boardNo, title })
+      const { _id, trelloNo } = trelloItem
+      onCreateCard({ trelloId: _id, trelloNo, title })
       setTitle('')
     }
   }

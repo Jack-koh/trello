@@ -13,9 +13,9 @@ export function* getCardList(act) {
 
 export function* createCard(act) {
   // _id -> trello 테이블 _id trello 테이블에 imbeded형식
-  const { boardNo, trelloNo, title } = act.payload
+  const { trelloId, trelloNo, title } = act.payload
   try {
-    const respData = yield axios.post('card/create', { boardNo, trelloNo, title })
+    const respData = yield axios.post('card/create', { trelloId, trelloNo, title })
     yield put(action.createCardSuccess(respData.data.item))
   } catch (err) {
     console.log('createCard err ----')

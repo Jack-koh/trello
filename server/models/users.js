@@ -1,8 +1,9 @@
-const mongoose = require('mongoose');
-const autoIncrement = require('mongoose-auto-increment');
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const autoIncrement = require("mongoose-auto-increment");
 
 const URI =
-  'mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority';
+  "mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority";
 const connection = mongoose.createConnection(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -11,7 +12,7 @@ const connection = mongoose.createConnection(URI, {
 });
 autoIncrement.initialize(connection);
 
-const Schema = mongoose.Schema(
+const userSchema = Schema(
   {
     email: {
       type: String,
@@ -30,11 +31,11 @@ const Schema = mongoose.Schema(
   { timestamps: true }
 );
 
-Schema.plugin(autoIncrement.plugin, {
-  model: 'users',
-  field: 'userNo',
+userSchema.plugin(autoIncrement.plugin, {
+  model: "Users",
+  field: "userNo",
   startAt: 1,
   increment: 1
 });
 
-module.exports = mongoose.model('users', Schema);
+module.exports = mongoose.model("Users", userSchema);

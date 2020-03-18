@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 const autoIncrement = require("mongoose-auto-increment");
 const URI =
   "mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority";
@@ -10,33 +11,47 @@ const connection = mongoose.createConnection(URI, {
 });
 autoIncrement.initialize(connection);
 
-const Schema = mongoose.Schema(
+const boardSchema = Schema(
   {
     title: {
       type: String,
       require: true
     },
-    creatorNo: {
+    userNo: {
       type: Number,
       require: true
     },
-    creatorEmail: {
+    userEmail: {
       type: String,
       require: true
     },
-    creatorName: {
+    userName: {
       type: String,
       require: true
+    },
+    background: {
+      type: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String,
+        required: true
+      }
+    },
+    favorite: {
+      type: Boolean,
+      required: true
     }
   },
   { timestamps: true }
 );
 
-Schema.plugin(autoIncrement.plugin, {
-  model: "board",
+boardSchema.plugin(autoIncrement.plugin, {
+  model: "Board",
   field: "boardNo",
   startAt: 1,
   increment: 1
 });
 
-module.exports = mongoose.model("board", Schema);
+module.exports = mongoose.model("Board", boardSchema);
