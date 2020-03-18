@@ -9,8 +9,13 @@ exports.get = async (req, res, next) => {
 
 exports.create = async (req, res, next) => {
   const { trelloId, trelloNo, title } = req.body;
+  
   const card = new Card({ trelloId, trelloNo, title });
   const respData = await card.save();
-  // await Trello.updateOne({ trelloNo }, { $push: { cardList: respData } });
+
+  const trello = await Trello.findById(trelloId);
+  trello.cardList.push(card);
+  await trello.save();
+  
   res.status(201).json({ item: respData });
 };
