@@ -1,8 +1,11 @@
-const Trello = require("../models/trello");
+const Trello = require('../models/trello');
 
 exports.get = async (req, res, next) => {
   try {
-    const respData = await Trello.find({ boardNo: req.query.boardNo });
+    const respData = await Trello.find({ boardNo: req.query.boardNo }).populate({
+      path: 'cardList',
+      model: 'Card'
+    });
     res.status(200).json({ list: respData });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
@@ -26,7 +29,7 @@ exports.update = async (req, res, next) => {
   const { _id, updateTitle } = req.body;
   try {
     await Trello.updateOne({ _id }, { title: updateTitle });
-    res.status(200).json({ message: "success update", _id, updateTitle });
+    res.status(200).json({ message: 'success update', _id, updateTitle });
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;
     next(err);
@@ -39,7 +42,7 @@ exports.delete = async (req, res, next) => {
     const target = await Trello.findOne({ _id });
     if (target.title === confirmTitle) {
       await Trello.deleteOne({ _id });
-      res.status(200).json({ message: "success delete", _id });
+      res.status(200).json({ message: 'success delete', _id });
     }
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500;

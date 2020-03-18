@@ -16,27 +16,25 @@ function TrelloItem(props) {
   const { trelloItem, cardList, dragHandleProps } = props
   const [addCardStatus, setAddCardStatus] = useState(false)
 
-  const cardListEl = null
-  
-  // cardList && cardList.map((item, index) => {
-  //   return (
-  //     <Draggable key={item._id} index={index} draggableId={item._id}>
-  //       {provided => (
-  //         <li
-  //           className="trello_card_item_wrapper"
-  //           ref={provided.innerRef}
-  //           {...provided.draggableProps}
-  //           {...provided.dragHandleProps}
-  //         >
-  //           <span>{item.title}</span>
-  //           <div className="card_edit">
-  //             <MdEdit />
-  //           </div>
-  //         </li>
-  //       )}
-  //     </Draggable>
-  //   )
-  // })
+  const cardListEl = cardList.map((item, index) => {
+    return (
+      <Draggable key={item._id} index={index} draggableId={item._id}>
+        {provided => (
+          <li
+            className="trello_card_item_wrapper"
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+          >
+            <span>{item.title}</span>
+            <div className="card_edit">
+              <MdEdit />
+            </div>
+          </li>
+        )}
+      </Draggable>
+    )
+  })
 
   return (
     <Droppable droppableId={trelloItem._id} type="card">

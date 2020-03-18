@@ -34,6 +34,13 @@ const deleteTrelloItemSuccess = (state, _id) => {
   })
 }
 
+const createCardSuccess = (state, item) => {
+  const list = [...state.list]
+  const index = list.findIndex(el => el._id === item.trelloId)
+  list[index].cardList = [...list[index].cardList, item]
+  return updateObject(state, { list })
+}
+
 export const reducer = (state = initialState, act) => {
   switch (act.type) {
     case type.INIT_TRELLO_LIST:
@@ -48,6 +55,8 @@ export const reducer = (state = initialState, act) => {
       return loading(state)
     case type.DELETE_TRELLO_ITEM_SUCCESS:
       return deleteTrelloItemSuccess(state, act._id)
+    case type.CREATE_CARD_SUCCESS:
+      return createCardSuccess(state, act.item)
     default:
       return state
   }

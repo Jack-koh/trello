@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const autoIncrement = require("mongoose-auto-increment");
+const autoIncrement = require('mongoose-auto-increment');
 const URI =
-  "mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority";
+  'mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority';
 const connection = mongoose.createConnection(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -15,11 +15,7 @@ const cardSchema = Schema(
   {
     trelloId: {
       type: Schema.Types.ObjectId,
-      ref: "Trello",
-      required: true
-    },
-    trelloNo: {
-      type: Number,
+      ref: 'Trello',
       required: true
     },
     title: {
@@ -31,10 +27,10 @@ const cardSchema = Schema(
 );
 
 cardSchema.plugin(autoIncrement.plugin, {
-  model: "Card",
-  field: "cardNo",
+  model: 'Card',
+  field: 'cardNo',
   startAt: 1,
   increment: 1
 });
 
-module.exports = mongoose.model("Card", cardSchema);
+module.exports = mongoose.model('Card', cardSchema);

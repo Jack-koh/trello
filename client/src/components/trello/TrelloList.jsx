@@ -63,27 +63,25 @@ function TrelloList(props) {
     // }
   }
 
-  const trelloListEl =
-    testList &&
-    testList.map((item, index) => {
-      return (
-        <Draggable key={item._id} index={index} draggableId={item._id}>
-          {(provided, snapshot) => (
-            <article
-              className={`trello_list ${snapshot.isDragging ? 'isDragging' : ''}`}
-              {...provided.draggableProps}
-              ref={provided.innerRef}
-            >
-              <TrelloItem
-                dragHandleProps={provided.dragHandleProps}
-                trelloItem={item}
-                cardList={item.cardList}
-              />
-            </article>
-          )}
-        </Draggable>
-      )
-    })
+  const trelloListEl = testList.map((item, index) => {
+    return (
+      <Draggable key={item._id} index={index} draggableId={item._id}>
+        {(provided, snapshot) => (
+          <article
+            className={`trello_list ${snapshot.isDragging ? 'isDragging' : ''}`}
+            {...provided.draggableProps}
+            ref={provided.innerRef}
+          >
+            <TrelloItem
+              dragHandleProps={provided.dragHandleProps}
+              trelloItem={item}
+              cardList={item.cardList}
+            />
+          </article>
+        )}
+      </Draggable>
+    )
+  })
 
   return (
     <DragDropContext onDragEnd={dragEndHandler}>

@@ -21,10 +21,10 @@ export const getCardListSuccess = list => {
 }
 
 export const createCardStart = payload => {
-  const { trelloId, trelloNo, title } = payload
+  const { trelloId, title } = payload
   return {
     type: type.CREATE_CARD_START,
-    payload: { trelloId, trelloNo, title }
+    payload: { trelloId, title }
   }
 }
 
