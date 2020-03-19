@@ -16,7 +16,8 @@ export {
   updateTrelloItemStart,
   updateTrelloItemSuccess,
   deleteTrelloItemStart,
-  deleteTrelloItemSuccess
+  deleteTrelloItemSuccess,
+  updateCardItem
 } from './trello'
 
 export {
@@ -24,6 +25,5 @@ export {
   getCardListStart,
   getCardListSuccess,
   createCardStart,
-  createCardSuccess,
-  removeCardItem
+  createCardSuccess
 } from './card'

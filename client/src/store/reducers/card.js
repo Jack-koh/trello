@@ -22,11 +22,6 @@ const createCardSuccess = (state, item) => {
   return updateObject(state, { list: [...state.list, item], loading: false })
 }
 
-const removeCardItem = (state, cardItem) => {
-  const result = state.list.filter(el => el.cardNo !== cardItem.cardNo)
-  return updateObject(state, { list: result })
-}
-
 export const reducer = (state = initialState, act) => {
   switch (act.type) {
     case type.INIT_CARD_LIST:
@@ -39,8 +34,6 @@ export const reducer = (state = initialState, act) => {
       return loading(state)
     case type.CREATE_CARD_SUCCESS:
       return createCardSuccess(state, act.item)
-    case type.REMOVE_CARD_ITEM:
-      return removeCardItem(state, act.cardItem)
     default:
       return state
   }

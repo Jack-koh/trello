@@ -13,38 +13,29 @@ function TrelloList(props) {
   const dispatch = useDispatch()
   const onGetTelloList = useCallback(boardNo => dispatch(action.getTrelloListStart(boardNo)), [dispatch])
   const onInitTrelloList = useCallback(() => dispatch(action.initTrelloList()), [dispatch])
+  const onUpdateCardItem = payload => dispatch(action.updateCardItem(payload))
 
   const { history } = props
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
-  const [testList, setTestList] = useState([])
 
   useEffect(() => {
     trello ? onGetTelloList(trello.boardNo) : history.go(-1)
     return () => onInitTrelloList()
   }, [onGetTelloList, onInitTrelloList, trello, history])
 
-  useEffect(() => {
-    setTestList(trelloList)
-  }, [trelloList])
-
   const dragEndHandler = result => {
-    const { destination, source, draggableId, type } = result
+    const { destination, source, oId, type } = result
     if (!destination) return
     if (type === 'card') {
-      const list = [...testList]
-      const target = list.find(el => el._id === source.droppableId).cardList[source.index]
-      list.find(el => el._id === source.droppableId).cardList.splice(source.index, 1)
-      list.find(el => el._id === destination.droppableId).cardList.splice(destination.index, 0, target)
-      setTestList(list)
+      onUpdateCardItem({ destination, source, oId })
+      // const list = [...trelloList]
+      // const target = list.find(el => el._id === source.droppableId).cardList[source.index]
+      // list.find(el => el._id === source.droppableId).cardList.splice(source.index, 1)
+      // list.find(el => el._id === destination.droppableId).cardList.splice(destination.index, 0, target)
     }
-
-    // if (
-    //   destination.droppabledId === source.droppabledId &&
-    //   destination.index === source.index
-    // ) {
   }
 
-  const trelloListEl = testList.map((item, index) => {
+  const trelloListEl = trelloList.map((item, index) => {
     return (
       <Draggable key={item._id} index={index} draggableId={item._id}>
         {(provided, snapshot) => (

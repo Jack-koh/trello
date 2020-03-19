@@ -11,7 +11,6 @@ import CreateCard from './createCard/CreateCard'
 
 function TrelloItem(props) {
   const dispatch = useDispatch()
-  const onRemoveCardItem = cardItem => dispatch(action.removeCardItem(cardItem))
 
   const { trelloItem, cardList, dragHandleProps } = props
   const [addCardStatus, setAddCardStatus] = useState(false)

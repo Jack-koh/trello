@@ -63,6 +63,14 @@ export const deleteTrelloItemSuccess = _id => {
   }
 }
 
+export const updateCardItem = payload => {
+  const { destination, source, oId } = payload
+  return {
+    type: type.UPDATE_CARD_ITEM,
+    payload: { destination, source, oId }
+  }
+}
+
 export const initTrelloList = () => {
   return {
     type: type.INIT_TRELLO_LIST

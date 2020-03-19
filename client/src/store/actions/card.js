@@ -34,9 +34,3 @@ export const createCardSuccess = item => {
     item
   }
 }
-export const removeCardItem = cardItem => {
-  return {
-    type: type.REMOVE_CARD_ITEM,
-    cardItem
-  }
-}
