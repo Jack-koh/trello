@@ -37,30 +37,30 @@ function TrelloItem(props) {
   })
 
   return (
-    <Droppable droppableId={trelloItem._id} type="card">
-      {provided => (
-        <div className="card_list_wrapper" ref={provided.innerRef} {...provided.droppableProps}>
-          <div className="card_list">
-            <TrelloItemHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
-            <ul>
+    <div className="card_list_wrapper">
+      <div className="card_list">
+        <TrelloItemHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
+        <Droppable droppableId={trelloItem._id} type="card">
+          {provided => (
+            <ul ref={provided.innerRef} {...provided.droppableProps}>
               {cardListEl}
               {provided.placeholder}
             </ul>
-            {addCardStatus ? (
-              <CreateCard
-                trelloItem={trelloItem}
-                utilToggleHandler={() => utilToggleHandler(addCardStatus, setAddCardStatus)}
-              />
-            ) : (
-              <div className="card_form_button" onClick={() => setAddCardStatus(true)}>
-                <MdAdd />
-                {cardList && cardList.length > 0 ? 'Add another card' : 'Add a card'}
-              </div>
-            )}
+          )}
+        </Droppable>
+        {addCardStatus ? (
+          <CreateCard
+            trelloItem={trelloItem}
+            utilToggleHandler={() => utilToggleHandler(addCardStatus, setAddCardStatus)}
+          />
+        ) : (
+          <div className="card_form_button" onClick={() => setAddCardStatus(true)}>
+            <MdAdd />
+            {cardList && cardList.length > 0 ? 'Add another card' : 'Add a card'}
           </div>
-        </div>
-      )}
-    </Droppable>
+        )}
+      </div>
+    </div>
   )
 }
 

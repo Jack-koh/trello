@@ -1,7 +1,6 @@
 .card_list_wrapper {
   height: 100%;
   .card_list {
-    position: relative;
     display: flex;
     flex-direction: column;
     border-radius: 0.3rem;
@@ -10,8 +9,7 @@
     background-color: #ebecf0;
 
     ul {
-      position: relative;
-      margin: 0 0.8rem;
+      padding: .1rem 0.8rem;
 
       .trello_card_item_wrapper {
         position: relative;

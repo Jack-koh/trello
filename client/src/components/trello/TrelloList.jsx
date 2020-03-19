@@ -29,38 +29,19 @@ function TrelloList(props) {
 
   const dragEndHandler = result => {
     const { destination, source, draggableId, type } = result
+    if (!destination) return
     if (type === 'card') {
       const list = [...testList]
-
       const target = list.find(el => el._id === source.droppableId).cardList[source.index]
-
       list.find(el => el._id === source.droppableId).cardList.splice(source.index, 1)
       list.find(el => el._id === destination.droppableId).cardList.splice(destination.index, 0, target)
       setTestList(list)
-
-      // console.log(testList)
-
-      // const fromCardList = [...from.cardList]
-      // const toCardList = [...to.cardList]
-      // console.log(fromCardList.splice(source.index + 1, 1))
-      // console.log(toCardList.splice(destination.index + 1, 0, from.cardList[source.index]))
-      // from.cardList.splice(source.index, 1)
-      // to.cardList.splice(destination.index, 0, from.cardList[source.index])
     }
-    // console.log(type)
-    // console.log(destination)
-    // console.log(source)
-    // console.log(draggableId)
-    // if (!destination) {
-    //   return
-    // }
 
     // if (
     //   destination.droppabledId === source.droppabledId &&
     //   destination.index === source.index
     // ) {
-
-    // }
   }
 
   const trelloListEl = testList.map((item, index) => {
