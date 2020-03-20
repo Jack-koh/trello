@@ -50,3 +50,12 @@ export function* deleteTrelloItem(act) {
     console.log('updateTrelloItem err ----')
   }
 }
+
+export function* updateCardItem(act) {
+  const { destination, source, draggableId } = act.payload
+  try {
+    yield axios.put('trello/update/cards', { destination, source, draggableId })
+  } catch (err) {
+    console.log('updateTrelloItem err ----')
+  }
+}

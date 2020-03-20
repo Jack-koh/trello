@@ -64,10 +64,10 @@ export const deleteTrelloItemSuccess = _id => {
 }
 
 export const updateCardItem = payload => {
-  const { destination, source, oId } = payload
+  const { destination, source, draggableId } = payload
   return {
     type: type.UPDATE_CARD_ITEM,
-    payload: { destination, source, oId }
+    payload: { destination, source, draggableId }
   }
 }
 

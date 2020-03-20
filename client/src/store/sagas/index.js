@@ -2,7 +2,7 @@ import * as type from 'store/types'
 import { takeEvery } from 'redux-saga/effects'
 import { login } from './auth'
 import { getBoardList, createBoardItem } from './board'
-import { getTrelloList, createTrelloItem, updateTrelloItem, deleteTrelloItem } from './trello'
+import { getTrelloList, createTrelloItem, updateTrelloItem, deleteTrelloItem, updateCardItem } from './trello'
 
 import { createCard, getCardList } from './card'
 
@@ -20,6 +20,7 @@ export function* trello() {
   yield takeEvery(type.CREATE_TRELLO_ITEM_START, createTrelloItem)
   yield takeEvery(type.UPDATE_TRELLO_ITEM_START, updateTrelloItem)
   yield takeEvery(type.DELETE_TRELLO_ITEM_START, deleteTrelloItem)
+  yield takeEvery(type.UPDATE_CARD_ITEM, updateCardItem)
 }
 
 export function* card() {

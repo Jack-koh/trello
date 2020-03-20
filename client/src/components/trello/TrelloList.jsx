@@ -24,14 +24,10 @@ function TrelloList(props) {
   }, [onGetTelloList, onInitTrelloList, trello, history])
 
   const dragEndHandler = result => {
-    const { destination, source, oId, type } = result
+    const { destination, source, draggableId, type } = result
     if (!destination) return
     if (type === 'card') {
-      onUpdateCardItem({ destination, source, oId })
-      // const list = [...trelloList]
-      // const target = list.find(el => el._id === source.droppableId).cardList[source.index]
-      // list.find(el => el._id === source.droppableId).cardList.splice(source.index, 1)
-      // list.find(el => el._id === destination.droppableId).cardList.splice(destination.index, 0, target)
+      onUpdateCardItem({ destination, source, draggableId })
     }
   }
 

@@ -7,4 +7,8 @@ router.get("/get", trelloController.get);
 router.put("/update", trelloController.update);
 router.delete("/delete", trelloController.delete);
 
+router.put("/update/cards", trelloController.updateCards);
+
+
+
 module.exports = router;
