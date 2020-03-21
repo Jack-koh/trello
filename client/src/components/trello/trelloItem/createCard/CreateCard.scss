@@ -1,34 +1,36 @@
 .card_form_field {
   padding: 0.8rem;
-  .trello_card_wrapper {
-    display: block;
-    padding: 0.6rem 0.8rem 1rem;
-    background-color: var(--pure-white);
-    border-radius: 0.3rem;
-    box-shadow: 0 0.1rem 0 var(--box-shadow);
-    margin-bottom: 0.8rem;
-    min-height: 2rem;
-    cursor: pointer;
-  }
-
-  .card_add_control {
-    display: flex;
-    align-items: center;
-    height: 3.2rem;
-    margin-top: 0.4rem;
-    transition: margin 85ms ease-in, height 85ms ease-in;
-    overflow: hidden;
-
-    svg {
-      margin-left: 0.6rem;
-      color: #42526e;
-      width: 2.4rem;
-      height: 2.4rem;
-      transition: color 0.2s;
+  form {
+    .trello_card_wrapper {
+      display: block;
+      padding: 0.6rem 0.8rem 1rem;
+      background-color: var(--pure-white);
+      border-radius: 0.3rem;
+      box-shadow: 0 0.1rem 0 var(--box-shadow);
+      margin-bottom: 0.8rem;
+      min-height: 2rem;
       cursor: pointer;
+    }
 
-      &:hover {
-        color: #333;
+    .card_add_control {
+      display: flex;
+      align-items: center;
+      height: 3.2rem;
+      margin-top: 0.4rem;
+      transition: margin 85ms ease-in, height 85ms ease-in;
+      overflow: hidden;
+
+      svg {
+        margin-left: 0.6rem;
+        color: #42526e;
+        width: 2.4rem;
+        height: 2.4rem;
+        transition: color 0.2s;
+        cursor: pointer;
+
+        &:hover {
+          color: #333;
+        }
       }
     }
   }

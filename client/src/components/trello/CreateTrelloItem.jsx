@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import './CreateTrelloItem.scss'
 import { MdAdd, MdClose } from 'react-icons/md'
-import { utilToggleHandler } from 'shared/utility'
-
-import { Button } from 'components/custom/Elements'
+import { Button, ClickOutside } from 'components/custom/Elements'
 
 function CreatTrelloItem() {
   const loading = useSelector(state => state.trello.loading)
@@ -13,19 +11,9 @@ function CreatTrelloItem() {
   const dispatch = useDispatch()
   const onCreateTrelloList = payload => dispatch(action.createTrelloItemStart(payload))
 
-  const wrapperRef = useRef(null)
   const [showForm, setShowForm] = useState(false)
   const [title, setTitle] = useState('')
   const [trelloData] = useState(JSON.parse(localStorage.getItem('trello')))
-
-  useEffect(() => {
-    const clickOutsideHandler = e => {
-      if (wrapperRef.current.contains(e.target)) return
-      utilToggleHandler(showForm, setShowForm)
-    }
-    document.addEventListener('click', clickOutsideHandler)
-    return () => document.removeEventListener('click', clickOutsideHandler)
-  }, [showForm, trelloData])
 
   useEffect(() => {
     setShowForm(false)
@@ -46,12 +34,8 @@ function CreatTrelloItem() {
   }
 
   return (
-    <div
-      ref={wrapperRef}
-      className={`add_list_wrapper ${showForm ? 'on' : 'off'}`}
-      onClick={() => setShowForm(true)}
-    >
-      <form onSubmit={e => createTrelloSubmit(e)}>
+    <ClickOutside className={`add_list_wrapper ${showForm ? 'on' : 'off'}`} close={() => setShowForm(false)}>
+      <form onSubmit={e => createTrelloSubmit(e)} onClick={() => setShowForm(true)}>
         {!showForm ? (
           <div className="place_holder">
             <MdAdd className="add_icon" />
@@ -73,7 +57,7 @@ function CreatTrelloItem() {
           </>
         )}
       </form>
-    </div>
+    </ClickOutside>
   )
 }
 

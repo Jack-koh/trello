@@ -14,8 +14,7 @@ export const getTrelloListSuccess = list => {
   }
 }
 
-export const createTrelloItemStart = payload => {
-  const { boardNo, userNo, title } = payload
+export const createTrelloItemStart = ({ boardNo, userNo, title }) => {
   return {
     type: type.CREATE_TRELLO_ITEM_START,
     payload: { boardNo, userNo, title }
@@ -29,13 +28,10 @@ export const createTrelloItemSuccess = item => {
   }
 }
 
-export const updateTrelloItemStart = payload => {
+export const updateTrelloItemStart = ({ _id, updateTitle }) => {
   return {
     type: type.UPDATE_TRELLO_ITEM_START,
-    payload: {
-      _id: payload._id,
-      updateTitle: payload.updateTitle
-    }
+    payload: { _id, updateTitle }
   }
 }
 
@@ -46,12 +42,12 @@ export const updateTrelloItemSuccess = item => {
   }
 }
 
-export const deleteTrelloItemStart = params => {
+export const deleteTrelloItemStart = ({ _id, confirmTitle }) => {
   return {
     type: type.DELETE_TRELLO_ITEM_START,
     params: {
-      _id: params._id,
-      confirmTitle: params.confirmTitle
+      _id,
+      confirmTitle
     }
   }
 }
@@ -63,8 +59,7 @@ export const deleteTrelloItemSuccess = _id => {
   }
 }
 
-export const updateCardItem = payload => {
-  const { destination, source, draggableId } = payload
+export const updateCardItem = ({ destination, source, draggableId }) => {
   return {
     type: type.UPDATE_CARD_ITEM,
     payload: { destination, source, draggableId }

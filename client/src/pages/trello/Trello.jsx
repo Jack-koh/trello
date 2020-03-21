@@ -23,7 +23,7 @@ function Trello() {
           <div className="trello_trans_box">Invite</div>
         </div>
         <div className="trello_menu">
-          <div className="trello_trans_box">Show Menu</div>
+          <div className="trello_trans_box">Delete Board</div>
         </div>
       </section>
 

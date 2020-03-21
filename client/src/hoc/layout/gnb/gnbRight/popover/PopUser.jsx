@@ -1,37 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-import './UserPopover.scss'
+import './PopUser.scss'
 import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
+import { Popover } from 'components/custom/Elements'
 
-function UserPopover(props) {
+function PopUser(props) {
   const dispatch = useDispatch()
   const onLogout = () => dispatch(action.logout())
 
-  const { history, utilToggleHandler } = props
-  const wrapperRef = useRef(null)
+  const { history, closeHandler } = props
   const [userEmail, setUserEmail] = useState('')
   const [userName, setUserName] = useState('')
 
   useEffect(() => {
-    // 클릭 아웃사이드 기능 생성 및 제거1
-    const clickOutsideHandler = e => {
-      if (wrapperRef.current.parentElement.contains(e.target)) return
-      utilToggleHandler()
-    }
-
-    document.addEventListener('click', clickOutsideHandler, true)
     const userData = JSON.parse(localStorage.getItem('user-data'))
     const { email, name } = userData
     if (email && name) {
       setUserEmail(email.split('@')[0])
       setUserName(name)
     }
-
-    return () => {
-      document.removeEventListener('click', clickOutsideHandler, true)
-    }
-  }, [utilToggleHandler])
+  }, [])
 
   const logoutHandler = () => {
     onLogout()
@@ -39,7 +28,7 @@ function UserPopover(props) {
   }
 
   return (
-    <div ref={wrapperRef} className="user_popover">
+    <Popover className="user_popover" clickOutside close={closeHandler}>
       <div className="user_popover_content">
         <div className="user_popover_inner">
           <div className="user_popover_title">{`${userEmail} (${userName})`}</div>
@@ -70,8 +59,8 @@ function UserPopover(props) {
           </nav>
         </div>
       </div>
-    </div>
+    </Popover>
   )
 }
 
-export default withRouter(UserPopover)
+export default withRouter(PopUser)

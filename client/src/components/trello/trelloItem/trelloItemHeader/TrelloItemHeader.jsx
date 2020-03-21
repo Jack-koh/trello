@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import { MdMoreHoriz } from 'react-icons/md'
-import { utilToggleHandler } from 'shared/utility'
 import './TrelloItemHeader.scss'
 import { Textarea } from 'components/custom/Elements'
-import TrelloPopover from 'components/trello/trelloItem/trelloPopover/TrelloPopover'
+import PopTrello from 'components/trello/trelloItem/popover/PopTrello'
 
 function TrelloItemHeader(props) {
   const dispatch = useDispatch()
@@ -13,12 +12,9 @@ function TrelloItemHeader(props) {
 
   const { trelloItem, dragHandleProps } = props
   const [title, setTitle] = useState('')
-  const [trelloPopover, setTrelloPopover] = useState(false)
+  const [popover, setPopover] = useState(false)
   const updateTitle = () => {
     if (trelloItem.title !== title) onUpdateTitle({ _id: trelloItem._id, updateTitle: title })
-  }
-  const popoverHandler = () => {
-    setTrelloPopover(!trelloPopover)
   }
 
   const autosizeHandler = e => {
@@ -29,7 +25,7 @@ function TrelloItemHeader(props) {
   }
 
   useEffect(() => {
-    setTrelloPopover(false)
+    setPopover(false)
   }, [trelloItem])
 
   useEffect(() => {
@@ -46,17 +42,11 @@ function TrelloItemHeader(props) {
         readonly="true"
       />
       <div className="trello_list_more">
-        <div className="trello_popover_wrapper">
-          <div className="trello_list_more_icon" onClick={popoverHandler}>
+        <div className="trello_list_more">
+          <div className="more_icon" onClick={() => setPopover(!popover)}>
             <MdMoreHoriz />
           </div>
-          {trelloPopover && (
-            <TrelloPopover
-              _id={trelloItem._id}
-              title={title}
-              utilToggleHandler={() => utilToggleHandler(trelloPopover, setTrelloPopover)}
-            />
-          )}
+          {popover && <PopTrello _id={trelloItem._id} title={title} closeHandler={() => setPopover(false)} />}
         </div>
       </div>
     </div>

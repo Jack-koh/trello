@@ -1,25 +1,27 @@
-import { updateObject } from 'shared/utility'
 import * as type from 'store/types'
+import produce from 'immer'
 
 const initialState = {
   progress: false
 }
 
-const loadingStart = state => {
-  return updateObject(state, { progress: true })
+const loadingStart = draft => {
+  draft['progress'] = true
 }
 
-const loadingFinished = state => {
-  return updateObject(state, { progress: false })
+const loadingFinished = draft => {
+  draft['progress'] = false
 }
 
 export const reducer = (state = initialState, act) => {
-  switch (act.type) {
-    case type.LOADING_START:
-      return loadingStart()
-    case type.LOADING_FINISHED:
-      return loadingFinished()
-    default:
-      return state
-  }
+  return produce(state, draft => {
+    switch (act.type) {
+      case type.LOADING_START:
+        return loadingStart(draft)
+      case type.LOADING_FINISHED:
+        return loadingFinished(draft)
+      default:
+        return draft
+    }
+  })
 }

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import DialogCreateBoard from 'components/dialog/createBoard/Dialog_create_board'
-import { utilToggleHandler } from 'shared/utility'
+import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard'
 import './CreateBoard.scss'
 
 function CreateBoard() {
@@ -16,12 +15,7 @@ function CreateBoard() {
           <div className="create_hover_action" />
         </div>
       </li>
-      {dialog && (
-        <DialogCreateBoard
-          closeDialog={() => setDialog(false)}
-          utilToggleHandler={() => utilToggleHandler(dialog, setDialog)}
-        />
-      )}
+      {dialog && <ModalCreateBoard closeHandler={() => setDialog(false)} />}
     </>
   )
 }

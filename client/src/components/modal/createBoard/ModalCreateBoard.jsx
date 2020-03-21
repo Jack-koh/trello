@@ -4,10 +4,9 @@ import { withRouter } from 'react-router-dom'
 import * as action from 'store/actions'
 import { MdClose } from 'react-icons/md'
 import { FaCheck } from 'react-icons/fa'
-import './Dialog_create_board.scss'
+import './ModalCreateBoard.scss'
 
-import Backdrop from 'components/dialog/Backdrop'
-import { Button } from 'components/custom/Elements'
+import { Button, Modal } from 'components/custom/Elements'
 
 function DialogCreateBoard(props) {
   const boardList = useSelector(state => state.board.list)
@@ -15,7 +14,7 @@ function DialogCreateBoard(props) {
   const dispatch = useDispatch()
   const onCreateBoard = payload => dispatch(action.createBoardItemStart(payload))
 
-  const { utilToggleHandler, closeDialog, history } = props
+  const { closeHandler, history } = props
   const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
@@ -24,23 +23,23 @@ function DialogCreateBoard(props) {
   useEffect(() => {
     const clickOutsideHandler = e => {
       if (wrapperRef.current.contains(e.target)) return
-      utilToggleHandler()
+      closeHandler()
     }
     document.addEventListener('click', clickOutsideHandler, true)
     return () => {
       document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [utilToggleHandler])
+  }, [closeHandler])
 
   useEffect(() => {
     if (isFirstRun.current) {
       isFirstRun.current = false
     } else {
-      closeDialog()
+      closeHandler()
       const trello = JSON.parse(localStorage.getItem('trello'))
       history.push(`/board/${trello.title}`)
     }
-  }, [closeDialog, history, boardList])
+  }, [closeHandler, history, boardList])
 
   const backgroundList = [
     { type: 'image', name: 'bg_forest' },
@@ -79,46 +78,39 @@ function DialogCreateBoard(props) {
 
   const backgroundEl = backgroundList.map((item, i) => {
     return (
-      <li
-        key={i}
-        className="choose_background_item"
-        onClick={setBackgroundHandler.bind(this, item)}
-      >
+      <li key={i} className="choose_background_item" onClick={setBackgroundHandler.bind(this, item)}>
         <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
       </li>
     )
   })
 
   return (
-    <>
-      <div className="create_board_dialog" ref={wrapperRef}>
-        <form onSubmit={createBoardSubmit}>
-          <div className="set_board">
-            <div className={`board_card ${bgName}`}>
-              <MdClose onClick={closeDialog} />
-              <input
-                type="text"
-                placeholder="Add board title"
-                value={boardTitle}
-                onChange={e => setBoardTitle(e.target.value)}
-              />
-            </div>
-            <ul className="choose_background">{backgroundEl}</ul>
-          </div>
-
-          <div className="bottom_utils">
-            <Button
-              className="green_submit"
-              type="submit"
-              text="Create Board"
-              loading={loading}
-              disabled={boardTitle.length === 0}
+    <Modal className="create_board_dialog" close={closeHandler}>
+      <form onSubmit={createBoardSubmit}>
+        <div className="set_board">
+          <div className={`board_card ${bgName}`}>
+            <MdClose onClick={closeHandler} />
+            <input
+              type="text"
+              placeholder="Add board title"
+              value={boardTitle}
+              onChange={e => setBoardTitle(e.target.value)}
             />
           </div>
-        </form>
-      </div>
-      <Backdrop />
-    </>
+          <ul className="choose_background">{backgroundEl}</ul>
+        </div>
+
+        <div className="bottom_utils">
+          <Button
+            className="green_submit"
+            type="submit"
+            text="Create Board"
+            loading={loading}
+            disabled={boardTitle.length === 0}
+          />
+        </div>
+      </form>
+    </Modal>
   )
 }
 

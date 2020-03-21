@@ -1,35 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
-import './TrelloPopover.scss'
-import { Button } from 'components/custom/Elements'
+import './PopTrello.scss'
+import { Button, Popover } from 'components/custom/Elements'
 
-function TrelloPopover(props) {
+function PopTrello(props) {
   const loading = useSelector(state => state.trello.loading)
   const dispatch = useDispatch()
   const onDeleteItemHandler = params => dispatch(action.deleteTrelloItemStart(params))
 
-  const { _id, title, utilToggleHandler } = props
-  const wrapperRef = useRef(null)
+  const { _id, title, closeHandler } = props
   const [onDelete, setOnDelete] = useState(false)
   const [confirmTitle, setConfirmTitle] = useState('')
 
-  useEffect(() => {
-    // 클릭 아웃사이드 기능 생성 및 제거1
-    const clickOutsideHandler = e => {
-      if (wrapperRef.current.parentElement.contains(e.target)) return
-      utilToggleHandler()
-    }
-
-    document.addEventListener('click', clickOutsideHandler, true)
-
-    return () => {
-      document.removeEventListener('click', clickOutsideHandler, true)
-    }
-  }, [utilToggleHandler, wrapperRef])
-
   const toggleDeleteHandler = () => {
+    if (!onDelete) setConfirmTitle('')
     setOnDelete(!onDelete)
   }
 
@@ -39,7 +25,7 @@ function TrelloPopover(props) {
   }
 
   return (
-    <div ref={wrapperRef} className="trello_popover">
+    <Popover className="trello_popover" clickOutside close={closeHandler}>
       <div className="trello_popover_content">
         <div className="trello_popover_inner">
           <div className="trello_popover_title">List Actions</div>
@@ -84,8 +70,8 @@ function TrelloPopover(props) {
           </nav>
         </div>
       </div>
-    </div>
+    </Popover>
   )
 }
 
-export default withRouter(TrelloPopover)
+export default withRouter(PopTrello)

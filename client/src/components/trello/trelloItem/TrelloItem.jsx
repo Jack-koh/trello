@@ -4,7 +4,6 @@ import * as action from 'store/actions'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { MdAdd, MdEdit } from 'react-icons/md'
 import './TrelloItem.scss'
-import { utilToggleHandler } from 'shared/utility'
 
 import TrelloItemHeader from './trelloItemHeader/TrelloItemHeader'
 import CreateCard from './createCard/CreateCard'
@@ -13,7 +12,7 @@ function TrelloItem(props) {
   const dispatch = useDispatch()
 
   const { trelloItem, cardList, dragHandleProps } = props
-  const [addCardStatus, setAddCardStatus] = useState(false)
+  const [addCard, setAddCard] = useState(false)
 
   const cardListEl = cardList.map((item, index) => {
     return (
@@ -47,13 +46,10 @@ function TrelloItem(props) {
             </ul>
           )}
         </Droppable>
-        {addCardStatus ? (
-          <CreateCard
-            trelloItem={trelloItem}
-            utilToggleHandler={() => utilToggleHandler(addCardStatus, setAddCardStatus)}
-          />
+        {addCard ? (
+          <CreateCard trelloItem={trelloItem} closeHandler={() => setAddCard(false)} />
         ) : (
-          <div className="card_form_button" onClick={() => setAddCardStatus(true)}>
+          <div className="card_form_button" onClick={() => setAddCard(true)}>
             <MdAdd />
             {cardList && cardList.length > 0 ? 'Add another card' : 'Add a card'}
           </div>

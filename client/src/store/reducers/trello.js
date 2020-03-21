@@ -1,83 +1,75 @@
-import { updateObject } from 'shared/utility'
 import * as type from 'store/types'
+import produce from 'immer'
 
 const initialState = {
   list: [],
   loading: false
 }
 
-const loading = state => {
-  return updateObject(state, { loading: true })
+const loading = draft => {
+  draft['loading'] = true
 }
 
-const initTrelloList = state => {
-  return updateObject(state, { list: [] })
+const initTrelloList = draft => {
+  draft['list'] = []
 }
 
-const getTrelloListSuccess = (state, list) => {
-  return updateObject(state, {
-    list
-  })
+const getTrelloListSuccess = (draft, list) => {
+  draft['list'] = list
 }
 
-const createTrelloItemSuccess = (state, item) => {
-  return updateObject(state, {
-    list: [...state.list, item],
-    loading: false
-  })
+const createTrelloItemSuccess = (draft, item) => {
+  draft['list'] = [...draft.list, item]
+  draft['loading'] = false
 }
 
-const deleteTrelloItemSuccess = (state, _id) => {
-  return updateObject(state, {
-    list: state.list.filter(el => el._id !== _id),
-    loading: false
-  })
+const deleteTrelloItemSuccess = (draft, _id) => {
+  draft['list'] = draft['list'].filter(el => el._id !== _id)
+  draft['loading'] = false
 }
 
-const createCardSuccess = (state, item) => {
-  const list = [...state.list]
-  const index = list.findIndex(el => el._id === item.trelloId)
-  list[index].cardList = [...list[index].cardList, item]
-  return updateObject(state, { list })
+const createCardSuccess = (draft, item) => {
+  const updateList = [...draft.list]
+  const index = updateList.findIndex(el => el._id === item.trelloId)
+  updateList[index].cardList = [...updateList[index].cardList, item]
+
+  draft['list'] = updateList
 }
 
-const updateCardItem = (state, payload) => {
-  const { destination, source } = payload
-  const startTrelloId = source.droppableId
-  const startCardIndex = source.index
-  const endTrelloId = destination.droppableId
-  const endCardIndex = destination.index
+const updateCardItem = (draft, { destination, source }) => {
+  const updateList = [...draft.list]
 
-  const list = [...state.list]
+  const startTrello = updateList.find(el => el._id === source.droppableId)
+  const cardItem = startTrello.cardList[source.index]
+  startTrello.cardList.splice(source.index, 1)
 
-  const startTrello = list.find(el => el._id === startTrelloId)
-  const cardItem = startTrello.cardList[startCardIndex]
-  startTrello.cardList.splice(startCardIndex, 1)
+  const endTrello = updateList.find(el => el._id === destination.droppableId)
+  endTrello.cardList.splice(destination.index, 0, cardItem)
 
-  const endTrello = list.find(el => el._id === endTrelloId)
-  endTrello.cardList.splice(endCardIndex, 0, cardItem)
-  return updateObject(state, { list })
+  draft['list'] = updateList
 }
 
 export const reducer = (state = initialState, act) => {
-  switch (act.type) {
-    case type.INIT_TRELLO_LIST:
-      return initTrelloList(state, act.list)
-    case type.GET_TRELLO_LIST_SUCCESS:
-      return getTrelloListSuccess(state, act.list)
-    case type.CREATE_TRELLO_ITEM_START:
-      return loading(state)
-    case type.CREATE_TRELLO_ITEM_SUCCESS:
-      return createTrelloItemSuccess(state, act.item)
-    case type.DELETE_TRELLO_ITEM_START:
-      return loading(state)
-    case type.DELETE_TRELLO_ITEM_SUCCESS:
-      return deleteTrelloItemSuccess(state, act._id)
-    case type.CREATE_CARD_SUCCESS:
-      return createCardSuccess(state, act.item)
-    case type.UPDATE_CARD_ITEM:
-      return updateCardItem(state, act.payload)
-    default:
-      return state
-  }
+  return produce(state, draft => {
+    switch (act.type) {
+      case type.INIT_TRELLO_LIST:
+        return initTrelloList(draft, act.list)
+      case type.GET_TRELLO_LIST_SUCCESS:
+        return getTrelloListSuccess(draft, act.list)
+      case type.CREATE_TRELLO_ITEM_START:
+        return loading(draft)
+      case type.CREATE_TRELLO_ITEM_SUCCESS:
+        return createTrelloItemSuccess(draft, act.item)
+      case type.DELETE_TRELLO_ITEM_START:
+        return loading(draft)
+      case type.DELETE_TRELLO_ITEM_SUCCESS:
+        return deleteTrelloItemSuccess(draft, act._id)
+      case type.CREATE_CARD_SUCCESS:
+        return createCardSuccess(draft, act.item)
+      case type.UPDATE_CARD_ITEM:
+        return updateCardItem(draft, act.payload)
+      default:
+        return draft
+    }
+  })
 }

@@ -1,4 +1,5 @@
 const Trello = require('../models/trello')
+const Card = require('../models/card')
 
 exports.get = async (req, res, next) => {
   try {
@@ -42,6 +43,8 @@ exports.delete = async (req, res, next) => {
     const target = await Trello.findOne({ _id })
     if (target.title === confirmTitle) {
       await Trello.deleteOne({ _id })
+      await Card.deleteMany({ trelloId: _id })
+
       res.status(200).json({ message: 'success delete', _id })
     }
   } catch (err) {
@@ -53,7 +56,7 @@ exports.delete = async (req, res, next) => {
 exports.updateCards = async (req, res, next) => {
   const { destination, source, draggableId } = req.body
   try {
-    await Trello.update(
+    await Trello.updateOne(
       { _id: source.droppableId },
       {
         $pull: {
@@ -61,7 +64,7 @@ exports.updateCards = async (req, res, next) => {
         }
       }
     )
-    await Trello.update(
+    await Trello.updateOne(
       { _id: destination.droppableId },
       {
         $push: {
@@ -72,6 +75,7 @@ exports.updateCards = async (req, res, next) => {
         }
       }
     )
+    await Card.updateOne({ _id: draggableId }, { trelloId: destination.droppableId })
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500
     next(err)

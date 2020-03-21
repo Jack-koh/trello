@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import { MdClose } from 'react-icons/md'
-import { Button, Textarea } from 'components/custom/Elements'
+import { Button, Textarea, ClickOutside } from 'components/custom/Elements'
 import './CreateCard.scss'
 
 function CardAddForm(props) {
@@ -10,25 +10,8 @@ function CardAddForm(props) {
   const dispatch = useDispatch()
   const onCreateCard = payload => dispatch(action.createCardStart(payload))
 
-  const { trelloItem, utilToggleHandler } = props
-  const addCardRef = useRef(null)
-  const isFirstRun = useRef(true)
+  const { trelloItem, closeHandler } = props
   const [title, setTitle] = useState('')
-
-  useEffect(() => {
-    const clickOutsideHandler = e => {
-      if (addCardRef.current.contains(e.target)) return
-      utilToggleHandler()
-    }
-    document.addEventListener('click', clickOutsideHandler)
-    return () => {
-      document.removeEventListener('click', clickOutsideHandler)
-    }
-  }, [utilToggleHandler])
-
-  useEffect(() => {
-    isFirstRun.current ? (isFirstRun.current = false) : utilToggleHandler()
-  }, [card.list, utilToggleHandler])
 
   const autosizeHandler = e => {
     setTitle(e.target.value)
@@ -46,21 +29,23 @@ function CardAddForm(props) {
   }
 
   return (
-    <form className="card_form_field" ref={addCardRef} onSubmit={createCardSubmit}>
-      <div className="trello_card_wrapper">
-        <Textarea
-          className="create_card_title"
-          type="text"
-          placeholder="Enter a title for this card"
-          autoFocus
-          onChange={e => autosizeHandler(e)}
-        />
-      </div>
-      <div className="card_add_control">
-        <Button className="green_submit" type="submit" text="Add Card" loading={card.loading} />
-        <MdClose onClick={utilToggleHandler} />
-      </div>
-    </form>
+    <ClickOutside className="card_form_field" close={closeHandler}>
+      <form onSubmit={createCardSubmit}>
+        <div className="trello_card_wrapper">
+          <Textarea
+            className="create_card_title"
+            type="text"
+            placeholder="Enter a title for this card"
+            autoFocus
+            onChange={e => autosizeHandler(e)}
+          />
+        </div>
+        <div className="card_add_control">
+          <Button className="green_submit" type="submit" text="Add Card" loading={card.loading} />
+          <MdClose onClick={closeHandler} />
+        </div>
+      </form>
+    </ClickOutside>
   )
 }
 

@@ -30,6 +30,9 @@
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/no-static-element-interactions": "off",
     "jsx-a11y/no-autofocus": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "dot-notation": "off",
+    "no-param-reassign": "off",
+    "consistent-return": "off"
   }
 }

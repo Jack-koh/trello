@@ -13,7 +13,7 @@ function TrelloList(props) {
   const dispatch = useDispatch()
   const onGetTelloList = useCallback(boardNo => dispatch(action.getTrelloListStart(boardNo)), [dispatch])
   const onInitTrelloList = useCallback(() => dispatch(action.initTrelloList()), [dispatch])
-  const onUpdateCardItem = payload => dispatch(action.updateCardItem(payload))
+  const onUpdateCardItemSuccess = payload => dispatch(action.updateCardItem(payload))
 
   const { history } = props
   const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
@@ -27,7 +27,7 @@ function TrelloList(props) {
     const { destination, source, draggableId, type } = result
     if (!destination) return
     if (type === 'card') {
-      onUpdateCardItem({ destination, source, draggableId })
+      onUpdateCardItemSuccess({ destination, source, draggableId })
     }
   }
 
