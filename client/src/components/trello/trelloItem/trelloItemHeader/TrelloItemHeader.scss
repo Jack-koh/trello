@@ -7,25 +7,21 @@
     position: absolute;
     right: 0.2rem;
     top: 0.2rem;
-    .trello_list_more {
-      position: relative;
-      .more_icon {
-        width: 3.2rem;
-        height: 3.2rem;
-        border-radius: 0.3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
+    .more_icon {
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 0.3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      svg {
+        font-size: 1.6rem;
+        color: #6b778c;
+      }
+      &:hover {
+        background-color: rgba(9, 30, 66, 0.08);
         svg {
-          font-size: 1.6rem;
-          color: #6b778c;
-        }
-        &:hover {
-          background-color: rgba(9, 30, 66, 0.08);
-          svg {
-            color: #42526e;
-          }
+          color: #42526e;
         }
       }
     }

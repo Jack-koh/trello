@@ -15,21 +15,9 @@ function DialogCreateBoard(props) {
   const onCreateBoard = payload => dispatch(action.createBoardItemStart(payload))
 
   const { closeHandler, history } = props
-  const wrapperRef = useRef(null)
   const isFirstRun = useRef(true)
   const [boardTitle, setBoardTitle] = useState('')
   const [bgName, setBgName] = useState('bg_forest')
-
-  useEffect(() => {
-    const clickOutsideHandler = e => {
-      if (wrapperRef.current.contains(e.target)) return
-      closeHandler()
-    }
-    document.addEventListener('click', clickOutsideHandler, true)
-    return () => {
-      document.removeEventListener('click', clickOutsideHandler, true)
-    }
-  }, [closeHandler])
 
   useEffect(() => {
     if (isFirstRun.current) {

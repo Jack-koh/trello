@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from 'react-icons/md'
+
+import { PopContainer } from 'components/custom/Elements'
 import PopUser from './popover/PopUser'
 
 function GnbRight() {
@@ -18,8 +20,10 @@ function GnbRight() {
         <MdAddAlert />
       </div>
       <div className="user_btn">
-        <MdAccountCircle onClick={() => setPopover(!popover)} />
-        {popover && <PopUser closeHandler={() => setPopover(false)} />}
+        <PopContainer>
+          <MdAccountCircle onClick={() => setPopover(!popover)} />
+          {popover && <PopUser closeHandler={() => setPopover(false)} />}
+        </PopContainer>
       </div>
     </div>
   )

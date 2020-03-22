@@ -1,16 +1,16 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const autoIncrement = require("mongoose-auto-increment");
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+const autoIncrement = require('mongoose-auto-increment')
 
 const URI =
-  "mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority";
+  'mongodb+srv://Jack:Jacky123@react-trello-pdjjd.mongodb.net/React-Trello?retryWrites=true&w=majority'
 const connection = mongoose.createConnection(URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
   useCreateIndex: true
-});
-autoIncrement.initialize(connection);
+})
+autoIncrement.initialize(connection)
 
 const userSchema = Schema(
   {
@@ -25,17 +25,16 @@ const userSchema = Schema(
     name: {
       type: String,
       required: true
-    },
-    board: {}
+    }
   },
   { timestamps: true }
-);
+)
 
 userSchema.plugin(autoIncrement.plugin, {
-  model: "Users",
-  field: "userNo",
+  model: 'User',
+  field: 'userNo',
   startAt: 1,
   increment: 1
-});
+})
 
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model('User', userSchema)

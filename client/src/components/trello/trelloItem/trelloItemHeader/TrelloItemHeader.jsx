@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import * as action from 'store/actions'
 import { MdMoreHoriz } from 'react-icons/md'
 import './TrelloItemHeader.scss'
-import { Textarea } from 'components/custom/Elements'
+import { Textarea, PopContainer } from 'components/custom/Elements'
 import PopTrello from 'components/trello/trelloItem/popover/PopTrello'
 
 function TrelloItemHeader(props) {
@@ -42,12 +42,12 @@ function TrelloItemHeader(props) {
         readonly="true"
       />
       <div className="trello_list_more">
-        <div className="trello_list_more">
+        <PopContainer>
           <div className="more_icon" onClick={() => setPopover(!popover)}>
             <MdMoreHoriz />
           </div>
           {popover && <PopTrello _id={trelloItem._id} title={title} closeHandler={() => setPopover(false)} />}
-        </div>
+        </PopContainer>
       </div>
     </div>
   )

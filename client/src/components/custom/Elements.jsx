@@ -37,6 +37,12 @@ export function Textarea({ type, value, placeholder, autoFocus, className, onCha
   )
 }
 
+export function PopContainer({ children }) {
+  return (
+    <div style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}>{children}</div>
+  )
+}
+
 export function Popover({ className, children, clickOutside, close }) {
   const wrapperRef = useRef(null)
   useEffect(() => {
