@@ -1,36 +1,36 @@
-import * as type from 'store/types'
+import * as type from 'store/actions/types';
 
 export const initCardList = () => {
   return {
-    type: type.INIT_CARD_LIST
-  }
-}
+    type: type.INIT_CARD_LIST,
+  };
+};
 
-export const getCardListStart = boardNo => {
+export const getCardListStart = (boardNo) => {
   return {
     type: type.GET_CARD_LIST_START,
-    boardNo
-  }
-}
+    boardNo,
+  };
+};
 
-export const getCardListSuccess = list => {
+export const getCardListSuccess = (list) => {
   return {
     type: type.GET_CARD_LIST_SUCCESS,
-    list
-  }
-}
+    list,
+  };
+};
 
-export const createCardStart = payload => {
-  const { trelloId, title } = payload
+export const createCardStart = (payload) => {
+  const { trelloId, title } = payload;
   return {
     type: type.CREATE_CARD_START,
-    payload: { trelloId, title }
-  }
-}
+    payload: { trelloId, title },
+  };
+};
 
-export const createCardSuccess = item => {
+export const createCardSuccess = (item) => {
   return {
     type: type.CREATE_CARD_SUCCESS,
-    item
-  }
-}
+    item,
+  };
+};

@@ -1,41 +1,41 @@
-import * as type from 'store/types'
-import produce from 'immer'
+import * as type from 'store/actions/types';
+import produce from 'immer';
 
 const initialState = {
   createLoading: false,
-  list: []
-}
+  list: [],
+};
 
-const initBoardList = draft => {
-  draft['list'] = []
-}
+const initBoardList = (draft) => {
+  draft['list'] = [];
+};
 
-const loadingStart = draft => {
-  draft['createLoading'] = true
-}
+const loadingStart = (draft) => {
+  draft['createLoading'] = true;
+};
 
 const getBoardListSuccess = (draft, list) => {
-  draft['list'] = list
-}
+  draft['list'] = list;
+};
 
 const createBoardItemSuccess = (draft, item) => {
-  draft['list'] = [...draft.list, item]
-  draft['createLoading'] = false
-}
+  draft['list'] = [...draft.list, item];
+  draft['createLoading'] = false;
+};
 
 export const reducer = (state = initialState, act) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (act.type) {
       case type.INIT_BOARD_LIST:
-        return initBoardList(draft)
+        return initBoardList(draft);
       case type.GET_BOARD_LIST_SUCCESS:
-        return getBoardListSuccess(draft, act.list)
+        return getBoardListSuccess(draft, act.list);
       case type.CREATE_BOARD_ITEM_START:
-        return loadingStart(draft)
+        return loadingStart(draft);
       case type.CREATE_BOARD_ITEM_SUCCESS:
-        return createBoardItemSuccess(draft, act.item)
+        return createBoardItemSuccess(draft, act.item);
       default:
-        return draft
+        return draft;
     }
-  })
-}
+  });
+};

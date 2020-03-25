@@ -1,37 +1,37 @@
-import * as type from 'store/types'
-import produce from 'immer'
+import * as type from 'store/actions/types';
+import produce from 'immer';
 
 const initialState = {
-  loading: false
-}
+  loading: false,
+};
 
-const loginStart = draft => {
-  draft['loading'] = true
-}
-const loginSuccess = draft => {
-  draft['loading'] = false
-}
-const loginFail = draft => {
-  draft['loading'] = false
-}
+const loginStart = (draft) => {
+  draft['loading'] = true;
+};
+const loginSuccess = (draft) => {
+  draft['loading'] = false;
+};
+const loginFail = (draft) => {
+  draft['loading'] = false;
+};
 const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user-data')
-}
+  localStorage.removeItem('token');
+  localStorage.removeItem('user-data');
+};
 
 export const reducer = (state = initialState, act) => {
-  return produce(state, draft => {
+  return produce(state, (draft) => {
     switch (act.type) {
       case type.LOGIN_SUCCESS:
-        return loginSuccess(draft, act.user)
+        return loginSuccess(draft, act.user);
       case type.LOGIN_FAIL:
-        return loginFail(draft)
+        return loginFail(draft);
       case type.LOGIN_START:
-        return loginStart(draft)
+        return loginStart(draft);
       case type.LOGOUT:
-        return logout(draft)
+        return logout(draft);
       default:
-        return draft
+        return draft;
     }
-  })
-}
+  });
+};

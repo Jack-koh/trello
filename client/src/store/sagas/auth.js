@@ -1,22 +1,18 @@
-import { put } from 'redux-saga/effects'
-import axios from 'axios'
-import * as action from 'store/actions'
+import { put } from 'redux-saga/effects';
+import axios from 'axios';
+import * as action from 'store/actions';
 
-export function* login(act) {
+export function* login({ user }) {
   try {
-    const respData = yield axios.post('auth/login', act.user)
-    yield localStorage.setItem('token', respData.data.token)
-    const userJSON = JSON.stringify({
-      userId: respData.data.userId,
-      expiration: respData.data.expiration,
-      email: respData.data.email,
-      name: respData.data.name,
-      userNo: respData.data.userNo
-    })
-    yield localStorage.setItem('user-data', userJSON)
-    yield put(action.loginSuccess())
+    const response = yield axios.post('auth/login', user);
+    const { token, userId, expiration, email, name, userNo } = response.data;
+
+    yield localStorage.setItem('token', token);
+    yield localStorage.setItem('user-data', JSON.stringify({ userId, expiration, email, name, userNo }));
+
+    yield put(action.loginSuccess());
   } catch (err) {
-    yield put(action.loginFail())
-    console.log('Login Fail -----')
+    yield put(action.loginFail());
+    console.log('Login Fail -----');
   }
 }
