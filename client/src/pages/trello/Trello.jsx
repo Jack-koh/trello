@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
 
-import { MdStarBorder, MdStar } from 'react-icons/md'
-import './Trello.scss'
+import { MdStarBorder, MdStar } from 'react-icons/md';
+import './Trello.scss';
 
-import TrelloList from 'components/trello/TrelloList'
-import CreateTrelloItem from 'components/trello/CreateTrelloItem'
+import TrelloList from 'components/trello/TrelloList';
+import CreateTrelloItem from 'components/trello/CreateTrelloItem';
 
 function Trello() {
-  const [favorite, setFavorite] = useState(false)
-  const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
+  const [favorite, setFavorite] = useState(false);
+  const [trello] = useState(JSON.parse(localStorage.getItem('trello')));
 
-  useEffect(() => () => localStorage.removeItem('trello'))
+  useEffect(() => () => localStorage.removeItem('trello'), []);
 
   return (
     <main className={`trello_screen ${trello && trello.background.name}`}>
@@ -34,7 +34,7 @@ function Trello() {
         </div>
       </section>
     </main>
-  )
+  );
 }
 
-export default Trello
+export default Trello;

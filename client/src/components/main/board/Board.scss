@@ -1,34 +1,30 @@
-.board_wrap {
-  padding: 0 1.6rem;
+.board_inner_area {
+  .board_section {
+    padding: 0 0 2rem;
 
-  .board_inner_area {
-    .board_section {
-      padding: 0 0 2rem;
+    .board_title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.1rem;
 
-      .board_title {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.1rem;
-
-        svg {
-          width: 2.4rem;
-          height: 2.4rem;
-          color: var(--dark-blue);
-        }
-
-        span {
-          text-indent: 1rem;
-          font-weight: 700;
-          font-size: 1.6rem;
-          color: var(--dark-blue);
-        }
+      svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        color: var(--dark-blue);
       }
 
-      .board_item_section {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(14.9rem, 0.25fr));
-        grid-gap: 1.6rem;
+      span {
+        text-indent: 1rem;
+        font-weight: 700;
+        font-size: 1.6rem;
+        color: var(--dark-blue);
       }
+    }
+
+    .board_item_section {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(14.9rem, 0.25fr));
+      grid-gap: 1.6rem;
     }
   }
 }

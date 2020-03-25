@@ -5,4 +5,14 @@
   grid-template-columns: minmax(10rem, 27.2rem) minmax(14.9rem, 84rem);
   grid-template-areas: 'sidebar content';
   justify-content: center;
+
+  .side_bar_wrap {
+    grid-area: sidebar;
+    padding: 0 1.6rem;
+  }
+
+  .content-wrap {
+    grid-area: content;
+    padding: 0 1.6rem;
+  }
 }

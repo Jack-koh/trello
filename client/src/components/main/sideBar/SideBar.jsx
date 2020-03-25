@@ -1,11 +1,11 @@
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md'
-import './SideBar.scss'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import { MdDashboard, MdPoll, MdTimeline } from 'react-icons/md';
+import './SideBar.scss';
 
-function sideBar() {
+function sideBar({ className }) {
   return (
-    <nav className="side_bar_wrap">
+    <nav className={className}>
       <ul>
         <li className="navigation_item">
           <NavLink to="/main/board" exact activeClassName="active">
@@ -27,7 +27,7 @@ function sideBar() {
         </li>
       </ul>
     </nav>
-  )
+  );
 }
 
-export default sideBar
+export default sideBar;
