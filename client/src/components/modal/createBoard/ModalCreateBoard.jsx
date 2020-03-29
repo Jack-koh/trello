@@ -1,33 +1,33 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import * as action from 'store/actions'
-import { MdClose } from 'react-icons/md'
-import { FaCheck } from 'react-icons/fa'
-import './ModalCreateBoard.scss'
+import React, { useState, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as action from 'store/actions';
+import { MdClose } from 'react-icons/md';
+import { FaCheck } from 'react-icons/fa';
+import './ModalCreateBoard.scss';
 
-import { Button, Modal } from 'components/custom/Elements'
+import { Button } from 'components/custom/Elements';
 
-function DialogCreateBoard(props) {
-  const boardList = useSelector(state => state.board.list)
-  const loading = useSelector(state => state.board.createLoading)
-  const dispatch = useDispatch()
-  const onCreateBoard = payload => dispatch(action.createBoardItemStart(payload))
+function ModalCreateBoard({ closeHandler, history }) {
+  const boardList = useSelector((state) => state.board.list);
+  const loading = useSelector((state) => state.board.createLoading);
+  const dispatch = useDispatch();
+  const onCreateBoard = (payload) =>
+    dispatch(action.createBoardItemStart(payload));
 
-  const { closeHandler, history } = props
-  const isFirstRun = useRef(true)
-  const [boardTitle, setBoardTitle] = useState('')
-  const [bgName, setBgName] = useState('bg_forest')
+  const isFirstRun = useRef(true);
+  const [boardTitle, setBoardTitle] = useState('');
+  const [bgName, setBgName] = useState('bg_forest');
 
   useEffect(() => {
     if (isFirstRun.current) {
-      isFirstRun.current = false
+      isFirstRun.current = false;
     } else {
-      closeHandler()
-      const trello = JSON.parse(localStorage.getItem('trello'))
-      history.push(`/board/${trello.title}`)
+      closeHandler();
+      const trello = JSON.parse(localStorage.getItem('trello'));
+      history.push(`/board/${trello.title}`);
     }
-  }, [closeHandler, history, boardList])
+  }, [closeHandler, history, boardList]);
 
   const backgroundList = [
     { type: 'image', name: 'bg_forest' },
@@ -38,42 +38,48 @@ function DialogCreateBoard(props) {
     { type: 'color', name: 'bg-yellow' },
     { type: 'color', name: 'bg-green' },
     { type: 'color', name: 'bg-brown' },
-    { type: 'color', name: 'bg-brown' }
-  ]
+    { type: 'color', name: 'bg-brown' },
+  ];
 
-  const setBgHandler = item => {
-    setBgName(item.name)
-  }
+  const setBgHandler = (item) => {
+    setBgName(item.name);
+  };
 
-  const createBoardSubmit = async e => {
-    e.preventDefault()
-    const background = backgroundList.find(el => el.name === bgName)
-    const userData = JSON.parse(localStorage.getItem('user-data'))
+  const createBoardSubmit = async (e) => {
+    e.preventDefault();
+    const background = backgroundList.find((el) => el.name === bgName);
+    const userData = JSON.parse(localStorage.getItem('user-data'));
     const payload = {
       userNo: userData.userNo,
       userEmail: userData.email,
       userName: userData.name,
       title: boardTitle,
       background,
-      favorite: false
-    }
-    onCreateBoard(payload)
-  }
+      favorite: false,
+    };
+    onCreateBoard(payload);
+  };
 
-  const setBackgroundHandler = item => {
-    setBgHandler(item)
-  }
+  const setBackgroundHandler = (item) => {
+    setBgHandler(item);
+  };
 
   const backgroundEl = backgroundList.map((item, i) => {
     return (
-      <li key={i} className="choose_background_item" onClick={setBackgroundHandler.bind(this, item)}>
-        <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
+      <li
+        key={i}
+        className="choose_background_item"
+        onClick={setBackgroundHandler.bind(this, item)}
+      >
+        <div className={item.name}>
+          {item.name === bgName ? <FaCheck /> : null}
+        </div>
       </li>
-    )
-  })
+    );
+  });
 
   return (
-    <Modal className="create_board_dialog" close={closeHandler}>
+    <div className="board-modal-inner">
       <form onSubmit={createBoardSubmit}>
         <div className="set_board">
           <div className={`board_card ${bgName}`}>
@@ -82,7 +88,7 @@ function DialogCreateBoard(props) {
               type="text"
               placeholder="Add board title"
               value={boardTitle}
-              onChange={e => setBoardTitle(e.target.value)}
+              onChange={(e) => setBoardTitle(e.target.value)}
             />
           </div>
           <ul className="choose_background">{backgroundEl}</ul>
@@ -98,8 +104,8 @@ function DialogCreateBoard(props) {
           />
         </div>
       </form>
-    </Modal>
-  )
+    </div>
+  );
 }
 
-export default withRouter(DialogCreateBoard)
+export default withRouter(ModalCreateBoard);

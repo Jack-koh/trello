@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { MdPersonOutline } from 'react-icons/md';
 import './Board.scss';
+import { Modal } from 'components/custom/Elements';
+import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard';
 import BoardList from './boardList/BoardList';
 import CreateBoard from './createBoard/CreateBoard';
 
 function Board() {
+  const [dialog, setDialog] = useState(false);
+  const toggleHandler = () => setDialog(!dialog);
+
   return (
     <>
       <div className="board_inner_area">
@@ -15,7 +20,13 @@ function Board() {
           </div>
           <ul className="board_item_section">
             <BoardList />
-            <CreateBoard />
+            <Modal
+              content={<ModalCreateBoard closeHandler={toggleHandler} />}
+              closeOutside={toggleHandler}
+              open={dialog}
+            >
+              <CreateBoard openHandler={toggleHandler} />
+            </Modal>
           </ul>
         </div>
       </div>

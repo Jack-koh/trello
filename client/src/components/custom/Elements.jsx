@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import './Elements.scss'
-import './BtnLoading.scss'
+import React, { useState, useEffect, useRef } from 'react';
+import './Elements.scss';
+import './BtnLoading.scss';
 
 export function Button({ type, text, loading, className, disabled }) {
   return (
@@ -18,10 +18,19 @@ export function Button({ type, text, loading, className, disabled }) {
       )}
       <span className={loading ? 'hide' : ''}>{text}</span>
     </button>
-  )
+  );
 }
 
-export function Textarea({ type, value, placeholder, autoFocus, className, onChange, onBlur, disabled }) {
+export function Textarea({
+  type,
+  value,
+  placeholder,
+  autoFocus,
+  className,
+  onChange,
+  onBlur,
+  disabled,
+}) {
   return (
     <textarea
       type={type}
@@ -34,73 +43,86 @@ export function Textarea({ type, value, placeholder, autoFocus, className, onCha
       spellCheck="false"
       disabled={disabled}
     />
-  )
+  );
 }
 
 export function PopContainer({ children }) {
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}>{children}</div>
-  )
+    <div
+      style={{
+        position: 'relative',
+        width: '100%',
+        height: '100%',
+        cursor: 'pointer',
+      }}
+    >
+      {children}
+    </div>
+  );
 }
 
 export function Popover({ className, children, clickOutside, close }) {
-  const wrapperRef = useRef(null)
+  const wrapperRef = useRef(null);
   useEffect(() => {
-    const clickOutsideHandler = e => {
+    const clickOutsideHandler = (e) => {
       if (clickOutside) {
-        if (wrapperRef.current.parentNode.contains(e.target)) return
-        close()
+        if (wrapperRef.current.parentNode.contains(e.target)) return;
+        close();
       }
-    }
+    };
 
-    document.addEventListener('click', clickOutsideHandler, true)
-    return () => document.removeEventListener('click', clickOutsideHandler, true)
-  }, [clickOutside, close])
+    document.addEventListener('click', clickOutsideHandler, true);
+    return () =>
+      document.removeEventListener('click', clickOutsideHandler, true);
+  }, [clickOutside, close]);
   return (
     <div ref={wrapperRef} className={`popover ${className}`}>
       {children}
     </div>
-  )
+  );
 }
 
 export function ClickOutside({ className, children, close }) {
-  const wrapperRef = useRef(null)
+  const wrapperRef = useRef(null);
   useEffect(() => {
-    const clickOutsideHandler = e => {
-      console.log(wrapperRef.current)
-      if (wrapperRef.current.contains(e.target)) return
-      close()
-    }
+    const clickOutsideHandler = (e) => {
+      console.log(wrapperRef.current);
+      if (wrapperRef.current.contains(e.target)) return;
+      close();
+    };
 
-    document.addEventListener('click', clickOutsideHandler, true)
-    return () => document.removeEventListener('click', clickOutsideHandler, true)
-  }, [close])
+    document.addEventListener('click', clickOutsideHandler, true);
+    return () =>
+      document.removeEventListener('click', clickOutsideHandler, true);
+  }, [close]);
   return (
     <div ref={wrapperRef} className={className}>
       {children}
     </div>
-  )
+  );
 }
 
-export function Modal({ className, children, close }) {
-  const wrapperRef = useRef(null)
+export function Modal({ content, children, open, closeOutside }) {
   useEffect(() => {
-    const clickOutsideHandler = e => {
-      if (wrapperRef.current.contains(e.target)) return
-      close()
+    if (closeOutside) {
+      const clickOutsideHandler = (e) => {
+        if (e.target.className === 'custom-modal') closeOutside();
+      };
+      document.addEventListener('click', clickOutsideHandler, true);
+      return () =>
+        document.removeEventListener('click', clickOutsideHandler, true);
     }
-    document.addEventListener('click', clickOutsideHandler, true)
-    return () => {
-      document.removeEventListener('click', clickOutsideHandler, true)
-    }
-  }, [close])
+  }, [closeOutside]);
 
   return (
     <>
-      <div ref={wrapperRef} className={`modal ${className}`}>
-        {children}
-      </div>
-      <div className="back_drop" />
+      {children}
+      {open && (
+        <>
+          <div className="custom-modal">{content}</div>
+          <div className="back_drop" />
+        </>
+      )}
     </>
-  )
+  );
 }

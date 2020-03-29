@@ -1,12 +1,17 @@
-import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
-import { MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from 'react-icons/md'
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import {
+  MdAdd,
+  MdInfoOutline,
+  MdAddAlert,
+  MdAccountCircle,
+} from 'react-icons/md';
 
-import { PopContainer } from 'components/custom/Elements'
-import PopUser from './popover/PopUser'
+import { PopContainer } from 'components/custom/Elements';
+import PopUser from './popover/PopUser';
 
 function GnbRight() {
-  const [popover, setPopover] = useState(false)
+  const [popover, setPopover] = useState(false);
 
   return (
     <div className="gnb_right">
@@ -26,7 +31,7 @@ function GnbRight() {
         </PopContainer>
       </div>
     </div>
-  )
+  );
 }
 
-export default withRouter(GnbRight)
+export default withRouter(GnbRight);
