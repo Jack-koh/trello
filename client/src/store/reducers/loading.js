@@ -15,13 +15,11 @@ const loadingFinished = (draft) => {
 
 export const reducer = (state = initialState, act) => {
   return produce(state, (draft) => {
+    // prettier-ignore
     switch (act.type) {
-      case type.LOADING_START:
-        return loadingStart(draft);
-      case type.LOADING_FINISHED:
-        return loadingFinished(draft);
-      default:
-        return draft;
+      case [type.LOADING_START]: return loadingStart(draft);
+      case [type.LOADING_FINISHED]: return loadingFinished(draft);
+      default: return draft;
     }
   });
 };

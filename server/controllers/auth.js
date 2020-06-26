@@ -18,7 +18,7 @@ exports.signup = async (req, res, next) => {
     const user = new User({
       email,
       password: hashedPw,
-      name
+      name,
     })
     const respData = await user.save()
     console.log(respData)
@@ -54,10 +54,10 @@ exports.login = async (req, res, next) => {
     const token = jwt.sign(
       {
         email: findUser.email,
-        userId: findUser._id.toString()
+        userId: findUser._id.toString(),
       },
       'secret',
-      { expiresIn: '24h' }
+      { expiresIn: '10h' }
     )
     // response
     res.status(200).json({
@@ -66,7 +66,7 @@ exports.login = async (req, res, next) => {
       email: findUser.email,
       name: findUser.name,
       userNo: findUser.userNo,
-      expiration: new Date().getTime() / 1000 + 86400
+      expiration: new Date().getTime() / 1000 + 34600,
     })
   } catch (err) {
     if (!err.statusCode) {

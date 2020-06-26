@@ -20,18 +20,14 @@ const logout = () => {
 };
 
 export const reducer = (state = initialState, act) => {
+  // prettier-ignore
   return produce(state, (draft) => {
     switch (act.type) {
-      case type.LOGIN_SUCCESS:
-        return loginSuccess(draft, act.user);
-      case type.LOGIN_FAIL:
-        return loginFail(draft);
-      case type.LOGIN_START:
-        return loginStart(draft);
-      case type.LOGOUT:
-        return logout(draft);
-      default:
-        return draft;
+      case [type.LOGIN_SUCCESS]: return loginSuccess(draft, act.user);
+      case [type.LOGIN_FAIL]: return loginFail(draft);
+      case [type.LOGIN_START]: return loginStart(draft);
+      case [type.LOGOUT]: return logout(draft);
+      default: return draft;
     }
   });
 };

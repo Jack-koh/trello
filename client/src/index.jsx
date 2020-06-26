@@ -1,9 +1,11 @@
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
 
 import { Provider } from 'react-redux';
-import configureStore from 'store/configurStore';
+import configureStore from 'store/configureStore';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
