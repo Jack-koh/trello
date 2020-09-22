@@ -11,26 +11,24 @@ function Board() {
   const toggleHandler = () => setDialog(!dialog);
 
   return (
-    <>
-      <div className="board_inner_area">
-        <div className="board_section">
-          <div className="board_title">
-            <MdPersonOutline />
-            <span>Personal Boards</span>
-          </div>
-          <ul className="board_item_section">
-            <BoardList />
-            <Modal
-              content={<ModalCreateBoard closeHandler={toggleHandler} />}
-              closeOutside={toggleHandler}
-              open={dialog}
-            >
-              <CreateBoard openHandler={toggleHandler} />
-            </Modal>
-          </ul>
+    <div className="board_inner_area">
+      <div className="board_section">
+        <div className="board_title">
+          <MdPersonOutline />
+          <span>Personal Boards</span>
         </div>
+        <ul className="board_item_section">
+          <BoardList />
+          <Modal
+            content={<ModalCreateBoard closeHandler={toggleHandler} />}
+            closeOutside={toggleHandler}
+            open={dialog}
+          >
+            <CreateBoard openHandler={toggleHandler} />
+          </Modal>
+        </ul>
       </div>
-    </>
+    </div>
   );
 }
 

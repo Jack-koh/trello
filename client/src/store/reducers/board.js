@@ -1,5 +1,6 @@
 import * as type from 'store/actions/types';
-import produce from 'immer';
+import produce, { enableES5 } from 'immer';
+enableES5();
 
 const initialState = {
   createLoading: false,
@@ -27,10 +28,10 @@ export const reducer = (state = initialState, act) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (act.type) {
-      case [type.INIT_BOARD_LIST]: return initBoardList(draft);
-      case [type.GET_BOARD_LIST_SUCCESS]: return getBoardListSuccess(draft, act.list);
-      case [type.CREATE_BOARD_ITEM_START]: return loadingStart(draft);
-      case [type.CREATE_BOARD_ITEM_SUCCESS]: return createBoardItemSuccess(draft, act.item);
+      case type.INIT_BOARD_LIST: return initBoardList(draft);
+      case type.GET_BOARD_LIST_SUCCESS: return getBoardListSuccess(draft, act.list);
+      case type.CREATE_BOARD_ITEM_START: return loadingStart(draft);
+      case type.CREATE_BOARD_ITEM_SUCCESS: return createBoardItemSuccess(draft, act.item);
       default: return draft;
     }
   });

@@ -72,8 +72,7 @@ export function Popover({ className, children, clickOutside, close }) {
     };
 
     document.addEventListener('click', clickOutsideHandler, true);
-    return () =>
-      document.removeEventListener('click', clickOutsideHandler, true);
+    return () => document.removeEventListener('click', clickOutsideHandler, true);
   }, [clickOutside, close]);
   return (
     <div ref={wrapperRef} className={`popover ${className}`}>
@@ -92,8 +91,7 @@ export function ClickOutside({ className, children, close }) {
     };
 
     document.addEventListener('click', clickOutsideHandler, true);
-    return () =>
-      document.removeEventListener('click', clickOutsideHandler, true);
+    return () => document.removeEventListener('click', clickOutsideHandler, true);
   }, [close]);
   return (
     <div ref={wrapperRef} className={className}>
@@ -109,8 +107,7 @@ export function Modal({ content, children, open, closeOutside }) {
         if (e.target.className === 'custom-modal') closeOutside();
       };
       document.addEventListener('click', clickOutsideHandler, true);
-      return () =>
-        document.removeEventListener('click', clickOutsideHandler, true);
+      return () => document.removeEventListener('click', clickOutsideHandler, true);
     }
   }, [closeOutside]);
 

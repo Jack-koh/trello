@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
-import {
-  MdAdd,
-  MdInfoOutline,
-  MdAddAlert,
-  MdAccountCircle,
-} from 'react-icons/md';
+import { MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from 'react-icons/md';
 
 import { PopContainer } from 'components/custom/Elements';
 import PopUser from './popover/PopUser';

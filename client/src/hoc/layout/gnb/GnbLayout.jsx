@@ -1,32 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
-import './GnbLayout.scss'
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import './GnbLayout.scss';
 
-import GnbLoading from './gnbLoading/GnbLoading'
-import GnbLeft from './gnbLeft/GnbLeft'
-import GnbRight from './gnbRight/GnbRight'
+import GnbLoading from './gnbLoading/GnbLoading';
+import GnbLeft from './gnbLeft/GnbLeft';
+import GnbRight from './gnbRight/GnbRight';
 
-const GnbLayout = props => {
-  const { location, children } = props
-  const [background, setBackground] = useState({ background: '#026aa7' })
+const GnbLayout = (props) => {
+  const history = useHistory();
+  const { children } = props;
+  const [background, setBackground] = useState({ background: '#026aa7' });
 
   useEffect(() => {
-    const main = location.pathname.substring(1).split('/')[0]
+    console.log(history);
+    const main = history.location.pathname.substring(1).split('/')[0];
     main !== 'main'
       ? setBackground({ background: 'rgba(0,0,0,.15)' })
-      : setBackground({ background: '#026aa7' })
-  }, [location])
+      : setBackground({ background: '#026aa7' });
+  }, [location]);
 
   return (
     <>
-      <header className="gnb_wrap" style={background}>
+      <header className="header-wrapper" style={background}>
         <GnbLeft />
         <GnbLoading />
         <GnbRight />
       </header>
       {children}
     </>
-  )
-}
+  );
+};
 
-export default withRouter(GnbLayout)
+export default GnbLayout;
