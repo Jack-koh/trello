@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import * as action from 'store/actions';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
-import { MdAdd, MdEdit } from 'react-icons/md';
-import './TrelloItem.scss';
+import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import * as action from 'store/actions'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
+import { MdAdd, MdEdit } from 'react-icons/md'
+import './TrelloItem.scss'
 
-import TrelloItemHeader from './trelloItemHeader/TrelloItemHeader';
-import CreateCard from './createCard/CreateCard';
+import TrelloItemHeader from './trelloItemHeader/TrelloItemHeader'
+import CreateCard from './createCard/CreateCard'
 
 function TrelloItem(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const { trelloItem, cardList, dragHandleProps } = props;
-  const [addCard, setAddCard] = useState(false);
+  const { trelloItem, cardList, dragHandleProps } = props
+  const [addCard, setAddCard] = useState(false)
 
   const cardListEl = cardList.map((item, index) => {
     return (
       <Draggable key={item._id} index={index} draggableId={item._id}>
-        {(provided) => (
+        {provided => (
           <li
             className="trello_card_item_wrapper"
             ref={provided.innerRef}
@@ -31,15 +31,15 @@ function TrelloItem(props) {
           </li>
         )}
       </Draggable>
-    );
-  });
+    )
+  })
 
   return (
     <div className="card_list_wrapper">
       <div className="card_list">
         <TrelloItemHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
         <Droppable droppableId={trelloItem._id} type="card">
-          {(provided) => (
+          {provided => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
               {cardListEl}
               {provided.placeholder}
@@ -56,7 +56,7 @@ function TrelloItem(props) {
         )}
       </div>
     </div>
-  );
+  )
 }
 
-export default TrelloItem;
+export default TrelloItem

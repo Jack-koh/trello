@@ -1,6 +1,5 @@
 import * as type from 'store/actions/types';
-import produce, { enableES5 } from 'immer';
-enableES5();
+import produce from 'immer';
 
 const initialState = {
   list: [],
@@ -29,11 +28,11 @@ export const reducer = (state = initialState, act) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (act.type) {
-      case type.INIT_CARD_LIST: return initCardList(draft);
-      case type.GET_CARD_LIST_START: return loading(draft);
-      case type.GET_CARD_LIST_SUCCESS: return getCardListSuccess(draft, act.list);
-      case type.CREATE_CARD_START: return loading(draft);
-      case type.CREATE_CARD_SUCCESS: return createCardSuccess(draft, act.item);
+      case [type.INIT_CARD_LIST]: return initCardList(draft);
+      case [type.GET_CARD_LIST_START]: return loading(draft);
+      case [type.GET_CARD_LIST_SUCCESS]: return getCardListSuccess(draft, act.list);
+      case [type.CREATE_CARD_START]: return loading(draft);
+      case [type.CREATE_CARD_SUCCESS]: return createCardSuccess(draft, act.item);
       default: return draft;
     }
   });

@@ -5,10 +5,10 @@ import './MainLayout.scss';
 const MainLayout = (props) => {
   const { children } = props;
   return (
-    <div className="main_screen">
+    <main className="main_screen">
       <SideBar className="side_bar_wrap" />
       <section className="content-wrap">{children}</section>
-    </div>
+    </main>
   );
 };
 

@@ -30,6 +30,8 @@ export const authCheck = () => {
   return (dispatch) => {
     const token = localStorage.getItem('token');
     const user = JSON.parse(localStorage.getItem('user-data'));
+    console.log(new Date().getTime() / 1000);
+    console.log(user.expiration);
     if (!token) {
       dispatch(logout());
     } else {

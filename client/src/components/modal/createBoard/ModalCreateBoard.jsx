@@ -12,7 +12,8 @@ function ModalCreateBoard({ closeHandler, history }) {
   const boardList = useSelector((state) => state.board.list);
   const loading = useSelector((state) => state.board.createLoading);
   const dispatch = useDispatch();
-  const onCreateBoard = (payload) => dispatch(action.createBoardItemStart(payload));
+  const onCreateBoard = (payload) =>
+    dispatch(action.createBoardItemStart(payload));
 
   const isFirstRun = useRef(true);
   const [boardTitle, setBoardTitle] = useState('');
@@ -70,7 +71,9 @@ function ModalCreateBoard({ closeHandler, history }) {
         className="choose_background_item"
         onClick={setBackgroundHandler.bind(this, item)}
       >
-        <div className={item.name}>{item.name === bgName ? <FaCheck /> : null}</div>
+        <div className={item.name}>
+          {item.name === bgName ? <FaCheck /> : null}
+        </div>
       </li>
     );
   });

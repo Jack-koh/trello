@@ -1,37 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { withRouter } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import React, { useState, useEffect, useCallback } from 'react'
+import { withRouter } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
 
-import * as action from 'store/actions';
-import './TrelloList.scss';
+import * as action from 'store/actions'
+import './TrelloList.scss'
 
-import TrelloItem from './trelloItem/TrelloItem';
+import TrelloItem from './trelloItem/TrelloItem'
 
 function TrelloList(props) {
-  const trelloList = useSelector((state) => state.trello.list);
-  const dispatch = useDispatch();
-  const onGetTelloList = useCallback((boardNo) => dispatch(action.getTrelloListStart(boardNo)), [
-    dispatch,
-  ]);
-  const onInitTrelloList = useCallback(() => dispatch(action.initTrelloList()), [dispatch]);
-  const onUpdateCardItemSuccess = (payload) => dispatch(action.updateCardItem(payload));
+  const trelloList = useSelector(state => state.trello.list)
+  const dispatch = useDispatch()
+  const onGetTelloList = useCallback(boardNo => dispatch(action.getTrelloListStart(boardNo)), [dispatch])
+  const onInitTrelloList = useCallback(() => dispatch(action.initTrelloList()), [dispatch])
+  const onUpdateCardItemSuccess = payload => dispatch(action.updateCardItem(payload))
 
-  const { history } = props;
-  const [trello] = useState(JSON.parse(localStorage.getItem('trello')));
+  const { history } = props
+  const [trello] = useState(JSON.parse(localStorage.getItem('trello')))
 
   useEffect(() => {
-    trello ? onGetTelloList(trello.boardNo) : history.go(-1);
-    return () => onInitTrelloList();
-  }, [onGetTelloList, onInitTrelloList, trello, history]);
+    trello ? onGetTelloList(trello.boardNo) : history.go(-1)
+    return () => onInitTrelloList()
+  }, [onGetTelloList, onInitTrelloList, trello, history])
 
-  const dragEndHandler = (result) => {
-    const { destination, source, draggableId, type } = result;
-    if (!destination) return;
+  const dragEndHandler = result => {
+    const { destination, source, draggableId, type } = result
+    if (!destination) return
     if (type === 'card') {
-      onUpdateCardItemSuccess({ destination, source, draggableId });
+      onUpdateCardItemSuccess({ destination, source, draggableId })
     }
-  };
+  }
 
   const trelloListEl = trelloList.map((item, index) => {
     return (
@@ -50,8 +48,8 @@ function TrelloList(props) {
           </article>
         )}
       </Draggable>
-    );
-  });
+    )
+  })
 
   return (
     <DragDropContext onDragEnd={dragEndHandler}>
@@ -68,7 +66,7 @@ function TrelloList(props) {
         )}
       </Droppable>
     </DragDropContext>
-  );
+  )
 }
 
-export default withRouter(TrelloList);
+export default withRouter(TrelloList)

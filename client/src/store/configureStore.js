@@ -14,7 +14,9 @@ import { auth, board, trello, card } from 'store/sagas';
 function configureStore() {
   const devtools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
   const composeEnhancers =
-    devtools && process.env.NODE_ENV === 'development' ? devtools : null || compose;
+    devtools && process.env.NODE_ENV === 'development'
+      ? devtools
+      : null || compose;
 
   const reducer = combineReducers({
     loading: loadingReducer,

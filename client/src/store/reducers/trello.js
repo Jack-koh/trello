@@ -1,6 +1,5 @@
 import * as type from 'store/actions/types';
-import produce, { enableES5 } from 'immer';
-enableES5();
+import produce from 'immer';
 
 const initialState = {
   list: [],
@@ -54,14 +53,14 @@ export const reducer = (state = initialState, act) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (act.type) {
-      case type.INIT_TRELLO_LIST: return initTrelloList(draft, act.list);
-      case type.GET_TRELLO_LIST_SUCCESS: return getTrelloListSuccess(draft, act.list);
-      case type.CREATE_TRELLO_ITEM_START: return loading(draft);
-      case type.CREATE_TRELLO_ITEM_SUCCESS: return createTrelloItemSuccess(draft, act.item);
-      case type.DELETE_TRELLO_ITEM_START: return loading(draft);
-      case type.DELETE_TRELLO_ITEM_SUCCESS: return deleteTrelloItemSuccess(draft, act._id);
-      case type.CREATE_CARD_SUCCESS: return createCardSuccess(draft, act.item);
-      case type.UPDATE_CARD_ITEM: return updateCardItem(draft, act.payload);
+      case [type.INIT_TRELLO_LIST]: return initTrelloList(draft, act.list);
+      case [type.GET_TRELLO_LIST_SUCCESS]: return getTrelloListSuccess(draft, act.list);
+      case [type.CREATE_TRELLO_ITEM_START]: return loading(draft);
+      case [type.CREATE_TRELLO_ITEM_SUCCESS]: return createTrelloItemSuccess(draft, act.item);
+      case [type.DELETE_TRELLO_ITEM_START]: return loading(draft);
+      case [type.DELETE_TRELLO_ITEM_SUCCESS]: return deleteTrelloItemSuccess(draft, act._id);
+      case [type.CREATE_CARD_SUCCESS]: return createCardSuccess(draft, act.item);
+      case [type.UPDATE_CARD_ITEM]: return updateCardItem(draft, act.payload);
       default: return draft;
     }
   });

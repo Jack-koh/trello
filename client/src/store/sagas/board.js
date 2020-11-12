@@ -14,9 +14,7 @@ export function* getBoardList({ userNo }) {
   }
 }
 
-export function* createBoardItem({
-  payload: { userNo, userEmail, userName, title, background, favorite },
-}) {
+export function* createBoardItem({ payload: { userNo, userEmail, userName, title, background, favorite } }) {
   try {
     const response = yield axios.post('board/create', {
       userNo,
