@@ -1,6 +1,6 @@
 import * as type from 'store/actions/types';
-import produce from 'immer';
-
+import produce, { enableES5 } from 'immer';
+enableES5();
 const initialState = {
   loading: false,
 };
@@ -23,10 +23,10 @@ export const reducer = (state = initialState, act) => {
   // prettier-ignore
   return produce(state, (draft) => {
     switch (act.type) {
-      case [type.LOGIN_SUCCESS]: return loginSuccess(draft, act.user);
-      case [type.LOGIN_FAIL]: return loginFail(draft);
-      case [type.LOGIN_START]: return loginStart(draft);
-      case [type.LOGOUT]: return logout(draft);
+      case type.LOGIN_SUCCESS: return loginSuccess(draft, act.user);
+      case type.LOGIN_FAIL: return loginFail(draft);
+      case type.LOGIN_START: return loginStart(draft);
+      case type.LOGOUT: return logout(draft);
       default: return draft;
     }
   });

@@ -1,0 +1,131 @@
+@mixin common_button() {
+  margin-right: 0.5rem;
+  color: var(--pure-white);
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  background-color: hsla(0, 0%, 100%, 0.3);
+  transition: background-color 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: hsla(0, 0%, 100%, 0.2);
+  }
+}
+
+@mixin lectangle_btn {
+  .rectangle-btn {
+    @include common_button;
+    width: 3.2rem;
+    height: 3.2rem;
+    justify-content: center;
+
+    svg {
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+}
+
+.header-wrapper {
+  width: 100%;
+  height: 4rem;
+  padding: 0.4rem;
+  position: fixed;
+  z-index: 10;
+  display: flex;
+  top: 0;
+  left: 0;
+  justify-content: space-between;
+
+  .gnb_left {
+    @include lectangle_btn;
+    display: flex;
+
+    .board-btn {
+      @include common_button;
+      width: 8.4rem;
+      font-weight: 700;
+      font-size: 1.4rem;
+      justify-content: space-around;
+      padding: 0 0.6rem;
+      box-sizing: border-box;
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .search-input-wrap {
+      position: relative;
+
+      .search-input {
+        width: 18rem;
+        height: 3.2rem;
+        font-size: 1.3rem;
+        color: var(--dark-blue);
+        padding-left: 0.8rem;
+        background-color: hsla(0, 0%, 100%, 0.3);
+        border-radius: 0.5rem;
+        transition: all 0.1s;
+
+        &:focus {
+          width: 28rem;
+          background-color: var(--pure-white);
+          padding-right: 5.4rem;
+        }
+      }
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+        position: absolute;
+        right: 0.6rem;
+        top: 0.6rem;
+        color: var(--pure-white);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .gnb_right {
+    @include lectangle_btn;
+    display: flex;
+
+    .user_btn {
+      width: 3.2rem;
+      height: 3.2rem;
+      position: relative;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      svg {
+        width: 100%;
+        height: 100%;
+        color: hsla(0, 0%, 100%, 0.5);
+      }
+    }
+  }
+}
+
+.main-screen {
+  padding-top: 8rem;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(10rem, 27.2rem) minmax(14.9rem, 84rem);
+  grid-template-areas: 'sidebar content';
+  justify-content: center;
+
+  .side-bar-wrap {
+    grid-area: sidebar;
+    padding: 0 1.6rem;
+  }
+
+  .content-wrap {
+    grid-area: content;
+    padding: 0 1.6rem;
+  }
+}

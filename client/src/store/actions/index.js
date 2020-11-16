@@ -5,25 +5,26 @@ export {
   getBoardListSuccess,
   createBoardItemStart,
   createBoardItemSuccess,
-  initBoardList
+  initBoardList,
 } from './board'
 export {
   initTrelloList,
   getTrelloListStart,
   getTrelloListSuccess,
-  createTrelloItemStart,
+  createTrelloStart,
   createTrelloItemSuccess,
   updateTrelloItemStart,
   updateTrelloItemSuccess,
   deleteTrelloItemStart,
   deleteTrelloItemSuccess,
-  updateCardItem
+  updateCardItem,
 } from './trello'
 
 export {
+  setAddMode,
   initCardList,
   getCardListStart,
   getCardListSuccess,
   createCardStart,
-  createCardSuccess
+  createCardSuccess,
 } from './card'

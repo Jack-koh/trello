@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { withRouter } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import * as action from 'store/actions'
+import * as actions from 'store/actions'
 import './PopTrello.scss'
 import { Button, Popover } from 'components/custom/Elements'
 
 function PopTrello(props) {
-  const loading = useSelector(state => state.trello.loading)
+  const loading = useSelector((state) => state.trello.loading)
   const dispatch = useDispatch()
-  const onDeleteItemHandler = params => dispatch(action.deleteTrelloItemStart(params))
+  const onDeleteItemHandler = (params) => dispatch(actions.deleteTrelloItemStart(params))
 
   const { _id, title, closeHandler } = props
   const [onDelete, setOnDelete] = useState(false)
@@ -19,7 +19,7 @@ function PopTrello(props) {
     setOnDelete(!onDelete)
   }
 
-  const deleteTrelloSubmit = e => {
+  const deleteTrelloSubmit = (e) => {
     e.preventDefault()
     onDeleteItemHandler({ confirmTitle, _id })
   }
@@ -45,13 +45,13 @@ function PopTrello(props) {
                   Delete List...
                 </div>
                 {onDelete && (
-                  <form className="delete_form_field" onSubmit={e => deleteTrelloSubmit(e)}>
+                  <form className="delete_form_field" onSubmit={(e) => deleteTrelloSubmit(e)}>
                     <input
                       className="delete_input"
                       type="text"
                       autoFocus
                       placeholder={`Type list name ${title}`}
-                      onChange={e => setConfirmTitle(e.target.value)}
+                      onChange={(e) => setConfirmTitle(e.target.value)}
                     />
                     <Button
                       className="red_submit"

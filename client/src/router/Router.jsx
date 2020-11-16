@@ -1,32 +1,34 @@
-import React from 'react';
-import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
-import AuthCheck from 'hoc/authCheck';
+import React, { useEffect, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom'
+import * as actions from 'store/actions'
 
-import Login from 'pages/login/Login';
-import Signup from 'pages/signup/Signup';
-import Main from 'pages/main/Main';
-import GnbLayout from 'hoc/layout/gnb/GnbLayout';
-import Trello from 'pages/trello/Trello';
+import LoginPage from 'pages/login/LoginPage'
+import SignupPage from 'pages/signup/SignupPage'
+import MainRoute from 'router/routes/main/MainRoute'
 
 function Router(props) {
-  const { location, history } = props;
-  if (location.pathname === '/') {
-    history.push('/Login');
-  }
-
   return (
     <Switch>
-      <Route path="/Login" component={Login} />
-      <Route path="/Signup" component={Signup} />
-      <AuthCheck>
-        <GnbLayout>
-          <Route path="/main" component={Main} />
-          <Route path="/board" component={Trello} />
-        </GnbLayout>
-      </AuthCheck>
+      <Route exact path="/Login" component={LoginPage} />
+      <Route path="/Signup" component={SignupPage} />
+      <Route path="/main" component={MainRoute} />
       <Redirect to="/Login" />
     </Switch>
-  );
+  )
 }
 
-export default withRouter(Router);
+export default Router
+
+const AuthRoute = ({ exact, path, component: Component }) => {
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const autoAuthCheck = useCallback(() => dispatch(actions.authCheck()), [dispatch])
+
+  useEffect(() => {
+    autoAuthCheck()
+    const token = localStorage.getItem('token')
+    if (!token && path !== '/Signup') history.push('/Login')
+  }, [autoAuthCheck, Component])
+  return <Route exact={exact} path={path} component={Component} />
+}

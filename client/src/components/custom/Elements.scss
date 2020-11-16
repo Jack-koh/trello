@@ -69,7 +69,7 @@ button[type='submit'].signup_submit {
   overflow: hidden;
 }
 
-textarea[type='text'].trello_title {
+textarea[type='text'].trello-title {
   @include textarea;
   width: 22.8rem;
   height: 2.8rem;

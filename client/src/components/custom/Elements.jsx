@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Elements.scss';
-import './BtnLoading.scss';
+import React, { useState, useEffect, useRef } from 'react'
+import './Elements.scss'
+import './BtnLoading.scss'
 
 export function Button({ type, text, loading, className, disabled }) {
   return (
@@ -18,19 +18,10 @@ export function Button({ type, text, loading, className, disabled }) {
       )}
       <span className={loading ? 'hide' : ''}>{text}</span>
     </button>
-  );
+  )
 }
 
-export function Textarea({
-  type,
-  value,
-  placeholder,
-  autoFocus,
-  className,
-  onChange,
-  onBlur,
-  disabled,
-}) {
+export function Textarea({ type, value, placeholder, autoFocus, className, onChange, onBlur, disabled }) {
   return (
     <textarea
       type={type}
@@ -43,7 +34,7 @@ export function Textarea({
       spellCheck="false"
       disabled={disabled}
     />
-  );
+  )
 }
 
 export function PopContainer({ children }) {
@@ -58,61 +49,58 @@ export function PopContainer({ children }) {
     >
       {children}
     </div>
-  );
+  )
 }
 
 export function Popover({ className, children, clickOutside, close }) {
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef(null)
   useEffect(() => {
     const clickOutsideHandler = (e) => {
       if (clickOutside) {
-        if (wrapperRef.current.parentNode.contains(e.target)) return;
-        close();
+        if (wrapperRef.current.parentNode.contains(e.target)) return
+        close()
       }
-    };
+    }
 
-    document.addEventListener('click', clickOutsideHandler, true);
-    return () =>
-      document.removeEventListener('click', clickOutsideHandler, true);
-  }, [clickOutside, close]);
+    document.addEventListener('click', clickOutsideHandler, true)
+    return () => document.removeEventListener('click', clickOutsideHandler, true)
+  }, [clickOutside, close])
   return (
     <div ref={wrapperRef} className={`popover ${className}`}>
       {children}
     </div>
-  );
+  )
 }
 
 export function ClickOutside({ className, children, close }) {
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef(null)
   useEffect(() => {
     const clickOutsideHandler = (e) => {
-      console.log(wrapperRef.current);
-      if (wrapperRef.current.contains(e.target)) return;
-      close();
-    };
+      console.log(wrapperRef.current)
+      if (wrapperRef.current.contains(e.target)) return
+      close()
+    }
 
-    document.addEventListener('click', clickOutsideHandler, true);
-    return () =>
-      document.removeEventListener('click', clickOutsideHandler, true);
-  }, [close]);
+    document.addEventListener('click', clickOutsideHandler, true)
+    return () => document.removeEventListener('click', clickOutsideHandler, true)
+  }, [close])
   return (
     <div ref={wrapperRef} className={className}>
       {children}
     </div>
-  );
+  )
 }
 
 export function Modal({ content, children, open, closeOutside }) {
   useEffect(() => {
     if (closeOutside) {
       const clickOutsideHandler = (e) => {
-        if (e.target.className === 'custom-modal') closeOutside();
-      };
-      document.addEventListener('click', clickOutsideHandler, true);
-      return () =>
-        document.removeEventListener('click', clickOutsideHandler, true);
+        if (e.target.className === 'custom-modal') closeOutside()
+      }
+      document.addEventListener('click', clickOutsideHandler, true)
+      return () => document.removeEventListener('click', clickOutsideHandler, true)
     }
-  }, [closeOutside]);
+  }, [closeOutside])
 
   return (
     <>
@@ -124,5 +112,5 @@ export function Modal({ content, children, open, closeOutside }) {
         </>
       )}
     </>
-  );
+  )
 }

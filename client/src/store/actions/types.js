@@ -24,6 +24,7 @@ export const DELETE_TRELLO_ITEM_SUCCESS = 'trello/DELETE_TRELLO_ITEM_SUCCESS'
 export const UPDATE_CARD_ITEM = 'trello/UPDATE_CARD_ITEM'
 
 export const INIT_CARD_LIST = 'card/INIT_CARD_LIST'
+export const SET_ADD_MODE = 'card/SET_ADD_MODE'
 export const GET_CARD_LIST_START = 'card/GET_CARD_LIST_START'
 export const GET_CARD_LIST_SUCCESS = 'card/GET_CARD_LIST_SUCCESS'
 export const CREATE_CARD_START = 'card/CREATE_CARD_START'

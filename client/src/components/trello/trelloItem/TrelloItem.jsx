@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import * as action from 'store/actions'
+import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import * as actions from 'store/actions'
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { MdAdd, MdEdit } from 'react-icons/md'
 import './TrelloItem.scss'
 
-import TrelloItemHeader from './trelloItemHeader/TrelloItemHeader'
+import TrelloHeader from './header/TrelloHeader'
 import CreateCard from './createCard/CreateCard'
 
 function TrelloItem(props) {
   const dispatch = useDispatch()
-
+  const onSetAddMode = (active) => dispatch(actions.setAddMode(active))
+  const { addCard, loading } = useSelector((state) => state.card)
   const { trelloItem, cardList, dragHandleProps } = props
-  const [addCard, setAddCard] = useState(false)
 
   const cardListEl = cardList.map((item, index) => {
     return (
       <Draggable key={item._id} index={index} draggableId={item._id}>
-        {provided => (
+        {(provided) => (
           <li
             className="trello_card_item_wrapper"
             ref={provided.innerRef}
@@ -37,9 +37,9 @@ function TrelloItem(props) {
   return (
     <div className="card_list_wrapper">
       <div className="card_list">
-        <TrelloItemHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
+        <TrelloHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
         <Droppable droppableId={trelloItem._id} type="card">
-          {provided => (
+          {(provided) => (
             <ul ref={provided.innerRef} {...provided.droppableProps}>
               {cardListEl}
               {provided.placeholder}
@@ -47,9 +47,9 @@ function TrelloItem(props) {
           )}
         </Droppable>
         {addCard ? (
-          <CreateCard trelloItem={trelloItem} closeHandler={() => setAddCard(false)} />
+          <CreateCard trelloItem={trelloItem} closeHandler={() => onSetAddMode(false)} loading={loading} />
         ) : (
-          <div className="card_form_button" onClick={() => setAddCard(true)}>
+          <div className="card_form_button" onClick={() => onSetAddMode(true)}>
             <MdAdd />
             {cardList && cardList.length > 0 ? 'Add another card' : 'Add a card'}
           </div>
