@@ -1,12 +1,13 @@
-export { loadingStart, loadingFinished } from './loading'
-export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth'
+export { loadingStart, loadingFinished } from './loading';
+export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
 export {
   getBoardListStart,
   getBoardListSuccess,
   createBoardItemStart,
   createBoardItemSuccess,
   initBoardList,
-} from './board'
+} from './board';
+
 export {
   initTrelloList,
   getTrelloListStart,
@@ -17,14 +18,15 @@ export {
   updateTrelloItemSuccess,
   deleteTrelloItemStart,
   deleteTrelloItemSuccess,
-  updateCardItem,
-} from './trello'
+  dragTrelloEnd,
+} from './trello';
 
 export {
-  setAddMode,
   initCardList,
-  getCardListStart,
   getCardListSuccess,
   createCardStart,
   createCardSuccess,
-} from './card'
+  updateCardStart,
+  setCard,
+  dragCardEnd,
+} from './card';

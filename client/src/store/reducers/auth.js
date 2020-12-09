@@ -1,6 +1,5 @@
 import * as type from 'store/actions/types';
-import produce, { enableES5 } from 'immer';
-enableES5();
+import produce from 'immer';
 const initialState = {
   loading: false,
 };
@@ -19,11 +18,11 @@ const logout = () => {
   localStorage.removeItem('user-data');
 };
 
-export const reducer = (state = initialState, act) => {
+export const reducer = (state = initialState, action) => {
   // prettier-ignore
   return produce(state, (draft) => {
-    switch (act.type) {
-      case type.LOGIN_SUCCESS: return loginSuccess(draft, act.user);
+    switch (action.type) {
+      case type.LOGIN_SUCCESS: return loginSuccess(draft, action.user);
       case type.LOGIN_FAIL: return loginFail(draft);
       case type.LOGIN_START: return loginStart(draft);
       case type.LOGOUT: return logout(draft);

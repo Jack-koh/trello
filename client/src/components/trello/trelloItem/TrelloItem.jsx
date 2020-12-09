@@ -1,62 +1,57 @@
-import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import * as actions from 'store/actions'
-import { Droppable, Draggable } from 'react-beautiful-dnd'
-import { MdAdd, MdEdit } from 'react-icons/md'
-import './TrelloItem.scss'
+import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { MdAdd } from 'react-icons/md';
 
-import TrelloHeader from './header/TrelloHeader'
-import CreateCard from './createCard/CreateCard'
+import TrelloHeader from './header/TrelloHeader';
+import CreateCard from './createCard/CreateCard';
+import CardItem from './cardItem/CardItem';
+import './TrelloItem.scss';
 
-function TrelloItem(props) {
-  const dispatch = useDispatch()
-  const onSetAddMode = (active) => dispatch(actions.setAddMode(active))
-  const { addCard, loading } = useSelector((state) => state.card)
-  const { trelloItem, cardList, dragHandleProps } = props
+function TrelloItem({ getStyle, trello, cardList, dragHandleProps, dragStartHandler }) {
+  const [add, setAdd] = useState(false);
+  const { loading } = useSelector((state) => state.card);
 
-  const cardListEl = cardList.map((item, index) => {
+  useEffect(() => {
+    if (!loading) setAdd(false);
+  }, [loading]);
+
+  const cardEl = cardList.map((item, index) => {
+    const { cardNo, title } = item;
     return (
-      <Draggable key={item._id} index={index} draggableId={item._id}>
-        {(provided) => (
-          <li
-            className="trello_card_item_wrapper"
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            <span>{item.title}</span>
-            <div className="card_edit">
-              <MdEdit />
-            </div>
-          </li>
+      <Draggable key={`card-${cardNo}-${index}`} index={index} draggableId={`card-${cardNo}`}>
+        {(provided, snapshot) => (
+          <CardItem provided={provided} snapshot={snapshot} getStyle={getStyle} item={item} />
         )}
       </Draggable>
-    )
-  })
+    );
+  });
 
   return (
-    <div className="card_list_wrapper">
-      <div className="card_list">
-        <TrelloHeader dragHandleProps={dragHandleProps} trelloItem={trelloItem} />
-        <Droppable droppableId={trelloItem._id} type="card">
-          {(provided) => (
-            <ul ref={provided.innerRef} {...provided.droppableProps}>
-              {cardListEl}
-              {provided.placeholder}
-            </ul>
-          )}
+    <div className="trello-item-wrapper" onDragStart={(e) => dragStartHandler(e, trelloNo)}>
+      <div className="trello-item">
+        <TrelloHeader dragHandleProps={dragHandleProps} trello={trello} />
+        <Droppable droppableId={`${trello.trelloNo}`} type="card">
+          {(provided, snapshot) => {
+            return (
+              <ul ref={provided.innerRef} {...provided.droppableProps}>
+                {cardEl}
+                {provided.placeholder}
+              </ul>
+            );
+          }}
         </Droppable>
-        {addCard ? (
-          <CreateCard trelloItem={trelloItem} closeHandler={() => onSetAddMode(false)} loading={loading} />
+        {add ? (
+          <CreateCard trello={trello} closeHandler={() => setAdd(false)} loading={loading} />
         ) : (
-          <div className="card_form_button" onClick={() => onSetAddMode(true)}>
+          <div className="card-form-button" onClick={() => setAdd(true)}>
             <MdAdd />
-            {cardList && cardList.length > 0 ? 'Add another card' : 'Add a card'}
+            {cardList.length ? 'Add another card' : 'Add a card'}
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default TrelloItem
+export default TrelloItem;

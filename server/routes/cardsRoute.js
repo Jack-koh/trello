@@ -1,8 +1,9 @@
-const express = require("express");
-const cardController = require("../controllers/card");
-const router = express.Router();
+const express = require('express')
+const cardsController = require('../controllers/cards')
+const router = express.Router()
 
-router.get("/get", cardController.get);
-router.post("/create", cardController.create);
+router.post('/create', cardsController.create)
+router.put('/drag', cardsController.drag)
+router.put('/update', cardsController.update)
 
-module.exports = router;
+module.exports = router

@@ -1,23 +1,28 @@
-import { put } from 'redux-saga/effects'
-import axios from 'axios'
-import * as actions from 'store/actions'
+import { put } from 'redux-saga/effects';
+import axios from 'axios';
+import * as actions from 'store/actions';
 
-export function* getCardList(action) {
-  const { boardNo } = action
+export function* createCard({ payload: { trelloNo, title } }) {
   try {
-    const respData = yield axios.get('card/get', { params: { boardNo } })
-    yield put(actions.getCardListSuccess(respData.data.list))
+    const response = yield axios.post('cards/create', { trelloNo, title });
+    yield put(actions.createCardSuccess(response.data.item));
   } catch (err) {
-    console.log('getCardList err ----')
+    console.log({ message: 'createCard err ----', err });
   }
 }
 
-export function* createCard(action) {
-  const { trelloId, title } = action.payload
+export function* dragCardEnd({ payload: { item, source, destination } }) {
   try {
-    const respData = yield axios.post('card/create', { trelloId, title })
-    yield put(actions.createCardSuccess(respData.data.item))
+    yield axios.put('cards/drag', { item, source, destination });
   } catch (err) {
-    console.log('createCard err ----')
+    console.log({ message: 'dragCardEnd err ----', err });
+  }
+}
+
+export function* updateCard({ item }) {
+  try {
+    yield axios.put('cards/update', item);
+  } catch (err) {
+    console.log({ message: 'updateCard err ----', err });
   }
 }

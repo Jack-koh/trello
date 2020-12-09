@@ -1,28 +1,28 @@
-import React, { useState } from 'react'
-import { withRouter } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
-import * as actions from 'store/actions'
-import './PopTrello.scss'
-import { Button, Popover } from 'components/custom/Elements'
+import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import * as actions from 'store/actions';
+import './PopTrello.scss';
+import { Button, Popover } from 'components/custom/Elements';
 
 function PopTrello(props) {
-  const loading = useSelector((state) => state.trello.loading)
-  const dispatch = useDispatch()
-  const onDeleteItemHandler = (params) => dispatch(actions.deleteTrelloItemStart(params))
+  const loading = useSelector((state) => state.trello.loading);
+  const dispatch = useDispatch();
+  const onDeleteItemHandler = (params) => dispatch(actions.deleteTrelloItemStart(params));
 
-  const { _id, title, closeHandler } = props
-  const [onDelete, setOnDelete] = useState(false)
-  const [confirmTitle, setConfirmTitle] = useState('')
+  const { trelloNo, boardNo, title, closeHandler } = props;
+  const [onDelete, setOnDelete] = useState(false);
+  const [confirmTitle, setConfirmTitle] = useState('');
 
   const toggleDeleteHandler = () => {
-    if (!onDelete) setConfirmTitle('')
-    setOnDelete(!onDelete)
-  }
+    if (!onDelete) setConfirmTitle('');
+    setOnDelete(!onDelete);
+  };
 
   const deleteTrelloSubmit = (e) => {
-    e.preventDefault()
-    onDeleteItemHandler({ confirmTitle, _id })
-  }
+    e.preventDefault();
+    onDeleteItemHandler({ trelloNo, boardNo });
+  };
 
   return (
     <Popover className="trello_popover" clickOutside close={closeHandler}>
@@ -71,7 +71,7 @@ function PopTrello(props) {
         </div>
       </div>
     </Popover>
-  )
+  );
 }
 
-export default withRouter(PopTrello)
+export default withRouter(PopTrello);

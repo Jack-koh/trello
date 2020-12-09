@@ -1,53 +1,57 @@
-import axios from 'axios'
-import { put } from 'redux-saga/effects'
-import * as actions from 'store/actions'
+import axios from 'axios';
+import { put, select } from 'redux-saga/effects';
+import * as actions from 'store/actions';
 
 export function* getTrelloList({ boardNo }) {
-  yield put(actions.loadingStart())
+  yield put(actions.loadingStart());
   try {
-    const response = yield axios.get('trello/get', { params: { boardNo } })
-    yield put(actions.getTrelloListSuccess(response.data.list))
-    yield put(actions.loadingFinished())
+    const response = yield axios.get('trellos/get', { params: { boardNo } });
+    const { trelloList, cardList } = response.data;
+    yield put(actions.getTrelloListSuccess(trelloList));
+    yield put(actions.getCardListSuccess(cardList));
+    yield put(actions.loadingFinished());
   } catch (err) {
-    console.log('getTrelloList err ----')
-    yield put(actions.loadingFinished())
+    console.log({ message: 'getTrelloList err ----', err });
+    yield put(actions.loadingFinished());
   }
 }
 
 export function* createTrello({ payload: { boardNo, title } }) {
   try {
-    const response = yield axios.post('trello/create', { boardNo, title })
-    yield put(actions.createTrelloItemSuccess(response.data.item))
+    const response = yield axios.post('trellos/create', { boardNo, title });
+    yield put(actions.createTrelloItemSuccess(response.data.item));
   } catch (err) {
-    console.log('createTrello err ----')
+    console.log({ message: 'createTrello err ----', err });
   }
 }
 
-export function* updateTrello({ payload: { _id, updateTitle } }) {
-  yield put(actions.loadingStart())
+export function* updateTrello({ payload: { trelloNo, title } }) {
+  yield put(actions.loadingStart());
   try {
-    const response = yield axios.put('trello/update', { _id, updateTitle })
-    yield put(actions.updateTrelloItemSuccess(response.data.list))
-    yield put(actions.loadingFinished())
+    const response = yield axios.put('trellos/update', { trelloNo, title });
+    yield put(actions.updateTrelloItemSuccess(response.data.list));
+    yield put(actions.loadingFinished());
   } catch (err) {
-    console.log('updateTrello err ----')
-    yield put(actions.loadingFinished())
+    console.log({ message: 'updateTrello err ----', err });
+    yield put(actions.loadingFinished());
   }
 }
 
-export function* deleteTrello({ params: { _id, confirmTitle } }) {
+export function* dragTrello({ payload: { item, sourceIndex, destIndex } }) {
   try {
-    const response = yield axios.delete('trello/delete', { params: { _id, confirmTitle } })
-    yield put(actions.deleteTrelloItemSuccess(response.data._id))
+    yield axios.put('trellos/drag', { item, sourceIndex, destIndex });
   } catch (err) {
-    console.log('updateTrello err ----')
+    console.log({ message: 'dragTrello err ----', err });
   }
 }
 
-export function* updateCardItem({ payload: destination, source, draggableId }) {
+export function* deleteTrello({ payload: { trelloNo, boardNo } }) {
   try {
-    yield axios.put('trello/update/cards', { destination, source, draggableId })
+    const response = yield axios.delete('trellos/delete', {
+      params: { trelloNo, boardNo },
+    });
+    yield put(actions.deleteTrelloItemSuccess(response.data.trelloNo));
   } catch (err) {
-    console.log('updateTrello err ----')
+    console.log({ message: 'updateTrello err ----', err });
   }
 }

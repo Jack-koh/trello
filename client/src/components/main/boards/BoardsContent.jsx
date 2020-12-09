@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import { MdPersonOutline } from 'react-icons/md'
-import { Modal } from 'components/custom/Elements'
-import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard'
-import BoardsList from 'components/main/boards/list/BoardsList'
-import CreateBoard from 'components/main/boards/modal/Modal_CreateBoard'
-import './BoardsContent.scss'
+import React, { useState } from 'react';
+import { MdPersonOutline } from 'react-icons/md';
+import { Modal } from 'components/custom/Elements';
+import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard';
+import BoardsList from 'components/main/boards/list/BoardsList';
+import CreateBoard from 'components/main/boards/modal/Modal_CreateBoard';
+import './BoardsContent.scss';
 
 function BoardsContent() {
-  const [dialog, setDialog] = useState(false)
-  const toggleHandler = () => setDialog(!dialog)
+  const [dialog, setDialog] = useState(false);
 
   return (
     <div className="board_inner_area">
@@ -20,16 +19,16 @@ function BoardsContent() {
         <ul className="board_item_section">
           <BoardsList />
           <Modal
-            content={<ModalCreateBoard closeHandler={toggleHandler} />}
-            closeOutside={toggleHandler}
+            content={<ModalCreateBoard closeHandler={() => setDialog(!dialog)} />}
+            closeOutside={() => setDialog(!dialog)}
             open={dialog}
           >
-            <CreateBoard openHandler={toggleHandler} />
+            <CreateBoard openHandler={() => setDialog(!dialog)} />
           </Modal>
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
-export default BoardsContent
+export default BoardsContent;

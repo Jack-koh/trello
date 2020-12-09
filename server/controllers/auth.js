@@ -21,8 +21,8 @@ exports.signup = async (req, res, next) => {
         '${email}',
         '${hashedPw}',
         '${name}',
-        extract(epoch from now()))
-        RETURNING *`
+        extract(epoch from now())
+       ) RETURNING *`
     )
 
     res.status(201).json({ message: 'User created!', userNo: query.rows[0].user_no })

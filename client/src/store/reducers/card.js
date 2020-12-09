@@ -1,42 +1,67 @@
-import * as type from 'store/actions/types'
-import produce from 'immer'
+import * as type from 'store/actions/types';
+import produce from 'immer';
 
 const initialState = {
   list: [],
   loading: false,
-  addCard: false,
-}
-
-const loading = (draft) => {
-  draft['loading'] = true
-}
-
-const initCardList = (draft) => {
-  draft['list'] = []
-}
+};
 
 const getCardListSuccess = (draft, list) => {
-  draft['list'] = list
-  draft['loading'] = false
-}
+  draft['list'] = list;
+  draft['loading'] = false;
+};
 
 const createCardSuccess = (draft, item) => {
-  draft['list'] = [...draft.list, item]
-  draft['loading'] = false
-  draft['addCard'] = false
-}
+  const target = draft.list.find((cards) => cards.trelloNo === item.trelloNo);
+  target
+    ? (target['list'] = [...target.list, item])
+    : (draft['list'] = [...draft.list, { trelloNo: item.trelloNo, list: [item] }]);
+  draft['loading'] = false;
+};
+
+const deleteTrelloItemSuccess = (draft, trelloNo) => {
+  draft['list'] = draft.list.filter((el) => el.trelloNo !== trelloNo);
+  draft['loading'] = false;
+};
+
+const dragCardEnd = (draft, { item, source, destination }) => {
+  if (source.trelloNo === destination.trelloNo) {
+    const target = draft.list.find((el) => el.trelloNo === item.trelloNo);
+    target['list'].splice(source.index, 1);
+    target['list'].splice(destination.index, 0, item);
+  } else {
+    const sourceTarget = draft.list.find((el) => el.trelloNo === source.trelloNo);
+    const destTarget = draft.list.find((el) => el.trelloNo === destination.trelloNo);
+
+    sourceTarget['list'].splice(source.index, 1);
+    destTarget
+      ? destTarget['list'].splice(destination.index, 0, item)
+      : (draft['list'] = [...draft.list, { trelloNo: destination.trelloNo, list: [item] }]);
+  }
+};
+
+const setCard = (draft, { trelloNo, cardNo, name, value }) => {
+  const findTrello = draft.list.find((trello) => trello.trelloNo === trelloNo);
+  const findCard = findTrello.list.find((card) => card.cardNo === cardNo);
+  if (name === 'label' && findCard[name] === value) {
+    findCard[name] = null;
+  } else {
+    findCard[name] = value;
+  }
+};
 
 export const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (action.type) {
-      case type.SET_ADD_MODE: draft['addCard'] = action.active; break;
-      case type.INIT_CARD_LIST: initCardList(draft); break;
-      case type.GET_CARD_LIST_START: loading(draft); break;
+      case type.INIT_CARD_LIST: draft['list'] = []; break;
       case type.GET_CARD_LIST_SUCCESS: getCardListSuccess(draft, action.list); break;
-      case type.CREATE_CARD_START: loading(draft); break;
+      case type.CREATE_CARD_START: draft['loading'] = true; break;
       case type.CREATE_CARD_SUCCESS: createCardSuccess(draft, action.item); break;
+      case type.SET_CARD: setCard(draft, action.payload); break;
+      case type.DELETE_TRELLO_ITEM_SUCCESS: return deleteTrelloItemSuccess(draft, action.trelloNo);
+      case type.DRAG_CARD_END: return dragCardEnd(draft, action.payload);
       default: draft = state; break;
     }
-  })
-}
+  });
+};

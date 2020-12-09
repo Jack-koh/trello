@@ -1,42 +1,42 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { useDispatch } from 'react-redux'
-import * as actions from 'store/actions'
-import { MdClose } from 'react-icons/md'
-import { Button, Textarea } from 'components/custom/Elements'
-import './CreateCard.scss'
+import React, { useEffect, useState, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import * as actions from 'store/actions';
+import { MdClose } from 'react-icons/md';
+import { Button, Textarea } from 'components/custom/Elements';
+import './CreateCard.scss';
 
-function CardAddForm(props) {
-  const dispatch = useDispatch()
-  const onCreateCard = (payload) => dispatch(actions.createCardStart(payload))
+function CreateCard({ trello, closeHandler, loading }) {
+  const dispatch = useDispatch();
+  const onCreateCard = (payload) => dispatch(actions.createCardStart(payload));
 
-  const { trelloItem, closeHandler, loading } = props
-  const [title, setTitle] = useState('')
-  const wrapperRef = useRef(null)
+  const { trelloNo } = trello;
+  const [title, setTitle] = useState('');
+  const wrapperRef = useRef(null);
 
   const autoSizeHandler = (e) => {
-    setTitle(e.target.value)
+    setTitle(e.target.value);
     // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
-    e.target.style.cssText = 'height:5.7rem;'
-    e.target.style.cssText = `height: ${e.target.scrollHeight / 10}rem`
-  }
+    e.target.style.cssText = 'height:5.7rem;';
+    e.target.style.cssText = `height: ${e.target.scrollHeight / 10}rem`;
+  };
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if (title.length) {
-      onCreateCard({ trelloId: trelloItem._id, title })
-      setTitle('')
+      onCreateCard({ trelloNo: trelloNo, title });
+      setTitle('');
     }
-  }
+  };
 
   useEffect(() => {
     const clickOutsideHandler = (e) => {
-      if (wrapperRef.current.contains(e.target)) return
-      closeHandler()
-    }
+      if (wrapperRef.current.contains(e.target)) return;
+      closeHandler();
+    };
 
-    document.addEventListener('click', clickOutsideHandler)
-    return () => document.removeEventListener('click', clickOutsideHandler)
-  }, [])
+    document.addEventListener('click', clickOutsideHandler);
+    return () => document.removeEventListener('click', clickOutsideHandler);
+  }, []);
 
   return (
     <form className="add-card-form-field" ref={wrapperRef} onSubmit={submitHandler}>
@@ -54,7 +54,7 @@ function CardAddForm(props) {
         <MdClose onClick={closeHandler} />
       </div>
     </form>
-  )
+  );
 }
 
-export default CardAddForm
+export default CreateCard;

@@ -1,14 +1,11 @@
-const express = require("express");
-const trelloController = require("../controllers/trello");
-const router = express.Router();
+const express = require('express')
+const trellosController = require('../controllers/trellos')
+const router = express.Router()
 
-router.post("/create", trelloController.create);
-router.get("/get", trelloController.get);
-router.put("/update", trelloController.update);
-router.delete("/delete", trelloController.delete);
+router.get('/get', trellosController.get)
+router.post('/create', trellosController.create)
+router.put('/update', trellosController.update)
+router.delete('/delete', trellosController.delete)
+router.put('/drag', trellosController.drag)
 
-router.put("/update/cards", trelloController.updateCards);
-
-
-
-module.exports = router;
+module.exports = router

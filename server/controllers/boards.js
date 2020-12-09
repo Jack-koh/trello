@@ -42,17 +42,15 @@ exports.create = async (req, res, next) => {
         RETURNING *`
     )
 
-    console.log(query.rows[0])
-
-    const response = query.rows[0]
-    console.log(response)
+    const item = query.rows[0]
+    await db.query(`INSERT INTO trellos_order VALUES('${item.board_no}', null)`)
     await db.query(
       `INSERT INTO link_users_boards VALUES(
         '${userNo}',
-        '${response.board_no}')`
+        '${item.board_no}')`
     )
 
-    res.status(201).json({ item: response })
+    res.status(201).json({ item })
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500
     next(err)

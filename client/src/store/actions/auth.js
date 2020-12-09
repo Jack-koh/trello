@@ -11,15 +11,11 @@ export const loginStart = (payload) => {
 };
 
 export const loginSuccess = () => {
-  return {
-    type: type.LOGIN_SUCCESS,
-  };
+  return { type: type.LOGIN_SUCCESS };
 };
 
 export const loginFail = () => {
-  return {
-    type: type.LOGIN_FAIL,
-  };
+  return { type: type.LOGIN_FAIL };
 };
 
 export const logout = () => {

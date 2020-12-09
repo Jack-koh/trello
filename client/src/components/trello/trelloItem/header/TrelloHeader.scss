@@ -1,13 +1,24 @@
-.trello_list_header {
+.trello-list-header {
   position: relative;
+  display: flex;
+  outline: none;
   padding: 0.6rem 0.8rem;
   cursor: pointer !important;
 
-  .trello_list_more {
-    position: absolute;
-    right: 0.2rem;
-    top: 0.2rem;
-    .more_icon {
+  .textarea-wrapper {
+    width: 100%;
+    line-height: 0;
+    .preventer {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  .trello-list-more {
+    .more-icon {
       width: 3.2rem;
       height: 3.2rem;
       border-radius: 0.3rem;
