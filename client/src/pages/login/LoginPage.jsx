@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useHistory, Link } from 'react-router-dom'
-import * as actions from 'store/actions'
-import './LoginPage.scss'
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory, Link } from 'react-router-dom';
+import * as actions from 'store/actions';
+import './LoginPage.scss';
 
-import { Button } from 'components/custom/Elements'
+import { Button } from 'components/custom';
 
-function LoginPage(props) {
-  const history = useHistory()
-  const userData = useSelector((state) => state.auth)
-  const dispatch = useDispatch()
-  const onLogin = (payload) => dispatch(actions.loginStart(payload))
+function LoginPage() {
+  const history = useHistory();
+  const userData = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const onLogin = (payload) => dispatch(actions.loginStart(payload));
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [name, setName] = useState('')
-  const [loading, setloading] = useState(false)
-
-  useEffect(() => {
-    const token = localStorage.getItem('token')
-    if (token) history.push('/main/board')
-  }, [userData, history])
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [loading, setloading] = useState(false);
 
   useEffect(() => {
-    setEmail('')
-    setPassword('')
-    setName('')
-  }, [history.location])
+    const token = localStorage.getItem('token');
+    if (token) history.push('/main/board');
+  }, [userData, history]);
 
   useEffect(() => {
-    setloading(userData.loading)
-  }, [userData])
+    setEmail('');
+    setPassword('');
+    setName('');
+  }, [history.location]);
+
+  useEffect(() => {
+    setloading(userData.loading);
+  }, [userData]);
 
   const loginSubmit = async (e) => {
-    e.preventDefault()
-    onLogin({ email, password, name })
-  }
+    e.preventDefault();
+    onLogin({ email, password, name });
+  };
 
   return (
     <div className="login_page">
@@ -48,7 +48,11 @@ function LoginPage(props) {
       <section className="form_wrap">
         <h1>Log in to Trello</h1>
         <form onSubmit={loginSubmit}>
-          <input type="text" placeholder="Enter email" onChange={(event) => setEmail(event.target.value)} />
+          <input
+            type="text"
+            placeholder="Enter email"
+            onChange={(event) => setEmail(event.target.value)}
+          />
           <input
             type="password"
             placeholder="Enter password"
@@ -67,7 +71,7 @@ function LoginPage(props) {
         </div>
       </section>
     </div>
-  )
+  );
 }
 
-export default LoginPage
+export default LoginPage;

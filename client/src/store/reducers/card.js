@@ -35,19 +35,15 @@ const dragCardEnd = (draft, { item, source, destination }) => {
 
     sourceTarget['list'].splice(source.index, 1);
     destTarget
-      ? destTarget['list'].splice(destination.index, 0, item)
+      ? destTarget['list'].splice(destination.index, 0, { ...item, trelloNo: destination.trelloNo })
       : (draft['list'] = [...draft.list, { trelloNo: destination.trelloNo, list: [item] }]);
   }
 };
 
-const setCard = (draft, { trelloNo, cardNo, name, value }) => {
-  const findTrello = draft.list.find((trello) => trello.trelloNo === trelloNo);
-  const findCard = findTrello.list.find((card) => card.cardNo === cardNo);
-  if (name === 'label' && findCard[name] === value) {
-    findCard[name] = null;
-  } else {
-    findCard[name] = value;
-  }
+const updateCard = (draft, item) => {
+  const trelloIndex = draft.list.findIndex((trello) => trello.trelloNo === item.trelloNo);
+  let cardIndex = draft.list[trelloIndex].list.findIndex((card) => card.cardNo === item.cardNo);
+  draft.list[trelloIndex].list[cardIndex] = item;
 };
 
 export const reducer = (state = initialState, action) => {
@@ -58,7 +54,7 @@ export const reducer = (state = initialState, action) => {
       case type.GET_CARD_LIST_SUCCESS: getCardListSuccess(draft, action.list); break;
       case type.CREATE_CARD_START: draft['loading'] = true; break;
       case type.CREATE_CARD_SUCCESS: createCardSuccess(draft, action.item); break;
-      case type.SET_CARD: setCard(draft, action.payload); break;
+      case type.UPDATE_CARD_START: updateCard(draft, action.item); break;
       case type.DELETE_TRELLO_ITEM_SUCCESS: return deleteTrelloItemSuccess(draft, action.trelloNo);
       case type.DRAG_CARD_END: return dragCardEnd(draft, action.payload);
       default: draft = state; break;

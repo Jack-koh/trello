@@ -25,10 +25,16 @@ const dragTrello = (draft, { item, sourceIndex, destIndex }) => {
   draft['list'] = updateList;
 };
 
+const setTitle = (draft, { trelloNo, title }) => {
+  const trello = draft.list.find((trello) => trello.trelloNo === trelloNo);
+  trello['title'] = title;
+};
+
 export const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (action.type) {
+      case type.SET_TRELLO_ITEM_TITLE: setTitle(draft, action.payload); break;
       case type.INIT_TRELLO_LIST: draft['list'] = []; break;
       case type.GET_TRELLO_LIST_SUCCESS: draft['list'] = action.list; break;
       case type.CREATE_TRELLO_ITEM_START: draft['loading'] = true; break;

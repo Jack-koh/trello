@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { MdPersonOutline } from 'react-icons/md';
-import { Modal } from 'components/custom/Elements';
+import { Modal } from 'components/custom';
 import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard';
 import BoardsList from 'components/main/boards/list/BoardsList';
 import CreateBoard from 'components/main/boards/modal/Modal_CreateBoard';
@@ -19,9 +19,8 @@ function BoardsContent() {
         <ul className="board_item_section">
           <BoardsList />
           <Modal
-            content={<ModalCreateBoard closeHandler={() => setDialog(!dialog)} />}
-            closeOutside={() => setDialog(!dialog)}
-            open={dialog}
+            clickOutside
+            content={({ closeHandler }) => <ModalCreateBoard closeHandler={closeHandler} />}
           >
             <CreateBoard openHandler={() => setDialog(!dialog)} />
           </Modal>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import * as actions from 'store/actions';
 import './CreateTrello.scss';
 import { MdAdd, MdClose } from 'react-icons/md';
-import { Button } from 'components/custom/Elements';
+import { Button } from 'components/custom';
 
 function CreateTrello() {
   const loading = useSelector((state) => state.trello.loading);

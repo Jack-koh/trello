@@ -2,38 +2,37 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdEdit } from 'react-icons/md';
 import classNames from 'classnames';
-import { Modal } from 'components/custom/Elements';
 import * as actions from 'store/actions';
-import { PopContainer, Popover } from 'components/custom/Elements';
+import _ from 'shared/commonFunc';
+import { Modal, Popover } from 'components/custom';
+import { TextArea } from 'components/custom';
 import { MdClose, MdSubject, MdAdd, MdCreditCard } from 'react-icons/md';
 import './CardItem.scss';
 
 const CardItem = ({ item, provided, snapshot, getStyle }) => {
-  const [dialog, setDialog] = useState(false);
-  const [localTitle, setLocalTitle] = useState('');
-
-  const { title, label } = item;
-
-  useEffect(() => {
-    if (!dialog) setLocalTitle(title);
-  }, [dialog]);
+  const dispatch = useDispatch();
+  const onUpdateCard = (payload) => dispatch(actions.updateCardStart(payload));
+  const [card, setCard] = useState(item);
 
   return (
     <Modal
-      content={<CardModalContent item={item} closeHandler={() => setDialog(false)} />}
-      closeOutside={() => setDialog(false)}
-      open={dialog}
+      clickOutside={() => {
+        const isEqual = _.isEqual(card, item);
+        if (!isEqual) onUpdateCard(card);
+      }}
+      content={({ closeHandler }) => (
+        <CardModalContent card={card} closeHandler={closeHandler} setCard={setCard} />
+      )}
     >
       <li
         className={classNames('card-item-wrapper', { isDragging: snapshot.isDragging })}
-        onClick={() => setDialog(!dialog)}
         ref={provided.innerRef}
         {...provided.draggableProps}
         {...provided.dragHandleProps}
         style={getStyle(provided.draggableProps.style, snapshot)}
       >
-        {label && <div className={classNames('label', { [label]: label })} />}
-        <span>{localTitle}</span>
+        {item.label && <div className={classNames('label', { [item.label]: item.label })} />}
+        <span>{item.title}</span>
         <div className="card-edit">
           <MdEdit />
         </div>
@@ -44,23 +43,12 @@ const CardItem = ({ item, provided, snapshot, getStyle }) => {
 
 export default CardItem;
 
-const CardModalContent = ({ item, closeHandler }) => {
-  const dispatch = useDispatch();
-  const onSetCard = (payload) => dispatch(actions.setCard(payload));
-  const onUpdateCard = (payload) => dispatch(actions.updateCardStart(payload));
+const CardModalContent = ({ card, closeHandler, setCard }) => {
   const [descriptFocus, setDescriptFocus] = useState(false);
-  const [popover, setPopover] = useState(false);
   const descriptionRef = useRef();
   const editRef = useRef();
 
-  const { trelloNo, cardNo, title, label, description } = item;
-
-  const autosizeHandler = (e) => {
-    // setTitle(e.target.value);
-    // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
-    e.target.style.cssText = 'height:2.8rem;';
-    e.target.style.cssText = `height: ${e.target.scrollHeight / 10}rem`;
-  };
+  const { title, label, description } = card;
 
   useEffect(() => {
     const clickOutsideHandler = (e) => {
@@ -79,58 +67,35 @@ const CardModalContent = ({ item, closeHandler }) => {
       <MdClose className="close-button" onClick={closeHandler} />
       <div className="card-title-textarea-wrapper">
         <MdCreditCard />
-        <textarea
-          type="text"
-          className="textarea-title"
+        <TextArea
+          className="card-title"
           value={title}
+          textHiehgt={28}
           onChange={(e) => {
-            autosizeHandler(e);
-            onSetCard({ trelloNo, cardNo, name: 'title', value: e.target.value });
+            const title = e.target.value;
+            setCard((prevState) => {
+              return { ...prevState, title };
+            });
           }}
-          spellCheck="false"
-          onBlur={() => onUpdateCard(item)}
         />
       </div>
       <div className="card-title-label-wrapper">
-        <h4>LABELS</h4>
+        <h4>LABEL</h4>
         <div className="label-box-field">
-          <PopContainer>
+          <Popover
+            className="label-choice-popover"
+            position="right top"
+            clickOutside
+            content={<PopoverContent card={card} setCard={setCard} />}
+          >
             {label ? (
-              <i
-                className={classNames('label', { [label]: label })}
-                onClick={() => setPopover(!popover)}
-              />
+              <i className={classNames('label', { [label]: label })} />
             ) : (
-              <div className="rectangle-btn" onClick={() => setPopover(!popover)}>
+              <div className="rectangle-btn">
                 <MdAdd />
               </div>
             )}
-            {popover && (
-              <Popover
-                clickOutside
-                close={() => {
-                  setPopover(false);
-                  onUpdateCard(item);
-                }}
-              >
-                <h4>LABELS</h4>
-                {['green', 'blue', 'orange', 'yellow', 'red'].map((color) => {
-                  return (
-                    <div
-                      key={color}
-                      className={classNames('label-choice-box', {
-                        [color]: color,
-                        active: color === label,
-                      })}
-                      onClick={() => {
-                        onSetCard({ trelloNo, cardNo, name: 'label', value: color });
-                      }}
-                    />
-                  );
-                })}
-              </Popover>
-            )}
-          </PopContainer>
+          </Popover>
         </div>
       </div>
       <div className="card-title-description-wrapper">
@@ -138,19 +103,19 @@ const CardModalContent = ({ item, closeHandler }) => {
           <MdSubject />
           <h3>Description</h3>
         </div>
-        <textarea
-          ref={descriptionRef}
-          onClick={() => setDescriptFocus(true)}
-          value={description ? description : ''}
-          type="text"
-          className="textarea-title description-text-area"
-          onChange={(e) => {
-            autosizeHandler(e);
-            onSetCard({ trelloNo, cardNo, name: 'description', value: e.target.value });
-          }}
+        <TextArea
+          innerRef={descriptionRef}
+          className="description-text-area"
+          textHiehgt={28}
+          value={description}
           placeholder="Add a more detailed description..."
-          spellCheck="false"
-          onBlur={() => onUpdateCard(item)}
+          onClick={() => setDescriptFocus(true)}
+          onChange={(e) => {
+            const description = e.target.value;
+            setCard((prevState) => {
+              return { ...prevState, description };
+            });
+          }}
         />
         {descriptFocus && (
           <div ref={editRef} className="edit-button-field">
@@ -161,6 +126,28 @@ const CardModalContent = ({ item, closeHandler }) => {
           </div>
         )}
       </div>
+    </div>
+  );
+};
+
+const PopoverContent = ({ card, setCard }) => {
+  const { label } = card;
+  return (
+    <div className="label-choice-content">
+      <h4>LABELS</h4>
+      {['green', 'blue', 'orange', 'yellow', 'red'].map((color) => {
+        return (
+          <div
+            key={color}
+            className={classNames('label-choice-box', { [color]: color, active: color === label })}
+            onClick={() =>
+              setCard((prevState) => {
+                return { ...prevState, label: color };
+              })
+            }
+          />
+        );
+      })}
     </div>
   );
 };

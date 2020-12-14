@@ -6,7 +6,7 @@ import { MdClose } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
 import './ModalCreateBoard.scss';
 
-import { Button } from 'components/custom/Elements';
+import { Button } from 'components/custom';
 
 function ModalCreateBoard({ closeHandler, history }) {
   const boardList = useSelector((state) => state.board.list);

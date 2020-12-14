@@ -1,8 +1,6 @@
-// .creat-board-modal {
-// top: 116px !important;
 .board-modal-inner {
   width: 40rem;
-  margin: 48px auto 0;
+  transform: translateY(-346px);
 
   .set_board {
     display: flex;
@@ -88,4 +86,3 @@
     margin-top: 0.8rem;
   }
 }
-// }

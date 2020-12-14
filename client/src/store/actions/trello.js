@@ -1,5 +1,9 @@
 import * as type from 'store/actions/types';
 
+export const setTrelloItemTitle = ({ trelloNo, title }) => {
+  return { type: type.SET_TRELLO_ITEM_TITLE, payload: { trelloNo, title } };
+};
+
 export const getTrelloListStart = (boardNo) => {
   return { type: type.GET_TRELLO_LIST_START, boardNo };
 };

@@ -9,6 +9,7 @@ export {
 } from './board';
 
 export {
+  setTrelloItemTitle,
   initTrelloList,
   getTrelloListStart,
   getTrelloListSuccess,
@@ -27,6 +28,5 @@ export {
   createCardStart,
   createCardSuccess,
   updateCardStart,
-  setCard,
   dragCardEnd,
 } from './card';

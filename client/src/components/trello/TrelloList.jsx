@@ -80,11 +80,7 @@ function TrelloList() {
     <DragDropContext onDragEnd={dragEndHandler}>
       <Droppable droppableId="drop-field-trello" direction="horizontal" type="trello">
         {(provided, snapshot) => (
-          <div
-            className="trello-list-wrapper "
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-          >
+          <div id="trello-list-wrapper" ref={provided.innerRef} {...provided.droppableProps}>
             {trelloEl}
             {provided.placeholder}
           </div>

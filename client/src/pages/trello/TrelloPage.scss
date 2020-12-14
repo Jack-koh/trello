@@ -20,7 +20,7 @@
   border-radius: 0.3rem;
 }
 
-.trello-screen {
+#trello-screen {
   height: 100%;
   padding-top: 4rem;
   display: flex;
@@ -41,7 +41,7 @@
         @include trello-header_div;
       }
 
-      .textarea-title {
+      .board-title {
         padding: 0 1.2rem;
         line-height: 2rem;
         font-size: 1.8rem;
@@ -83,7 +83,7 @@
     overflow-x: auto;
     padding-bottom: 0.8rem;
 
-    .trello-items {
+    #trello-items {
       min-height: 400px;
       overflow-y: auto;
       display: flex;

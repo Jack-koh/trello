@@ -29,11 +29,14 @@ function TrelloPage() {
 
   const mounseDownHandler = (e) => {
     e.stopPropagation();
-    const target = document.getElementById('trello-content-ref');
+    const target = document.getElementById('trello-items');
+    const listWrapper = document.getElementById('trello-list-wrapper');
+    const trelloItem = document.getElementById('trello-item');
+
     if (
-      e.target === target ||
-      e.target.classList[0] === 'trello-item-wrapper' ||
-      e.target.classList[0] === 'trello-list-wrapper'
+      target.clientWidth <= listWrapper.clientWidth &&
+      !trelloItem.contains(e.target) &&
+      target.contains(e.target)
     ) {
       const pos = { clientX: e.clientX, left: target.scrollLeft };
       const mouseMoveHandler = (e) => {
@@ -49,10 +52,10 @@ function TrelloPage() {
 
   return (
     <GlobalLayout mode="trello">
-      <div className={classNames('trello-screen', { [backgroundName]: backgroundName })}>
+      <div id="trello-screen" className={classNames({ [backgroundName]: backgroundName })}>
         <section className="trello-header">
           <div className="trello-setting">
-            <div className="textarea-title">{title}</div>
+            <div className="board-title">{title}</div>
             <div
               className={classNames('trello-favorite', { favorite: favorite })}
               onClick={() => setFavorite(!favorite)}
@@ -67,7 +70,7 @@ function TrelloPage() {
         </section>
 
         <section id="trello-content-ref" className="trello-content" onMouseDown={mounseDownHandler}>
-          <div className="trello-items">
+          <div id="trello-items">
             <TrelloList />
             <CreateTrello />
           </div>

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { MdAdd, MdInfoOutline, MdAddAlert, MdAccountCircle } from 'react-icons/md';
 
-import { PopContainer } from 'components/custom/Elements';
-import PopUser from './popover/PopUser';
+import { Popover } from 'components/custom';
+import Popover_User from './popover/Popover_User';
 
 function GnbRight() {
-  const [popover, setPopover] = useState(false);
-
   return (
     <div className="gnb_right">
       <div className="rectangle-btn">
@@ -19,12 +17,15 @@ function GnbRight() {
       <div className="rectangle-btn">
         <MdAddAlert />
       </div>
-      <div className="user_btn">
-        <PopContainer>
-          <MdAccountCircle onClick={() => setPopover(!popover)} />
-          {popover && <PopUser closeHandler={() => setPopover(false)} />}
-        </PopContainer>
-      </div>
+      <Popover
+        position="bottom right"
+        clickOutside
+        content={({ closeHandler }) => <Popover_User closeHandler={closeHandler} />}
+      >
+        <div className="user_btn">
+          <MdAccountCircle />
+        </div>
+      </Popover>
     </div>
   );
 }

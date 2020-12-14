@@ -1,5 +1,16 @@
+$green: #5aac44;
+$green_hover: #61bd4f;
+$green_active: #49852e;
+$blue: #0079bf;
+$blue_hover: #0a95e6;
+$blue_active: #096ba4;
+$red: #cd3232;
+$red_hover: #e64747;
+$red_active: #a82727;
+$disabled: #a5adba;
+
 @mixin btn_loading {
-  .btnLoading_wrap {
+  .loading__wrapper {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -64,4 +75,52 @@
       -webkit-transform: scaleY(1);
     }
   }
+}
+
+@mixin submit_button($width, $height, $base, $hover, $active) {
+  @include btn_loading;
+  width: $width;
+  height: $height;
+  padding: 0 1.4rem;
+  position: relative;
+  background-color: $base;
+  color: var(--pure-white);
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+  &:disabled {
+    color: $disabled !important;
+    background-color: #f4f5f7 !important;
+    cursor: initial;
+  }
+
+  &:active {
+    background-color: $active;
+  }
+
+  & > .hide {
+    opacity: 0;
+  }
+}
+
+button[type='submit'].green_submit {
+  @include submit_button(auto, 3.2rem, $green, $green_hover, $green_active);
+}
+
+button[type='submit'].red_submit {
+  @include submit_button(auto, 3.2rem, $red, $red_hover, $red_active);
+}
+
+button[type='submit'].login_submit {
+  @include submit_button(100%, 3.6rem, $green, $green_hover, $green_active);
+}
+
+button[type='submit'].signup_submit {
+  @include submit_button(100%, 3.6rem, $blue, $blue_hover, $blue_active);
 }

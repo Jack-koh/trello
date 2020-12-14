@@ -3,7 +3,7 @@ const db = require('../db')
 exports.create = async (req, res, next) => {
   const { trelloNo, title } = req.body
   try {
-    const query = await db.query(`INSERT INTO cards VALUES(DEFAULT, '${title}', null, null, extract(epoch from now()), '${trelloNo}') RETURNING *`) //prettier-ignore
+    const query = await db.query(`INSERT INTO cards VALUES(DEFAULT, '${title}', '', '', extract(epoch from now()), '${trelloNo}') RETURNING *`) //prettier-ignore
     const item = query.rows[0]
 
     const orderQuery = await db.query(`SELECT * FROM cards_order WHERE trello_no = '${trelloNo}'`)
@@ -24,8 +24,8 @@ exports.create = async (req, res, next) => {
       item: {
         cardNo: item.card_no,
         title: item.title,
-        description: null,
-        label: null,
+        description: '',
+        label: '',
         regDate: item.reg_date,
         trelloNo: item.trello_no,
       },

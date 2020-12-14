@@ -143,8 +143,19 @@ li.card-item-wrapper {
       margin-right: 10px;
     }
 
-    .textarea-title {
+    textarea.card-title {
       width: 90%;
+      height: 3.2rem;
+      padding: 0.4rem 0.8rem;
+      font-weight: 600;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:focus {
+        box-shadow: inset 0 0 0 0.2rem #0079bf;
+        background-color: var(--pure-white);
+        cursor: initial;
+      }
     }
   }
 
@@ -162,61 +173,35 @@ li.card-item-wrapper {
       align-items: center;
       margin-top: 6px;
 
-      & > div {
-        width: auto !important;
-        height: auto !important;
-        cursor: initial !important;
+      i.label {
+        @include label-color;
+        display: block;
+        width: 40px;
+        height: 32px;
+        background-color: orange;
+        border-radius: 3px;
+        cursor: pointer;
+      }
 
-        i.label {
-          @include label-color;
-          display: block;
-          width: 40px;
-          height: 32px;
-          background-color: orange;
-          border-radius: 3px;
-          cursor: pointer;
+      .rectangle-btn {
+        color: #42526e;
+        display: flex;
+        align-items: center;
+        border-radius: 0.3rem;
+        background-color: rgba(9, 30, 66, 0.04);
+        transition: background-color 0.3s;
+        cursor: pointer;
+
+        &:hover {
+          background-color: rgba(222, 222, 222, 0.831);
         }
+        width: 3.2rem;
+        height: 3.2rem;
+        justify-content: center;
 
-        .rectangle-btn {
-          color: #42526e;
-          display: flex;
-          align-items: center;
-          border-radius: 0.3rem;
-          background-color: rgba(9, 30, 66, 0.04);
-          transition: background-color 0.3s;
-          cursor: pointer;
-
-          &:hover {
-            background-color: rgba(222, 222, 222, 0.831);
-          }
-          width: 3.2rem;
-          height: 3.2rem;
-          justify-content: center;
-
-          svg {
-            width: 2rem;
-            height: 2rem;
-          }
-        }
-
-        .popover {
-          width: 240px;
-          padding: 12px;
-          top: 0;
-          left: 50px;
-          background: #fff;
-          border-radius: 3px;
-          overflow: hidden;
-          box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
-
-          .label-choice-box {
-            @include label-color;
-            width: 100%;
-            height: 32px;
-            border-radius: 3px;
-            margin-top: 6px;
-            cursor: pointer;
-          }
+        svg {
+          width: 2rem;
+          height: 2rem;
         }
       }
     }
@@ -240,9 +225,10 @@ li.card-item-wrapper {
       }
     }
 
-    .description-text-area {
+    textarea.description-text-area {
       margin-top: 16px;
       margin-left: 30px;
+      padding: 8px 14px;
       width: 512px;
       min-height: 108px;
       background-color: rgba(55, 96, 167, 0.08);
@@ -288,6 +274,31 @@ li.card-item-wrapper {
         margin-left: 10px;
         cursor: pointer;
       }
+    }
+  }
+}
+
+.label-choice-popover {
+  width: 240px;
+  padding: 12px;
+  top: 0;
+  left: 50px;
+  background: #fff;
+  border-radius: 3px;
+  overflow: hidden;
+  box-shadow: 0 8px 16px -4px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+
+  .label-choice-content {
+    h4 {
+      color: #42526e;
+    }
+    .label-choice-box {
+      @include label-color;
+      width: 100%;
+      height: 32px;
+      border-radius: 3px;
+      margin-top: 6px;
+      cursor: pointer;
     }
   }
 }

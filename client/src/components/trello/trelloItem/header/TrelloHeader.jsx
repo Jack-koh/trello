@@ -3,72 +3,52 @@ import { useDispatch } from 'react-redux';
 import * as actions from 'store/actions';
 import { MdMoreHoriz } from 'react-icons/md';
 import './TrelloHeader.scss';
-import { Textarea, PopContainer } from 'components/custom/Elements';
-import PopTrello from 'components/trello/trelloItem/popover/PopTrello';
+import { TextArea } from 'components/custom';
+import { Popover } from 'components/custom';
+import Popover_Trello from 'components/trello/trelloItem/popover/Popover_Trello';
 
 function TrelloHeader({ trello, dragHandleProps }) {
   const dispatch = useDispatch();
   const onUpdateTitle = (payload) => dispatch(actions.updateTrelloItemStart(payload));
+  const onSetTitle = (payload) => dispatch(actions.setTrelloItemTitle(payload));
 
-  const { trelloNo, boardNo, title: propsTitle } = trello;
-  const [title, setTitle] = useState('');
-  const [popover, setPopover] = useState(false);
+  const { trelloNo, boardNo, title } = trello;
   const textAreaRef = useRef();
-  const preventerRef = useRef();
-  const updateTitle = () => {
-    if (propsTitle !== title) onUpdateTitle({ trelloNo, title });
-  };
-
-  const autosizeHandler = (e) => {
-    setTitle(e.target.value);
-    // 스크롤 높이값만큼 오브젝트 높이를 맞춰준다.
-    e.target.style.cssText = 'height:2.8rem;';
-    e.target.style.cssText = `height: ${e.target.scrollHeight / 10}rem`;
-  };
-
-  useEffect(() => {
-    setPopover(false);
-  }, [trello]);
-
-  useEffect(() => {
-    setTitle(propsTitle);
-  }, [propsTitle]);
 
   return (
-    <div
-      className="trello-list-header"
-      {...dragHandleProps}
-      onClick={(e) => {
-        e.target === preventerRef.current
-          ? textAreaRef.current.focus()
-          : textAreaRef.current.blur();
-      }}
-    >
+    <div className="trello-list-header" {...dragHandleProps}>
       <div className="textarea-wrapper">
-        <div ref={preventerRef} className="preventer" />
-        <Textarea
-          className="textarea-title"
-          type="text"
-          value={title}
-          onChange={(e) => autosizeHandler(e)}
-          onBlur={updateTitle}
+        <div
+          className="preventer"
+          onClick={() => {
+            textAreaRef.current.focus();
+            textAreaRef.current.setSelectionRange(
+              textAreaRef.current.value.length,
+              textAreaRef.current.value.length
+            );
+          }}
+        />
+        <TextArea
           innerRef={textAreaRef}
+          className="textarea-title"
+          textHeight={28}
+          value={title}
+          onChange={(e) => onSetTitle({ trelloNo, title: e.target.value })}
+          onBlur={(e) => {
+            if (e.target.value !== title) onUpdateTitle({ trelloNo, title: e.target.value });
+          }}
         />
       </div>
       <div className="trello-list-more">
-        <PopContainer>
-          <div className="more-icon" onClick={() => setPopover(!popover)}>
+        <Popover
+          position="bottom left"
+          clickOutside
+          content={<Popover_Trello trelloNo={trelloNo} boardNo={boardNo} title={title} />}
+        >
+          <div className="more-icon">
             <MdMoreHoriz />
           </div>
-          {popover && (
-            <PopTrello
-              trelloNo={trelloNo}
-              boardNo={boardNo}
-              title={title}
-              closeHandler={() => setPopover(false)}
-            />
-          )}
-        </PopContainer>
+        </Popover>
       </div>
     </div>
   );
