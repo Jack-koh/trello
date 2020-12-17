@@ -44,13 +44,22 @@ exports.create = async (req, res, next) => {
 
     const item = query.rows[0]
     await db.query(`INSERT INTO trellos_order VALUES('${item.board_no}', null)`)
-    await db.query(
-      `INSERT INTO link_users_boards VALUES(
-        '${userNo}',
-        '${item.board_no}')`
-    )
+    await db.query(`INSERT INTO link_users_boards VALUES('${userNo}','${item.board_no}')`)
 
     res.status(201).json({ item })
+  } catch (err) {
+    if (!err.statusCode) err.statusCode = 500
+    next(err)
+  }
+}
+
+exports.delete = async (req, res, next) => {
+  const { boardNo } = req.query
+
+  try {
+    await db.query(`DELETE FROM boards WHERE board_no = ${boardNo}`)
+    await db.query(`DELETE FROM link_users_boards WHERE board_no = ${boardNo}`)
+    res.status(201).json({ message: 'success delete', boardNo: +boardNo })
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500
     next(err)

@@ -65,13 +65,7 @@ exports.get = async (req, res, next) => {
           if (dataIndex > -1) {
             cards[dataIndex].list = [...cards[dataIndex].list, insertData]
           } else {
-            cards = [
-              ...cards,
-              {
-                trelloNo: find.trello_no,
-                list: [insertData],
-              },
-            ]
+            cards = [...cards, { trelloNo: find.trello_no, list: [insertData] }]
           }
         })
       }
@@ -156,7 +150,6 @@ exports.delete = async (req, res, next) => {
   const { trelloNo, boardNo } = req.query
   try {
     await db.query(`DELETE FROM trellos WHERE trello_no = ${trelloNo}`)
-    await db.query(`DELETE FROM cards_order WHERE trello_no = ${trelloNo}`)
     const trelloOrderQuery = await db.query(`SELECT * FROM trellos_order WHERE board_no = '${boardNo}'`)
     const trelloOrder = trelloOrderQuery.rows[0]
     const orderArr = trelloOrder.list_order.split(',')

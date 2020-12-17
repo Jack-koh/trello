@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from 'store/actions';
 import { MdMoreHoriz } from 'react-icons/md';
-import './TrelloHeader.scss';
-import { TextArea } from 'components/custom';
-import { Popover } from 'components/custom';
+import { Popover, TextArea } from 'components/custom';
 import Popover_Trello from 'components/trello/trelloItem/popover/Popover_Trello';
+import './TrelloHeader.scss';
 
 function TrelloHeader({ trello, dragHandleProps }) {
   const dispatch = useDispatch();

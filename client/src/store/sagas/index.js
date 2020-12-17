@@ -1,7 +1,7 @@
 import * as type from 'store/actions/types';
 import { takeEvery } from 'redux-saga/effects';
 import { login } from './auth';
-import { getBoardList, createBoardItem } from './board';
+import { getBoardList, createBoardItem, deleteBoardItem } from './board';
 import { getTrelloList, createTrello, updateTrello, deleteTrello, dragTrello } from './trello';
 
 import { createCard, dragCardEnd, updateCard } from './card';
@@ -13,6 +13,7 @@ export function* auth() {
 export function* board() {
   yield takeEvery(type.GET_BOARD_LIST_START, getBoardList);
   yield takeEvery(type.CREATE_BOARD_ITEM_START, createBoardItem);
+  yield takeEvery(type.DELETE_BOARD_ITEM_START, deleteBoardItem);
 }
 
 export function* trello() {

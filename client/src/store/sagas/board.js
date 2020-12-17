@@ -1,5 +1,6 @@
 import { put } from 'redux-saga/effects';
 import axios from 'axios';
+import history from 'shared/history';
 import * as actions from 'store/actions';
 
 export function* getBoardList() {
@@ -27,8 +28,31 @@ export function* createBoardItem({
       backgroundName,
       favorite,
     });
-    yield localStorage.setItem('trello', JSON.stringify(response.data.item));
     yield put(actions.createBoardItemSuccess(response.data.item));
+
+    yield localStorage.setItem(
+      'trello',
+      JSON.stringify({
+        backgroundName: response.data.item.background_name,
+        backgroundType: response.data.item.background_type,
+        boardNo: response.data.item.board_no,
+        favorite: response.data.item.favorite,
+        regDate: response.data.item.reg_date,
+        title: response.data.item.title,
+      })
+    );
+    history.push(`/main/trello/${title}`);
+  } catch (err) {
+    console.log('createBoardItem err ----');
+  }
+}
+
+export function* deleteBoardItem({ boardNo }) {
+  try {
+    yield axios.delete('boards/delete', { params: { boardNo } });
+    yield put(actions.deleteBoardItemSuccess());
+    yield localStorage.removeItem('trello');
+    history.push(`/main.board`);
   } catch (err) {
     console.log('createBoardItem err ----');
   }

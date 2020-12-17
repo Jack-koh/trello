@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const db = require('../db')
 
+const regExp = {
+  email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+}
+
 exports.signup = async (req, res, next) => {
   const errors = validationResult(req)
   if (!errors.isEmpty()) {
@@ -14,6 +18,10 @@ exports.signup = async (req, res, next) => {
 
   const { email, password, name } = req.body
   try {
+    // 사용자 확인
+    const userQuery = await db.query(`SELECT * FROM users WHERE user_email = '${email}' limit 1`)
+    if (userQuery.rows[0]) return res.status(200).json({ errorMessage: 'User email is alreay exist.' })
+
     const hashedPw = await bcrypt.hash(password, 12)
     const query = await db.query(
       `INSERT INTO users VALUES(
@@ -39,17 +47,13 @@ exports.login = async (req, res, next) => {
     // 사용자 확인
     const query = await db.query(`SELECT * FROM users WHERE user_email = '${email}' limit 1`)
     if (!query.rows[0]) {
-      const error = new Error('A user with this email could not be found.')
-      error.statusCode = 401
-      throw error
+      return res.status(200).json({ errorMessage: 'A user with this email could not be found.' })
     }
     const findUser = query.rows[0]
 
     const comparePw = await bcrypt.compare(password, findUser.user_password)
     if (!comparePw) {
-      const error = new Error('Wrong password!')
-      error.statusCode = 401
-      throw error
+      return res.status(200).json({ errorMessage: 'Wrong password!' })
     }
 
     // 토큰 생성

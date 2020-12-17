@@ -2,6 +2,7 @@ import * as type from 'store/actions/types';
 import produce from 'immer';
 const initialState = {
   loading: false,
+  errorMessage: '',
 };
 
 const loginStart = (draft) => {
@@ -10,8 +11,9 @@ const loginStart = (draft) => {
 const loginSuccess = (draft) => {
   draft['loading'] = false;
 };
-const loginFail = (draft) => {
+const loginFail = (draft, errorMessage) => {
   draft['loading'] = false;
+  draft['errorMessage'] = errorMessage;
 };
 const logout = () => {
   localStorage.removeItem('token');
@@ -22,11 +24,12 @@ export const reducer = (state = initialState, action) => {
   // prettier-ignore
   return produce(state, (draft) => {
     switch (action.type) {
-      case type.LOGIN_SUCCESS: return loginSuccess(draft, action.user);
-      case type.LOGIN_FAIL: return loginFail(draft);
-      case type.LOGIN_START: return loginStart(draft);
-      case type.LOGOUT: return logout(draft);
-      default: return draft;
+      case type.RESET_ERROR: draft['errorMessage'] = ''; break;
+      case type.LOGIN_SUCCESS: loginSuccess(draft, action.user); break;
+      case type.LOGIN_FAIL: loginFail(draft, action.errorMessage); break;
+      case type.LOGIN_START: loginStart(draft); break; 
+      case type.LOGOUT: logout(draft); break;
+      default: draft; break;
     }
   });
 };

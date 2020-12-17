@@ -68,7 +68,8 @@ function CreateTrello() {
   return (
     <div
       ref={wrapperRef}
-      className={`add_list_wrapper ${showForm ? 'on' : 'off'}`}
+      id="add_list_wrapper"
+      className={showForm ? 'on' : 'off'}
       onClick={() => setShowForm(true)}
     >
       <form onSubmit={(e) => createTrelloSubmit(e)}>{showForm ? form : placeholder}</form>

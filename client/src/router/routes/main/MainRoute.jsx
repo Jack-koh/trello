@@ -1,10 +1,10 @@
-import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-import BoardsRoute from 'router/routes/main/board/BoardsRoute'
-import TamplatePage from 'pages/main/template/TamplatePage'
-import HomePage from 'pages/main/home/HomePage'
-import TrelloPage from 'pages/trello/TrelloPage'
+import BoardsRoute from 'router/routes/main/board/BoardsRoute';
+import TamplatePage from 'pages/main/template/TamplatePage';
+import HomePage from 'pages/main/home/HomePage';
+import TrelloPage from 'pages/trello/TrelloPage';
 
 function Main() {
   return (
@@ -15,7 +15,7 @@ function Main() {
       <Route path="/main/trello" component={TrelloPage} />
       <Redirect to="/main/board" />
     </Switch>
-  )
+  );
 }
 
-export default Main
+export default Main;

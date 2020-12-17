@@ -13,7 +13,7 @@ function HeaderLeft() {
         Boards
       </div>
       <div className="search-input-wrap">
-        <input className="search-input" />
+        <input className="search-input" spellCheck="false" />
         <MdSearch />
       </div>
     </div>

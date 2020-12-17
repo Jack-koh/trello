@@ -1,6 +1,7 @@
 .board-modal-inner {
   width: 40rem;
-  transform: translateY(-346px);
+  position: absolute;
+  top: 46px;
 
   .set_board {
     display: flex;
@@ -84,5 +85,13 @@
 
   .bottom_utils {
     margin-top: 0.8rem;
+
+    .green_submit {
+      width: 105px;
+
+      button {
+        padding: 0 !important;
+      }
+    }
   }
 }

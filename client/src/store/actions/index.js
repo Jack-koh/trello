@@ -1,10 +1,12 @@
 export { loadingStart, loadingFinished } from './loading';
-export { loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
+export { resetError, loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
 export {
   getBoardListStart,
   getBoardListSuccess,
   createBoardItemStart,
   createBoardItemSuccess,
+  deleteBoardItemStart,
+  deleteBoardItemSuccess,
   initBoardList,
 } from './board';
 

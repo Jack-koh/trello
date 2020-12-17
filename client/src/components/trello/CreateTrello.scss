@@ -5,7 +5,7 @@
   white-space: nowrap;
 }
 
-.add_list_wrapper {
+#add_list_wrapper {
   @include list-wrapper;
   min-height: 3.6rem;
   padding: 0.4rem;
@@ -67,6 +67,10 @@
       margin-top: 0.4rem;
       transition: margin 85ms ease-in, height 85ms ease-in;
       overflow: hidden;
+
+      .green_submit {
+        width: 80px;
+      }
 
       svg {
         margin-left: 0.6rem;

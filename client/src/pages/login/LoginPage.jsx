@@ -2,25 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import * as actions from 'store/actions';
+import { Input } from 'components/custom';
+import { validation } from 'context';
 import './LoginPage.scss';
 
-import { Button } from 'components/custom';
-
 function LoginPage() {
+  const { ValidatorProvider, ValidatorSubmit } = validation;
   const history = useHistory();
-  const userData = useSelector((state) => state.auth);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const onLogin = (payload) => dispatch(actions.loginStart(payload));
+  const resetError = (payload) => dispatch(actions.resetError(payload));
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [loading, setloading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) history.push('/main/board');
-  }, [userData, history]);
+  }, [auth, history]);
 
   useEffect(() => {
     setEmail('');
@@ -28,14 +29,9 @@ function LoginPage() {
     setName('');
   }, [history.location]);
 
-  useEffect(() => {
-    setloading(userData.loading);
-  }, [userData]);
-
-  const loginSubmit = async (e) => {
-    e.preventDefault();
-    onLogin({ email, password, name });
-  };
+  const loginSubmit = () => onLogin({ email, password, name });
+  const emailError = 'A user with this email could not be found.';
+  const pwError = 'Wrong password!';
 
   return (
     <div className="login_page">
@@ -47,19 +43,28 @@ function LoginPage() {
       </header>
       <section className="form_wrap">
         <h1>Log in to Trello</h1>
-        <form onSubmit={loginSubmit}>
-          <input
-            type="text"
+        <ValidatorProvider form onSubmit={loginSubmit}>
+          <Input
             placeholder="Enter email"
-            onChange={(event) => setEmail(event.target.value)}
+            rules={['required']}
+            error={auth.errorMessage === emailError && auth.errorMessage}
+            onChange={(event) => {
+              setEmail(event.target.value);
+              if (auth.errorMessage === emailError) resetError();
+            }}
           />
-          <input
+          <Input
             type="password"
             placeholder="Enter password"
-            onChange={(event) => setPassword(event.target.value)}
+            rules={['required']}
+            error={auth.errorMessage === pwError && auth.errorMessage}
+            onChange={(event) => {
+              setPassword(event.target.value);
+              if (auth.errorMessage === pwError) resetError();
+            }}
           />
-          <Button className="login_submit" type="submit" text="Log In" loading={loading} />
-        </form>
+          <ValidatorSubmit text="Log In" className="login_submit" loading={auth.loading} />
+        </ValidatorProvider>
         <div className="auth_utils">
           <Link to="/find-password" className="find_pw">
             Can't log in?

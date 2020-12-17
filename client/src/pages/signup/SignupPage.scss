@@ -27,21 +27,25 @@
       margin-bottom: 2.5rem;
     }
 
-    input {
-      width: 100%;
-      height: 4rem;
-      padding: 0.7rem;
-      border: 0.2rem solid #dfe1e6;
+    .custom__input__wrapper {
       margin: 0 0 1.6rem;
-      transition: border 0.3s;
-      background-color: #fafbfc;
+      input {
+        width: 100%;
+        height: 40px !important;
+        padding: 0.7rem;
+        border: 0.2rem solid #dfe1e6;
+        transition: border 0.3s;
+        background-color: #fafbfc;
 
-      &:focus {
-        border: 0.2rem solid #4c9aff;
+        &:focus {
+          border: 0.2rem solid #4c9aff;
+        }
       }
 
-      &.scurity_text {
-        -webkit-text-security: disc;
+      .validator__error__message {
+        position: static !important;
+        line-height: 20px;
+        margin-top: 4px;
       }
     }
 

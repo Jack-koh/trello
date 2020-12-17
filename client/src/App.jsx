@@ -1,16 +1,17 @@
-import React from 'react'
-import axios from 'axios'
-import Router from 'router/Router'
-import { BrowserRouter } from 'react-router-dom'
+import React from 'react';
+import axios from 'axios';
+import Router from 'router/Router';
+import history from 'shared/history';
+import { Router as BrowserRouter } from 'react-router-dom';
 
-axios.defaults.baseURL = '/api/'
+axios.defaults.baseURL = '/api/';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Router />
+    <BrowserRouter history={history}>
+      <Router history={history} />
     </BrowserRouter>
-  )
-}
+  );
+};
 
-export default App
+export default App;

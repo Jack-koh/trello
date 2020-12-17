@@ -26,6 +26,10 @@ form.add-card-form-field {
     transition: margin 85ms ease-in, height 85ms ease-in;
     overflow: hidden;
 
+    .green_submit {
+      width: 85px;
+    }
+
     svg {
       margin-left: 0.6rem;
       color: #42526e;

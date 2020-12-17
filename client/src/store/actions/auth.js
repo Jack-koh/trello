@@ -3,19 +3,20 @@ import * as type from 'store/actions/types';
 export const loginStart = (payload) => {
   return {
     type: type.LOGIN_START,
-    user: {
-      email: payload.email,
-      password: payload.password,
-    },
+    user: { email: payload.email, password: payload.password },
   };
+};
+
+export const resetError = () => {
+  return { type: type.RESET_ERROR };
 };
 
 export const loginSuccess = () => {
   return { type: type.LOGIN_SUCCESS };
 };
 
-export const loginFail = () => {
-  return { type: type.LOGIN_FAIL };
+export const loginFail = (errorMessage) => {
+  return { type: type.LOGIN_FAIL, errorMessage };
 };
 
 export const logout = () => {

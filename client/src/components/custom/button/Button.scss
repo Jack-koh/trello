@@ -9,17 +9,71 @@ $red_hover: #e64747;
 $red_active: #a82727;
 $disabled: #a5adba;
 
-@mixin btn_loading {
-  .loading__wrapper {
+@mixin submit_button($width, $height, $base, $hover, $active) {
+  button {
+    width: $width;
+    height: $height;
+    position: relative;
+    background-color: $base;
+    color: var(--pure-white);
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    outline: none;
+    padding: 0 1.4rem;
+
+    &:hover {
+      background-color: $hover;
+    }
+
+    &:disabled {
+      color: $disabled !important;
+      background-color: #f4f5f7 !important;
+      cursor: initial;
+    }
+
+    &:active {
+      background-color: $active;
+    }
+  }
+}
+
+.green_submit {
+  @include submit_button(100%, 3.2rem, $green, $green_hover, $green_active);
+}
+
+.red_submit {
+  @include submit_button(100%, 3.2rem, $red, $red_hover, $red_active);
+}
+
+.login_submit {
+  @include submit_button(100%, 3.6rem, $green, $green_hover, $green_active);
+}
+
+.signup_submit {
+  @include submit_button(100%, 3.6rem, $blue, $blue_hover, $blue_active);
+}
+
+button {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px;
+  .proccessing__loding__type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    .loading {
-      height: 1.6rem;
+    .on__proccessing {
+      width: 70%;
+      height: 50%;
       text-align: center;
-      font-size: 1rem;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -30,97 +84,49 @@ $disabled: #a5adba;
         display: inline-block;
         margin: 0 0.1rem;
 
-        -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
-        animation: sk-stretchdelay 1.2s infinite ease-in-out;
+        -webkit-animation: stretch 1.2s infinite ease-in-out;
+        animation: stretch 1.2s infinite ease-in-out;
       }
-      .rect2 {
+      .rect__aling_2 {
         -webkit-animation-delay: -1.1s;
         animation-delay: -1.1s;
       }
-      .rect3 {
+      .rect__aling_3 {
         -webkit-animation-delay: -1s;
         animation-delay: -1s;
       }
-      .rect4 {
+      .rect__aling_4 {
         -webkit-animation-delay: -0.9s;
         animation-delay: -0.9s;
       }
-      .rect5 {
+      .rect__aling_5 {
         -webkit-animation-delay: -0.8s;
         animation-delay: -0.8s;
       }
+
+      @-webkit-keyframes stretch {
+        0%,
+        40%,
+        100% {
+          -webkit-transform: scaleY(0.4);
+        }
+        20% {
+          -webkit-transform: scaleY(1);
+        }
+      }
+
+      @keyframes stretch {
+        0%,
+        40%,
+        100% {
+          transform: scaleY(0.4);
+          -webkit-transform: scaleY(0.4);
+        }
+        20% {
+          transform: scaleY(1);
+          -webkit-transform: scaleY(1);
+        }
+      }
     }
   }
-
-  @-webkit-keyframes sk-stretchdelay {
-    0%,
-    40%,
-    100% {
-      -webkit-transform: scaleY(0.4);
-    }
-    20% {
-      -webkit-transform: scaleY(1);
-    }
-  }
-
-  @keyframes sk-stretchdelay {
-    0%,
-    40%,
-    100% {
-      transform: scaleY(0.4);
-      -webkit-transform: scaleY(0.4);
-    }
-    20% {
-      transform: scaleY(1);
-      -webkit-transform: scaleY(1);
-    }
-  }
-}
-
-@mixin submit_button($width, $height, $base, $hover, $active) {
-  @include btn_loading;
-  width: $width;
-  height: $height;
-  padding: 0 1.4rem;
-  position: relative;
-  background-color: $base;
-  color: var(--pure-white);
-  border: none;
-  border-radius: 0.3rem;
-  cursor: pointer;
-  outline: none;
-
-  &:hover {
-    background-color: $hover;
-  }
-
-  &:disabled {
-    color: $disabled !important;
-    background-color: #f4f5f7 !important;
-    cursor: initial;
-  }
-
-  &:active {
-    background-color: $active;
-  }
-
-  & > .hide {
-    opacity: 0;
-  }
-}
-
-button[type='submit'].green_submit {
-  @include submit_button(auto, 3.2rem, $green, $green_hover, $green_active);
-}
-
-button[type='submit'].red_submit {
-  @include submit_button(auto, 3.2rem, $red, $red_hover, $red_active);
-}
-
-button[type='submit'].login_submit {
-  @include submit_button(100%, 3.6rem, $green, $green_hover, $green_active);
-}
-
-button[type='submit'].signup_submit {
-  @include submit_button(100%, 3.6rem, $blue, $blue_hover, $blue_active);
 }

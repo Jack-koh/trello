@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from 'store/actions';
@@ -9,24 +9,12 @@ import './ModalCreateBoard.scss';
 import { Button } from 'components/custom';
 
 function ModalCreateBoard({ closeHandler, history }) {
-  const boardList = useSelector((state) => state.board.list);
   const loading = useSelector((state) => state.board.createLoading);
   const dispatch = useDispatch();
   const onCreateBoard = (payload) => dispatch(actions.createBoardItemStart(payload));
 
-  const isFirstRun = useRef(true);
   const [boardTitle, setBoardTitle] = useState('');
   const [bgName, setBgName] = useState('bg_forest');
-
-  useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
-    } else {
-      closeHandler();
-      const trello = JSON.parse(localStorage.getItem('trello'));
-      history.push(`/board/${trello.title}`);
-    }
-  }, [closeHandler, history, boardList]);
 
   const backgroundList = [
     { type: 'image', name: 'bg_forest' },
@@ -74,6 +62,7 @@ function ModalCreateBoard({ closeHandler, history }) {
               placeholder="Add board title"
               value={boardTitle}
               onChange={(e) => setBoardTitle(e.target.value)}
+              spellCheck="false"
             />
           </div>
           <ul className="choose_background">{backgroundEl}</ul>

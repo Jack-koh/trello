@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import axios from 'axios';
+import { validation } from 'context';
+import { Input } from 'components/custom';
+
 import './SignupPage.scss';
 
-import { Button } from 'components/custom';
-
-function SignupPage(props) {
+function SignupPage() {
+  const { ValidatorProvider, ValidatorSubmit } = validation;
   const history = useHistory();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [loading, setloading] = useState(false);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -23,18 +26,20 @@ function SignupPage(props) {
     setName('');
   }, [history.location]);
 
-  const signupSubmit = async (e) => {
-    e.preventDefault();
+  const signupSubmit = async () => {
     const params = { email, password, name };
     try {
       setloading(true);
-      await axios.put('auth/signup', params);
+      const response = await axios.put('auth/signup', params);
+      const { errorMessage } = response.data;
+      errorMessage ? setError(errorMessage) : history.push('/Login');
       setloading(false);
-      history.push('/Login');
     } catch (err) {
-      setloading(false);
+      console.log(err);
     }
   };
+
+  const emailError = 'User email is alreay exist.';
 
   return (
     <div className="signup_page">
@@ -46,27 +51,30 @@ function SignupPage(props) {
       </header>
       <section className="form_wrap">
         <h1>Sign in to Trello</h1>
-        <form onSubmit={signupSubmit}>
-          <input
-            type="text"
+        <ValidatorProvider form onSubmit={signupSubmit}>
+          <Input
             placeholder="Enter email"
             value={email}
+            rules={['required', 'email']}
+            error={error === emailError && error}
             onChange={(event) => setEmail(event.target.value)}
           />
-          <input
+          <Input
             className="scurity_text"
             type="password"
             placeholder="Enter password"
             value={password}
+            rules={['required']}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <input
+          <Input
             placeholder="Enter name"
             value={name}
+            rules={['required']}
             onChange={(event) => setName(event.target.value)}
           />
-          <Button className="signup_submit" type="submit" text="Continue" loading={loading} />
-        </form>
+          <ValidatorSubmit className="signup_submit" text="Continue" loading={loading} />
+        </ValidatorProvider>
         <div className="auth_utils">
           <Link to="/Login" className="sign_up">
             Already have an account? Log In

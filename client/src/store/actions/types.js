@@ -1,6 +1,7 @@
 export const LOADING_START = 'loading/LOADING_START';
 export const LOADING_FINISHED = 'loading/LOADING_FINISHED';
 
+export const RESET_ERROR = 'auth/RESET_ERROR';
 export const LOGIN_START = 'auth/LOGIN_START';
 export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'auth/LOGIN_FAIL';
@@ -10,6 +11,8 @@ export const GET_BOARD_LIST_START = 'board/GET_BOARD_LIST_START';
 export const GET_BOARD_LIST_SUCCESS = 'board/GET_BOARD_LIST_SUCCESS';
 export const CREATE_BOARD_ITEM_START = 'board/CREATE_BOARD_ITEM_START';
 export const CREATE_BOARD_ITEM_SUCCESS = 'board/CREATE_BOARD_ITEM_SUCCESS';
+export const DELETE_BOARD_ITEM_START = 'board/DELETE_BOARD_ITEM_START';
+export const DELETE_BOARD_ITEM_SUCCESS = 'board/DELETE_BOARD_ITEM_SUCCESS';
 export const INIT_BOARD_LIST = 'board/INIT_BOARD_LIST';
 
 export const INIT_TRELLO_LIST = 'trello/INIT_TRELLO_LIST';
