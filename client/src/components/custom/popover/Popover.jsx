@@ -75,6 +75,7 @@ export const Popover = ({
       {
         className: classNames('custom__popover__button', {
           [_children.props.className]: _children.props.className,
+          'popover-on': toggle,
         }),
         onClick: () => setToggle(!toggle),
         ref: targetRef,
@@ -95,7 +96,7 @@ export const Popover = ({
           position={position ? position.split(' ').join('-') : 'right-center'}
           target={targetRef.current}
           setToggle={setToggle}
-          gap={gap || 12}
+          gap={gap ?? 12}
         >
           {content}
         </PopoverPortal>

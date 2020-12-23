@@ -1,10 +1,11 @@
-export { loadingStart, loadingFinished } from './loading';
 export { resetError, loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
 export {
   getBoardListStart,
   getBoardListSuccess,
   createBoardItemStart,
   createBoardItemSuccess,
+  updateBoardItemStart,
+  updateBoardItemSuccess,
   deleteBoardItemStart,
   deleteBoardItemSuccess,
   initBoardList,
@@ -31,4 +32,6 @@ export {
   createCardSuccess,
   updateCardStart,
   dragCardEnd,
+  deleteCardItemStart,
+  deleteCardItemSuccess,
 } from './card';

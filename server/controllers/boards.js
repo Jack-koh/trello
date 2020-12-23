@@ -53,6 +53,24 @@ exports.create = async (req, res, next) => {
   }
 }
 
+exports.update = async (req, res, next) => {
+  const { boardNo, title, backgroundType, backgroundName } = req.body
+
+  try {
+    await db.query(
+      `UPDATE boards SET
+      title = '${title}',
+      background_type = '${backgroundType}',
+      background_name = '${backgroundName}'
+      WHERE board_no = '${boardNo}'`
+    )
+    res.status(201).json({ message: 'Board update success' })
+  } catch (err) {
+    if (!err.statusCode) err.statusCode = 500
+    next(err)
+  }
+}
+
 exports.delete = async (req, res, next) => {
   const { boardNo } = req.query
 

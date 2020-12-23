@@ -16,6 +16,7 @@ export const Input = ({
   rules,
   validType,
   onChange,
+  onBlur,
   onKeyEnter,
   error: errorProps,
   clearError,
@@ -142,6 +143,7 @@ export const Input = ({
         style={lineHeight}
         onKeyPress={(e) => keyPressHandler(e)}
         onBlur={(e) => {
+          onBlur();
           if (validType === 'blur' && rules && !disabled)
             submitExcutor({
               setError,

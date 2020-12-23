@@ -50,7 +50,7 @@
       &:hover {
         background-color: rgba(9, 30, 66, 0.08);
         svg {
-          color: #42526e;
+          color: var(--gray-blue);
         }
       }
     }

@@ -26,3 +26,12 @@ export function* updateCard({ item }) {
     console.log({ message: 'updateCard err ----', err });
   }
 }
+
+export function* deleteCard({ payload: { trelloNo, cardNo } }) {
+  try {
+    yield axios.delete('cards/delete', { params: { trelloNo, cardNo } });
+    yield put(actions.deleteCardItemSuccess({ trelloNo, cardNo }));
+  } catch (err) {
+    console.log({ message: 'deleteCard err ----', err });
+  }
+}

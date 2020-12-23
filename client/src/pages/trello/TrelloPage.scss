@@ -36,17 +36,38 @@
 
     .trello-setting {
       display: flex;
-
       > div {
         @include trello-header_div;
       }
 
-      .board-title {
-        padding: 0 1.2rem;
-        line-height: 2rem;
-        font-size: 1.8rem;
-        font-weight: 700;
+      .bord-title-field {
+        position: relative;
         border-radius: 0.3rem;
+        .bord-title-input {
+          width: 100%;
+          position: absolute;
+          left: 0;
+          top: 0;
+          opacity: 0;
+          z-index: -1;
+
+          input {
+            font-size: 1.8rem;
+            font-weight: 700;
+          }
+
+          &.focus {
+            opacity: 1;
+            z-index: 1;
+          }
+        }
+
+        .board-title {
+          padding: 0 1.2rem;
+          line-height: 2rem;
+          font-size: 1.8rem;
+          font-weight: 700;
+        }
       }
 
       .trello-favorite {

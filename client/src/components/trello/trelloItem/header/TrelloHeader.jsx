@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import * as actions from 'store/actions';
 import { MdMoreHoriz } from 'react-icons/md';
@@ -13,6 +13,7 @@ function TrelloHeader({ trello, dragHandleProps }) {
 
   const { trelloNo, boardNo, title } = trello;
   const textAreaRef = useRef();
+  const [defaultTitle, setDefaultTitle] = useState(title);
 
   return (
     <div className="trello-list-header" {...dragHandleProps}>
@@ -21,10 +22,7 @@ function TrelloHeader({ trello, dragHandleProps }) {
           className="preventer"
           onClick={() => {
             textAreaRef.current.focus();
-            textAreaRef.current.setSelectionRange(
-              textAreaRef.current.value.length,
-              textAreaRef.current.value.length
-            );
+            textAreaRef.current.setSelectionRange(0, textAreaRef.current.value.length);
           }}
         />
         <TextArea
@@ -34,7 +32,10 @@ function TrelloHeader({ trello, dragHandleProps }) {
           value={title}
           onChange={(e) => onSetTitle({ trelloNo, title: e.target.value })}
           onBlur={(e) => {
-            if (e.target.value !== title) onUpdateTitle({ trelloNo, title: e.target.value });
+            if (e.target.value !== defaultTitle) {
+              onUpdateTitle({ trelloNo, title: e.target.value });
+              setDefaultTitle(e.target.value);
+            }
           }}
         />
       </div>

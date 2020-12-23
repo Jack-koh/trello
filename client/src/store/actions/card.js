@@ -23,3 +23,11 @@ export const updateCardStart = (item) => {
 export const dragCardEnd = ({ item, source, destination }) => {
   return { type: type.DRAG_CARD_END, payload: { item, source, destination } };
 };
+
+export const deleteCardItemStart = ({ trelloNo, cardNo }) => {
+  return { type: type.DELETE_CARD_ITEM_START, payload: { trelloNo, cardNo } };
+};
+
+export const deleteCardItemSuccess = ({ trelloNo, cardNo }) => {
+  return { type: type.DELETE_CARD_ITEM_SUCCESS, payload: { trelloNo, cardNo } };
+};

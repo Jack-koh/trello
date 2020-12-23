@@ -5,15 +5,12 @@ import * as actions from 'store/actions';
 
 export function* getBoardList() {
   const { userNo } = JSON.parse(localStorage.getItem('user-data'));
-  yield put(actions.loadingStart());
   try {
     const response = yield axios.get('boards/get', { params: { userNo } });
 
     yield put(actions.getBoardListSuccess(response.data.list));
-    yield put(actions.loadingFinished());
   } catch (err) {
     console.log('getBoardList err ----');
-    yield put(actions.loadingFinished());
   }
 }
 
@@ -44,6 +41,15 @@ export function* createBoardItem({
     history.push(`/main/trello/${title}`);
   } catch (err) {
     console.log('createBoardItem err ----');
+  }
+}
+
+export function* updateBoarItem({ item }) {
+  try {
+    yield axios.put('boards/update', item);
+    yield put(actions.updateBoardItemSuccess());
+  } catch (err) {
+    console.log('updateBoarItem err ----');
   }
 }
 

@@ -4,7 +4,7 @@ import { MdStarBorder, MdStar } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import * as actions from 'store/actions';
 import classNames from 'classnames';
-import { Popover } from 'components/custom';
+import { Popover, Input } from 'components/custom';
 import Popover_DeleteBoard from './popover/Popover_DeleteBoard';
 import './TrelloPage.scss';
 
@@ -15,18 +15,26 @@ import GlobalLayout from 'layout/global/GlobalLayout';
 function TrelloPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const onGetTelloList = useCallback((boardNo) => dispatch(actions.getTrelloListStart(boardNo)), [
-    dispatch,
-  ]);
+  const onGetTelloList = useCallback((boardNo) => dispatch(actions.getTrelloListStart(boardNo)), [dispatch]); // prettier-ignore
+  const onUpdateBoard = useCallback((item) => dispatch(actions.updateBoardItemStart(item)), [dispatch]); // prettier-ignore
   const unMount = useCallback(() => dispatch(actions.initTrelloList()), [dispatch]);
+  const inputRef = useRef();
   const [favorite, setFavorite] = useState(false);
-  const [board, setBoard] = useState(false);
+  const [titleFocus, setTitleFocus] = useState(false);
+  const initialBoard = {
+    title: '',
+    boardNo: -1,
+    backgroundName: '',
+    backgroundType: '',
+  };
+  const [defaultBoard, setDefaultBoard] = useState(initialBoard);
+  const [board, setBoard] = useState(initialBoard);
   const { title, boardNo, backgroundName } = board;
 
   useEffect(() => {
     const localBoard = JSON.parse(localStorage.getItem('trello'));
-    const { title, boardNo, backgroundName } = localBoard;
-    setBoard({ title, boardNo, backgroundName });
+    setBoard(localBoard);
+    setDefaultBoard(localBoard);
     localBoard ? onGetTelloList(localBoard.boardNo) : history.push('/main/board');
     return () => unMount();
   }, []);
@@ -54,19 +62,48 @@ function TrelloPage() {
     }
   };
 
+  const updateBoardTitleHandler = () => {
+    if (!title) setBoard({ ...board, title: defaultBoard.title });
+    if (title && title !== defaultBoard.title) {
+      onUpdateBoard(board);
+      setDefaultBoard(board);
+      localStorage.setItem('trello', JSON.stringify(board));
+    }
+    setTitleFocus(false);
+  };
+
   return (
     <GlobalLayout mode="trello">
       <div id="trello-screen" className={classNames({ [backgroundName]: backgroundName })}>
         <section className="trello-header">
           <div className="trello-setting">
-            <div className="board-title">{title}</div>
+            <div className="bord-title-field">
+              <Input
+                className={classNames('bord-title-input', { focus: titleFocus })}
+                innerRef={inputRef}
+                value={title}
+                onChange={(e) => setBoard({ ...board, title: e.target.value })}
+                onKeyEnter={updateBoardTitleHandler}
+                onBlur={updateBoardTitleHandler}
+              />
+              <div
+                className="board-title"
+                onClick={() => {
+                  setTitleFocus(true);
+                  inputRef.current.focus();
+                  inputRef.current.setSelectionRange(0, inputRef.current.value.length);
+                }}
+              >
+                {title}
+              </div>
+            </div>
+            <div className="trello-trans-box">Invite</div>
             <div
               className={classNames('trello-favorite', { favorite: favorite })}
               onClick={() => setFavorite(!favorite)}
             >
               {favorite ? <MdStar /> : <MdStarBorder />}
             </div>
-            <div className="trello-trans-box">Invite</div>
           </div>
           <Popover
             position="bottom right"

@@ -49,10 +49,6 @@ export const ValidatorProvider = ({ onSubmit, form, children }) => {
     }
   }, [excute]);
 
-  const cloneCildren = React.Children.map(children, (child) => {
-    return React.cloneElement(child, { form }, children.props);
-  });
-
   return (
     <ValidatorContext.Provider value={{ excute, setExcute, loading, setLoading }}>
       {form ? (
@@ -64,7 +60,7 @@ export const ValidatorProvider = ({ onSubmit, form, children }) => {
             setExcute(true);
           }}
         >
-          {cloneCildren}
+          {children}
         </form>
       ) : (
         <div ref={validatorRef} className="validator__form">

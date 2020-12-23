@@ -20,6 +20,15 @@ export const createBoardItemSuccess = (item) => {
   return { type: type.CREATE_BOARD_ITEM_SUCCESS, item };
 };
 
+export const updateBoardItemStart = (item) => {
+  console.log(item);
+  return { type: type.UPDATE_BOARD_ITEM_START, item };
+};
+
+export const updateBoardItemSuccess = () => {
+  return { type: type.UPDATE_BOARD_ITEM_SUCCESS };
+};
+
 export const deleteBoardItemStart = (boardNo) => {
   return { type: type.DELETE_BOARD_ITEM_START, boardNo };
 };

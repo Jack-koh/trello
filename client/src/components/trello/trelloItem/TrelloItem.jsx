@@ -16,16 +16,18 @@ function TrelloItem({ getStyle, trello, cardList, dragHandleProps, dragStartHand
     if (!loading) setAdd(false);
   }, [loading]);
 
-  const cardEl = cardList.map((item, index) => {
-    const { cardNo, title } = item;
-    return (
-      <Draggable key={`card-${cardNo}-${index}`} index={index} draggableId={`card-${cardNo}`}>
-        {(provided, snapshot) => (
-          <CardItem provided={provided} snapshot={snapshot} getStyle={getStyle} item={item} />
-        )}
-      </Draggable>
-    );
-  });
+  const cardEl =
+    cardList &&
+    cardList.map((item, index) => {
+      const { cardNo } = item;
+      return (
+        <Draggable key={`card-${cardNo}-${index}`} index={index} draggableId={`card-${cardNo}`}>
+          {(provided, snapshot) => (
+            <CardItem provided={provided} snapshot={snapshot} getStyle={getStyle} item={item} />
+          )}
+        </Draggable>
+      );
+    });
 
   return (
     <div className="trello-item-wrapper" onDragStart={(e) => dragStartHandler(e, trelloNo)}>
@@ -46,7 +48,7 @@ function TrelloItem({ getStyle, trello, cardList, dragHandleProps, dragStartHand
         ) : (
           <div className="card-form-button" onClick={() => setAdd(true)}>
             <MdAdd />
-            {cardList.length ? 'Add another card' : 'Add a card'}
+            {cardList && cardList.length ? 'Add another card' : 'Add a card'}
           </div>
         )}
       </div>

@@ -46,28 +46,14 @@
   }
 }
 
-li.card-item-wrapper {
-  width: 256px;
+.card-item-wrapper {
   position: relative;
-  padding: 6px 20px 6px 8px;
   margin-bottom: 8px;
-  background-color: var(--pure-white);
-  border-radius: 3px;
-  min-height: 3.2rem;
-  color: var(--dark-blue);
-  font-size: 1.4rem;
-  box-shadow: 0 1px 0 var(--box-shadow);
-  cursor: pointer;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 
-  .label {
-    @include label-color;
-    width: 50px;
-    height: 8px;
-    border-radius: 4px;
-    margin: 4px 0;
+  &:hover {
+    .card-edit {
+      opacity: 1;
+    }
   }
 
   .card-edit {
@@ -81,26 +67,62 @@ li.card-item-wrapper {
     height: 2.8rem;
     border-radius: 0.3rem;
     opacity: 0;
+    cursor: pointer;
+
+    &.popover-on {
+      opacity: 1;
+    }
 
     &:hover {
       svg {
-        color: var(--dark-blue);
+        color: var(--gray-blue);
       }
       background-color: #ebecf0;
     }
 
     svg {
-      color: #42526e;
+      color: var(--light-blue);
+      font-size: 16px;
     }
   }
 
-  &:hover {
-    background-color: #f4f5f7;
-    span {
-      color: #091e42;
+  li.card-item {
+    width: 256px;
+    position: relative;
+    padding: 6px 20px 6px 8px;
+    background-color: var(--pure-white);
+    border-radius: 3px;
+    min-height: 3.2rem;
+    color: var(--dark-blue);
+    font-size: 1.4rem;
+    box-shadow: 0 1px 0 var(--box-shadow);
+    cursor: pointer;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    .label {
+      @include label-color;
+      width: 50px;
+      height: 8px;
+      border-radius: 4px;
+      margin: 4px 0;
     }
-    .card-edit {
-      opacity: 1;
+
+    .description-exsist {
+      line-height: 0;
+      svg {
+        color: var(--gray-blue);
+        font-size: 18px;
+        margin-left: -2px;
+      }
+    }
+
+    &:hover {
+      background-color: #f4f5f7;
+      span {
+        color: #091e42;
+      }
     }
   }
 }
@@ -125,7 +147,7 @@ li.card-item-wrapper {
     cursor: pointer;
     font-size: 20px;
     font-weight: 100;
-    color: #42526e;
+    color: var(--gray-blue);
   }
 
   .card-title-textarea-wrapper {
@@ -138,7 +160,7 @@ li.card-item-wrapper {
     }
 
     svg {
-      color: #42526e;
+      color: var(--gray-blue);
       font-size: 20px;
       margin-right: 10px;
     }
@@ -160,12 +182,11 @@ li.card-item-wrapper {
   }
 
   .card-title-label-wrapper {
-    margin-left: 36px;
-    margin-top: 20px;
+    margin: 20px 30px;
     h4 {
       font-size: 12px;
       font-weight: 500;
-      color: #42526e;
+      color: var(--gray-blue);
     }
 
     .label-box-field {
@@ -184,7 +205,7 @@ li.card-item-wrapper {
       }
 
       .rectangle-btn {
-        color: #42526e;
+        color: var(--gray-blue);
         display: flex;
         align-items: center;
         border-radius: 0.3rem;
@@ -208,12 +229,12 @@ li.card-item-wrapper {
   }
 
   .card-title-description-wrapper {
-    margin-top: 20px;
+    margin: 20px 30px 0;
     .description-title {
       display: flex;
       align-items: center;
       svg {
-        color: #42526e;
+        color: var(--gray-blue);
         font-size: 20px;
         margin-right: 10px;
       }
@@ -221,20 +242,19 @@ li.card-item-wrapper {
       h3 {
         font-size: 16px;
         font-weight: 600;
-        color: #42526e;
+        color: var(--gray-blue);
       }
     }
 
     textarea.description-text-area {
       margin-top: 16px;
-      margin-left: 30px;
       padding: 8px 14px;
-      width: 512px;
+      width: 100%;
       min-height: 108px;
       background-color: rgba(55, 96, 167, 0.08);
 
       &::placeholder {
-        color: #42526e;
+        color: var(--gray-blue);
         font-weight: 400;
       }
 
@@ -270,10 +290,25 @@ li.card-item-wrapper {
         height: 22px;
         font-size: 20px;
         font-weight: 100;
-        color: #42526e;
+        color: var(--gray-blue);
         margin-left: 10px;
         cursor: pointer;
       }
+    }
+  }
+
+  .card-util-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    margin: 16px 30px 0;
+
+    .cancel {
+      width: 80px;
+    }
+
+    .green_submit {
+      width: 80px;
+      margin-left: 4px;
     }
   }
 }
@@ -290,7 +325,7 @@ li.card-item-wrapper {
 
   .label-choice-content {
     h4 {
-      color: #42526e;
+      color: var(--gray-blue);
     }
     .label-choice-box {
       @include label-color;
@@ -299,6 +334,26 @@ li.card-item-wrapper {
       border-radius: 3px;
       margin-top: 6px;
       cursor: pointer;
+    }
+  }
+}
+
+.card-delete-popover {
+  background-color: transparent;
+  .check-delete {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    height: 28px;
+    color: rgb(193, 193, 193);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+
+    &:hover {
+      color: rgb(225, 225, 225);
+      background-color: rgba(0, 0, 0, 0.7);
     }
   }
 }

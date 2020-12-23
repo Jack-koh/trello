@@ -24,6 +24,12 @@ const deleteTrelloItemSuccess = (draft, trelloNo) => {
   draft['loading'] = false;
 };
 
+const deleteCardItemSuccess = (draft, { trelloNo, cardNo }) => {
+  const item = draft.list.find((el) => el.trelloNo === trelloNo);
+  item.list = item.list.filter((el) => el.cardNo !== cardNo);
+  draft['loading'] = false;
+};
+
 const dragCardEnd = (draft, { item, source, destination }) => {
   if (source.trelloNo === destination.trelloNo) {
     const target = draft.list.find((el) => el.trelloNo === item.trelloNo);
@@ -33,10 +39,18 @@ const dragCardEnd = (draft, { item, source, destination }) => {
     const sourceTarget = draft.list.find((el) => el.trelloNo === source.trelloNo);
     const destTarget = draft.list.find((el) => el.trelloNo === destination.trelloNo);
 
-    sourceTarget['list'].splice(source.index, 1);
+    if (sourceTarget.list.length > 1) {
+      sourceTarget['list'].splice(source.index, 1);
+    } else {
+      draft.list = draft.list.filter((el) => el.trelloNo !== source.trelloNo);
+    }
+
     destTarget
       ? destTarget['list'].splice(destination.index, 0, { ...item, trelloNo: destination.trelloNo })
-      : (draft['list'] = [...draft.list, { trelloNo: destination.trelloNo, list: [item] }]);
+      : (draft['list'] = [
+          ...draft.list,
+          { trelloNo: destination.trelloNo, list: [{ ...item, trelloNo: destination.trelloNo }] },
+        ]);
   }
 };
 
@@ -57,6 +71,7 @@ export const reducer = (state = initialState, action) => {
       case type.UPDATE_CARD_START: updateCard(draft, action.item); break;
       case type.DELETE_TRELLO_ITEM_SUCCESS: return deleteTrelloItemSuccess(draft, action.trelloNo);
       case type.DRAG_CARD_END: return dragCardEnd(draft, action.payload);
+      case type.DELETE_CARD_ITEM_SUCCESS: return deleteCardItemSuccess(draft, action.payload);
       default: draft = state; break;
     }
   });

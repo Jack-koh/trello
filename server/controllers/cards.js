@@ -89,3 +89,21 @@ exports.update = async (req, res, next) => {
     next(err)
   }
 }
+
+exports.delete = async (req, res, next) => {
+  const { trelloNo, cardNo } = req.query
+
+  try {
+    await db.query(`DELETE FROM cards WHERE card_no = ${cardNo}`)
+    const cardOrderQuery = await db.query(`SELECT * FROM cards_order WHERE trello_no = '${trelloNo}'`)
+    const cardOrder = cardOrderQuery.rows[0]
+    const orderArr = cardOrder.list_order.split(',')
+    const updateOrder = orderArr.filter((no) => +no !== +cardNo)
+    await db.query(`UPDATE cards_order SET list_order = '${updateOrder.join()}' WHERE trello_no = ${trelloNo}`) // prettier-ignore
+
+    res.status(200).json({ message: 'Card delete success!', cardNo: +cardNo })
+  } catch (err) {
+    if (!err.statusCode) err.statusCode = 500
+    next(err)
+  }
+}

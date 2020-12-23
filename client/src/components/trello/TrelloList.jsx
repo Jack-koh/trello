@@ -51,6 +51,7 @@ function TrelloList() {
   const trelloEl = trelloList.map((trello, index) => {
     const { trelloNo } = trello;
     const find = cardList.find((card) => card.trelloNo === trello.trelloNo);
+
     return (
       <Draggable
         key={`trello-${trelloNo}-${index}`}

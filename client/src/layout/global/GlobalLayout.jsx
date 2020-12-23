@@ -1,10 +1,10 @@
-import React from 'react'
-import SideBar from 'components/main/sideBar/SideBar'
-import './GlobalLayout.scss'
+import React from 'react';
+import SideBar from 'components/main/sideBar/SideBar';
+import './GlobalLayout.scss';
 
-import GlobalLoading from './loading/GlobalLoading'
-import HeaderLeft from './left/HeaderLeft'
-import HeaderRight from './right/HeaderRight'
+import GlobalLoading from './loading/GlobalLoading';
+import HeaderLeft from './left/HeaderLeft';
+import HeaderRight from './right/HeaderRight';
 
 const GlobalLayout = ({ children, mode }) => {
   return (
@@ -26,7 +26,7 @@ const GlobalLayout = ({ children, mode }) => {
         children
       )}
     </>
-  )
-}
+  );
+};
 
-export default GlobalLayout
+export default GlobalLayout;
