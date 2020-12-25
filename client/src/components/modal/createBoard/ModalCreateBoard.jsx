@@ -14,18 +14,18 @@ function ModalCreateBoard({ closeHandler, history }) {
   const onCreateBoard = (payload) => dispatch(actions.createBoardItemStart(payload));
 
   const [boardTitle, setBoardTitle] = useState('');
-  const [bgName, setBgName] = useState('bg_forest');
+  const [bgName, setBgName] = useState('bg-forest');
 
   const backgroundList = [
-    { type: 'image', name: 'bg_forest' },
-    { type: 'image', name: 'bg_sandcave' },
-    { type: 'image', name: 'bg_bird' },
-    { type: 'image', name: 'bg_mountain' },
+    { type: 'image', name: 'bg-forest' },
+    { type: 'image', name: 'bg-sandcave' },
+    { type: 'image', name: 'bg-bird' },
+    { type: 'image', name: 'bg-mountain' },
     { type: 'color', name: 'bg-blue' },
     { type: 'color', name: 'bg-yellow' },
     { type: 'color', name: 'bg-green' },
     { type: 'color', name: 'bg-brown' },
-    { type: 'color', name: 'bg-brown' },
+    { type: 'color', name: 'bg-pink' },
   ];
 
   const createBoardSubmit = async (e) => {

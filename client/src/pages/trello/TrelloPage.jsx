@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { MdStarBorder, MdStar } from 'react-icons/md';
+import { MdClose, MdStarBorder, MdStar } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
 import * as actions from 'store/actions';
 import classNames from 'classnames';
@@ -29,6 +29,7 @@ function TrelloPage() {
   };
   const [defaultBoard, setDefaultBoard] = useState(initialBoard);
   const [board, setBoard] = useState(initialBoard);
+  const [bgModify, setbgModify] = useState(false);
   const { title, boardNo, backgroundName } = board;
 
   useEffect(() => {
@@ -72,6 +73,29 @@ function TrelloPage() {
     setTitleFocus(false);
   };
 
+  const updateBoardBackgroundHandler = (backgroundName) => {
+    if (backgroundName !== defaultBoard.backgroundName) {
+      const payload = { ...board, backgroundName };
+      setBoard(payload);
+      setDefaultBoard(payload);
+      onUpdateBoard(payload);
+      localStorage.setItem('trello', JSON.stringify(payload));
+    }
+    setTitleFocus(false);
+  };
+
+  const backgroundList = [
+    { type: 'image', name: 'bg-forest' },
+    { type: 'image', name: 'bg-sandcave' },
+    { type: 'image', name: 'bg-bird' },
+    { type: 'image', name: 'bg-mountain' },
+    { type: 'color', name: 'bg-blue' },
+    { type: 'color', name: 'bg-yellow' },
+    { type: 'color', name: 'bg-green' },
+    { type: 'color', name: 'bg-brown' },
+    { type: 'color', name: 'bg-pink' },
+  ];
+
   return (
     <GlobalLayout mode="trello">
       <div id="trello-screen" className={classNames({ [backgroundName]: backgroundName })}>
@@ -97,7 +121,6 @@ function TrelloPage() {
                 {title}
               </div>
             </div>
-            <div className="trello-trans-box">Invite</div>
             <div
               className={classNames('trello-favorite', { favorite: favorite })}
               onClick={() => setFavorite(!favorite)}
@@ -105,22 +128,57 @@ function TrelloPage() {
               {favorite ? <MdStar /> : <MdStarBorder />}
             </div>
           </div>
-          <Popover
-            position="bottom right"
-            clickOutside
-            content={<Popover_DeleteBoard boardNo={boardNo} title={title} />}
-          >
-            <div className="trello-menu">
-              <div className="trello-trans-box">Delete Board</div>
+
+          <div className="trello-menu">
+            <div className="trello-trans-box" onClick={() => setbgModify(!bgModify)}>
+              Change background
             </div>
-          </Popover>
+            <Popover
+              position="bottom right"
+              clickOutside
+              content={<Popover_DeleteBoard boardNo={boardNo} title={title} />}
+            >
+              <div className="trello-trans-box">Delete Board</div>
+            </Popover>
+          </div>
         </section>
 
-        <section id="trello-content-ref" className="trello-content" onMouseDown={mounseDownHandler}>
+        <section className="trello-content" onMouseDown={mounseDownHandler}>
           <div id="trello-items">
             <TrelloList />
             <CreateTrello />
           </div>
+        </section>
+
+        <section id="background-change-field" className={classNames({ show: bgModify })}>
+          <div className="bg-change-head">
+            Photos by
+            <a
+              href="https://unsplash.com/?utm_source=trello&utm_medium=referral&utm_campaign=api-credit"
+              target="_blank"
+            >
+              {`Unsplash`}
+            </a>
+            <div className="close-button">
+              <MdClose onClick={() => setbgModify(false)} />
+            </div>
+          </div>
+          <hr />
+
+          <ul className="background-list-field">
+            {backgroundList.map((item, i) => {
+              return (
+                <li key={i}>
+                  <div
+                    className={classNames('background-item', { [item.name]: item.name })}
+                    onClick={() => updateBoardBackgroundHandler(item.name)}
+                  >
+                    <div className="background-name">{item.name}</div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </section>
       </div>
     </GlobalLayout>

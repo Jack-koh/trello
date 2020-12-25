@@ -18,7 +18,10 @@
 .bg-brown {
   background-color: #b04632;
 }
-.bg_gray {
+.bg-pink {
+  background-color: #cd5a91;
+}
+.bg-gray {
   background-color: rgba(9, 30, 66, 0.08);
 }
 
@@ -26,16 +29,16 @@
   @return center / cover no-repeat $image;
 }
 
-.bg_forest {
+.bg-forest {
   background: background(url('/images/backgrounds/bg_forest.jpeg'));
 }
-.bg_sandcave {
+.bg-sandcave {
   background: background(url('/images/backgrounds/bg_sandcave.jpeg'));
 }
-.bg_bird {
+.bg-bird {
   background: background(url('/images/backgrounds/bg_bird.jpeg'));
 }
-.bg_mountain {
+.bg-mountain {
   background: background(url('/images/backgrounds/bg_mountain.jpeg'));
 }
 

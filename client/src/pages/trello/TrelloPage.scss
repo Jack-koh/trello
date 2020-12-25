@@ -1,3 +1,9 @@
+@mixin display-flex($align, $justify) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
+
 @mixin trello-header_div {
   color: var(--pure-white);
   height: 3.2rem;
@@ -21,6 +27,7 @@
 }
 
 #trello-screen {
+  position: relative;
   height: 100%;
   padding-top: 4rem;
   display: flex;
@@ -88,6 +95,7 @@
     }
 
     .trello-menu {
+      @include display-flex(initial, initial);
       > div {
         @include trello-header_div;
       }
@@ -103,6 +111,7 @@
     flex: 1;
     overflow-x: auto;
     padding-bottom: 0.8rem;
+    overflow: hidden;
 
     #trello-items {
       min-height: 400px;
@@ -110,6 +119,118 @@
       display: flex;
       padding: 0 0.4rem;
       margin-top: 0.4rem;
+    }
+  }
+
+  #background-change-field {
+    position: absolute;
+    right: -340px;
+    top: 40px;
+    width: 340px;
+    height: calc(100% - 40px);
+    background-color: #fff;
+    box-shadow: 0 12px 24px -6px rgba(9, 30, 66, 0.25), 0 0 0 1px rgba(9, 30, 66, 0.08);
+    transition: right 0.2s ease-out;
+
+    &.show {
+      right: 0;
+    }
+
+    .bg-change-head {
+      @include display-flex(center, center);
+      height: 48px;
+      padding: 0 6px 0 12px;
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #172b4d;
+
+      a {
+        color: #172b4d;
+        text-decoration: underline;
+        margin-left: 4px;
+      }
+
+      .close-button {
+        @include display-flex(center, center);
+        position: absolute;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+
+        svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    hr {
+      width: calc(100% - 18px);
+      background-color: rgba(9, 30, 66, 0.13);
+      border: 0;
+      height: 1px;
+      margin: 0 6px 0 12px;
+      padding: 0;
+    }
+
+    ul.background-list-field {
+      @include display-flex(initial, space-between);
+      flex-wrap: wrap;
+      width: 100%;
+      padding: 12px 6px 12px 12px;
+      overflow: auto;
+
+      li {
+        width: 49%;
+        height: 80px;
+        padding-bottom: 4px;
+
+        .background-item {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          border-radius: 3px;
+          cursor: pointer;
+          overflow: hidden;
+
+          .background-name {
+            @include display-flex(center, initial);
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 24px;
+            text-indent: 6px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            z-index: 2;
+            opacity: 0;
+
+            &:hover {
+              background-color: rgba(0, 0, 0, 0.5);
+            }
+          }
+
+          &:hover {
+            .background-name {
+              opacity: 1;
+            }
+            &::before {
+              content: '';
+              display: block;
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              left: 0;
+              top: 0;
+              z-index: 1;
+              background-color: rgba(255, 255, 255, 0.1);
+              transition: opacity 0.2s ease;
+            }
+          }
+        }
+      }
     }
   }
 }
