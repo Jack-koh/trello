@@ -1,7 +1,7 @@
 import React from 'react';
-import './Modal_CreateBoard.scss';
+import './CreatBoard.scss';
 
-function Modal_CreateBoard({ openHandler }) {
+function CreatBoard({ openHandler }) {
   return (
     <li className="create_board bg-gray">
       <div onClick={openHandler}>
@@ -14,4 +14,4 @@ function Modal_CreateBoard({ openHandler }) {
   );
 }
 
-export default Modal_CreateBoard;
+export default CreatBoard;

@@ -1,43 +1,42 @@
 const db = require('../db')
 
 exports.get = async (req, res, next) => {
-  const { boardNo } = req.query
+  const { boardNo, searchText } = req.query
   try {
-    const trelloQuery = await db.query(`SELECT * FROM trellos WHERE board_no = '${boardNo}'`)
-    const trelloOrderQuery = await db.query(`SELECT * FROM trellos_order WHERE board_no = '${boardNo}'`)
-
+    let trelloQueryText = `SELECT * FROM trellos WHERE board_no = '${boardNo}'`
+    if (searchText) trelloQueryText = trelloQueryText + ` AND title LIKE '%${searchText}%'`
+    const trelloQuery = await db.query(trelloQueryText)
     const trelloList = trelloQuery.rows
+
+    const trelloOrderQuery = await db.query(`SELECT * FROM trellos_order WHERE board_no = '${boardNo}' `)
     const trelloOrder = trelloOrderQuery.rows[0]
     let trellos = []
     if (trelloOrder.list_order) {
       const orderArr = trelloOrder.list_order.split(',')
       orderArr.forEach((trelloNo) => {
-        const find = trelloList.find((trello) => trello.trello_no === +trelloNo)
-        trellos = [
-          ...trellos,
-          { trelloNo: find.trello_no, title: find.title, regDate: find.reg_date, boardNo: find.board_no },
-        ]
+        const find = trelloList.find((trello) => trello?.trello_no === +trelloNo)
+        if (find) {
+          trellos = [
+            ...trellos,
+            { trelloNo: find.trello_no, title: find.title, regDate: find.reg_date, boardNo: find.board_no },
+          ]
+        }
       })
     }
 
     const cardQuery = await db.query(
-      `SELECT
-      cards.card_no,
-      cards.title,
-      cards.label,
-      cards.description,
-      cards.reg_date,
-      cards.trello_no 
-      FROM cards
-      LEFT JOIN trellos
+      `SELECT * FROM cards
+      INNER JOIN trellos
       ON trellos.board_no = '${boardNo}'
-      AND cards.trello_no = trellos.trello_no`
+      AND cards.trello_no = trellos.trello_no
+      AND trellos.title LIKE '%${searchText}%'`
     )
+
     const cardOrderQuery = await db.query(
       `SELECT
       cards_order.trello_no,
       list_order FROM cards_order
-      LEFT JOIN trellos
+      INNER JOIN trellos
       ON trellos.board_no = '${boardNo}'
       AND cards_order.trello_no = trellos.trello_no`
     )
@@ -50,22 +49,23 @@ exports.get = async (req, res, next) => {
       if (target.list_order) {
         const orderArr = target.list_order.split(',')
         orderArr.forEach((cardNo) => {
-          const find = cardList.find((item) => item.card_no === +cardNo)
-          const dataIndex = cards.findIndex((data) => data.trelloNo === find.trello_no)
+          const find = cardList.find((item) => item?.card_no === +cardNo)
+          if (find) {
+            const dataIndex = cards.findIndex((data) => data.trelloNo === find.trello_no)
+            const insertData = {
+              cardNo: find.card_no,
+              title: find.title,
+              label: find.label,
+              description: find.description,
+              regDate: find.reg_date,
+              trelloNo: find.trello_no,
+            }
 
-          const insertData = {
-            cardNo: find.card_no,
-            title: find.title,
-            label: find.label,
-            description: find.description,
-            regDate: find.reg_date,
-            trelloNo: find.trello_no,
-          }
-
-          if (dataIndex > -1) {
-            cards[dataIndex].list = [...cards[dataIndex].list, insertData]
-          } else {
-            cards = [...cards, { trelloNo: find.trello_no, list: [insertData] }]
+            if (dataIndex > -1) {
+              cards[dataIndex].list = [...cards[dataIndex].list, insertData]
+            } else {
+              cards = [...cards, { trelloNo: find.trello_no, list: [insertData] }]
+            }
           }
         })
       }

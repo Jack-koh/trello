@@ -4,6 +4,7 @@ import produce from 'immer';
 const initialState = {
   list: [],
   loading: false,
+  searchText: '',
 };
 
 const createTrelloItemSuccess = (draft, item) => {
@@ -34,6 +35,7 @@ export const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     // prettier-ignore
     switch (action.type) {
+      case type.SET_TRELLO_SEARCH_TEXT: draft['searchText'] = action.searchText; break;
       case type.SET_TRELLO_ITEM_TITLE: setTitle(draft, action.payload); break;
       case type.INIT_TRELLO_LIST: draft['list'] = []; break;
       case type.GET_TRELLO_LIST_SUCCESS: draft['list'] = action.list; break;

@@ -19,7 +19,6 @@ function TrelloPage() {
   const onUpdateBoard = useCallback((item) => dispatch(actions.updateBoardItemStart(item)), [dispatch]); // prettier-ignore
   const unMount = useCallback(() => dispatch(actions.initTrelloList()), [dispatch]);
   const inputRef = useRef();
-  const [favorite, setFavorite] = useState(false);
   const [titleFocus, setTitleFocus] = useState(false);
   const initialBoard = {
     title: '',
@@ -84,6 +83,13 @@ function TrelloPage() {
     setTitleFocus(false);
   };
 
+  const updateFavoriteHandler = () => {
+    const payload = { ...board, favorite: !board.favorite };
+    localStorage.setItem('trello', JSON.stringify(payload));
+    setBoard(payload);
+    onUpdateBoard(payload);
+  };
+
   const backgroundList = [
     { type: 'image', name: 'bg-forest' },
     { type: 'image', name: 'bg-sandcave' },
@@ -122,10 +128,10 @@ function TrelloPage() {
               </div>
             </div>
             <div
-              className={classNames('trello-favorite', { favorite: favorite })}
-              onClick={() => setFavorite(!favorite)}
+              className={classNames('board-favorite', { favorite: board.favorite })}
+              onClick={updateFavoriteHandler}
             >
-              {favorite ? <MdStar /> : <MdStarBorder />}
+              {board.favorite ? <MdStar /> : <MdStarBorder />}
             </div>
           </div>
 

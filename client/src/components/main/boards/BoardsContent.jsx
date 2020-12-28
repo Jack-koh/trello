@@ -3,7 +3,7 @@ import { MdPersonOutline } from 'react-icons/md';
 import { Modal } from 'components/custom';
 import ModalCreateBoard from 'components/modal/createBoard/ModalCreateBoard';
 import BoardsList from 'components/main/boards/list/BoardsList';
-import CreateBoard from 'components/main/boards/modal/Modal_CreateBoard';
+import CreateBoard from 'components/main/boards/modal/CreatBoard';
 import './BoardsContent.scss';
 
 function BoardsContent() {

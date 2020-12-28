@@ -3,8 +3,10 @@ import { put, select } from 'redux-saga/effects';
 import * as actions from 'store/actions';
 
 export function* getTrelloList({ boardNo }) {
+  const searchText = yield select((state) => state.trello.searchText);
+
   try {
-    const response = yield axios.get('trellos/get', { params: { boardNo } });
+    const response = yield axios.get('trellos/get', { params: { boardNo, searchText } });
     const { trelloList, cardList } = response.data;
     yield put(actions.getTrelloListSuccess(trelloList));
     yield put(actions.getCardListSuccess(cardList));

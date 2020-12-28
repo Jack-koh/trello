@@ -42,38 +42,32 @@
     @include lectangle_btn;
     display: flex;
 
-    .board-btn {
-      @include common_button;
-      width: 8.4rem;
-      font-weight: 700;
-      font-size: 1.4rem;
-      justify-content: space-around;
-      padding: 0 0.6rem;
-      box-sizing: border-box;
-
-      svg {
-        width: 2rem;
-        height: 2rem;
-      }
-    }
-
     .search-input-wrap {
       position: relative;
 
       .search-input {
-        width: 18rem;
-        height: 3.2rem;
-        font-size: 1.3rem;
-        color: var(--dark-blue);
-        padding-left: 0.8rem;
-        background-color: hsla(0, 0%, 100%, 0.3);
-        border-radius: 0.5rem;
-        transition: all 0.1s;
+        &.active {
+          input {
+            color: var(--pure-white);
+          }
+        }
 
-        &:focus {
-          width: 28rem;
-          background-color: var(--pure-white);
-          padding-right: 5.4rem;
+        input {
+          width: 14rem;
+          height: 3.2rem;
+          font-size: 1.3rem;
+          color: var(--dark-blue);
+          padding: 0 0.8rem;
+          background-color: hsla(0, 0%, 100%, 0.3);
+          border-radius: 0.5rem;
+          transition: all 0.1s;
+          border: none;
+
+          &:focus {
+            width: 16rem;
+            color: var(--dark-blue);
+            background-color: var(--pure-white);
+          }
         }
       }
 
@@ -84,7 +78,16 @@
         right: 0.6rem;
         top: 0.6rem;
         color: var(--pure-white);
-        cursor: pointer;
+
+        &.search-icon {
+          cursor: text;
+          z-index: -1;
+        }
+
+        &.close-icon {
+          cursor: pointer;
+          z-index: 1;
+        }
       }
     }
   }

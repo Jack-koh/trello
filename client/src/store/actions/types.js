@@ -7,6 +7,7 @@ export const LOGIN_SUCCESS = 'auth/LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'auth/LOGIN_FAIL';
 export const LOGOUT = 'auth/LOGOUT';
 
+export const SET_BOARD_SEARCH_TEXT = 'board/SET_BOARD_SEARCH_TEXT';
 export const GET_BOARD_LIST_START = 'board/GET_BOARD_LIST_START';
 export const GET_BOARD_LIST_SUCCESS = 'board/GET_BOARD_LIST_SUCCESS';
 export const CREATE_BOARD_ITEM_START = 'board/CREATE_BOARD_ITEM_START';
@@ -17,6 +18,7 @@ export const DELETE_BOARD_ITEM_START = 'board/DELETE_BOARD_ITEM_START';
 export const DELETE_BOARD_ITEM_SUCCESS = 'board/DELETE_BOARD_ITEM_SUCCESS';
 export const INIT_BOARD_LIST = 'board/INIT_BOARD_LIST';
 
+export const SET_TRELLO_SEARCH_TEXT = 'trello/SET_TRELLO_SEARCH_TEXT';
 export const INIT_TRELLO_LIST = 'trello/INIT_TRELLO_LIST';
 export const SET_TRELLO_ITEM_TITLE = 'trello/SET_TRELLO_ITEM_TITLE';
 export const CREATE_TRELLO_ITEM_START = 'trello/CREATE_TRELLO_ITEM_START';

@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './GlobalLoading.scss';
 
 function GlobalLoading() {
   const loading = useSelector((state) => state.loading.progress);
   return (
-    <>
+    <Link to="/main/board">
       {loading ? (
         <div className="logo-animation-wrapper">
           <div className="logo-animation">
@@ -18,7 +19,7 @@ function GlobalLoading() {
       ) : (
         <div className="logo" />
       )}
-    </>
+    </Link>
   );
 }
 

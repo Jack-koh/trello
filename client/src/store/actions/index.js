@@ -1,5 +1,6 @@
 export { resetError, loginStart, loginSuccess, loginFail, authCheck, logout } from './auth';
 export {
+  setBoardSearchText,
   getBoardListStart,
   getBoardListSuccess,
   createBoardItemStart,
@@ -12,6 +13,7 @@ export {
 } from './board';
 
 export {
+  setTrelloSearchText,
   setTrelloItemTitle,
   initTrelloList,
   getTrelloListStart,

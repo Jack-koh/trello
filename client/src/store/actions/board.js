@@ -1,5 +1,9 @@
 import * as type from 'store/actions/types';
 
+export const setBoardSearchText = (searchText) => {
+  return { type: type.SET_BOARD_SEARCH_TEXT, searchText };
+};
+
 export const getBoardListStart = () => {
   return { type: type.GET_BOARD_LIST_START };
 };

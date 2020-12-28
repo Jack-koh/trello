@@ -1,12 +1,13 @@
-import { put } from 'redux-saga/effects';
+import { put, select } from 'redux-saga/effects';
 import axios from 'axios';
 import history from 'shared/history';
 import * as actions from 'store/actions';
 
 export function* getBoardList() {
   const { userNo } = JSON.parse(localStorage.getItem('user-data'));
+  const searchText = yield select((state) => state.board.searchText);
   try {
-    const response = yield axios.get('boards/get', { params: { userNo } });
+    const response = yield axios.get('boards/get', { params: { userNo, searchText } });
 
     yield put(actions.getBoardListSuccess(response.data.list));
   } catch (err) {

@@ -17,6 +17,7 @@ export const Input = ({
   validType,
   onChange,
   onBlur,
+  onFocus,
   onKeyEnter,
   error: errorProps,
   clearError,
@@ -142,6 +143,9 @@ export const Input = ({
         disabled={disabled}
         style={lineHeight}
         onKeyPress={(e) => keyPressHandler(e)}
+        onFocus={() => {
+          if (onFocus) onFocus();
+        }}
         onBlur={(e) => {
           if (onBlur) onBlur();
           if (validType === 'blur' && rules && !disabled)
