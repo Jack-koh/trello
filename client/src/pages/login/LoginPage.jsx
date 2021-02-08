@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
-import * as actions from 'store/actions';
+import { authActions } from 'store/actions';
 import { Input } from 'components/custom';
 import { validation } from 'context';
 import './LoginPage.scss';
@@ -11,8 +11,8 @@ function LoginPage() {
   const history = useHistory();
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const onLogin = (payload) => dispatch(actions.loginStart(payload));
-  const resetError = (payload) => dispatch(actions.resetError(payload));
+  const onLogin = (payload) => dispatch(authActions.login(payload));
+  const resetError = (payload) => dispatch(authActions.resetError(payload));
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -46,7 +46,7 @@ function LoginPage() {
         <ValidatorProvider form onSubmit={loginSubmit}>
           <Input
             placeholder="Enter email"
-            rules={['required']}
+            rules={['required', 'email']}
             error={auth.errorMessage === emailError && auth.errorMessage}
             onChange={(event) => {
               setEmail(event.target.value);

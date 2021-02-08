@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 import { Button } from 'components/custom';
 import classNames from 'classnames';
-import _ from 'shared/commonFunc';
+import _ from 'lodash';
 
 const getErrorElements = (target) => {
   return new Promise((resolve) => {
@@ -57,7 +57,6 @@ export const ValidatorProvider = ({ onSubmit, form, children }) => {
           className="validator__form"
           onSubmit={(e) => {
             e.preventDefault();
-            setExcute(true);
           }}
         >
           {children}

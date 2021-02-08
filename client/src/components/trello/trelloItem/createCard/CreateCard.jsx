@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { cardActions } from 'store/actions';
 import { MdClose } from 'react-icons/md';
 import { Button, TextArea } from 'components/custom';
 import './CreateCard.scss';
 
 function CreateCard({ trello, closeHandler, loading }) {
   const dispatch = useDispatch();
-  const onCreateCard = (payload) => dispatch(actions.createCardStart(payload));
+  const onCreateCard = (payload) => dispatch(cardActions.create(payload));
 
   const { trelloNo } = trello;
   const [title, setTitle] = useState('');

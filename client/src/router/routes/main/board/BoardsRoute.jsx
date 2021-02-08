@@ -1,6 +1,6 @@
-import React from 'react'
-import { Switch, Route, Redirect } from 'react-router-dom'
-import BoardsPage from 'pages/main/boads/BoardsPage'
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import BoardsPage from 'pages/main/boads/BoardsPage';
 
 function BoardsRoute() {
   return (
@@ -8,7 +8,7 @@ function BoardsRoute() {
       <Route exact path="/main/board" component={BoardsPage} />
       <Redirect to="/main/board" />
     </Switch>
-  )
+  );
 }
 
-export default BoardsRoute
+export default BoardsRoute;

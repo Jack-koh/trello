@@ -1,78 +1,100 @@
-import * as type from 'store/actions/types';
-import produce from 'immer';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { trelloActions } from 'store/actions';
 
 const initialState = {
   list: [],
   loading: false,
 };
 
-const getCardListSuccess = (draft, list) => {
-  draft['list'] = list;
-  draft['loading'] = false;
-};
+const create = createAsyncThunk('cards/create', async ({ trelloNo, title }) => {
+  const response = await axios.post('cards/create', { trelloNo, title });
+  return response.data.item;
+});
 
-const createCardSuccess = (draft, item) => {
-  const target = draft.list.find((cards) => cards.trelloNo === item.trelloNo);
-  target
-    ? (target['list'] = [...target.list, item])
-    : (draft['list'] = [...draft.list, { trelloNo: item.trelloNo, list: [item] }]);
-  draft['loading'] = false;
-};
+const drag = createAsyncThunk('cards/drag', async ({ item, source, destination }) => {
+  await axios.put('cards/drag', { item, source, destination });
+  return { item, source, destination };
+});
 
-const deleteTrelloItemSuccess = (draft, trelloNo) => {
-  draft['list'] = draft.list.filter((el) => el.trelloNo !== trelloNo);
-  draft['loading'] = false;
-};
+const update = createAsyncThunk('cards/update', async (payload) => {
+  await axios.put('cards/update', payload);
+  return payload;
+});
 
-const deleteCardItemSuccess = (draft, { trelloNo, cardNo }) => {
-  const item = draft.list.find((el) => el.trelloNo === trelloNo);
-  item.list = item.list.filter((el) => el.cardNo !== cardNo);
-  draft['loading'] = false;
-};
+const deleteCard = createAsyncThunk('cards/delete', async ({ trelloNo, cardNo }) => {
+  await axios.delete('cards/delete', { params: { trelloNo, cardNo } });
+  return { trelloNo, cardNo };
+});
 
-const dragCardEnd = (draft, { item, source, destination }) => {
-  if (source.trelloNo === destination.trelloNo) {
-    const target = draft.list.find((el) => el.trelloNo === item.trelloNo);
-    target['list'].splice(source.index, 1);
-    target['list'].splice(destination.index, 0, item);
-  } else {
-    const sourceTarget = draft.list.find((el) => el.trelloNo === source.trelloNo);
-    const destTarget = draft.list.find((el) => el.trelloNo === destination.trelloNo);
+export const cardSlice = createSlice({
+  name: 'card',
+  initialState,
+  reducers: {
+    initList: (state) => {
+      state['list'] = [];
+    },
+  },
+  extraReducers: {
+    [create.pending]: (state) => {
+      state['loading'] = true;
+    },
+    [create.fulfilled]: (state, { payload }) => {
+      const target = state.list.find((cards) => cards.trelloNo === payload.trelloNo);
+      target
+        ? (target['list'] = [...target.list, payload])
+        : (state['list'] = [...state.list, { trelloNo: payload.trelloNo, list: [payload] }]);
+      state['loading'] = false;
+    },
+    [update.pending]: (state, { meta: { arg } }) => {
+      const trelloIndex = state.list.findIndex((trello) => trello.trelloNo === arg.trelloNo);
+      let cardIndex = state.list[trelloIndex].list.findIndex((card) => card.cardNo === arg.cardNo);
+      state.list[trelloIndex].list[cardIndex] = arg;
+    },
+    [drag.pending]: (state, { meta: { arg } }) => {
+      const { item, source, destination } = arg;
+      if (source.trelloNo === destination.trelloNo) {
+        const target = state.list.find((el) => el.trelloNo === item.trelloNo);
+        target['list'].splice(source.index, 1);
+        target['list'].splice(destination.index, 0, item);
+      } else {
+        const sourceTarget = state.list.find((el) => el.trelloNo === source.trelloNo);
+        const destTarget = state.list.find((el) => el.trelloNo === destination.trelloNo);
 
-    if (sourceTarget.list.length > 1) {
-      sourceTarget['list'].splice(source.index, 1);
-    } else {
-      draft.list = draft.list.filter((el) => el.trelloNo !== source.trelloNo);
-    }
+        if (sourceTarget.list.length > 1) {
+          sourceTarget['list'].splice(source.index, 1);
+        } else {
+          state.list = state.list.filter((el) => el.trelloNo !== source.trelloNo);
+        }
 
-    destTarget
-      ? destTarget['list'].splice(destination.index, 0, { ...item, trelloNo: destination.trelloNo })
-      : (draft['list'] = [
-          ...draft.list,
-          { trelloNo: destination.trelloNo, list: [{ ...item, trelloNo: destination.trelloNo }] },
-        ]);
-  }
-};
+        destTarget
+          ? destTarget['list'].splice(destination.index, 0, {
+              ...item,
+              trelloNo: destination.trelloNo,
+            })
+          : (state['list'] = [
+              ...state.list,
+              {
+                trelloNo: destination.trelloNo,
+                list: [{ ...item, trelloNo: destination.trelloNo }],
+              },
+            ]);
+      }
+    },
+    [deleteCard.fulfilled]: (state, { payload }) => {
+      const { trelloNo, cardNo } = payload;
+      const item = state.list.find((el) => el.trelloNo === trelloNo);
+      item.list = item.list.filter((el) => el.cardNo !== cardNo);
+      state['loading'] = false;
+    },
+    [trelloActions.deleteTrello]: (state, { payload }) => {
+      state['list'] = state.list.filter((el) => el.trelloNo !== payload);
+      state['loading'] = false;
+    },
+    [trelloActions.get.fulfilled]: (state, { payload }) => {
+      state['list'] = payload.cardList;
+    },
+  },
+});
 
-const updateCard = (draft, item) => {
-  const trelloIndex = draft.list.findIndex((trello) => trello.trelloNo === item.trelloNo);
-  let cardIndex = draft.list[trelloIndex].list.findIndex((card) => card.cardNo === item.cardNo);
-  draft.list[trelloIndex].list[cardIndex] = item;
-};
-
-export const reducer = (state = initialState, action) => {
-  return produce(state, (draft) => {
-    // prettier-ignore
-    switch (action.type) {
-      case type.INIT_CARD_LIST: draft['list'] = []; break;
-      case type.GET_CARD_LIST_SUCCESS: getCardListSuccess(draft, action.list); break;
-      case type.CREATE_CARD_START: draft['loading'] = true; break;
-      case type.CREATE_CARD_SUCCESS: createCardSuccess(draft, action.item); break;
-      case type.UPDATE_CARD_START: updateCard(draft, action.item); break;
-      case type.DELETE_TRELLO_ITEM_SUCCESS: return deleteTrelloItemSuccess(draft, action.trelloNo);
-      case type.DRAG_CARD_END: return dragCardEnd(draft, action.payload);
-      case type.DELETE_CARD_ITEM_SUCCESS: return deleteCardItemSuccess(draft, action.payload);
-      default: draft = state; break;
-    }
-  });
-};
+export const cardActions = { ...cardSlice.actions, create, drag, deleteCard, update };

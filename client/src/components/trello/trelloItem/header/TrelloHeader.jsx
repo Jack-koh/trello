@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { trelloActions } from 'store/actions';
 import { MdMoreHoriz } from 'react-icons/md';
 import { Popover, TextArea } from 'components/custom';
 import Popover_Trello from 'components/trello/trelloItem/popover/Popover_Trello';
@@ -8,8 +8,8 @@ import './TrelloHeader.scss';
 
 function TrelloHeader({ trello, dragHandleProps }) {
   const dispatch = useDispatch();
-  const onUpdateTitle = (payload) => dispatch(actions.updateTrelloItemStart(payload));
-  const onSetTitle = (payload) => dispatch(actions.setTrelloItemTitle(payload));
+  const onUpdateTitle = (payload) => dispatch(trelloActions.update(payload));
+  const onSetTitle = (payload) => dispatch(trelloActions.setTitle(payload));
 
   const { trelloNo, boardNo, title } = trello;
   const textAreaRef = useRef();

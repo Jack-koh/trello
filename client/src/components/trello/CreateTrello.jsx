@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { trelloActions } from 'store/actions';
 import './CreateTrello.scss';
 import { MdAdd, MdClose } from 'react-icons/md';
 import { Button } from 'components/custom';
@@ -9,7 +9,7 @@ function CreateTrello() {
   const loading = useSelector((state) => state.trello.loading);
   const trelloList = useSelector((state) => state.trello.list);
   const dispatch = useDispatch();
-  const onCreateTrello = (payload) => dispatch(actions.createTrelloStart(payload));
+  const onCreateTrello = (payload) => dispatch(trelloActions.create(payload));
 
   const [showForm, setShowForm] = useState(false);
   const [title, setTitle] = useState('');

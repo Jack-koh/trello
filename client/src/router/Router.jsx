@@ -1,7 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import * as actions from 'store/actions';
+import { authActions } from 'store/actions';
 
 import LoginPage from 'pages/login/LoginPage';
 import SignupPage from 'pages/signup/SignupPage';
@@ -23,7 +23,7 @@ export default Router;
 const AuthRoute = ({ exact, path, component: Component }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const autoAuthCheck = useCallback(() => dispatch(actions.authCheck()), [dispatch]);
+  const autoAuthCheck = useCallback(() => dispatch(authActions.authCheck()), [dispatch]);
 
   useEffect(() => {
     autoAuthCheck();

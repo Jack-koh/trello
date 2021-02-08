@@ -1,7 +1,7 @@
-import { enableES5 } from 'immer';
-export { reducer as authReducer } from './auth';
-export { reducer as boardReducer } from './board';
-export { reducer as trelloReducer } from './trello';
-export { reducer as loadingReducer } from './loading';
-export { reducer as cardReducer } from './card';
-enableES5();
+// import { enableES5 } from 'immer';
+export { loadingSlice } from './loading';
+export { authSlice } from './auth';
+export { boardSlice } from './board';
+export { trelloSlice } from './trello';
+export { cardSlice } from './card';
+// enableES5();

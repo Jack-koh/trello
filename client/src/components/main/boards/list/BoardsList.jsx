@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import * as actions from 'store/actions';
+import { boardActions } from 'store/actions';
 import './BoardsList.scss';
 import { MdStar, MdStarBorder } from 'react-icons/md';
 import classNames from 'classnames';
@@ -10,8 +10,8 @@ function BoardsList() {
   const list = useSelector((state) => state.board.list);
 
   const dispatch = useDispatch();
-  const onGetboardList = useCallback(() => dispatch(actions.getBoardListStart()), [dispatch]);
-  const onInitBoardList = useCallback(() => dispatch(actions.initBoardList()), [dispatch]);
+  const onGetboardList = useCallback(() => dispatch(boardActions.get()), [dispatch]);
+  const onInitBoardList = useCallback(() => dispatch(boardActions.initList()), [dispatch]);
 
   useEffect(() => {
     onGetboardList();
@@ -27,7 +27,7 @@ export default BoardsList;
 
 const BoardItem = ({ item }) => {
   const dispatch = useDispatch();
-  const onUpdateBoard = useCallback((item) => dispatch(actions.updateBoardItemStart(item)), [dispatch]); // prettier-ignore
+  const onUpdateBoard = useCallback((item) => dispatch(boardActions.update(item)), [dispatch]); // prettier-ignore
   const { title, backgroundName, favorite: defaultFavorite } = item;
   const [favorite, setFavorite] = useState(defaultFavorite);
   const onEnterBoardHandler = () => {

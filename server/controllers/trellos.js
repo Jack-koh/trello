@@ -43,18 +43,18 @@ exports.get = async (req, res, next) => {
 
     const cardList = cardQuery.rows
     const cardOrders = cardOrderQuery.rows
-
     let cards = []
     cardOrders.forEach((target) => {
       if (target.list_order) {
         const orderArr = target.list_order.split(',')
         orderArr.forEach((cardNo) => {
           const find = cardList.find((item) => item?.card_no === +cardNo)
+
           if (find) {
             const dataIndex = cards.findIndex((data) => data.trelloNo === find.trello_no)
             const insertData = {
               cardNo: find.card_no,
-              title: find.title,
+              title: find.card_title,
               label: find.label,
               description: find.description,
               regDate: find.reg_date,

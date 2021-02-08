@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-import * as actions from 'store/actions';
+import { trelloActions, cardActions } from 'store/actions';
 import './TrelloList.scss';
 import TrelloItem from './trelloItem/TrelloItem';
 
@@ -13,16 +13,17 @@ function TrelloList() {
     card: { list: cardList },
   } = useSelector((state) => state);
 
-  const onDragTrello = (payload) => dispatch(actions.dragTrelloEnd(payload));
-  const ondragCardEnd = (payload) => dispatch(actions.dragCardEnd(payload));
+  const onDragTrello = (payload) => dispatch(trelloActions.drag(payload));
+  const ondragCardEnd = (payload) => dispatch(cardActions.drag(payload));
 
   const dragEndHandler = (result) => {
     const { destination, source, draggableId, type } = result;
 
     if (type === 'trello' && destination) {
       const item = trelloList[source.index];
-      if (source.index !== destination.index)
+      if (source.index !== destination.index) {
         onDragTrello({ item, sourceIndex: source.index, destIndex: destination.index });
+      }
     }
 
     if (type === 'card' && destination) {

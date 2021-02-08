@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { authActions } from 'store/actions';
 import './Popover_User.scss';
 
 function Popover_User() {
   const dispatch = useDispatch();
-  const onLogout = () => dispatch(actions.logout());
+  const onLogout = () => dispatch(authActions.logout());
   const history = useHistory();
 
   const [userEmail, setUserEmail] = useState('');

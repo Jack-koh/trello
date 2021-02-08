@@ -1,35 +1,62 @@
-import * as type from 'store/actions/types';
-import produce from 'immer';
+import axios from 'axios';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const login = createAsyncThunk('auth/login', async (user) => {
+  const response = await axios.post('auth/login', user);
+  return response.data;
+});
+
 const initialState = {
   loading: false,
   errorMessage: '',
 };
 
-const loginStart = (draft) => {
-  draft['loading'] = true;
-};
-const loginSuccess = (draft) => {
-  draft['loading'] = false;
-};
-const loginFail = (draft, errorMessage) => {
-  draft['loading'] = false;
-  draft['errorMessage'] = errorMessage;
-};
-const logout = () => {
+const removeAuth = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user-data');
 };
 
-export const reducer = (state = initialState, action) => {
-  // prettier-ignore
-  return produce(state, (draft) => {
-    switch (action.type) {
-      case type.RESET_ERROR: draft['errorMessage'] = ''; break;
-      case type.LOGIN_SUCCESS: loginSuccess(draft, action.user); break;
-      case type.LOGIN_FAIL: loginFail(draft, action.errorMessage); break;
-      case type.LOGIN_START: loginStart(draft); break; 
-      case type.LOGOUT: logout(draft); break;
-      default: draft; break;
-    }
-  });
-};
+export const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    logout: () => removeAuth(),
+    resetError: (state) => {
+      state['errorMessage'] = '';
+    },
+    authCheck: (state) => {
+      const token = localStorage.getItem('token');
+      const user = JSON.parse(localStorage.getItem('user-data'));
+      if (!token) {
+        removeAuth();
+      } else {
+        const now = new Date().getTime() / 1000;
+        if (now >= user.expiration) {
+          removeAuth();
+        } else {
+          state['loading'] = false;
+        }
+      }
+    },
+  },
+  extraReducers: {
+    [login.pending]: (state) => {
+      state['loading'] = true;
+    },
+    [login.fulfilled]: (state, { payload }) => {
+      const { errorMessage, token, userId, expiration, email, name, userNo } = payload;
+      if (errorMessage) {
+        state['errorMessage'] = errorMessage;
+      } else {
+        localStorage.setItem('token', token);
+        localStorage.setItem(
+          'user-data',
+          JSON.stringify({ userId, expiration, email, name, userNo })
+        );
+      }
+      state['loading'] = false;
+    },
+  },
+});
+
+export const authActions = { ...authSlice.actions, login };

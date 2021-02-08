@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import * as actions from 'store/actions';
+import { boardActions, trelloActions } from 'store/actions';
 import { Input } from 'components/custom';
 import classNames from 'classnames';
-import _ from 'shared/commonFunc';
+import _ from 'lodash';
 import { MdHome, MdSearch, MdClose } from 'react-icons/md';
 
 function HeaderLeft() {
@@ -25,8 +25,8 @@ export default HeaderLeft;
 
 const BoardSearchInput = () => {
   const dispatch = useDispatch();
-  const onGetboardList = () => dispatch(actions.getBoardListStart());
-  const onSetSearchText = (searchText) => dispatch(actions.setBoardSearchText(searchText));
+  const onGetboardList = () => dispatch(boardActions.get());
+  const onSetSearchText = (searchText) => dispatch(boardActions.search(searchText));
   const searchText = useSelector((state) => state.board.searchText);
   const inputRef = useRef();
   const [focus, setFocus] = useState(false);
@@ -73,8 +73,8 @@ const BoardSearchInput = () => {
 
 const TrelloSearchInput = () => {
   const dispatch = useDispatch();
-  const onGetTrelloList = (boardNo) => dispatch(actions.getTrelloListStart(boardNo));
-  const onSetSearchText = (searchText) => dispatch(actions.setTrelloSearchText(searchText));
+  const onGetTrelloList = (boardNo) => dispatch(trelloActions.get(boardNo));
+  const onSetSearchText = (searchText) => dispatch(boardActions.search(searchText));
   const searchText = useSelector((state) => state.trello.searchText);
   const inputRef = useRef();
   const [focus, setFocus] = useState(false);

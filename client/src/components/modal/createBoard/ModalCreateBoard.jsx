@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from 'store/actions';
+import { boardActions } from 'store/actions';
 import { MdClose } from 'react-icons/md';
 import { FaCheck } from 'react-icons/fa';
 import './ModalCreateBoard.scss';
@@ -11,7 +11,7 @@ import { Button } from 'components/custom';
 function ModalCreateBoard({ closeHandler, history }) {
   const loading = useSelector((state) => state.board.createLoading);
   const dispatch = useDispatch();
-  const onCreateBoard = (payload) => dispatch(actions.createBoardItemStart(payload));
+  const onCreateBoard = (payload) => dispatch(boardActions.create(payload));
 
   const [boardTitle, setBoardTitle] = useState('');
   const [bgName, setBgName] = useState('bg-forest');

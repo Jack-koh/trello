@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { boardActions } from 'store/actions';
 import { Button } from 'components/custom';
 import './Popover_DeleteBoard.scss';
 
 function Popover_DeleteBoard({ boardNo, title }) {
   const loading = useSelector((state) => state.board.deleteLoading);
   const dispatch = useDispatch();
-  const onDeleteBoard = (boardNo) => dispatch(actions.deleteBoardItemStart(boardNo));
+  const onDeleteBoard = (boardNo) => dispatch(boardActions.deleteBoard(boardNo));
 
   const [onDelete, setOnDelete] = useState(false);
   const [confirmTitle, setConfirmTitle] = useState('');

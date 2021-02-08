@@ -23,7 +23,7 @@ exports.create = async (req, res, next) => {
     res.status(200).json({
       item: {
         cardNo: item.card_no,
-        title: item.title,
+        title: item.card_title,
         description: '',
         label: '',
         regDate: item.reg_date,
@@ -81,7 +81,7 @@ exports.update = async (req, res, next) => {
 
   try {
     await db.query(
-      `UPDATE cards SET title = '${title}', label = '${label}', description = '${description}' WHERE card_no = '${cardNo}'`
+      `UPDATE cards SET card_title = '${title}', label = '${label}', description = '${description}' WHERE card_no = '${cardNo}'`
     )
     res.status(200).json({ message: 'Card update success!' })
   } catch (err) {

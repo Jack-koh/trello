@@ -30,8 +30,8 @@ function TrelloItem({ getStyle, trello, cardList, dragHandleProps, dragStartHand
     });
 
   return (
-    <div className="trello-item-wrapper" onDragStart={(e) => dragStartHandler(e, trelloNo)}>
-      <div id="trello-item">
+    <div className="trello-item-wrapper" onDragStart={(e) => dragStartHandler(e, trello.trelloNo)}>
+      <div className="trello-item">
         <TrelloHeader dragHandleProps={dragHandleProps} trello={trello} />
         <Droppable droppableId={`${trello.trelloNo}`} type="card">
           {(provided, snapshot) => {

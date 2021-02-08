@@ -61,15 +61,17 @@ exports.update = async (req, res, next) => {
   const { boardNo, title, backgroundType, backgroundName, favorite } = req.body
 
   try {
-    await db.query(
+    const query = await db.query(
       `UPDATE boards SET
       title = '${title}',
       background_type = '${backgroundType}',
       background_name = '${backgroundName}',
       favorite = '${favorite}'
-      WHERE board_no = '${boardNo}'`
+      WHERE board_no = '${boardNo}'
+      RETURNING *`
     )
-    res.status(201).json({ message: 'Board update success' })
+    const item = query.rows[0]
+    res.status(201).json({ item })
   } catch (err) {
     if (!err.statusCode) err.statusCode = 500
     next(err)

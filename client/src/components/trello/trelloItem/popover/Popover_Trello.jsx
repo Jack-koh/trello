@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import * as actions from 'store/actions';
+import { trelloActions } from 'store/actions';
 import { Button } from 'components/custom';
 import './Popover_Trello.scss';
 
 function Popover_Trello({ trelloNo, boardNo, title }) {
   const loading = useSelector((state) => state.trello.loading);
   const dispatch = useDispatch();
-  const onDeleteItemHandler = (params) => dispatch(actions.deleteTrelloItemStart(params));
+  const onDeleteItemHandler = (params) => dispatch(trelloActions.deleteTrello(params));
 
   const [onDelete, setOnDelete] = useState(false);
   const [confirmTitle, setConfirmTitle] = useState('');

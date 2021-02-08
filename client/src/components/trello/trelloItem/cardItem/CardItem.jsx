@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import * as actions from 'store/actions';
-import _ from 'shared/commonFunc';
+import { cardActions } from 'store/actions';
+import _ from 'lodash';
 import { Modal, Popover } from 'components/custom';
 import { Button, TextArea } from 'components/custom';
 import { MdClose, MdDeleteForever, MdSubject, MdAdd, MdCreditCard } from 'react-icons/md';
@@ -10,8 +10,8 @@ import './CardItem.scss';
 
 const CardItem = ({ item, provided, snapshot, getStyle }) => {
   const dispatch = useDispatch();
-  const onUpdateCard = (payload) => dispatch(actions.updateCardStart(payload));
-  const onDeleteCard = () => dispatch(actions.deleteCardItemStart({ trelloNo: item.trelloNo, cardNo: item.cardNo })); // prettier-ignore
+  const onUpdateCard = (payload) => dispatch(cardActions.update(payload));
+  const onDeleteCard = () => dispatch(cardActions.deleteCard({ trelloNo: item.trelloNo, cardNo: item.cardNo })); // prettier-ignore
   const [card, setCard] = useState(item);
 
   const submitHandler = () => {
@@ -171,7 +171,11 @@ const PopoverContent = ({ card, setCard }) => {
           <div
             key={color}
             className={classNames('label-choice-box', { [color]: color, active: color === label })}
-            onClick={() => setCard({ ...card, label: color })}
+            onClick={() => {
+              let assignLabel = color;
+              if (card.label === color) assignLabel = '';
+              setCard({ ...card, label: assignLabel });
+            }}
           />
         );
       })}

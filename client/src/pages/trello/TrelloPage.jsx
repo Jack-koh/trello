@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { MdClose, MdStarBorder, MdStar } from 'react-icons/md';
 import { useHistory } from 'react-router-dom';
-import * as actions from 'store/actions';
+import { trelloActions, boardActions } from 'store/actions';
 import classNames from 'classnames';
 import { Popover, Input } from 'components/custom';
 import Popover_DeleteBoard from './popover/Popover_DeleteBoard';
@@ -15,9 +15,9 @@ import GlobalLayout from 'layout/global/GlobalLayout';
 function TrelloPage() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const onGetTelloList = useCallback((boardNo) => dispatch(actions.getTrelloListStart(boardNo)), [dispatch]); // prettier-ignore
-  const onUpdateBoard = useCallback((item) => dispatch(actions.updateBoardItemStart(item)), [dispatch]); // prettier-ignore
-  const unMount = useCallback(() => dispatch(actions.initTrelloList()), [dispatch]);
+  const onGetTrelloList = useCallback((boardNo) => dispatch(trelloActions.get(boardNo)), [dispatch]); // prettier-ignore
+  const onUpdateBoard = useCallback((item) => dispatch(boardActions.update(item)), [dispatch]); // prettier-ignore
+  const unMount = useCallback(() => dispatch(trelloActions.initList()), [dispatch]);
   const inputRef = useRef();
   const [titleFocus, setTitleFocus] = useState(false);
   const initialBoard = {
@@ -35,27 +35,27 @@ function TrelloPage() {
     const localBoard = JSON.parse(localStorage.getItem('trello'));
     setBoard(localBoard);
     setDefaultBoard(localBoard);
-    localBoard ? onGetTelloList(localBoard.boardNo) : history.push('/main/board');
+    localBoard ? onGetTrelloList(localBoard.boardNo) : history.push('/main/board');
     return () => unMount();
   }, []);
 
   const mounseDownHandler = (e) => {
     e.stopPropagation();
     const target = document.getElementById('trello-items');
-    const trelloItem = document.getElementById('trello-item');
+    const trelloItems = document.getElementsByClassName('trello-item');
     const listWrapper = document.getElementById('trello-list-wrapper');
 
     if (
       target.clientWidth <= listWrapper.clientWidth + listWrapper.clientWidth &&
-      !trelloItem.contains(e.target) &&
       target.contains(e.target)
     ) {
+      const contains = [...trelloItems].find((item) => item.contains(e.target));
+      if (contains) return;
       const pos = { clientX: e.clientX, left: target.scrollLeft };
       const mouseMoveHandler = (e) => {
         target.scrollLeft = target.scrollLeft + (e.clientX - pos.clientX) * -1;
         pos.clientX = e.clientX;
       };
-
       const mouseUpHandler = () => window.removeEventListener('mousemove', mouseMoveHandler);
       window.addEventListener('mousemove', mouseMoveHandler);
       window.addEventListener('mouseup', mouseUpHandler);
@@ -89,18 +89,6 @@ function TrelloPage() {
     setBoard(payload);
     onUpdateBoard(payload);
   };
-
-  const backgroundList = [
-    { type: 'image', name: 'bg-forest' },
-    { type: 'image', name: 'bg-sandcave' },
-    { type: 'image', name: 'bg-bird' },
-    { type: 'image', name: 'bg-mountain' },
-    { type: 'color', name: 'bg-blue' },
-    { type: 'color', name: 'bg-yellow' },
-    { type: 'color', name: 'bg-green' },
-    { type: 'color', name: 'bg-brown' },
-    { type: 'color', name: 'bg-pink' },
-  ];
 
   return (
     <GlobalLayout mode="trello">
@@ -172,7 +160,17 @@ function TrelloPage() {
           <hr />
 
           <ul className="background-list-field">
-            {backgroundList.map((item, i) => {
+            {[
+              { type: 'image', name: 'bg-forest' },
+              { type: 'image', name: 'bg-sandcave' },
+              { type: 'image', name: 'bg-bird' },
+              { type: 'image', name: 'bg-mountain' },
+              { type: 'color', name: 'bg-blue' },
+              { type: 'color', name: 'bg-yellow' },
+              { type: 'color', name: 'bg-green' },
+              { type: 'color', name: 'bg-brown' },
+              { type: 'color', name: 'bg-pink' },
+            ].map((item, i) => {
               return (
                 <li key={i}>
                   <div

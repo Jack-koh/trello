@@ -1,7 +1,7 @@
 import React, { useState, useRef, Component, Dispatch } from 'react';
 import { createPortal } from 'react-dom';
 import classNames from 'classnames';
-import _ from 'shared/commonFunc';
+import _ from 'lodash';
 import './Popover.scss';
 
 const popOverPositionHandler = ({ props, targetElement, popoverElement }) => {
@@ -149,7 +149,6 @@ class PopoverPortal extends Component {
       if (closeOnScroll) {
         this.setCloseOnScroll = (e) => {
           const evTarget = e.target;
-          1;
           if (evTarget.contains(target)) setToggle(false);
         };
         window.addEventListener('scroll', this.setCloseOnScroll, true);
@@ -203,9 +202,7 @@ const Content = ({ content, setToggle }) => {
     return React.cloneElement(
       child,
       {
-        className: classNames({
-          [child.props.className]: child.props.className,
-        }),
+        className: classNames({ [child.props.className]: child.props.className }),
       },
       child.props.children
     );
