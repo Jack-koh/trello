@@ -61,6 +61,8 @@ exports.get = async (req, res, next) => {
               trelloNo: find.trello_no,
             }
 
+            console.log(insertData)
+
             if (dataIndex > -1) {
               cards[dataIndex].list = [...cards[dataIndex].list, insertData]
             } else {

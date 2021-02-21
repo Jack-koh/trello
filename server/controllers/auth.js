@@ -50,8 +50,10 @@ exports.login = async (req, res, next) => {
       return res.status(200).json({ errorMessage: 'A user with this email could not be found.' })
     }
     const findUser = query.rows[0]
-
+    console.log({ findUser: findUser.user_password })
+    // console.log({ password, user: user_password })
     const comparePw = await bcrypt.compare(password, findUser.user_password)
+
     if (!comparePw) {
       return res.status(200).json({ errorMessage: 'Wrong password!' })
     }

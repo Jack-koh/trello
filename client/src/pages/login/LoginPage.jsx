@@ -16,7 +16,6 @@ function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -26,10 +25,9 @@ function LoginPage() {
   useEffect(() => {
     setEmail('');
     setPassword('');
-    setName('');
   }, [history.location]);
 
-  const loginSubmit = () => onLogin({ email, password, name });
+  const loginSubmit = () => onLogin({ email, password });
   const emailError = 'A user with this email could not be found.';
   const pwError = 'Wrong password!';
 
