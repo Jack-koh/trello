@@ -19,4 +19,6 @@ app.use((err, req, res, next) => {
   res.status(status).json({ message: message, data: data })
 })
 
-app.listen(5000)
+app.listen(5000, (err) => {
+  if (process.send) process.send('ready')
+})
