@@ -5,10 +5,9 @@ exports.get = async (req, res, next) => {
 
   try {
     let queryText = `SELECT * FROM link_users_boards
-    LEFT JOIN boards
+    INNER JOIN boards
     ON link_users_boards.user_no = '${userNo}'
     AND boards.board_no =  link_users_boards.board_no`
-
     if (searchText) queryText = queryText + ` WHERE title LIKE '${searchText}'`
 
     const query = await db.query(queryText)
