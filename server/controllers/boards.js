@@ -9,6 +9,7 @@ exports.get = async (req, res, next) => {
     ON link_users_boards.user_no = '${userNo}'
     AND boards.board_no =  link_users_boards.board_no`
     if (searchText) queryText = queryText + ` WHERE title LIKE '${searchText}'`
+    // 변경사항 적용
 
     const query = await db.query(queryText)
     res.status(200).json({
