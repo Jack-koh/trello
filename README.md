@@ -16,7 +16,7 @@ demo: http://18.221.42.211/
 
 ## Tech
 
-- [클라이언트]: React, Redux
-- [서버]: node.js, express
-- [DB]: PostgreSQL
-- [배포]: AWS, EC2, NGINX
+- [Client]: React, Redux
+- [Server]: node.js, express
+- [Database]: PostgreSQL
+- [Deloy]: AWS, EC2, NGINX
