@@ -18,5 +18,5 @@ demo: http://18.221.42.211/
 
 - [Client]: React, Redux
 - [Server]: node.js, express
-- [디비]: PostgreSQL
+- [DB]: pgsql
 - [Deloy]: AWS, EC2, NGINX
