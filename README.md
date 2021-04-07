@@ -19,3 +19,5 @@ demo: http://18.221.42.211/
 - [Client]: React, Redux, scss
 - [Server]: Node.js, Express, postgreSQL(DB)
 - [Deloy]: AWS, EC2, NGINX
+
+[ ]
