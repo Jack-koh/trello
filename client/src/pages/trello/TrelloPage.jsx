@@ -45,10 +45,7 @@ function TrelloPage() {
     const trelloItems = document.getElementsByClassName('trello-item');
     const listWrapper = document.getElementById('trello-list-wrapper');
 
-    if (
-      target.clientWidth <= listWrapper.clientWidth + listWrapper.clientWidth &&
-      target.contains(e.target)
-    ) {
+    if (target.clientWidth <= listWrapper.clientWidth && target.contains(e.target)) {
       const contains = [...trelloItems].find((item) => item.contains(e.target));
       if (contains) return;
       const pos = { clientX: e.clientX, left: target.scrollLeft };

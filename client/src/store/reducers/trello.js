@@ -36,8 +36,8 @@ export const trelloSlice = createSlice({
   name: 'trello',
   initialState,
   reducers: {
-    search: (state, { payload: { searchText } }) => {
-      state['searchText'] = searchText;
+    search: (state, { payload }) => {
+      state['searchText'] = payload;
     },
     setTitle: (state, { payload }) => {
       const { trelloNo, title } = payload;

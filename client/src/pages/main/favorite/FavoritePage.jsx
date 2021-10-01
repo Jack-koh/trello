@@ -5,7 +5,7 @@ import './FavoritePage.scss';
 function FavoritePage() {
   return (
     <GlobalLayout mode="main">
-      <div className="favorite_inner_area">Template</div>
+      <div className="favorite_inner_area" />
     </GlobalLayout>
   );
 }

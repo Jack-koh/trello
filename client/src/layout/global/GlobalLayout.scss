@@ -6,7 +6,7 @@
   border-radius: 0.5rem;
   background-color: hsla(0, 0%, 100%, 0.3);
   transition: background-color 0.3s;
-  cursor: pointer;
+  cursor: not-allowed;
 
   &:hover {
     background-color: hsla(0, 0%, 100%, 0.2);

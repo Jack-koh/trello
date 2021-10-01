@@ -24,6 +24,7 @@ function HeaderLeft() {
 export default HeaderLeft;
 
 const BoardSearchInput = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const onGetboardList = () => dispatch(boardActions.get());
   const onSetSearchText = (searchText) => dispatch(boardActions.search(searchText));
@@ -74,7 +75,7 @@ const BoardSearchInput = () => {
 const TrelloSearchInput = () => {
   const dispatch = useDispatch();
   const onGetTrelloList = (boardNo) => dispatch(trelloActions.get(boardNo));
-  const onSetSearchText = (searchText) => dispatch(boardActions.search(searchText));
+  const onSetSearchText = (searchText) => dispatch(trelloActions.search(searchText));
   const searchText = useSelector((state) => state.trello.searchText);
   const inputRef = useRef();
   const [focus, setFocus] = useState(false);

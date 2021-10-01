@@ -19,12 +19,17 @@
       padding-bottom: 1.2rem;
 
       li {
+        &:last-child {
+          & > div {
+            cursor: pointer;
+          }
+        }
         > div {
           color: var(--dark-blue);
           font-size: 1.4rem;
           line-height: 2rem;
           padding: 0.6rem 1.2rem;
-          cursor: pointer;
+          cursor: not-allowed;
         }
 
         > div:hover {
