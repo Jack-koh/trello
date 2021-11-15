@@ -32,7 +32,7 @@ function SignupPage() {
       setloading(true);
       const response = await axios.put('auth/signup', params);
       const { errorMessage } = response.data;
-      errorMessage ? setError(errorMessage) : history.push('/Login');
+      errorMessage ? setError(errorMessage) : history.push('/');
       setloading(false);
     } catch (err) {
       console.log(err);
@@ -76,7 +76,7 @@ function SignupPage() {
           <ValidatorSubmit className="signup_submit" text="Continue" loading={loading} />
         </ValidatorProvider>
         <div className="auth_utils">
-          <Link to="/Login" className="sign_up">
+          <Link to="/" className="sign_up">
             Already have an account? Log In
           </Link>
         </div>

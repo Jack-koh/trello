@@ -9,7 +9,7 @@ axios.defaults.baseURL = '/api/';
 const App = () => {
   return (
     <BrowserRouter history={history}>
-      <Router history={history} />
+      <Router />
     </BrowserRouter>
   );
 };

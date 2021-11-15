@@ -13,7 +13,7 @@ function HeaderLeft() {
 
   return (
     <div className="gnb_left">
-      <Link to="/main/board" className="rectangle-btn">
+      <Link to="/main/board" className="rectangle-btn home">
         <MdHome />
       </Link>
       {location.includes('/main/trello') ? <TrelloSearchInput /> : <BoardSearchInput />}

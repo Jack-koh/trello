@@ -23,7 +23,7 @@ function Popover_User() {
 
   const logoutHandler = () => {
     onLogout();
-    history.push('/Login');
+    history.push('/');
   };
 
   return (

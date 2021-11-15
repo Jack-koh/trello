@@ -7,13 +7,13 @@ import LoginPage from 'pages/login/LoginPage';
 import SignupPage from 'pages/signup/SignupPage';
 import MainRoute from 'router/routes/main/MainRoute';
 
-function Router(props) {
+function Router() {
   return (
     <Switch>
-      <Route exact path="/Login" component={LoginPage} />
+      <Route exact path="/" component={LoginPage} />
       <AuthRoute path="/Signup" component={SignupPage} />
       <AuthRoute path="/main" component={MainRoute} />
-      <Redirect to="/Login" />
+      <Redirect to="/" />
     </Switch>
   );
 }
@@ -28,7 +28,7 @@ const AuthRoute = ({ exact, path, component: Component }) => {
   useEffect(() => {
     autoAuthCheck();
     const token = localStorage.getItem('token');
-    if (!token && path !== '/Signup') history.push('/Login');
+    if (!token && path !== '/Signup') history.push('/');
   }, [autoAuthCheck, Component]);
 
   return <Route exact={exact} path={path} component={Component} />;

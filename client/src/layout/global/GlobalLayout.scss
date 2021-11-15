@@ -20,6 +20,10 @@
     height: 3.2rem;
     justify-content: center;
 
+    &.home {
+      cursor: pointer;
+    }
+
     svg {
       width: 2rem;
       height: 2rem;
