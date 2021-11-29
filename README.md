@@ -1,6 +1,6 @@
 # Trello Project
 ## _트렐로 서비스 클론코딩 프로젝트_
-demo: http://18.221.42.211/
+demo: https://jacktrello.loca.lt
 
 ✨ 위의 아이피 주소를 클릭해 프로젝트를 확인하실수 있습니다.
 
