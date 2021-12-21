@@ -8,7 +8,7 @@ demo: https://jacktrello.loca.lt (개인컴퓨터 배포중 중단될경우가 �
 - [Server]: Node.js, Express, postgreSQL(DB)
 - [Deloy]: localtunnel, NGINX
 
-## Features
+## Preview
 
 1️⃣. 로그인 화면  
 
