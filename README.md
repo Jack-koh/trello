@@ -13,7 +13,7 @@ demo: https://jacktrello.loca.lt (개인컴퓨터 배포중 중단될경우가 �
 ## Features
 
 1️⃣. 로그인 화면
-![login](https://user-images.githubusercontent.com/58971165/146934017-6b8a092c-78c5-4321-9395-62f63fb370d9.gif){: border="1px solid red"}
+<img src="https://user-images.githubusercontent.com/58971165/146934017-6b8a092c-78c5-4321-9395-62f63fb370d9.gif" width="300" height="300">
 
 
 
