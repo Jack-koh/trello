@@ -13,11 +13,8 @@ demo: https://jacktrello.loca.lt (개인컴퓨터 배포중 중단될경우가 �
 ## Features
 
 1️⃣. 로그인 화면
-<img src="https://user-images.githubusercontent.com/58971165/146934017-6b8a092c-78c5-4321-9395-62f63fb370d9.gif" width="500">
 
-
-
-
+![login](https://user-images.githubusercontent.com/58971165/146934893-3916e681-628a-4c69-a2e6-93d02293f2c7.gif){: width="500"}
 
 
 - 트렐로 배경변경
