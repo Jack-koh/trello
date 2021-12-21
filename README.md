@@ -1,22 +1,24 @@
-# Trello Project
-## _트렐로 서비스 클론코딩 프로젝트_
-demo: https://jacktrello.loca.lt
+# 🌈 Jack koh 기술 블로그
 
-✨ 위의 아이피 주소를 클릭해 프로젝트를 확인하실수 있습니다. (개인 컴퓨터를 이용해 배포중이므로 중단될경우도 있습니다.)
+트렐로 서비스 클론코딩 프로젝트
 
-
-## Features
-
-- 회원가입 및 로그인기능
-- 트렐로 배경변경
-- 트렐로 카드 생성 수정 삭제 기능
-- 드래그 앤 드랍 기능
-- favorite 설정 기능
-
+demo: https://jacktrello.loca.lt (개인컴퓨터 배포중 중단될경우가 있음)
 
 ## Tech
 
 - [Client]: React, Redux, scss
 - [Server]: Node.js, Express, postgreSQL(DB)
-- [Deloy]: AWS, EC2, NGINX
-- 
+- [Deloy]: localtunnel, NGINX
+
+## Features
+
+1️⃣. 로그인 화면
+![Animation](https://user-images.githubusercontent.com/58971165/146933011-eabda08d-c689-4a8c-b7bc-45be1b0f3453.gif)
+
+
+
+
+- 트렐로 배경변경
+- 트렐로 카드 생성 수정 삭제 기능
+- 드래그 앤 드랍 기능
+- favorite 설정 기능
