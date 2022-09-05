@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import { authActions } from 'store/actions';
+import React, { useEffect, useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
+import { authActions } from "store/actions";
 
-import LoginPage from 'pages/login/LoginPage';
-import SignupPage from 'pages/signup/SignupPage';
-import MainRoute from 'router/routes/main/MainRoute';
+import LoginPage from "pages/login/LoginPage";
+import SignupPage from "pages/signup/SignupPage";
+import MainRoute from "router/routes/main/MainRoute";
 
 function Router() {
   return (
@@ -23,12 +23,15 @@ export default Router;
 const AuthRoute = ({ exact, path, component: Component }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const autoAuthCheck = useCallback(() => dispatch(authActions.authCheck()), [dispatch]);
+  const autoAuthCheck = useCallback(
+    () => dispatch(authActions.authCheck()),
+    [dispatch]
+  );
 
   useEffect(() => {
     autoAuthCheck();
-    const token = localStorage.getItem('token');
-    if (!token && path !== '/Signup') history.push('/');
+    const token = localStorage.getItem("token");
+    if (!token && path !== "/Signup") history.push("/");
   }, [autoAuthCheck, Component]);
 
   return <Route exact={exact} path={path} component={Component} />;
